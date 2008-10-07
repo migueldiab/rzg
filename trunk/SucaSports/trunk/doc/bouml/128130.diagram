@@ -1,0 +1,101 @@
+format 59
+
+classcanvas 128130 class_ref 128130 // administrador
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 318 221 2000
+end
+usecasecanvas 128258 usecase_ref 129282 // Listados
+  xyzwh 456 165 3005 64 32 label_xy 466 173
+end
+usecasecanvas 128386 usecase_ref 129410 // Adm. Inventario
+  xyzwh 427 291 3005 101 36 label_xy 441 302
+end
+usecasecanvas 128514 usecase_ref 129538 // Equipamiento
+  xyzwh 583 280 3005 82 42 label_xy 590 292
+end
+usecasecanvas 128770 usecase_ref 129666 // Chips
+  xyzwh 562 384 3005 64 32 label_xy 578 391
+end
+usecasecanvas 128898 usecase_ref 129794 // Prestamos
+  xyzwh 709 254 3005 88 46 label_xy 727 269
+end
+usecasecanvas 129026 usecase_ref 129922 // Alquiler
+  xyzwh 662 356 3005 77 43 label_xy 681 372
+end
+usecasecanvas 129154 usecase_ref 130050 // Venta
+  xyzwh 668 411 3005 90 40 label_xy 697 424
+end
+usecasecanvas 130178 usecase_ref 130178 // Carreras
+  xyzwh 218 148 3005 64 32 label_xy 226 156
+end
+usecasecanvas 130306 usecase_ref 129538 // Equipamiento
+  xyzwh 163 231 3005 113 38 label_xy 186 242
+end
+usecasecanvas 130690 usecase_ref 128386 // Inscripción Carrera
+  xyzwh 21 191 3009 123 40 label_xy 36 204
+end
+usecasecanvas 130946 usecase_ref 130306 // Cuentas Corrientes
+  xyzwh 120 327 3005 116 44 label_xy 129 342
+end
+usecasecanvas 131330 usecase_ref 130434 // Corredores
+  xyzwh 113 73 3005 64 32 label_xy 115 80
+end
+usecasecanvas 131458 usecase_ref 130562 // Equipos
+  xyzwh 212 90 3005 64 32 label_xy 223 97
+end
+usecasecanvas 131842 usecase_ref 130690 // Mailing
+  xyzwh 260 27 3005 72 37 label_xy 279 37
+end
+usecasecanvas 132098 usecase_ref 130818 // PDA
+  xyzwh 21 32 3005 64 32 label_xy 42 41
+end
+usecasecanvas 132354 usecase_ref 130946 // Historial
+  xyzwh 146 12 3009 64 32 label_xy 158 21
+end
+line 129282 --->
+  from ref 128130 z 1999 to ref 128386
+simplerelationcanvas 129410 simplerelation_ref 128002
+  from ref 128386 z 3004 to ref 128514
+end
+line 129538 --->
+  from ref 128386 z 3004 to ref 128770
+line 129666 --->
+  from ref 128514 z 3004 to ref 128898
+line 129794 --->
+  from ref 128770 z 3004 to ref 129026
+line 129922 --->
+  from ref 128770 z 3004 to ref 129154
+line 130050 --->
+  from ref 128130 z 1999 to ref 128258
+line 130434 --->
+  from ref 128130 z 1999 to ref 130306
+simplerelationcanvas 130562 simplerelation_ref 128130
+  from ref 130178 z 3004 to ref 130306
+end
+simplerelationcanvas 130818 simplerelation_ref 128258
+  from ref 130178 z 3004 to ref 130690
+end
+line 131074 --->
+  from ref 130690 z 3004 to ref 130946
+line 131202 --->
+  from ref 130306 z 3004 to ref 130946
+simplerelationcanvas 131586 simplerelation_ref 128386
+  from ref 131330 z 3004 to ref 130690
+end
+simplerelationcanvas 131970 simplerelation_ref 128642
+  from ref 131330 z 3004 to ref 131842
+end
+simplerelationcanvas 132226 simplerelation_ref 128770
+  from ref 131330 z 3004 to ref 132098
+end
+simplerelationcanvas 132482 simplerelation_ref 128898
+  from ref 131330 z 3004 to ref 132354
+end
+line 132610 --->
+  from ref 128130 z 1999 to ref 130178
+line 132738 --->
+  from ref 128130 z 1999 to ref 130946
+simplerelationcanvas 132866 simplerelation_ref 129026
+  from ref 131330 z 3004 to ref 131458
+end
+end

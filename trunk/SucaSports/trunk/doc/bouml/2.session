@@ -1,0 +1,13 @@
+window_sizes 1280 781 196 1078 538 141
+diagrams
+  usecasediagram_ref 128002 // Corredor
+    1078 737 140 4 0 0
+  active  usecasediagram_ref 128130 // Administrador
+    974 509 130 4 0 0
+end
+show_stereotypes
+selected usecasediagram_ref 128130 // Administrador
+open
+  usecaseview_ref 128002 // Frontend
+end
+end
