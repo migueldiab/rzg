@@ -170,10 +170,10 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`localidad` (
   `id_pais` INT NULL ,
   `nombre` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_localidad_id_pais` (`id_pais` ASC, `id` ASC) ,
+  INDEX `fk_localidad_id_pais` (`id_pais` ASC) ,
   CONSTRAINT `fk_localidad_id_pais`
-    FOREIGN KEY (`id_pais` , `id` )
-    REFERENCES `mydb`.`pais` (`id` , )
+    FOREIGN KEY (`id_pais` )
+    REFERENCES `mydb`.`pais` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -277,8 +277,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `mydb`.`inscripcion` (
   `id` INT NOT NULL ,
-  `id_carrera` VARCHAR(45) NULL ,
-  `id_corredor` VARCHAR(45) NULL ,
+  `id_carrera` INT NOT NULL ,
+  `id_corredor` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_inscripcion_id_carrera` (`id_carrera` ASC) ,
   INDEX `fk_inscripcion_id_corredor` (`id_corredor` ASC) ,
@@ -289,7 +289,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`inscripcion` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_inscripcion_id_corredor`
     FOREIGN KEY (`id_corredor` )
-    REFERENCES `mydb`.`corredor` (`nombre` )
+    REFERENCES `mydb`.`corredor` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -405,7 +405,8 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`corredor_equipamiento` (
     FOREIGN KEY (`equipamiento_id` )
     REFERENCES `mydb`.`equipamiento` (`id` )
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -426,7 +427,8 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`asociacion_corredor` (
     FOREIGN KEY (`corredor_id` )
     REFERENCES `mydb`.`corredor` (`id` )
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
