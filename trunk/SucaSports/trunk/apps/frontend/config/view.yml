@@ -3,9 +3,9 @@ default:
     content-type: text/html
 
   metas:
-    #title:        symfony project
+    title:        Portal de la aventura, run, MTB y triatlon en Uruguay
     #description:  symfony project
-    #keywords:     symfony, project
+    keywords:     [uruguay,aventura,run, atletismo, maraton,cronometraje,suca,deporte,turismo,remo,d48,columbia]
     #language:     en
     robots:       index, follow
 
