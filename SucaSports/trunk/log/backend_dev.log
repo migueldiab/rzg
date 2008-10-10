@@ -1,0 +1,111 @@
+Oct 09 22:20:41 symfony [info] {sfPatternRouting} Connect "/"
+Oct 09 22:20:41 symfony [info] {sfPatternRouting} Connect "/symfony/:action/*"
+Oct 09 22:20:41 symfony [info] {sfPatternRouting} Connect "/:module"
+Oct 09 22:20:41 symfony [info] {sfPatternRouting} Connect "/:module/:action/*"
+Oct 09 22:20:41 symfony [info] {sfFrontWebController} Initialization
+Oct 09 22:20:42 symfony [info] {sfPatternRouting} Match route [default] for "/:module/:action/*"
+Oct 09 22:20:42 symfony [info] {sfWebRequest} Request parameters array (  'module' => 'usuarios',  'action' => 'save',)
+Oct 09 22:20:42 symfony [info] {sfContext} Initialization
+Oct 09 22:20:42 symfony [info] {sfFrontWebController} Dispatch request
+Oct 09 22:20:44 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 09 22:20:44 symfony [info] {sfFilterChain} Executing filter "sfCommonFilter"
+Oct 09 22:20:44 symfony [info] {sfFilterChain} Executing filter "sfValidationExecutionFilter"
+Oct 09 22:20:44 symfony [info] {UsuariosActions} Call "UsuariosActions->executeSave()"
+Oct 09 22:20:44 symfony [info] {UsuariosActions} Forward to action "usuarios/edit"
+Oct 09 22:20:44 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 09 22:20:44 symfony [info] {sfFilterChain} Executing filter "sfCommonFilter"
+Oct 09 22:20:44 symfony [info] {sfFilterChain} Executing filter "sfValidationExecutionFilter"
+Oct 09 22:20:44 symfony [info] {UsuariosActions} Call "UsuariosActions->executeEdit()"
+Oct 09 22:20:44 symfony [info] {sfPHPView} Initialize view for "usuarios/edit"
+Oct 09 22:20:44 symfony [info] {sfPHPView} Render "C:\server\www\sucasports\cache\backend\dev\modules/autoUsuarios/templates/editSuccess.php"
+Oct 09 22:20:44 symfony [info] {sfPartialView} Initialize view for "usuarios/_edit_header"
+Oct 09 22:20:44 symfony [info] {sfPartialView} Render "C:\server\www\sucasports\cache\backend\dev\modules/autoUsuarios/templates/_edit_header.php"
+Oct 09 22:20:44 symfony [info] {sfPartialView} Initialize view for "usuarios/_edit_messages"
+Oct 09 22:20:44 symfony [info] {sfPartialView} Render "C:\server\www\sucasports\cache\backend\dev\modules/autoUsuarios/templates/_edit_messages.php"
+Oct 09 22:20:44 symfony [info] {sfPartialView} Initialize view for "usuarios/_edit_form"
+Oct 09 22:20:44 symfony [info] {sfPartialView} Render "C:\server\www\sucasports\cache\backend\dev\modules/autoUsuarios/templates/_edit_form.php"
+Oct 09 22:20:44 symfony [info] {sfDebugConnection} connect(): DSN: array (   'compat_assoc_lower' => NULL,   'compat_rtrim_string' => NULL,   'database' => 'suca_sports',   'encoding' => NULL,   'hostspec' => 'localhost',   'password' => '9E63XUNu5',   'persistent' => NULL,   'phptype' => 'mysql',   'port' => NULL,   'protocol' => NULL,   'socket' => NULL,   'username' => 'sucasports', ), FLAGS: 0
+Oct 09 22:20:44 symfony [info] {sfDebugConnection} prepareStatement(): SELECT grupos.ID, grupos.NOMBRE FROM grupos
+Oct 09 22:20:44 symfony [info] {sfDebugConnection} executeQuery(): [2.02 ms] SELECT grupos.ID, grupos.NOMBRE FROM grupos
+Oct 09 22:20:44 symfony [info] {sfPartialView} Initialize view for "usuarios/_edit_actions"
+Oct 09 22:20:44 symfony [info] {sfPartialView} Render "C:\server\www\sucasports\cache\backend\dev\modules/autoUsuarios/templates/_edit_actions.php"
+Oct 09 22:20:44 symfony [info] {sfPartialView} Initialize view for "usuarios/_edit_footer"
+Oct 09 22:20:44 symfony [info] {sfPartialView} Render "C:\server\www\sucasports\cache\backend\dev\modules/autoUsuarios/templates/_edit_footer.php"
+Oct 09 22:20:44 symfony [info] {sfPHPView} Decorate content with "C:\server\www\sucasports\apps\backend\templates/layout.php"
+Oct 09 22:20:44 symfony [info] {sfPHPView} Render "C:\server\www\sucasports\apps\backend\templates/layout.php"
+Oct 09 22:20:44 symfony [info] {sfRenderingFilter} Render to the client
+Oct 09 22:20:44 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 09 22:20:44 symfony [info] {sfWebResponse} Send header "Content-Type": "text/html; charset=utf-8"
+Oct 09 22:20:44 symfony [info] {sfWebDebugLogger} Configuration 5365.55 ms (14)
+Oct 09 22:20:44 symfony [info] {sfWebDebugLogger} Action "usuarios/save" 606.17 ms (1)
+Oct 09 22:20:44 symfony [info] {sfWebDebugLogger} Action "usuarios/edit" 21.91 ms (1)
+Oct 09 22:20:44 symfony [info] {sfWebDebugLogger} View "Success" for "usuarios/edit" 455.30 ms (1)
+Oct 09 22:20:44 symfony [info] {sfWebDebugLogger} Partial "usuarios/_edit_header" 6.16 ms (1)
+Oct 09 22:20:44 symfony [info] {sfWebDebugLogger} Partial "usuarios/_edit_messages" 7.03 ms (1)
+Oct 09 22:20:44 symfony [info] {sfWebDebugLogger} Partial "usuarios/_edit_form" 123.16 ms (1)
+Oct 09 22:20:44 symfony [info] {sfWebDebugLogger} Database 1.99 ms (1)
+Oct 09 22:20:44 symfony [info] {sfWebDebugLogger} Partial "usuarios/_edit_actions" 9.61 ms (1)
+Oct 09 22:20:44 symfony [info] {sfWebDebugLogger} Partial "usuarios/_edit_footer" 6.18 ms (1)
+Oct 09 22:20:44 symfony [info] {sfWebResponse} Send content (33757 o)
+Oct 09 22:21:53 symfony [info] {sfPatternRouting} Connect "/"
+Oct 09 22:21:53 symfony [info] {sfPatternRouting} Connect "/symfony/:action/*"
+Oct 09 22:21:53 symfony [info] {sfPatternRouting} Connect "/:module"
+Oct 09 22:21:53 symfony [info] {sfPatternRouting} Connect "/:module/:action/*"
+Oct 09 22:21:53 symfony [info] {sfFrontWebController} Initialization
+Oct 09 22:21:53 symfony [info] {sfPatternRouting} Match route [default] for "/:module/:action/*"
+Oct 09 22:21:53 symfony [info] {sfWebRequest} Request parameters array (  'module' => 'usuarios',  'action' => 'save',  'id' => '',  'usuarios' =>   array (    'nombre' => 'mike',    'id_grupos' => '',  ),  'save_and_add' => 'save and add',)
+Oct 09 22:21:53 symfony [info] {sfContext} Initialization
+Oct 09 22:21:53 symfony [info] {sfFrontWebController} Dispatch request
+Oct 09 22:21:54 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 09 22:21:54 symfony [info] {sfFilterChain} Executing filter "sfCommonFilter"
+Oct 09 22:21:54 symfony [info] {sfFilterChain} Executing filter "sfValidationExecutionFilter"
+Oct 09 22:21:54 symfony [info] {UsuariosActions} Call "UsuariosActions->executeSave()"
+Oct 09 22:21:54 symfony [info] {UsuariosActions} Forward to action "usuarios/edit"
+Oct 09 22:21:54 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 09 22:21:54 symfony [info] {sfFilterChain} Executing filter "sfCommonFilter"
+Oct 09 22:21:54 symfony [info] {sfFilterChain} Executing filter "sfValidationExecutionFilter"
+Oct 09 22:21:54 symfony [info] {UsuariosActions} Call "UsuariosActions->executeEdit()"
+Oct 09 22:21:54 symfony [info] {sfDebugConnection} connect(): DSN: array (   'compat_assoc_lower' => NULL,   'compat_rtrim_string' => NULL,   'database' => 'suca_sports',   'encoding' => NULL,   'hostspec' => 'localhost',   'password' => '9E63XUNu5',   'persistent' => NULL,   'phptype' => 'mysql',   'port' => NULL,   'protocol' => NULL,   'socket' => NULL,   'username' => 'sucasports', ), FLAGS: 0
+Oct 09 22:21:54 symfony [info] {sfDebugConnection} beginning transaction.
+Oct 09 22:21:54 symfony [info] {sfDebugConnection} beginning transaction.
+Oct 09 22:21:54 symfony [info] {sfDebugConnection} prepareStatement(): INSERT INTO usuarios (NOMBRE) VALUES (?)
+Oct 09 22:21:54 symfony [info] {sfDebugConnection} executeUpdate(): INSERT INTO usuarios (NOMBRE) VALUES ('mike')
+Oct 09 22:21:54 symfony [info] {sfDebugConnection} rolling back transaction.
+Oct 09 22:21:54 symfony [info] {sfDebugConnection} rolling back transaction.
+Oct 09 22:21:54 symfony [info] {sfWebRequest} Error in form for parameter "edit" (with message "Could not save the edited Usuarioss.")
+Oct 09 22:21:54 symfony [info] {UsuariosActions} Forward to action "usuarios/list"
+Oct 09 22:21:54 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 09 22:21:54 symfony [info] {sfFilterChain} Executing filter "sfCommonFilter"
+Oct 09 22:21:54 symfony [info] {sfFilterChain} Executing filter "sfValidationExecutionFilter"
+Oct 09 22:21:54 symfony [info] {UsuariosActions} Call "UsuariosActions->executeList()"
+Oct 09 22:21:54 symfony [info] {sfDebugConnection} prepareStatement(): SELECT COUNT(usuarios.ID) FROM usuarios
+Oct 09 22:21:54 symfony [info] {sfDebugConnection} executeQuery(): [1.96 ms] SELECT COUNT(usuarios.ID) FROM usuarios
+Oct 09 22:21:54 symfony [info] {sfPHPView} Initialize view for "usuarios/list"
+Oct 09 22:21:54 symfony [info] {sfPHPView} Render "C:\server\www\sucasports\cache\backend\dev\modules/autoUsuarios/templates/listSuccess.php"
+Oct 09 22:21:54 symfony [info] {sfPartialView} Initialize view for "usuarios/_list_header"
+Oct 09 22:21:54 symfony [info] {sfPartialView} Render "C:\server\www\sucasports\cache\backend\dev\modules/autoUsuarios/templates/_list_header.php"
+Oct 09 22:21:54 symfony [info] {sfPartialView} Initialize view for "usuarios/_list_messages"
+Oct 09 22:21:54 symfony [info] {sfPartialView} Render "C:\server\www\sucasports\cache\backend\dev\modules/autoUsuarios/templates/_list_messages.php"
+Oct 09 22:21:54 symfony [info] {sfPartialView} Initialize view for "usuarios/_list_batch_actions"
+Oct 09 22:21:54 symfony [info] {sfPartialView} Render "C:\server\www\sucasports\cache\backend\dev\modules/autoUsuarios/templates/_list_batch_actions.php"
+Oct 09 22:21:54 symfony [info] {sfPartialView} Initialize view for "usuarios/_list_actions"
+Oct 09 22:21:54 symfony [info] {sfPartialView} Render "C:\server\www\sucasports\cache\backend\dev\modules/autoUsuarios/templates/_list_actions.php"
+Oct 09 22:21:54 symfony [info] {sfPartialView} Initialize view for "usuarios/_list_footer"
+Oct 09 22:21:54 symfony [info] {sfPartialView} Render "C:\server\www\sucasports\cache\backend\dev\modules/autoUsuarios/templates/_list_footer.php"
+Oct 09 22:21:54 symfony [info] {sfPHPView} Decorate content with "C:\server\www\sucasports\apps\backend\templates/layout.php"
+Oct 09 22:21:54 symfony [info] {sfPHPView} Render "C:\server\www\sucasports\apps\backend\templates/layout.php"
+Oct 09 22:21:54 symfony [info] {sfRenderingFilter} Render to the client
+Oct 09 22:21:54 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 09 22:21:54 symfony [info] {sfWebResponse} Send header "Content-Type": "text/html; charset=utf-8"
+Oct 09 22:21:54 symfony [info] {sfWebDebugLogger} Configuration 244.68 ms (18)
+Oct 09 22:21:54 symfony [info] {sfWebDebugLogger} Action "usuarios/save" 822.03 ms (1)
+Oct 09 22:21:54 symfony [info] {sfWebDebugLogger} Action "usuarios/edit" 713.72 ms (1)
+Oct 09 22:21:54 symfony [info] {sfWebDebugLogger} Action "usuarios/list" 41.77 ms (1)
+Oct 09 22:21:54 symfony [info] {sfWebDebugLogger} Database 1.92 ms (1)
+Oct 09 22:21:54 symfony [info] {sfWebDebugLogger} View "Success" for "usuarios/list" 263.13 ms (1)
+Oct 09 22:21:54 symfony [info] {sfWebDebugLogger} Partial "usuarios/_list_header" 5.94 ms (1)
+Oct 09 22:21:54 symfony [info] {sfWebDebugLogger} Partial "usuarios/_list_messages" 6.51 ms (1)
+Oct 09 22:21:54 symfony [info] {sfWebDebugLogger} Partial "usuarios/_list_batch_actions" 5.98 ms (1)
+Oct 09 22:21:54 symfony [info] {sfWebDebugLogger} Partial "usuarios/_list_actions" 8.36 ms (1)
+Oct 09 22:21:54 symfony [info] {sfWebDebugLogger} Partial "usuarios/_list_footer" 5.98 ms (1)
+Oct 09 22:21:55 symfony [info] {sfWebResponse} Send content (38285 o)
