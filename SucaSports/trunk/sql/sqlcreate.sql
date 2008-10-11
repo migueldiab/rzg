@@ -26,17 +26,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`etapa_carrera` (
   `id` INT NOT NULL AUTO_INCREMENT ,
+  `id_carrera` INT NOT NULL ,
   `nombre` VARCHAR(45) NULL ,
   `numero_etapa` INT NULL ,
-  `id_etapa` INT NOT NULL ,
   `created_at` TIMESTAMP NULL ,
   `created_by` INT NULL ,
   `updated_at` TIMESTAMP NULL ,
   `updated_by` INT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_etapa_carrera_etapa` (`id_etapa` ASC) ,
+  PRIMARY KEY (`id`, `id_carrera`) ,
+  INDEX `fk_etapa_carrera_etapa` (`id_carrera` ASC) ,
   CONSTRAINT `fk_etapa_carrera_etapa`
-    FOREIGN KEY (`id_etapa` )
+    FOREIGN KEY (`id_carrera` )
     REFERENCES `Suca_Sports`.`carrera` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -48,7 +48,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`fecha_etapa_carrera` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `id_carrera` INT NOT NULL ,
+  `id_etapa_carrera` INT NOT NULL ,
   `max_corredores` INT NULL ,
   `fecha_inicio` DATE NULL ,
   `fecha_fin` DATE NULL ,
@@ -57,10 +57,10 @@ CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`fecha_etapa_carrera` (
   `created_by` INT NULL ,
   `updated_at` TIMESTAMP NULL ,
   `updated_by` INT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_fecha_carrera_id_carrera` (`id_carrera` ASC) ,
+  PRIMARY KEY (`id`, `id_etapa_carrera`) ,
+  INDEX `fk_fecha_carrera_id_carrera` (`id_etapa_carrera` ASC) ,
   CONSTRAINT `fk_fecha_carrera_id_carrera`
-    FOREIGN KEY (`id_carrera` )
+    FOREIGN KEY (`id_etapa_carrera` )
     REFERENCES `Suca_Sports`.`etapa_carrera` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -71,8 +71,10 @@ ENGINE = InnoDB;
 -- Table `Suca_Sports`.`tipo_equipamiento`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`tipo_equipamiento` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `tipo` VARCHAR(45) NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -99,17 +101,38 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `Suca_Sports`.`estado`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`estado` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `nombre` VARCHAR(45) NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `Suca_Sports`.`inventario`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`inventario` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
   `id_tipo_equipamiento` INT NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
+  `id_estado` INT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_inventario_tipo_equipamiento` (`id_tipo_equipamiento` ASC) ,
+  INDEX `fk_inventario_estado` (`id_estado` ASC) ,
   CONSTRAINT `fk_inventario_tipo_equipamiento`
     FOREIGN KEY (`id_tipo_equipamiento` )
     REFERENCES `Suca_Sports`.`equipamiento` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inventario_estado`
+    FOREIGN KEY (`id_estado` )
+    REFERENCES `Suca_Sports`.`estado` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -159,8 +182,10 @@ ENGINE = InnoDB;
 -- Table `Suca_Sports`.`sociedad_medica`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`sociedad_medica` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -169,8 +194,10 @@ ENGINE = InnoDB;
 -- Table `Suca_Sports`.`pais`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`pais` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
+  `updated_by` INT NULL ,
+  `updated_at` TIMESTAMP NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -179,9 +206,11 @@ ENGINE = InnoDB;
 -- Table `Suca_Sports`.`localidad`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`localidad` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `id_pais` INT NULL ,
   `nombre` VARCHAR(45) NULL ,
+  `updated_by` INT NULL ,
+  `updated_at` TIMESTAMP NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_localidad_id_pais` (`id_pais` ASC) ,
   CONSTRAINT `fk_localidad_id_pais`
@@ -196,14 +225,20 @@ ENGINE = InnoDB;
 -- Table `Suca_Sports`.`chip`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`chip` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `codigo_chip` VARCHAR(45) NULL ,
-  `estado` VARCHAR(45) NULL ,
   `created_at` TIMESTAMP NULL ,
   `created_by` INT NULL ,
   `updated_at` TIMESTAMP NULL ,
   `updated_by` INT NULL ,
-  PRIMARY KEY (`id`) )
+  `id_estado` INT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_chip_estado` (`id_estado` ASC) ,
+  CONSTRAINT `fk_chip_estado`
+    FOREIGN KEY (`id_estado` )
+    REFERENCES `Suca_Sports`.`estado` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -229,6 +264,10 @@ CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`corredor` (
   `id_localidad` INT NULL ,
   `id_pais` INT NULL ,
   `id_chips` INT NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
+  `created_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_corredor_id_sociedad_medida` (`id_sociedad_medica` ASC) ,
   INDEX `fk_corredor_id_pais` (`id_pais` ASC) ,
@@ -265,6 +304,10 @@ CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`usuarios` (
   `nombre` VARCHAR(45) NULL ,
   `id_grupos` INT NULL ,
   `id_corredor` INT NULL ,
+  `created_at` TIMESTAMP NULL ,
+  `created_by` INT NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_usuarios_grupos` (`id_grupos` ASC) ,
   INDEX `fk_usuarios_corredor` (`id_corredor` ASC) ,
@@ -416,16 +459,26 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Suca_Sports`.`resultados`
+-- Table `Suca_Sports`.`resultado`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`resultados` (
-  `id` INT NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`resultado` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `id_fecha_carrera` INT NULL ,
+  `id_corredor` INT NULL ,
+  `tiempo` TIMESTAMP NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_resultados_fecha_carrera` (`id_fecha_carrera` ASC) ,
+  INDEX `fk_resultado_corredor` (`id_corredor` ASC) ,
   CONSTRAINT `fk_resultados_fecha_carrera`
     FOREIGN KEY (`id_fecha_carrera` )
     REFERENCES `Suca_Sports`.`fecha_etapa_carrera` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_resultado_corredor`
+    FOREIGN KEY (`id_corredor` )
+    REFERENCES `Suca_Sports`.`corredor` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -437,8 +490,8 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`categoria` (
   `id` INT NOT NULL ,
   `nombre` VARCHAR(45) NULL ,
-  `created_at` TIMESTAMP NULL ,
-  `created_by` INT NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
   `regla` VARCHAR(255) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
@@ -450,8 +503,8 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`categoria_carrera` (
   `id_categoria` INT NOT NULL ,
   `id_carrera` INT NULL ,
-  `created_at` TIMESTAMP NULL ,
-  `created_by` INT NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
   PRIMARY KEY (`id_categoria`) ,
   INDEX `fk_categoria_carrera_id_categoria` (`id_categoria` ASC) ,
   INDEX `fk_categoria_carrera_carrera` (`id_carrera` ASC) ,
@@ -474,6 +527,8 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`corredor_equipamiento` (
   `id_corredor` INT NOT NULL ,
   `id_equipamiento` INT NOT NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
   PRIMARY KEY (`id_corredor`, `id_equipamiento`) ,
   INDEX `fk_corredor_has_equipamiento_corredor` (`id_corredor` ASC) ,
   INDEX `fk_corredor_has_equipamiento_equipamiento` (`id_equipamiento` ASC) ,
@@ -496,8 +551,8 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`asociacion_corredor` (
   `id_corredor` INT NOT NULL ,
   `id_asociacion` INT NOT NULL ,
-  `created_at` TIMESTAMP NULL ,
-  `created_by` INT NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
   PRIMARY KEY (`id_asociacion`, `id_corredor`) ,
   INDEX `fk_asociacion_has_corredor_asociacion` (`id_asociacion` ASC) ,
   INDEX `fk_asociacion_has_corredor_corredor` (`id_corredor` ASC) ,
@@ -520,11 +575,20 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`post` (
   `id` INT NOT NULL ,
   `texto` TEXT NULL ,
-  `id_usuarios` INT NULL ,
+  `created_by` INT NULL ,
+  `created_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
+  `updated_at` TIMESTAMP NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_post_usuarios` (`id_usuarios` ASC) ,
+  INDEX `fk_post_usuarios` (`created_by` ASC) ,
+  INDEX `fk_post_usuarios1` (`updated_by` ASC) ,
   CONSTRAINT `fk_post_usuarios`
-    FOREIGN KEY (`id_usuarios` )
+    FOREIGN KEY (`created_by` )
+    REFERENCES `Suca_Sports`.`usuarios` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_post_usuarios1`
+    FOREIGN KEY (`updated_by` )
     REFERENCES `Suca_Sports`.`usuarios` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -537,8 +601,8 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`permiso` (
   `permiso` VARCHAR(15) NOT NULL ,
   `grupos_id` INT NOT NULL ,
-  `created_at` TIMESTAMP NULL ,
-  `created_by` INT NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
   PRIMARY KEY (`permiso`, `grupos_id`) ,
   INDEX `fk_permiso_grupos` (`grupos_id` ASC) ,
   CONSTRAINT `fk_permiso_grupos`
