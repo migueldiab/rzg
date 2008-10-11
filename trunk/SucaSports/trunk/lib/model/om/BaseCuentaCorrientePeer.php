@@ -13,7 +13,7 @@ abstract class BaseCuentaCorrientePeer {
 	const CLASS_DEFAULT = 'lib.model.CuentaCorriente';
 
 	
-	const NUM_COLUMNS = 4;
+	const NUM_COLUMNS = 12;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -32,23 +32,47 @@ abstract class BaseCuentaCorrientePeer {
 	const MONTO = 'cuenta_corriente.MONTO';
 
 	
+	const CONCEPTO = 'cuenta_corriente.CONCEPTO';
+
+	
+	const FIRMA_DIGITAL = 'cuenta_corriente.FIRMA_DIGITAL';
+
+	
+	const FECHA_DE_PAGO = 'cuenta_corriente.FECHA_DE_PAGO';
+
+	
+	const NOTA = 'cuenta_corriente.NOTA';
+
+	
+	const CREATED_AT = 'cuenta_corriente.CREATED_AT';
+
+	
+	const CREATED_BY = 'cuenta_corriente.CREATED_BY';
+
+	
+	const UPDATED_AT = 'cuenta_corriente.UPDATED_AT';
+
+	
+	const UPDATED_BY = 'cuenta_corriente.UPDATED_BY';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'IdCorredor', 'IdFormaPago', 'Monto', ),
-		BasePeer::TYPE_COLNAME => array (CuentaCorrientePeer::ID, CuentaCorrientePeer::ID_CORREDOR, CuentaCorrientePeer::ID_FORMA_PAGO, CuentaCorrientePeer::MONTO, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'id_corredor', 'id_forma_pago', 'monto', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'IdCorredor', 'IdFormaPago', 'Monto', 'Concepto', 'FirmaDigital', 'FechaDePago', 'Nota', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (CuentaCorrientePeer::ID, CuentaCorrientePeer::ID_CORREDOR, CuentaCorrientePeer::ID_FORMA_PAGO, CuentaCorrientePeer::MONTO, CuentaCorrientePeer::CONCEPTO, CuentaCorrientePeer::FIRMA_DIGITAL, CuentaCorrientePeer::FECHA_DE_PAGO, CuentaCorrientePeer::NOTA, CuentaCorrientePeer::CREATED_AT, CuentaCorrientePeer::CREATED_BY, CuentaCorrientePeer::UPDATED_AT, CuentaCorrientePeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'id_corredor', 'id_forma_pago', 'monto', 'concepto', 'firma_digital', 'fecha_de_pago', 'nota', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdCorredor' => 1, 'IdFormaPago' => 2, 'Monto' => 3, ),
-		BasePeer::TYPE_COLNAME => array (CuentaCorrientePeer::ID => 0, CuentaCorrientePeer::ID_CORREDOR => 1, CuentaCorrientePeer::ID_FORMA_PAGO => 2, CuentaCorrientePeer::MONTO => 3, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_corredor' => 1, 'id_forma_pago' => 2, 'monto' => 3, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdCorredor' => 1, 'IdFormaPago' => 2, 'Monto' => 3, 'Concepto' => 4, 'FirmaDigital' => 5, 'FechaDePago' => 6, 'Nota' => 7, 'CreatedAt' => 8, 'CreatedBy' => 9, 'UpdatedAt' => 10, 'UpdatedBy' => 11, ),
+		BasePeer::TYPE_COLNAME => array (CuentaCorrientePeer::ID => 0, CuentaCorrientePeer::ID_CORREDOR => 1, CuentaCorrientePeer::ID_FORMA_PAGO => 2, CuentaCorrientePeer::MONTO => 3, CuentaCorrientePeer::CONCEPTO => 4, CuentaCorrientePeer::FIRMA_DIGITAL => 5, CuentaCorrientePeer::FECHA_DE_PAGO => 6, CuentaCorrientePeer::NOTA => 7, CuentaCorrientePeer::CREATED_AT => 8, CuentaCorrientePeer::CREATED_BY => 9, CuentaCorrientePeer::UPDATED_AT => 10, CuentaCorrientePeer::UPDATED_BY => 11, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_corredor' => 1, 'id_forma_pago' => 2, 'monto' => 3, 'concepto' => 4, 'firma_digital' => 5, 'fecha_de_pago' => 6, 'nota' => 7, 'created_at' => 8, 'created_by' => 9, 'updated_at' => 10, 'updated_by' => 11, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
 	);
 
 	
@@ -108,6 +132,22 @@ abstract class BaseCuentaCorrientePeer {
 		$criteria->addSelectColumn(CuentaCorrientePeer::ID_FORMA_PAGO);
 
 		$criteria->addSelectColumn(CuentaCorrientePeer::MONTO);
+
+		$criteria->addSelectColumn(CuentaCorrientePeer::CONCEPTO);
+
+		$criteria->addSelectColumn(CuentaCorrientePeer::FIRMA_DIGITAL);
+
+		$criteria->addSelectColumn(CuentaCorrientePeer::FECHA_DE_PAGO);
+
+		$criteria->addSelectColumn(CuentaCorrientePeer::NOTA);
+
+		$criteria->addSelectColumn(CuentaCorrientePeer::CREATED_AT);
+
+		$criteria->addSelectColumn(CuentaCorrientePeer::CREATED_BY);
+
+		$criteria->addSelectColumn(CuentaCorrientePeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(CuentaCorrientePeer::UPDATED_BY);
 
 	}
 
@@ -650,6 +690,7 @@ abstract class BaseCuentaCorrientePeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
+		$criteria->remove(CuentaCorrientePeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 

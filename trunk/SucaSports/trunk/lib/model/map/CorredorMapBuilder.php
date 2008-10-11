@@ -30,9 +30,11 @@ class CorredorMapBuilder {
 		$tMap = $this->dbMap->addTable('corredor');
 		$tMap->setPhpName('Corredor');
 
-		$tMap->setUseIdGenerator(false);
+		$tMap->setUseIdGenerator(true);
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
+
+		$tMap->addColumn('DOCUMENTO', 'Documento', 'string', CreoleTypes::VARCHAR, false, 45);
 
 		$tMap->addColumn('TIPO_DOCUMENTO', 'TipoDocumento', 'int', CreoleTypes::INTEGER, false, null);
 
@@ -56,7 +58,7 @@ class CorredorMapBuilder {
 
 		$tMap->addForeignKey('ID_SOCIEDAD_MEDICA', 'IdSociedadMedica', 'int', CreoleTypes::INTEGER, 'sociedad_medica', 'ID', false, null);
 
-		$tMap->addColumn('HISTORIA_MEDICA', 'HistoriaMedica', 'string', CreoleTypes::VARCHAR, false, 255);
+		$tMap->addColumn('HISTORIA_MEDICA', 'HistoriaMedica', 'string', CreoleTypes::LONGVARCHAR, false, null);
 
 		$tMap->addColumn('SEXO', 'Sexo', 'string', CreoleTypes::VARCHAR, false, 1);
 
@@ -64,9 +66,15 @@ class CorredorMapBuilder {
 
 		$tMap->addForeignKey('ID_PAIS', 'IdPais', 'int', CreoleTypes::INTEGER, 'pais', 'ID', false, null);
 
-		$tMap->addForeignKey('ID_CHIPS', 'IdChips', 'int', CreoleTypes::INTEGER, 'chips', 'ID', false, null);
+		$tMap->addForeignKey('ID_CHIPS', 'IdChips', 'int', CreoleTypes::INTEGER, 'chip', 'ID', false, null);
 
-		$tMap->addForeignPrimaryKey('ID_USUARIO', 'IdUsuario', 'int' , CreoleTypes::INTEGER, 'usuarios', 'ID', true, null);
+		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
+
+		$tMap->addColumn('UPDATED_BY', 'UpdatedBy', 'int', CreoleTypes::INTEGER, false, null);
+
+		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
+
+		$tMap->addColumn('CREATED_BY', 'CreatedBy', 'int', CreoleTypes::INTEGER, false, null);
 
 	} 
 } 

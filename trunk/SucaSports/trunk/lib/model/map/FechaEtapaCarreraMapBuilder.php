@@ -30,17 +30,27 @@ class FechaEtapaCarreraMapBuilder {
 		$tMap = $this->dbMap->addTable('fecha_etapa_carrera');
 		$tMap->setPhpName('FechaEtapaCarrera');
 
-		$tMap->setUseIdGenerator(false);
+		$tMap->setUseIdGenerator(true);
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addForeignKey('ID_CARRERA', 'IdCarrera', 'int', CreoleTypes::INTEGER, 'etapa_carrera', 'ID', false, null);
+		$tMap->addForeignPrimaryKey('ID_ETAPA_CARRERA', 'IdEtapaCarrera', 'int' , CreoleTypes::INTEGER, 'etapa_carrera', 'ID', true, null);
 
 		$tMap->addColumn('MAX_CORREDORES', 'MaxCorredores', 'int', CreoleTypes::INTEGER, false, null);
 
 		$tMap->addColumn('FECHA_INICIO', 'FechaInicio', 'int', CreoleTypes::DATE, false, null);
 
 		$tMap->addColumn('FECHA_FIN', 'FechaFin', 'int', CreoleTypes::DATE, false, null);
+
+		$tMap->addColumn('COSTO', 'Costo', 'double', CreoleTypes::DOUBLE, false, null);
+
+		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
+
+		$tMap->addColumn('CREATED_BY', 'CreatedBy', 'int', CreoleTypes::INTEGER, false, null);
+
+		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
+
+		$tMap->addColumn('UPDATED_BY', 'UpdatedBy', 'int', CreoleTypes::INTEGER, false, null);
 
 	} 
 } 

@@ -15,6 +15,14 @@ abstract class BaseCorredorEquipamiento extends BaseObject  implements Persisten
 	
 	protected $id_equipamiento;
 
+
+	
+	protected $updated_at;
+
+
+	
+	protected $updated_by;
+
 	
 	protected $aCorredor;
 
@@ -39,6 +47,35 @@ abstract class BaseCorredorEquipamiento extends BaseObject  implements Persisten
 	{
 
 		return $this->id_equipamiento;
+	}
+
+	
+	public function getUpdatedAt($format = 'Y-m-d H:i:s')
+	{
+
+		if ($this->updated_at === null || $this->updated_at === '') {
+			return null;
+		} elseif (!is_int($this->updated_at)) {
+						$ts = strtotime($this->updated_at);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [updated_at] as date/time value: " . var_export($this->updated_at, true));
+			}
+		} else {
+			$ts = $this->updated_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getUpdatedBy()
+	{
+
+		return $this->updated_by;
 	}
 
 	
@@ -78,6 +115,37 @@ abstract class BaseCorredorEquipamiento extends BaseObject  implements Persisten
 
 	} 
 	
+	public function setUpdatedAt($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [updated_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->updated_at !== $ts) {
+			$this->updated_at = $ts;
+			$this->modifiedColumns[] = CorredorEquipamientoPeer::UPDATED_AT;
+		}
+
+	} 
+	
+	public function setUpdatedBy($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->updated_by !== $v) {
+			$this->updated_by = $v;
+			$this->modifiedColumns[] = CorredorEquipamientoPeer::UPDATED_BY;
+		}
+
+	} 
+	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
@@ -86,11 +154,15 @@ abstract class BaseCorredorEquipamiento extends BaseObject  implements Persisten
 
 			$this->id_equipamiento = $rs->getInt($startcol + 1);
 
+			$this->updated_at = $rs->getTimestamp($startcol + 2, null);
+
+			$this->updated_by = $rs->getInt($startcol + 3);
+
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 2; 
+						return $startcol + 4; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating CorredorEquipamiento object", $e);
 		}
@@ -121,6 +193,11 @@ abstract class BaseCorredorEquipamiento extends BaseObject  implements Persisten
 	
 	public function save($con = null)
 	{
+    if ($this->isModified() && !$this->isColumnModified(CorredorEquipamientoPeer::UPDATED_AT))
+    {
+      $this->setUpdatedAt(time());
+    }
+
 		if ($this->isDeleted()) {
 			throw new PropelException("You cannot save an object that has been deleted.");
 		}
@@ -252,6 +329,12 @@ abstract class BaseCorredorEquipamiento extends BaseObject  implements Persisten
 			case 1:
 				return $this->getIdEquipamiento();
 				break;
+			case 2:
+				return $this->getUpdatedAt();
+				break;
+			case 3:
+				return $this->getUpdatedBy();
+				break;
 			default:
 				return null;
 				break;
@@ -264,6 +347,8 @@ abstract class BaseCorredorEquipamiento extends BaseObject  implements Persisten
 		$result = array(
 			$keys[0] => $this->getIdCorredor(),
 			$keys[1] => $this->getIdEquipamiento(),
+			$keys[2] => $this->getUpdatedAt(),
+			$keys[3] => $this->getUpdatedBy(),
 		);
 		return $result;
 	}
@@ -285,6 +370,12 @@ abstract class BaseCorredorEquipamiento extends BaseObject  implements Persisten
 			case 1:
 				$this->setIdEquipamiento($value);
 				break;
+			case 2:
+				$this->setUpdatedAt($value);
+				break;
+			case 3:
+				$this->setUpdatedBy($value);
+				break;
 		} 	}
 
 	
@@ -294,6 +385,8 @@ abstract class BaseCorredorEquipamiento extends BaseObject  implements Persisten
 
 		if (array_key_exists($keys[0], $arr)) $this->setIdCorredor($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setIdEquipamiento($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setUpdatedAt($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setUpdatedBy($arr[$keys[3]]);
 	}
 
 	
@@ -303,6 +396,8 @@ abstract class BaseCorredorEquipamiento extends BaseObject  implements Persisten
 
 		if ($this->isColumnModified(CorredorEquipamientoPeer::ID_CORREDOR)) $criteria->add(CorredorEquipamientoPeer::ID_CORREDOR, $this->id_corredor);
 		if ($this->isColumnModified(CorredorEquipamientoPeer::ID_EQUIPAMIENTO)) $criteria->add(CorredorEquipamientoPeer::ID_EQUIPAMIENTO, $this->id_equipamiento);
+		if ($this->isColumnModified(CorredorEquipamientoPeer::UPDATED_AT)) $criteria->add(CorredorEquipamientoPeer::UPDATED_AT, $this->updated_at);
+		if ($this->isColumnModified(CorredorEquipamientoPeer::UPDATED_BY)) $criteria->add(CorredorEquipamientoPeer::UPDATED_BY, $this->updated_by);
 
 		return $criteria;
 	}
@@ -343,6 +438,10 @@ abstract class BaseCorredorEquipamiento extends BaseObject  implements Persisten
 	
 	public function copyInto($copyObj, $deepCopy = false)
 	{
+
+		$copyObj->setUpdatedAt($this->updated_at);
+
+		$copyObj->setUpdatedBy($this->updated_by);
 
 
 		$copyObj->setNew(true);

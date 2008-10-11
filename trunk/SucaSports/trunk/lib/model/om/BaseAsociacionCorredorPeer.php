@@ -13,17 +13,23 @@ abstract class BaseAsociacionCorredorPeer {
 	const CLASS_DEFAULT = 'lib.model.AsociacionCorredor';
 
 	
-	const NUM_COLUMNS = 2;
+	const NUM_COLUMNS = 4;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 
 	
+	const ID_CORREDOR = 'asociacion_corredor.ID_CORREDOR';
+
+	
 	const ID_ASOCIACION = 'asociacion_corredor.ID_ASOCIACION';
 
 	
-	const ID_CORREDOR = 'asociacion_corredor.ID_CORREDOR';
+	const UPDATED_AT = 'asociacion_corredor.UPDATED_AT';
+
+	
+	const UPDATED_BY = 'asociacion_corredor.UPDATED_BY';
 
 	
 	private static $phpNameMap = null;
@@ -31,18 +37,18 @@ abstract class BaseAsociacionCorredorPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('IdAsociacion', 'IdCorredor', ),
-		BasePeer::TYPE_COLNAME => array (AsociacionCorredorPeer::ID_ASOCIACION, AsociacionCorredorPeer::ID_CORREDOR, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_asociacion', 'id_corredor', ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('IdCorredor', 'IdAsociacion', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (AsociacionCorredorPeer::ID_CORREDOR, AsociacionCorredorPeer::ID_ASOCIACION, AsociacionCorredorPeer::UPDATED_AT, AsociacionCorredorPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_corredor', 'id_asociacion', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('IdAsociacion' => 0, 'IdCorredor' => 1, ),
-		BasePeer::TYPE_COLNAME => array (AsociacionCorredorPeer::ID_ASOCIACION => 0, AsociacionCorredorPeer::ID_CORREDOR => 1, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_asociacion' => 0, 'id_corredor' => 1, ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('IdCorredor' => 0, 'IdAsociacion' => 1, 'UpdatedAt' => 2, 'UpdatedBy' => 3, ),
+		BasePeer::TYPE_COLNAME => array (AsociacionCorredorPeer::ID_CORREDOR => 0, AsociacionCorredorPeer::ID_ASOCIACION => 1, AsociacionCorredorPeer::UPDATED_AT => 2, AsociacionCorredorPeer::UPDATED_BY => 3, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_corredor' => 0, 'id_asociacion' => 1, 'updated_at' => 2, 'updated_by' => 3, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	
@@ -95,14 +101,18 @@ abstract class BaseAsociacionCorredorPeer {
 	public static function addSelectColumns(Criteria $criteria)
 	{
 
+		$criteria->addSelectColumn(AsociacionCorredorPeer::ID_CORREDOR);
+
 		$criteria->addSelectColumn(AsociacionCorredorPeer::ID_ASOCIACION);
 
-		$criteria->addSelectColumn(AsociacionCorredorPeer::ID_CORREDOR);
+		$criteria->addSelectColumn(AsociacionCorredorPeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(AsociacionCorredorPeer::UPDATED_BY);
 
 	}
 
-	const COUNT = 'COUNT(asociacion_corredor.ID_ASOCIACION)';
-	const COUNT_DISTINCT = 'COUNT(DISTINCT asociacion_corredor.ID_ASOCIACION)';
+	const COUNT = 'COUNT(asociacion_corredor.ID_CORREDOR)';
+	const COUNT_DISTINCT = 'COUNT(DISTINCT asociacion_corredor.ID_CORREDOR)';
 
 	
 	public static function doCount(Criteria $criteria, $distinct = false, $con = null)
@@ -178,34 +188,6 @@ abstract class BaseAsociacionCorredorPeer {
 	}
 
 	
-	public static function doCountJoinAsociacion(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(AsociacionCorredorPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(AsociacionCorredorPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(AsociacionCorredorPeer::ID_ASOCIACION, AsociacionPeer::ID);
-
-		$rs = AsociacionCorredorPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
 	public static function doCountJoinCorredor(Criteria $criteria, $distinct = false, $con = null)
 	{
 				$criteria = clone $criteria;
@@ -234,49 +216,30 @@ abstract class BaseAsociacionCorredorPeer {
 
 
 	
-	public static function doSelectJoinAsociacion(Criteria $c, $con = null)
+	public static function doCountJoinAsociacion(Criteria $criteria, $distinct = false, $con = null)
 	{
-		$c = clone $c;
+				$criteria = clone $criteria;
 
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(AsociacionCorredorPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(AsociacionCorredorPeer::COUNT);
 		}
 
-		AsociacionCorredorPeer::addSelectColumns($c);
-		$startcol = (AsociacionCorredorPeer::NUM_COLUMNS - AsociacionCorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		AsociacionPeer::addSelectColumns($c);
-
-		$c->addJoin(AsociacionCorredorPeer::ID_ASOCIACION, AsociacionPeer::ID);
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = AsociacionCorredorPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = AsociacionPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol);
-
-			$newObject = true;
-			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getAsociacion(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-										$temp_obj2->addAsociacionCorredor($obj1); 					break;
-				}
-			}
-			if ($newObject) {
-				$obj2->initAsociacionCorredors();
-				$obj2->addAsociacionCorredor($obj1); 			}
-			$results[] = $obj1;
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
 		}
-		return $results;
+
+		$criteria->addJoin(AsociacionCorredorPeer::ID_ASOCIACION, AsociacionPeer::ID);
+
+		$rs = AsociacionCorredorPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
 	}
 
 
@@ -328,6 +291,53 @@ abstract class BaseAsociacionCorredorPeer {
 
 
 	
+	public static function doSelectJoinAsociacion(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+				if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		AsociacionCorredorPeer::addSelectColumns($c);
+		$startcol = (AsociacionCorredorPeer::NUM_COLUMNS - AsociacionCorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		AsociacionPeer::addSelectColumns($c);
+
+		$c->addJoin(AsociacionCorredorPeer::ID_ASOCIACION, AsociacionPeer::ID);
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = AsociacionCorredorPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = AsociacionPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj2 = new $cls();
+			$obj2->hydrate($rs, $startcol);
+
+			$newObject = true;
+			foreach($results as $temp_obj1) {
+				$temp_obj2 = $temp_obj1->getAsociacion(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+										$temp_obj2->addAsociacionCorredor($obj1); 					break;
+				}
+			}
+			if ($newObject) {
+				$obj2->initAsociacionCorredors();
+				$obj2->addAsociacionCorredor($obj1); 			}
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
 	public static function doCountJoinAll(Criteria $criteria, $distinct = false, $con = null)
 	{
 		$criteria = clone $criteria;
@@ -344,9 +354,9 @@ abstract class BaseAsociacionCorredorPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(AsociacionCorredorPeer::ID_ASOCIACION, AsociacionPeer::ID);
-
 		$criteria->addJoin(AsociacionCorredorPeer::ID_CORREDOR, CorredorPeer::ID);
+
+		$criteria->addJoin(AsociacionCorredorPeer::ID_ASOCIACION, AsociacionPeer::ID);
 
 		$rs = AsociacionCorredorPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -369,15 +379,15 @@ abstract class BaseAsociacionCorredorPeer {
 		AsociacionCorredorPeer::addSelectColumns($c);
 		$startcol2 = (AsociacionCorredorPeer::NUM_COLUMNS - AsociacionCorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 
-		AsociacionPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + AsociacionPeer::NUM_COLUMNS;
-
 		CorredorPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + CorredorPeer::NUM_COLUMNS;
+		$startcol3 = $startcol2 + CorredorPeer::NUM_COLUMNS;
 
-		$c->addJoin(AsociacionCorredorPeer::ID_ASOCIACION, AsociacionPeer::ID);
+		AsociacionPeer::addSelectColumns($c);
+		$startcol4 = $startcol3 + AsociacionPeer::NUM_COLUMNS;
 
 		$c->addJoin(AsociacionCorredorPeer::ID_CORREDOR, CorredorPeer::ID);
+
+		$c->addJoin(AsociacionCorredorPeer::ID_ASOCIACION, AsociacionPeer::ID);
 
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
@@ -393,7 +403,7 @@ abstract class BaseAsociacionCorredorPeer {
 
 
 					
-			$omClass = AsociacionPeer::getOMClass();
+			$omClass = CorredorPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -403,7 +413,7 @@ abstract class BaseAsociacionCorredorPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getAsociacion(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+				$temp_obj2 = $temp_obj1->getCorredor(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj2->addAsociacionCorredor($obj1); 					break;
 				}
@@ -416,7 +426,7 @@ abstract class BaseAsociacionCorredorPeer {
 
 
 					
-			$omClass = CorredorPeer::getOMClass();
+			$omClass = AsociacionPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -426,7 +436,7 @@ abstract class BaseAsociacionCorredorPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getCorredor(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
+				$temp_obj3 = $temp_obj1->getAsociacion(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj3->addAsociacionCorredor($obj1); 					break;
 				}
@@ -440,34 +450,6 @@ abstract class BaseAsociacionCorredorPeer {
 			$results[] = $obj1;
 		}
 		return $results;
-	}
-
-
-	
-	public static function doCountJoinAllExceptAsociacion(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(AsociacionCorredorPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(AsociacionCorredorPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(AsociacionCorredorPeer::ID_CORREDOR, CorredorPeer::ID);
-
-		$rs = AsociacionCorredorPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
 	}
 
 
@@ -500,59 +482,30 @@ abstract class BaseAsociacionCorredorPeer {
 
 
 	
-	public static function doSelectJoinAllExceptAsociacion(Criteria $c, $con = null)
+	public static function doCountJoinAllExceptAsociacion(Criteria $criteria, $distinct = false, $con = null)
 	{
-		$c = clone $c;
+				$criteria = clone $criteria;
 
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(AsociacionCorredorPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(AsociacionCorredorPeer::COUNT);
 		}
 
-		AsociacionCorredorPeer::addSelectColumns($c);
-		$startcol2 = (AsociacionCorredorPeer::NUM_COLUMNS - AsociacionCorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		CorredorPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + CorredorPeer::NUM_COLUMNS;
-
-		$c->addJoin(AsociacionCorredorPeer::ID_CORREDOR, CorredorPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = AsociacionCorredorPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = CorredorPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getCorredor(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addAsociacionCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initAsociacionCorredors();
-				$obj2->addAsociacionCorredor($obj1);
-			}
-
-			$results[] = $obj1;
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
 		}
-		return $results;
+
+		$criteria->addJoin(AsociacionCorredorPeer::ID_CORREDOR, CorredorPeer::ID);
+
+		$rs = AsociacionCorredorPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
 	}
 
 
@@ -596,6 +549,63 @@ abstract class BaseAsociacionCorredorPeer {
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
 				$temp_obj2 = $temp_obj1->getAsociacion(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj2->addAsociacionCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj2->initAsociacionCorredors();
+				$obj2->addAsociacionCorredor($obj1);
+			}
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doSelectJoinAllExceptAsociacion(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		AsociacionCorredorPeer::addSelectColumns($c);
+		$startcol2 = (AsociacionCorredorPeer::NUM_COLUMNS - AsociacionCorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+		CorredorPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + CorredorPeer::NUM_COLUMNS;
+
+		$c->addJoin(AsociacionCorredorPeer::ID_CORREDOR, CorredorPeer::ID);
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = AsociacionCorredorPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = CorredorPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj2  = new $cls();
+			$obj2->hydrate($rs, $startcol2);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj2 = $temp_obj1->getCorredor(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj2->addAsociacionCorredor($obj1);
 					break;
@@ -666,11 +676,11 @@ abstract class BaseAsociacionCorredorPeer {
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; 
-			$comparison = $criteria->getComparison(AsociacionCorredorPeer::ID_ASOCIACION);
-			$selectCriteria->add(AsociacionCorredorPeer::ID_ASOCIACION, $criteria->remove(AsociacionCorredorPeer::ID_ASOCIACION), $comparison);
-
 			$comparison = $criteria->getComparison(AsociacionCorredorPeer::ID_CORREDOR);
 			$selectCriteria->add(AsociacionCorredorPeer::ID_CORREDOR, $criteria->remove(AsociacionCorredorPeer::ID_CORREDOR), $comparison);
+
+			$comparison = $criteria->getComparison(AsociacionCorredorPeer::ID_ASOCIACION);
+			$selectCriteria->add(AsociacionCorredorPeer::ID_ASOCIACION, $criteria->remove(AsociacionCorredorPeer::ID_ASOCIACION), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -721,8 +731,8 @@ abstract class BaseAsociacionCorredorPeer {
 				$vals[1][] = $value[1];
 			}
 
-			$criteria->add(AsociacionCorredorPeer::ID_ASOCIACION, $vals[0], Criteria::IN);
-			$criteria->add(AsociacionCorredorPeer::ID_CORREDOR, $vals[1], Criteria::IN);
+			$criteria->add(AsociacionCorredorPeer::ID_CORREDOR, $vals[0], Criteria::IN);
+			$criteria->add(AsociacionCorredorPeer::ID_ASOCIACION, $vals[1], Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -776,13 +786,13 @@ abstract class BaseAsociacionCorredorPeer {
 	}
 
 	
-	public static function retrieveByPK( $id_asociacion, $id_corredor, $con = null) {
+	public static function retrieveByPK( $id_corredor, $id_asociacion, $con = null) {
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
 		$criteria = new Criteria();
-		$criteria->add(AsociacionCorredorPeer::ID_ASOCIACION, $id_asociacion);
 		$criteria->add(AsociacionCorredorPeer::ID_CORREDOR, $id_corredor);
+		$criteria->add(AsociacionCorredorPeer::ID_ASOCIACION, $id_asociacion);
 		$v = AsociacionCorredorPeer::doSelect($criteria, $con);
 
 		return !empty($v) ? $v[0] : null;

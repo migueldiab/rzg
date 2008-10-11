@@ -13,7 +13,7 @@ abstract class BaseInventarioPeer {
 	const CLASS_DEFAULT = 'lib.model.Inventario';
 
 	
-	const NUM_COLUMNS = 3;
+	const NUM_COLUMNS = 6;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -29,23 +29,32 @@ abstract class BaseInventarioPeer {
 	const ID_TIPO_EQUIPAMIENTO = 'inventario.ID_TIPO_EQUIPAMIENTO';
 
 	
+	const UPDATED_AT = 'inventario.UPDATED_AT';
+
+	
+	const UPDATED_BY = 'inventario.UPDATED_BY';
+
+	
+	const ID_ESTADO = 'inventario.ID_ESTADO';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', 'IdTipoEquipamiento', ),
-		BasePeer::TYPE_COLNAME => array (InventarioPeer::ID, InventarioPeer::NOMBRE, InventarioPeer::ID_TIPO_EQUIPAMIENTO, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', 'id_tipo_equipamiento', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', 'IdTipoEquipamiento', 'UpdatedAt', 'UpdatedBy', 'IdEstado', ),
+		BasePeer::TYPE_COLNAME => array (InventarioPeer::ID, InventarioPeer::NOMBRE, InventarioPeer::ID_TIPO_EQUIPAMIENTO, InventarioPeer::UPDATED_AT, InventarioPeer::UPDATED_BY, InventarioPeer::ID_ESTADO, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', 'id_tipo_equipamiento', 'updated_at', 'updated_by', 'id_estado', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, 'IdTipoEquipamiento' => 2, ),
-		BasePeer::TYPE_COLNAME => array (InventarioPeer::ID => 0, InventarioPeer::NOMBRE => 1, InventarioPeer::ID_TIPO_EQUIPAMIENTO => 2, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, 'id_tipo_equipamiento' => 2, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, 'IdTipoEquipamiento' => 2, 'UpdatedAt' => 3, 'UpdatedBy' => 4, 'IdEstado' => 5, ),
+		BasePeer::TYPE_COLNAME => array (InventarioPeer::ID => 0, InventarioPeer::NOMBRE => 1, InventarioPeer::ID_TIPO_EQUIPAMIENTO => 2, InventarioPeer::UPDATED_AT => 3, InventarioPeer::UPDATED_BY => 4, InventarioPeer::ID_ESTADO => 5, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, 'id_tipo_equipamiento' => 2, 'updated_at' => 3, 'updated_by' => 4, 'id_estado' => 5, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	
@@ -103,6 +112,12 @@ abstract class BaseInventarioPeer {
 		$criteria->addSelectColumn(InventarioPeer::NOMBRE);
 
 		$criteria->addSelectColumn(InventarioPeer::ID_TIPO_EQUIPAMIENTO);
+
+		$criteria->addSelectColumn(InventarioPeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(InventarioPeer::UPDATED_BY);
+
+		$criteria->addSelectColumn(InventarioPeer::ID_ESTADO);
 
 	}
 
@@ -211,6 +226,34 @@ abstract class BaseInventarioPeer {
 
 
 	
+	public static function doCountJoinEstado(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(InventarioPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(InventarioPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$criteria->addJoin(InventarioPeer::ID_ESTADO, EstadoPeer::ID);
+
+		$rs = InventarioPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
 	public static function doSelectJoinEquipamiento(Criteria $c, $con = null)
 	{
 		$c = clone $c;
@@ -258,6 +301,53 @@ abstract class BaseInventarioPeer {
 
 
 	
+	public static function doSelectJoinEstado(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+				if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		InventarioPeer::addSelectColumns($c);
+		$startcol = (InventarioPeer::NUM_COLUMNS - InventarioPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		EstadoPeer::addSelectColumns($c);
+
+		$c->addJoin(InventarioPeer::ID_ESTADO, EstadoPeer::ID);
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = InventarioPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = EstadoPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj2 = new $cls();
+			$obj2->hydrate($rs, $startcol);
+
+			$newObject = true;
+			foreach($results as $temp_obj1) {
+				$temp_obj2 = $temp_obj1->getEstado(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+										$temp_obj2->addInventario($obj1); 					break;
+				}
+			}
+			if ($newObject) {
+				$obj2->initInventarios();
+				$obj2->addInventario($obj1); 			}
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
 	public static function doCountJoinAll(Criteria $criteria, $distinct = false, $con = null)
 	{
 		$criteria = clone $criteria;
@@ -275,6 +365,8 @@ abstract class BaseInventarioPeer {
 		}
 
 		$criteria->addJoin(InventarioPeer::ID_TIPO_EQUIPAMIENTO, EquipamientoPeer::ID);
+
+		$criteria->addJoin(InventarioPeer::ID_ESTADO, EstadoPeer::ID);
 
 		$rs = InventarioPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -300,7 +392,12 @@ abstract class BaseInventarioPeer {
 		EquipamientoPeer::addSelectColumns($c);
 		$startcol3 = $startcol2 + EquipamientoPeer::NUM_COLUMNS;
 
+		EstadoPeer::addSelectColumns($c);
+		$startcol4 = $startcol3 + EstadoPeer::NUM_COLUMNS;
+
 		$c->addJoin(InventarioPeer::ID_TIPO_EQUIPAMIENTO, EquipamientoPeer::ID);
+
+		$c->addJoin(InventarioPeer::ID_ESTADO, EstadoPeer::ID);
 
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
@@ -329,6 +426,199 @@ abstract class BaseInventarioPeer {
 				$temp_obj2 = $temp_obj1->getEquipamiento(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj2->addInventario($obj1); 					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj2->initInventarios();
+				$obj2->addInventario($obj1);
+			}
+
+
+					
+			$omClass = EstadoPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj3 = new $cls();
+			$obj3->hydrate($rs, $startcol3);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj3 = $temp_obj1->getEstado(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj3->addInventario($obj1); 					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj3->initInventarios();
+				$obj3->addInventario($obj1);
+			}
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doCountJoinAllExceptEquipamiento(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(InventarioPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(InventarioPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$criteria->addJoin(InventarioPeer::ID_ESTADO, EstadoPeer::ID);
+
+		$rs = InventarioPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
+	public static function doCountJoinAllExceptEstado(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(InventarioPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(InventarioPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$criteria->addJoin(InventarioPeer::ID_TIPO_EQUIPAMIENTO, EquipamientoPeer::ID);
+
+		$rs = InventarioPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
+	public static function doSelectJoinAllExceptEquipamiento(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		InventarioPeer::addSelectColumns($c);
+		$startcol2 = (InventarioPeer::NUM_COLUMNS - InventarioPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+		EstadoPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + EstadoPeer::NUM_COLUMNS;
+
+		$c->addJoin(InventarioPeer::ID_ESTADO, EstadoPeer::ID);
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = InventarioPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = EstadoPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj2  = new $cls();
+			$obj2->hydrate($rs, $startcol2);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj2 = $temp_obj1->getEstado(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj2->addInventario($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj2->initInventarios();
+				$obj2->addInventario($obj1);
+			}
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doSelectJoinAllExceptEstado(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		InventarioPeer::addSelectColumns($c);
+		$startcol2 = (InventarioPeer::NUM_COLUMNS - InventarioPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+		EquipamientoPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + EquipamientoPeer::NUM_COLUMNS;
+
+		$c->addJoin(InventarioPeer::ID_TIPO_EQUIPAMIENTO, EquipamientoPeer::ID);
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = InventarioPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = EquipamientoPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj2  = new $cls();
+			$obj2->hydrate($rs, $startcol2);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj2 = $temp_obj1->getEquipamiento(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj2->addInventario($obj1);
+					break;
 				}
 			}
 
@@ -370,6 +660,7 @@ abstract class BaseInventarioPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
+		$criteria->remove(InventarioPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 

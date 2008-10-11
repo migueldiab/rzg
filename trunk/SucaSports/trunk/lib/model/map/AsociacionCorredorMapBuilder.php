@@ -32,9 +32,13 @@ class AsociacionCorredorMapBuilder {
 
 		$tMap->setUseIdGenerator(false);
 
+		$tMap->addForeignPrimaryKey('ID_CORREDOR', 'IdCorredor', 'int' , CreoleTypes::INTEGER, 'corredor', 'ID', true, null);
+
 		$tMap->addForeignPrimaryKey('ID_ASOCIACION', 'IdAsociacion', 'int' , CreoleTypes::INTEGER, 'asociacion', 'ID', true, null);
 
-		$tMap->addForeignPrimaryKey('ID_CORREDOR', 'IdCorredor', 'int' , CreoleTypes::INTEGER, 'corredor', 'ID', true, null);
+		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
+
+		$tMap->addColumn('UPDATED_BY', 'UpdatedBy', 'int', CreoleTypes::INTEGER, false, null);
 
 	} 
 } 

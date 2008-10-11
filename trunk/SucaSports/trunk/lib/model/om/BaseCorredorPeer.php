@@ -13,7 +13,7 @@ abstract class BaseCorredorPeer {
 	const CLASS_DEFAULT = 'lib.model.Corredor';
 
 	
-	const NUM_COLUMNS = 18;
+	const NUM_COLUMNS = 22;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -21,6 +21,9 @@ abstract class BaseCorredorPeer {
 
 	
 	const ID = 'corredor.ID';
+
+	
+	const DOCUMENTO = 'corredor.DOCUMENTO';
 
 	
 	const TIPO_DOCUMENTO = 'corredor.TIPO_DOCUMENTO';
@@ -71,7 +74,16 @@ abstract class BaseCorredorPeer {
 	const ID_CHIPS = 'corredor.ID_CHIPS';
 
 	
-	const ID_USUARIO = 'corredor.ID_USUARIO';
+	const UPDATED_AT = 'corredor.UPDATED_AT';
+
+	
+	const UPDATED_BY = 'corredor.UPDATED_BY';
+
+	
+	const CREATED_AT = 'corredor.CREATED_AT';
+
+	
+	const CREATED_BY = 'corredor.CREATED_BY';
 
 	
 	private static $phpNameMap = null;
@@ -79,18 +91,18 @@ abstract class BaseCorredorPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'TipoDocumento', 'Nombre', 'Apellido', 'Telefono', 'Movil', 'TelefonoEmergencia', 'Direccion', 'FechaNacimiento', 'Pareja', 'Hijos', 'IdSociedadMedica', 'HistoriaMedica', 'Sexo', 'IdLocalidad', 'IdPais', 'IdChips', 'IdUsuario', ),
-		BasePeer::TYPE_COLNAME => array (CorredorPeer::ID, CorredorPeer::TIPO_DOCUMENTO, CorredorPeer::NOMBRE, CorredorPeer::APELLIDO, CorredorPeer::TELEFONO, CorredorPeer::MOVIL, CorredorPeer::TELEFONO_EMERGENCIA, CorredorPeer::DIRECCION, CorredorPeer::FECHA_NACIMIENTO, CorredorPeer::PAREJA, CorredorPeer::HIJOS, CorredorPeer::ID_SOCIEDAD_MEDICA, CorredorPeer::HISTORIA_MEDICA, CorredorPeer::SEXO, CorredorPeer::ID_LOCALIDAD, CorredorPeer::ID_PAIS, CorredorPeer::ID_CHIPS, CorredorPeer::ID_USUARIO, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'tipo_documento', 'nombre', 'apellido', 'telefono', 'movil', 'telefono_emergencia', 'direccion', 'fecha_nacimiento', 'pareja', 'hijos', 'id_sociedad_medica', 'historia_medica', 'sexo', 'id_localidad', 'id_pais', 'id_chips', 'id_usuario', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Documento', 'TipoDocumento', 'Nombre', 'Apellido', 'Telefono', 'Movil', 'TelefonoEmergencia', 'Direccion', 'FechaNacimiento', 'Pareja', 'Hijos', 'IdSociedadMedica', 'HistoriaMedica', 'Sexo', 'IdLocalidad', 'IdPais', 'IdChips', 'UpdatedAt', 'UpdatedBy', 'CreatedAt', 'CreatedBy', ),
+		BasePeer::TYPE_COLNAME => array (CorredorPeer::ID, CorredorPeer::DOCUMENTO, CorredorPeer::TIPO_DOCUMENTO, CorredorPeer::NOMBRE, CorredorPeer::APELLIDO, CorredorPeer::TELEFONO, CorredorPeer::MOVIL, CorredorPeer::TELEFONO_EMERGENCIA, CorredorPeer::DIRECCION, CorredorPeer::FECHA_NACIMIENTO, CorredorPeer::PAREJA, CorredorPeer::HIJOS, CorredorPeer::ID_SOCIEDAD_MEDICA, CorredorPeer::HISTORIA_MEDICA, CorredorPeer::SEXO, CorredorPeer::ID_LOCALIDAD, CorredorPeer::ID_PAIS, CorredorPeer::ID_CHIPS, CorredorPeer::UPDATED_AT, CorredorPeer::UPDATED_BY, CorredorPeer::CREATED_AT, CorredorPeer::CREATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'documento', 'tipo_documento', 'nombre', 'apellido', 'telefono', 'movil', 'telefono_emergencia', 'direccion', 'fecha_nacimiento', 'pareja', 'hijos', 'id_sociedad_medica', 'historia_medica', 'sexo', 'id_localidad', 'id_pais', 'id_chips', 'updated_at', 'updated_by', 'created_at', 'created_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'TipoDocumento' => 1, 'Nombre' => 2, 'Apellido' => 3, 'Telefono' => 4, 'Movil' => 5, 'TelefonoEmergencia' => 6, 'Direccion' => 7, 'FechaNacimiento' => 8, 'Pareja' => 9, 'Hijos' => 10, 'IdSociedadMedica' => 11, 'HistoriaMedica' => 12, 'Sexo' => 13, 'IdLocalidad' => 14, 'IdPais' => 15, 'IdChips' => 16, 'IdUsuario' => 17, ),
-		BasePeer::TYPE_COLNAME => array (CorredorPeer::ID => 0, CorredorPeer::TIPO_DOCUMENTO => 1, CorredorPeer::NOMBRE => 2, CorredorPeer::APELLIDO => 3, CorredorPeer::TELEFONO => 4, CorredorPeer::MOVIL => 5, CorredorPeer::TELEFONO_EMERGENCIA => 6, CorredorPeer::DIRECCION => 7, CorredorPeer::FECHA_NACIMIENTO => 8, CorredorPeer::PAREJA => 9, CorredorPeer::HIJOS => 10, CorredorPeer::ID_SOCIEDAD_MEDICA => 11, CorredorPeer::HISTORIA_MEDICA => 12, CorredorPeer::SEXO => 13, CorredorPeer::ID_LOCALIDAD => 14, CorredorPeer::ID_PAIS => 15, CorredorPeer::ID_CHIPS => 16, CorredorPeer::ID_USUARIO => 17, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'tipo_documento' => 1, 'nombre' => 2, 'apellido' => 3, 'telefono' => 4, 'movil' => 5, 'telefono_emergencia' => 6, 'direccion' => 7, 'fecha_nacimiento' => 8, 'pareja' => 9, 'hijos' => 10, 'id_sociedad_medica' => 11, 'historia_medica' => 12, 'sexo' => 13, 'id_localidad' => 14, 'id_pais' => 15, 'id_chips' => 16, 'id_usuario' => 17, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Documento' => 1, 'TipoDocumento' => 2, 'Nombre' => 3, 'Apellido' => 4, 'Telefono' => 5, 'Movil' => 6, 'TelefonoEmergencia' => 7, 'Direccion' => 8, 'FechaNacimiento' => 9, 'Pareja' => 10, 'Hijos' => 11, 'IdSociedadMedica' => 12, 'HistoriaMedica' => 13, 'Sexo' => 14, 'IdLocalidad' => 15, 'IdPais' => 16, 'IdChips' => 17, 'UpdatedAt' => 18, 'UpdatedBy' => 19, 'CreatedAt' => 20, 'CreatedBy' => 21, ),
+		BasePeer::TYPE_COLNAME => array (CorredorPeer::ID => 0, CorredorPeer::DOCUMENTO => 1, CorredorPeer::TIPO_DOCUMENTO => 2, CorredorPeer::NOMBRE => 3, CorredorPeer::APELLIDO => 4, CorredorPeer::TELEFONO => 5, CorredorPeer::MOVIL => 6, CorredorPeer::TELEFONO_EMERGENCIA => 7, CorredorPeer::DIRECCION => 8, CorredorPeer::FECHA_NACIMIENTO => 9, CorredorPeer::PAREJA => 10, CorredorPeer::HIJOS => 11, CorredorPeer::ID_SOCIEDAD_MEDICA => 12, CorredorPeer::HISTORIA_MEDICA => 13, CorredorPeer::SEXO => 14, CorredorPeer::ID_LOCALIDAD => 15, CorredorPeer::ID_PAIS => 16, CorredorPeer::ID_CHIPS => 17, CorredorPeer::UPDATED_AT => 18, CorredorPeer::UPDATED_BY => 19, CorredorPeer::CREATED_AT => 20, CorredorPeer::CREATED_BY => 21, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'documento' => 1, 'tipo_documento' => 2, 'nombre' => 3, 'apellido' => 4, 'telefono' => 5, 'movil' => 6, 'telefono_emergencia' => 7, 'direccion' => 8, 'fecha_nacimiento' => 9, 'pareja' => 10, 'hijos' => 11, 'id_sociedad_medica' => 12, 'historia_medica' => 13, 'sexo' => 14, 'id_localidad' => 15, 'id_pais' => 16, 'id_chips' => 17, 'updated_at' => 18, 'updated_by' => 19, 'created_at' => 20, 'created_by' => 21, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, )
 	);
 
 	
@@ -145,6 +157,8 @@ abstract class BaseCorredorPeer {
 
 		$criteria->addSelectColumn(CorredorPeer::ID);
 
+		$criteria->addSelectColumn(CorredorPeer::DOCUMENTO);
+
 		$criteria->addSelectColumn(CorredorPeer::TIPO_DOCUMENTO);
 
 		$criteria->addSelectColumn(CorredorPeer::NOMBRE);
@@ -177,7 +191,13 @@ abstract class BaseCorredorPeer {
 
 		$criteria->addSelectColumn(CorredorPeer::ID_CHIPS);
 
-		$criteria->addSelectColumn(CorredorPeer::ID_USUARIO);
+		$criteria->addSelectColumn(CorredorPeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(CorredorPeer::UPDATED_BY);
+
+		$criteria->addSelectColumn(CorredorPeer::CREATED_AT);
+
+		$criteria->addSelectColumn(CorredorPeer::CREATED_BY);
 
 	}
 
@@ -342,7 +362,7 @@ abstract class BaseCorredorPeer {
 
 
 	
-	public static function doCountJoinChips(Criteria $criteria, $distinct = false, $con = null)
+	public static function doCountJoinChip(Criteria $criteria, $distinct = false, $con = null)
 	{
 				$criteria = clone $criteria;
 
@@ -358,35 +378,7 @@ abstract class BaseCorredorPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(CorredorPeer::ID_CHIPS, ChipsPeer::ID);
-
-		$rs = CorredorPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinUsuarios(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(CorredorPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(CorredorPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(CorredorPeer::ID_USUARIO, UsuariosPeer::ID);
+		$criteria->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
 
 		$rs = CorredorPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -539,7 +531,7 @@ abstract class BaseCorredorPeer {
 
 
 	
-	public static function doSelectJoinChips(Criteria $c, $con = null)
+	public static function doSelectJoinChip(Criteria $c, $con = null)
 	{
 		$c = clone $c;
 
@@ -549,9 +541,9 @@ abstract class BaseCorredorPeer {
 
 		CorredorPeer::addSelectColumns($c);
 		$startcol = (CorredorPeer::NUM_COLUMNS - CorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		ChipsPeer::addSelectColumns($c);
+		ChipPeer::addSelectColumns($c);
 
-		$c->addJoin(CorredorPeer::ID_CHIPS, ChipsPeer::ID);
+		$c->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
@@ -563,7 +555,7 @@ abstract class BaseCorredorPeer {
 			$obj1 = new $cls();
 			$obj1->hydrate($rs);
 
-			$omClass = ChipsPeer::getOMClass();
+			$omClass = ChipPeer::getOMClass();
 
 			$cls = sfPropel::import($omClass);
 			$obj2 = new $cls();
@@ -571,54 +563,7 @@ abstract class BaseCorredorPeer {
 
 			$newObject = true;
 			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getChips(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-										$temp_obj2->addCorredor($obj1); 					break;
-				}
-			}
-			if ($newObject) {
-				$obj2->initCorredors();
-				$obj2->addCorredor($obj1); 			}
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinUsuarios(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		CorredorPeer::addSelectColumns($c);
-		$startcol = (CorredorPeer::NUM_COLUMNS - CorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		UsuariosPeer::addSelectColumns($c);
-
-		$c->addJoin(CorredorPeer::ID_USUARIO, UsuariosPeer::ID);
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = CorredorPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = UsuariosPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol);
-
-			$newObject = true;
-			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getUsuarios(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+				$temp_obj2 = $temp_obj1->getChip(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
 										$temp_obj2->addCorredor($obj1); 					break;
 				}
@@ -655,9 +600,7 @@ abstract class BaseCorredorPeer {
 
 		$criteria->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
 
-		$criteria->addJoin(CorredorPeer::ID_CHIPS, ChipsPeer::ID);
-
-		$criteria->addJoin(CorredorPeer::ID_USUARIO, UsuariosPeer::ID);
+		$criteria->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
 
 		$rs = CorredorPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -689,11 +632,8 @@ abstract class BaseCorredorPeer {
 		PaisPeer::addSelectColumns($c);
 		$startcol5 = $startcol4 + PaisPeer::NUM_COLUMNS;
 
-		ChipsPeer::addSelectColumns($c);
-		$startcol6 = $startcol5 + ChipsPeer::NUM_COLUMNS;
-
-		UsuariosPeer::addSelectColumns($c);
-		$startcol7 = $startcol6 + UsuariosPeer::NUM_COLUMNS;
+		ChipPeer::addSelectColumns($c);
+		$startcol6 = $startcol5 + ChipPeer::NUM_COLUMNS;
 
 		$c->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
 
@@ -701,9 +641,7 @@ abstract class BaseCorredorPeer {
 
 		$c->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
 
-		$c->addJoin(CorredorPeer::ID_CHIPS, ChipsPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_USUARIO, UsuariosPeer::ID);
+		$c->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
 
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
@@ -788,7 +726,7 @@ abstract class BaseCorredorPeer {
 
 
 					
-			$omClass = ChipsPeer::getOMClass();
+			$omClass = ChipPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -798,7 +736,7 @@ abstract class BaseCorredorPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj5 = $temp_obj1->getChips(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
+				$temp_obj5 = $temp_obj1->getChip(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj5->addCorredor($obj1); 					break;
 				}
@@ -807,29 +745,6 @@ abstract class BaseCorredorPeer {
 			if ($newObject) {
 				$obj5->initCorredors();
 				$obj5->addCorredor($obj1);
-			}
-
-
-					
-			$omClass = UsuariosPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj6 = new $cls();
-			$obj6->hydrate($rs, $startcol6);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj6 = $temp_obj1->getUsuarios(); 				if ($temp_obj6->getPrimaryKey() === $obj6->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj6->addCorredor($obj1); 					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj6->initCorredors();
-				$obj6->addCorredor($obj1);
 			}
 
 			$results[] = $obj1;
@@ -859,9 +774,7 @@ abstract class BaseCorredorPeer {
 
 		$criteria->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
 
-		$criteria->addJoin(CorredorPeer::ID_CHIPS, ChipsPeer::ID);
-
-		$criteria->addJoin(CorredorPeer::ID_USUARIO, UsuariosPeer::ID);
+		$criteria->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
 
 		$rs = CorredorPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -893,9 +806,7 @@ abstract class BaseCorredorPeer {
 
 		$criteria->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
 
-		$criteria->addJoin(CorredorPeer::ID_CHIPS, ChipsPeer::ID);
-
-		$criteria->addJoin(CorredorPeer::ID_USUARIO, UsuariosPeer::ID);
+		$criteria->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
 
 		$rs = CorredorPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -927,9 +838,7 @@ abstract class BaseCorredorPeer {
 
 		$criteria->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
 
-		$criteria->addJoin(CorredorPeer::ID_CHIPS, ChipsPeer::ID);
-
-		$criteria->addJoin(CorredorPeer::ID_USUARIO, UsuariosPeer::ID);
+		$criteria->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
 
 		$rs = CorredorPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -941,7 +850,7 @@ abstract class BaseCorredorPeer {
 
 
 	
-	public static function doCountJoinAllExceptChips(Criteria $criteria, $distinct = false, $con = null)
+	public static function doCountJoinAllExceptChip(Criteria $criteria, $distinct = false, $con = null)
 	{
 				$criteria = clone $criteria;
 
@@ -962,42 +871,6 @@ abstract class BaseCorredorPeer {
 		$criteria->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
 
 		$criteria->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
-
-		$criteria->addJoin(CorredorPeer::ID_USUARIO, UsuariosPeer::ID);
-
-		$rs = CorredorPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinAllExceptUsuarios(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(CorredorPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(CorredorPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
-
-		$criteria->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
-
-		$criteria->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
-
-		$criteria->addJoin(CorredorPeer::ID_CHIPS, ChipsPeer::ID);
 
 		$rs = CorredorPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -1026,19 +899,14 @@ abstract class BaseCorredorPeer {
 		PaisPeer::addSelectColumns($c);
 		$startcol4 = $startcol3 + PaisPeer::NUM_COLUMNS;
 
-		ChipsPeer::addSelectColumns($c);
-		$startcol5 = $startcol4 + ChipsPeer::NUM_COLUMNS;
-
-		UsuariosPeer::addSelectColumns($c);
-		$startcol6 = $startcol5 + UsuariosPeer::NUM_COLUMNS;
+		ChipPeer::addSelectColumns($c);
+		$startcol5 = $startcol4 + ChipPeer::NUM_COLUMNS;
 
 		$c->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
 
 		$c->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
 
-		$c->addJoin(CorredorPeer::ID_CHIPS, ChipsPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_USUARIO, UsuariosPeer::ID);
+		$c->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
 
 
 		$rs = BasePeer::doSelect($c, $con);
@@ -1096,7 +964,7 @@ abstract class BaseCorredorPeer {
 				$obj3->addCorredor($obj1);
 			}
 
-			$omClass = ChipsPeer::getOMClass();
+			$omClass = ChipPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -1106,7 +974,7 @@ abstract class BaseCorredorPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj4 = $temp_obj1->getChips(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
+				$temp_obj4 = $temp_obj1->getChip(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj4->addCorredor($obj1);
 					break;
@@ -1116,28 +984,6 @@ abstract class BaseCorredorPeer {
 			if ($newObject) {
 				$obj4->initCorredors();
 				$obj4->addCorredor($obj1);
-			}
-
-			$omClass = UsuariosPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj5  = new $cls();
-			$obj5->hydrate($rs, $startcol5);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj5 = $temp_obj1->getUsuarios(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj5->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj5->initCorredors();
-				$obj5->addCorredor($obj1);
 			}
 
 			$results[] = $obj1;
@@ -1164,19 +1010,14 @@ abstract class BaseCorredorPeer {
 		PaisPeer::addSelectColumns($c);
 		$startcol4 = $startcol3 + PaisPeer::NUM_COLUMNS;
 
-		ChipsPeer::addSelectColumns($c);
-		$startcol5 = $startcol4 + ChipsPeer::NUM_COLUMNS;
-
-		UsuariosPeer::addSelectColumns($c);
-		$startcol6 = $startcol5 + UsuariosPeer::NUM_COLUMNS;
+		ChipPeer::addSelectColumns($c);
+		$startcol5 = $startcol4 + ChipPeer::NUM_COLUMNS;
 
 		$c->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
 
 		$c->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
 
-		$c->addJoin(CorredorPeer::ID_CHIPS, ChipsPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_USUARIO, UsuariosPeer::ID);
+		$c->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
 
 
 		$rs = BasePeer::doSelect($c, $con);
@@ -1234,7 +1075,7 @@ abstract class BaseCorredorPeer {
 				$obj3->addCorredor($obj1);
 			}
 
-			$omClass = ChipsPeer::getOMClass();
+			$omClass = ChipPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -1244,7 +1085,7 @@ abstract class BaseCorredorPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj4 = $temp_obj1->getChips(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
+				$temp_obj4 = $temp_obj1->getChip(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj4->addCorredor($obj1);
 					break;
@@ -1254,28 +1095,6 @@ abstract class BaseCorredorPeer {
 			if ($newObject) {
 				$obj4->initCorredors();
 				$obj4->addCorredor($obj1);
-			}
-
-			$omClass = UsuariosPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj5  = new $cls();
-			$obj5->hydrate($rs, $startcol5);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj5 = $temp_obj1->getUsuarios(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj5->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj5->initCorredors();
-				$obj5->addCorredor($obj1);
 			}
 
 			$results[] = $obj1;
@@ -1302,19 +1121,14 @@ abstract class BaseCorredorPeer {
 		LocalidadPeer::addSelectColumns($c);
 		$startcol4 = $startcol3 + LocalidadPeer::NUM_COLUMNS;
 
-		ChipsPeer::addSelectColumns($c);
-		$startcol5 = $startcol4 + ChipsPeer::NUM_COLUMNS;
-
-		UsuariosPeer::addSelectColumns($c);
-		$startcol6 = $startcol5 + UsuariosPeer::NUM_COLUMNS;
+		ChipPeer::addSelectColumns($c);
+		$startcol5 = $startcol4 + ChipPeer::NUM_COLUMNS;
 
 		$c->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
 
 		$c->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
 
-		$c->addJoin(CorredorPeer::ID_CHIPS, ChipsPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_USUARIO, UsuariosPeer::ID);
+		$c->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
 
 
 		$rs = BasePeer::doSelect($c, $con);
@@ -1372,7 +1186,7 @@ abstract class BaseCorredorPeer {
 				$obj3->addCorredor($obj1);
 			}
 
-			$omClass = ChipsPeer::getOMClass();
+			$omClass = ChipPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -1382,7 +1196,7 @@ abstract class BaseCorredorPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj4 = $temp_obj1->getChips(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
+				$temp_obj4 = $temp_obj1->getChip(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj4->addCorredor($obj1);
 					break;
@@ -1394,28 +1208,6 @@ abstract class BaseCorredorPeer {
 				$obj4->addCorredor($obj1);
 			}
 
-			$omClass = UsuariosPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj5  = new $cls();
-			$obj5->hydrate($rs, $startcol5);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj5 = $temp_obj1->getUsuarios(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj5->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj5->initCorredors();
-				$obj5->addCorredor($obj1);
-			}
-
 			$results[] = $obj1;
 		}
 		return $results;
@@ -1423,7 +1215,7 @@ abstract class BaseCorredorPeer {
 
 
 	
-	public static function doSelectJoinAllExceptChips(Criteria $c, $con = null)
+	public static function doSelectJoinAllExceptChip(Criteria $c, $con = null)
 	{
 		$c = clone $c;
 
@@ -1443,16 +1235,11 @@ abstract class BaseCorredorPeer {
 		PaisPeer::addSelectColumns($c);
 		$startcol5 = $startcol4 + PaisPeer::NUM_COLUMNS;
 
-		UsuariosPeer::addSelectColumns($c);
-		$startcol6 = $startcol5 + UsuariosPeer::NUM_COLUMNS;
-
 		$c->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
 
 		$c->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
 
 		$c->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_USUARIO, UsuariosPeer::ID);
 
 
 		$rs = BasePeer::doSelect($c, $con);
@@ -1530,166 +1317,6 @@ abstract class BaseCorredorPeer {
 			if ($newObject) {
 				$obj4->initCorredors();
 				$obj4->addCorredor($obj1);
-			}
-
-			$omClass = UsuariosPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj5  = new $cls();
-			$obj5->hydrate($rs, $startcol5);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj5 = $temp_obj1->getUsuarios(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj5->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj5->initCorredors();
-				$obj5->addCorredor($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinAllExceptUsuarios(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		CorredorPeer::addSelectColumns($c);
-		$startcol2 = (CorredorPeer::NUM_COLUMNS - CorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		SociedadMedicaPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + SociedadMedicaPeer::NUM_COLUMNS;
-
-		LocalidadPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + LocalidadPeer::NUM_COLUMNS;
-
-		PaisPeer::addSelectColumns($c);
-		$startcol5 = $startcol4 + PaisPeer::NUM_COLUMNS;
-
-		ChipsPeer::addSelectColumns($c);
-		$startcol6 = $startcol5 + ChipsPeer::NUM_COLUMNS;
-
-		$c->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_CHIPS, ChipsPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = CorredorPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = SociedadMedicaPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getSociedadMedica(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initCorredors();
-				$obj2->addCorredor($obj1);
-			}
-
-			$omClass = LocalidadPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getLocalidad(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initCorredors();
-				$obj3->addCorredor($obj1);
-			}
-
-			$omClass = PaisPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj4  = new $cls();
-			$obj4->hydrate($rs, $startcol4);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj4 = $temp_obj1->getPais(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj4->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj4->initCorredors();
-				$obj4->addCorredor($obj1);
-			}
-
-			$omClass = ChipsPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj5  = new $cls();
-			$obj5->hydrate($rs, $startcol5);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj5 = $temp_obj1->getChips(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj5->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj5->initCorredors();
-				$obj5->addCorredor($obj1);
 			}
 
 			$results[] = $obj1;
@@ -1725,6 +1352,7 @@ abstract class BaseCorredorPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
+		$criteria->remove(CorredorPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 
@@ -1753,9 +1381,6 @@ abstract class BaseCorredorPeer {
 			$criteria = clone $values; 
 			$comparison = $criteria->getComparison(CorredorPeer::ID);
 			$selectCriteria->add(CorredorPeer::ID, $criteria->remove(CorredorPeer::ID), $comparison);
-
-			$comparison = $criteria->getComparison(CorredorPeer::ID_USUARIO);
-			$selectCriteria->add(CorredorPeer::ID_USUARIO, $criteria->remove(CorredorPeer::ID_USUARIO), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -1794,20 +1419,7 @@ abstract class BaseCorredorPeer {
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-												if(count($values) == count($values, COUNT_RECURSIVE))
-			{
-								$values = array($values);
-			}
-			$vals = array();
-			foreach($values as $value)
-			{
-
-				$vals[0][] = $value[0];
-				$vals[1][] = $value[1];
-			}
-
-			$criteria->add(CorredorPeer::ID, $vals[0], Criteria::IN);
-			$criteria->add(CorredorPeer::ID_USUARIO, $vals[1], Criteria::IN);
+			$criteria->add(CorredorPeer::ID, (array) $values, Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -1861,17 +1473,40 @@ abstract class BaseCorredorPeer {
 	}
 
 	
-	public static function retrieveByPK( $id, $id_usuario, $con = null) {
+	public static function retrieveByPK($pk, $con = null)
+	{
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
-		$criteria = new Criteria();
-		$criteria->add(CorredorPeer::ID, $id);
-		$criteria->add(CorredorPeer::ID_USUARIO, $id_usuario);
+
+		$criteria = new Criteria(CorredorPeer::DATABASE_NAME);
+
+		$criteria->add(CorredorPeer::ID, $pk);
+
+
 		$v = CorredorPeer::doSelect($criteria, $con);
 
-		return !empty($v) ? $v[0] : null;
+		return !empty($v) > 0 ? $v[0] : null;
 	}
+
+	
+	public static function retrieveByPKs($pks, $con = null)
+	{
+		if ($con === null) {
+			$con = Propel::getConnection(self::DATABASE_NAME);
+		}
+
+		$objs = null;
+		if (empty($pks)) {
+			$objs = array();
+		} else {
+			$criteria = new Criteria();
+			$criteria->add(CorredorPeer::ID, $pks, Criteria::IN);
+			$objs = CorredorPeer::doSelect($criteria, $con);
+		}
+		return $objs;
+	}
+
 } 
 if (Propel::isInit()) {
 			try {

@@ -13,7 +13,7 @@ abstract class BaseFechaEtapaCarreraPeer {
 	const CLASS_DEFAULT = 'lib.model.FechaEtapaCarrera';
 
 	
-	const NUM_COLUMNS = 5;
+	const NUM_COLUMNS = 10;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -23,7 +23,7 @@ abstract class BaseFechaEtapaCarreraPeer {
 	const ID = 'fecha_etapa_carrera.ID';
 
 	
-	const ID_CARRERA = 'fecha_etapa_carrera.ID_CARRERA';
+	const ID_ETAPA_CARRERA = 'fecha_etapa_carrera.ID_ETAPA_CARRERA';
 
 	
 	const MAX_CORREDORES = 'fecha_etapa_carrera.MAX_CORREDORES';
@@ -35,23 +35,38 @@ abstract class BaseFechaEtapaCarreraPeer {
 	const FECHA_FIN = 'fecha_etapa_carrera.FECHA_FIN';
 
 	
+	const COSTO = 'fecha_etapa_carrera.COSTO';
+
+	
+	const CREATED_AT = 'fecha_etapa_carrera.CREATED_AT';
+
+	
+	const CREATED_BY = 'fecha_etapa_carrera.CREATED_BY';
+
+	
+	const UPDATED_AT = 'fecha_etapa_carrera.UPDATED_AT';
+
+	
+	const UPDATED_BY = 'fecha_etapa_carrera.UPDATED_BY';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'IdCarrera', 'MaxCorredores', 'FechaInicio', 'FechaFin', ),
-		BasePeer::TYPE_COLNAME => array (FechaEtapaCarreraPeer::ID, FechaEtapaCarreraPeer::ID_CARRERA, FechaEtapaCarreraPeer::MAX_CORREDORES, FechaEtapaCarreraPeer::FECHA_INICIO, FechaEtapaCarreraPeer::FECHA_FIN, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'id_carrera', 'max_corredores', 'fecha_inicio', 'fecha_fin', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'IdEtapaCarrera', 'MaxCorredores', 'FechaInicio', 'FechaFin', 'Costo', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (FechaEtapaCarreraPeer::ID, FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, FechaEtapaCarreraPeer::MAX_CORREDORES, FechaEtapaCarreraPeer::FECHA_INICIO, FechaEtapaCarreraPeer::FECHA_FIN, FechaEtapaCarreraPeer::COSTO, FechaEtapaCarreraPeer::CREATED_AT, FechaEtapaCarreraPeer::CREATED_BY, FechaEtapaCarreraPeer::UPDATED_AT, FechaEtapaCarreraPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'id_etapa_carrera', 'max_corredores', 'fecha_inicio', 'fecha_fin', 'costo', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdCarrera' => 1, 'MaxCorredores' => 2, 'FechaInicio' => 3, 'FechaFin' => 4, ),
-		BasePeer::TYPE_COLNAME => array (FechaEtapaCarreraPeer::ID => 0, FechaEtapaCarreraPeer::ID_CARRERA => 1, FechaEtapaCarreraPeer::MAX_CORREDORES => 2, FechaEtapaCarreraPeer::FECHA_INICIO => 3, FechaEtapaCarreraPeer::FECHA_FIN => 4, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_carrera' => 1, 'max_corredores' => 2, 'fecha_inicio' => 3, 'fecha_fin' => 4, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdEtapaCarrera' => 1, 'MaxCorredores' => 2, 'FechaInicio' => 3, 'FechaFin' => 4, 'Costo' => 5, 'CreatedAt' => 6, 'CreatedBy' => 7, 'UpdatedAt' => 8, 'UpdatedBy' => 9, ),
+		BasePeer::TYPE_COLNAME => array (FechaEtapaCarreraPeer::ID => 0, FechaEtapaCarreraPeer::ID_ETAPA_CARRERA => 1, FechaEtapaCarreraPeer::MAX_CORREDORES => 2, FechaEtapaCarreraPeer::FECHA_INICIO => 3, FechaEtapaCarreraPeer::FECHA_FIN => 4, FechaEtapaCarreraPeer::COSTO => 5, FechaEtapaCarreraPeer::CREATED_AT => 6, FechaEtapaCarreraPeer::CREATED_BY => 7, FechaEtapaCarreraPeer::UPDATED_AT => 8, FechaEtapaCarreraPeer::UPDATED_BY => 9, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_etapa_carrera' => 1, 'max_corredores' => 2, 'fecha_inicio' => 3, 'fecha_fin' => 4, 'costo' => 5, 'created_at' => 6, 'created_by' => 7, 'updated_at' => 8, 'updated_by' => 9, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
@@ -106,13 +121,23 @@ abstract class BaseFechaEtapaCarreraPeer {
 
 		$criteria->addSelectColumn(FechaEtapaCarreraPeer::ID);
 
-		$criteria->addSelectColumn(FechaEtapaCarreraPeer::ID_CARRERA);
+		$criteria->addSelectColumn(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA);
 
 		$criteria->addSelectColumn(FechaEtapaCarreraPeer::MAX_CORREDORES);
 
 		$criteria->addSelectColumn(FechaEtapaCarreraPeer::FECHA_INICIO);
 
 		$criteria->addSelectColumn(FechaEtapaCarreraPeer::FECHA_FIN);
+
+		$criteria->addSelectColumn(FechaEtapaCarreraPeer::COSTO);
+
+		$criteria->addSelectColumn(FechaEtapaCarreraPeer::CREATED_AT);
+
+		$criteria->addSelectColumn(FechaEtapaCarreraPeer::CREATED_BY);
+
+		$criteria->addSelectColumn(FechaEtapaCarreraPeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(FechaEtapaCarreraPeer::UPDATED_BY);
 
 	}
 
@@ -209,7 +234,7 @@ abstract class BaseFechaEtapaCarreraPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(FechaEtapaCarreraPeer::ID_CARRERA, EtapaCarreraPeer::ID);
+		$criteria->addJoin(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, EtapaCarreraPeer::ID);
 
 		$rs = FechaEtapaCarreraPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -233,7 +258,7 @@ abstract class BaseFechaEtapaCarreraPeer {
 		$startcol = (FechaEtapaCarreraPeer::NUM_COLUMNS - FechaEtapaCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 		EtapaCarreraPeer::addSelectColumns($c);
 
-		$c->addJoin(FechaEtapaCarreraPeer::ID_CARRERA, EtapaCarreraPeer::ID);
+		$c->addJoin(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, EtapaCarreraPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
@@ -284,7 +309,7 @@ abstract class BaseFechaEtapaCarreraPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(FechaEtapaCarreraPeer::ID_CARRERA, EtapaCarreraPeer::ID);
+		$criteria->addJoin(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, EtapaCarreraPeer::ID);
 
 		$rs = FechaEtapaCarreraPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -310,7 +335,7 @@ abstract class BaseFechaEtapaCarreraPeer {
 		EtapaCarreraPeer::addSelectColumns($c);
 		$startcol3 = $startcol2 + EtapaCarreraPeer::NUM_COLUMNS;
 
-		$c->addJoin(FechaEtapaCarreraPeer::ID_CARRERA, EtapaCarreraPeer::ID);
+		$c->addJoin(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, EtapaCarreraPeer::ID);
 
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
@@ -380,6 +405,7 @@ abstract class BaseFechaEtapaCarreraPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
+		$criteria->remove(FechaEtapaCarreraPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 
@@ -408,6 +434,9 @@ abstract class BaseFechaEtapaCarreraPeer {
 			$criteria = clone $values; 
 			$comparison = $criteria->getComparison(FechaEtapaCarreraPeer::ID);
 			$selectCriteria->add(FechaEtapaCarreraPeer::ID, $criteria->remove(FechaEtapaCarreraPeer::ID), $comparison);
+
+			$comparison = $criteria->getComparison(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA);
+			$selectCriteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $criteria->remove(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -446,7 +475,20 @@ abstract class BaseFechaEtapaCarreraPeer {
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(FechaEtapaCarreraPeer::ID, (array) $values, Criteria::IN);
+												if(count($values) == count($values, COUNT_RECURSIVE))
+			{
+								$values = array($values);
+			}
+			$vals = array();
+			foreach($values as $value)
+			{
+
+				$vals[0][] = $value[0];
+				$vals[1][] = $value[1];
+			}
+
+			$criteria->add(FechaEtapaCarreraPeer::ID, $vals[0], Criteria::IN);
+			$criteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $vals[1], Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -500,40 +542,17 @@ abstract class BaseFechaEtapaCarreraPeer {
 	}
 
 	
-	public static function retrieveByPK($pk, $con = null)
-	{
+	public static function retrieveByPK( $id, $id_etapa_carrera, $con = null) {
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
-
-		$criteria = new Criteria(FechaEtapaCarreraPeer::DATABASE_NAME);
-
-		$criteria->add(FechaEtapaCarreraPeer::ID, $pk);
-
-
+		$criteria = new Criteria();
+		$criteria->add(FechaEtapaCarreraPeer::ID, $id);
+		$criteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $id_etapa_carrera);
 		$v = FechaEtapaCarreraPeer::doSelect($criteria, $con);
 
-		return !empty($v) > 0 ? $v[0] : null;
+		return !empty($v) ? $v[0] : null;
 	}
-
-	
-	public static function retrieveByPKs($pks, $con = null)
-	{
-		if ($con === null) {
-			$con = Propel::getConnection(self::DATABASE_NAME);
-		}
-
-		$objs = null;
-		if (empty($pks)) {
-			$objs = array();
-		} else {
-			$criteria = new Criteria();
-			$criteria->add(FechaEtapaCarreraPeer::ID, $pks, Criteria::IN);
-			$objs = FechaEtapaCarreraPeer::doSelect($criteria, $con);
-		}
-		return $objs;
-	}
-
 } 
 if (Propel::isInit()) {
 			try {

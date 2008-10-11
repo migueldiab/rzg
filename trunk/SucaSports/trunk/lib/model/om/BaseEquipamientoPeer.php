@@ -13,7 +13,7 @@ abstract class BaseEquipamientoPeer {
 	const CLASS_DEFAULT = 'lib.model.Equipamiento';
 
 	
-	const NUM_COLUMNS = 3;
+	const NUM_COLUMNS = 7;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -29,23 +29,35 @@ abstract class BaseEquipamientoPeer {
 	const ID_TIPO_EQUIPAMIENTO = 'equipamiento.ID_TIPO_EQUIPAMIENTO';
 
 	
+	const CREATED_AT = 'equipamiento.CREATED_AT';
+
+	
+	const CREATED_BY = 'equipamiento.CREATED_BY';
+
+	
+	const UPDATED_AT = 'equipamiento.UPDATED_AT';
+
+	
+	const UPDATED_BY = 'equipamiento.UPDATED_BY';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Marca', 'IdTipoEquipamiento', ),
-		BasePeer::TYPE_COLNAME => array (EquipamientoPeer::ID, EquipamientoPeer::MARCA, EquipamientoPeer::ID_TIPO_EQUIPAMIENTO, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'marca', 'id_tipo_equipamiento', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Marca', 'IdTipoEquipamiento', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (EquipamientoPeer::ID, EquipamientoPeer::MARCA, EquipamientoPeer::ID_TIPO_EQUIPAMIENTO, EquipamientoPeer::CREATED_AT, EquipamientoPeer::CREATED_BY, EquipamientoPeer::UPDATED_AT, EquipamientoPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'marca', 'id_tipo_equipamiento', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Marca' => 1, 'IdTipoEquipamiento' => 2, ),
-		BasePeer::TYPE_COLNAME => array (EquipamientoPeer::ID => 0, EquipamientoPeer::MARCA => 1, EquipamientoPeer::ID_TIPO_EQUIPAMIENTO => 2, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'marca' => 1, 'id_tipo_equipamiento' => 2, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Marca' => 1, 'IdTipoEquipamiento' => 2, 'CreatedAt' => 3, 'CreatedBy' => 4, 'UpdatedAt' => 5, 'UpdatedBy' => 6, ),
+		BasePeer::TYPE_COLNAME => array (EquipamientoPeer::ID => 0, EquipamientoPeer::MARCA => 1, EquipamientoPeer::ID_TIPO_EQUIPAMIENTO => 2, EquipamientoPeer::CREATED_AT => 3, EquipamientoPeer::CREATED_BY => 4, EquipamientoPeer::UPDATED_AT => 5, EquipamientoPeer::UPDATED_BY => 6, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'marca' => 1, 'id_tipo_equipamiento' => 2, 'created_at' => 3, 'created_by' => 4, 'updated_at' => 5, 'updated_by' => 6, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
 	);
 
 	
@@ -103,6 +115,14 @@ abstract class BaseEquipamientoPeer {
 		$criteria->addSelectColumn(EquipamientoPeer::MARCA);
 
 		$criteria->addSelectColumn(EquipamientoPeer::ID_TIPO_EQUIPAMIENTO);
+
+		$criteria->addSelectColumn(EquipamientoPeer::CREATED_AT);
+
+		$criteria->addSelectColumn(EquipamientoPeer::CREATED_BY);
+
+		$criteria->addSelectColumn(EquipamientoPeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(EquipamientoPeer::UPDATED_BY);
 
 	}
 
@@ -370,6 +390,7 @@ abstract class BaseEquipamientoPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
+		$criteria->remove(EquipamientoPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 

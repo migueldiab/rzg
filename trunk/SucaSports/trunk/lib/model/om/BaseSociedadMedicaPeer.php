@@ -13,7 +13,7 @@ abstract class BaseSociedadMedicaPeer {
 	const CLASS_DEFAULT = 'lib.model.SociedadMedica';
 
 	
-	const NUM_COLUMNS = 2;
+	const NUM_COLUMNS = 4;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -26,23 +26,29 @@ abstract class BaseSociedadMedicaPeer {
 	const NOMBRE = 'sociedad_medica.NOMBRE';
 
 	
+	const UPDATED_AT = 'sociedad_medica.UPDATED_AT';
+
+	
+	const UPDATED_BY = 'sociedad_medica.UPDATED_BY';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', ),
-		BasePeer::TYPE_COLNAME => array (SociedadMedicaPeer::ID, SociedadMedicaPeer::NOMBRE, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (SociedadMedicaPeer::ID, SociedadMedicaPeer::NOMBRE, SociedadMedicaPeer::UPDATED_AT, SociedadMedicaPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, ),
-		BasePeer::TYPE_COLNAME => array (SociedadMedicaPeer::ID => 0, SociedadMedicaPeer::NOMBRE => 1, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, 'UpdatedAt' => 2, 'UpdatedBy' => 3, ),
+		BasePeer::TYPE_COLNAME => array (SociedadMedicaPeer::ID => 0, SociedadMedicaPeer::NOMBRE => 1, SociedadMedicaPeer::UPDATED_AT => 2, SociedadMedicaPeer::UPDATED_BY => 3, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, 'updated_at' => 2, 'updated_by' => 3, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	
@@ -98,6 +104,10 @@ abstract class BaseSociedadMedicaPeer {
 		$criteria->addSelectColumn(SociedadMedicaPeer::ID);
 
 		$criteria->addSelectColumn(SociedadMedicaPeer::NOMBRE);
+
+		$criteria->addSelectColumn(SociedadMedicaPeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(SociedadMedicaPeer::UPDATED_BY);
 
 	}
 
@@ -204,6 +214,7 @@ abstract class BaseSociedadMedicaPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
+		$criteria->remove(SociedadMedicaPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 

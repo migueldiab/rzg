@@ -36,5 +36,11 @@ class CategoriaMapBuilder {
 
 		$tMap->addColumn('NOMBRE', 'Nombre', 'string', CreoleTypes::VARCHAR, false, 45);
 
+		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
+
+		$tMap->addColumn('UPDATED_BY', 'UpdatedBy', 'int', CreoleTypes::INTEGER, false, null);
+
+		$tMap->addColumn('REGLA', 'Regla', 'string', CreoleTypes::VARCHAR, false, 255);
+
 	} 
 } 
