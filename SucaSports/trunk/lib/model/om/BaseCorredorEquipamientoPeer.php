@@ -13,7 +13,7 @@ abstract class BaseCorredorEquipamientoPeer {
 	const CLASS_DEFAULT = 'lib.model.CorredorEquipamiento';
 
 	
-	const NUM_COLUMNS = 2;
+	const NUM_COLUMNS = 4;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -26,23 +26,29 @@ abstract class BaseCorredorEquipamientoPeer {
 	const ID_EQUIPAMIENTO = 'corredor_equipamiento.ID_EQUIPAMIENTO';
 
 	
+	const UPDATED_AT = 'corredor_equipamiento.UPDATED_AT';
+
+	
+	const UPDATED_BY = 'corredor_equipamiento.UPDATED_BY';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('IdCorredor', 'IdEquipamiento', ),
-		BasePeer::TYPE_COLNAME => array (CorredorEquipamientoPeer::ID_CORREDOR, CorredorEquipamientoPeer::ID_EQUIPAMIENTO, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_corredor', 'id_equipamiento', ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('IdCorredor', 'IdEquipamiento', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (CorredorEquipamientoPeer::ID_CORREDOR, CorredorEquipamientoPeer::ID_EQUIPAMIENTO, CorredorEquipamientoPeer::UPDATED_AT, CorredorEquipamientoPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_corredor', 'id_equipamiento', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('IdCorredor' => 0, 'IdEquipamiento' => 1, ),
-		BasePeer::TYPE_COLNAME => array (CorredorEquipamientoPeer::ID_CORREDOR => 0, CorredorEquipamientoPeer::ID_EQUIPAMIENTO => 1, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_corredor' => 0, 'id_equipamiento' => 1, ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('IdCorredor' => 0, 'IdEquipamiento' => 1, 'UpdatedAt' => 2, 'UpdatedBy' => 3, ),
+		BasePeer::TYPE_COLNAME => array (CorredorEquipamientoPeer::ID_CORREDOR => 0, CorredorEquipamientoPeer::ID_EQUIPAMIENTO => 1, CorredorEquipamientoPeer::UPDATED_AT => 2, CorredorEquipamientoPeer::UPDATED_BY => 3, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_corredor' => 0, 'id_equipamiento' => 1, 'updated_at' => 2, 'updated_by' => 3, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	
@@ -98,6 +104,10 @@ abstract class BaseCorredorEquipamientoPeer {
 		$criteria->addSelectColumn(CorredorEquipamientoPeer::ID_CORREDOR);
 
 		$criteria->addSelectColumn(CorredorEquipamientoPeer::ID_EQUIPAMIENTO);
+
+		$criteria->addSelectColumn(CorredorEquipamientoPeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(CorredorEquipamientoPeer::UPDATED_BY);
 
 	}
 

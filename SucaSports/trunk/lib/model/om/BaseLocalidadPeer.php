@@ -13,7 +13,7 @@ abstract class BaseLocalidadPeer {
 	const CLASS_DEFAULT = 'lib.model.Localidad';
 
 	
-	const NUM_COLUMNS = 3;
+	const NUM_COLUMNS = 5;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -29,23 +29,29 @@ abstract class BaseLocalidadPeer {
 	const NOMBRE = 'localidad.NOMBRE';
 
 	
+	const UPDATED_BY = 'localidad.UPDATED_BY';
+
+	
+	const UPDATED_AT = 'localidad.UPDATED_AT';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'IdPais', 'Nombre', ),
-		BasePeer::TYPE_COLNAME => array (LocalidadPeer::ID, LocalidadPeer::ID_PAIS, LocalidadPeer::NOMBRE, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'id_pais', 'nombre', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'IdPais', 'Nombre', 'UpdatedBy', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (LocalidadPeer::ID, LocalidadPeer::ID_PAIS, LocalidadPeer::NOMBRE, LocalidadPeer::UPDATED_BY, LocalidadPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'id_pais', 'nombre', 'updated_by', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdPais' => 1, 'Nombre' => 2, ),
-		BasePeer::TYPE_COLNAME => array (LocalidadPeer::ID => 0, LocalidadPeer::ID_PAIS => 1, LocalidadPeer::NOMBRE => 2, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_pais' => 1, 'nombre' => 2, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdPais' => 1, 'Nombre' => 2, 'UpdatedBy' => 3, 'UpdatedAt' => 4, ),
+		BasePeer::TYPE_COLNAME => array (LocalidadPeer::ID => 0, LocalidadPeer::ID_PAIS => 1, LocalidadPeer::NOMBRE => 2, LocalidadPeer::UPDATED_BY => 3, LocalidadPeer::UPDATED_AT => 4, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_pais' => 1, 'nombre' => 2, 'updated_by' => 3, 'updated_at' => 4, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
 	);
 
 	
@@ -103,6 +109,10 @@ abstract class BaseLocalidadPeer {
 		$criteria->addSelectColumn(LocalidadPeer::ID_PAIS);
 
 		$criteria->addSelectColumn(LocalidadPeer::NOMBRE);
+
+		$criteria->addSelectColumn(LocalidadPeer::UPDATED_BY);
+
+		$criteria->addSelectColumn(LocalidadPeer::UPDATED_AT);
 
 	}
 
@@ -370,6 +380,7 @@ abstract class BaseLocalidadPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
+		$criteria->remove(LocalidadPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 

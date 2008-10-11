@@ -15,6 +15,14 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 	
 	protected $tipo;
 
+
+	
+	protected $updated_at;
+
+
+	
+	protected $updated_by;
+
 	
 	protected $collEquipamientos;
 
@@ -48,6 +56,35 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 	}
 
 	
+	public function getUpdatedAt($format = 'Y-m-d H:i:s')
+	{
+
+		if ($this->updated_at === null || $this->updated_at === '') {
+			return null;
+		} elseif (!is_int($this->updated_at)) {
+						$ts = strtotime($this->updated_at);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [updated_at] as date/time value: " . var_export($this->updated_at, true));
+			}
+		} else {
+			$ts = $this->updated_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getUpdatedBy()
+	{
+
+		return $this->updated_by;
+	}
+
+	
 	public function setId($v)
 	{
 
@@ -76,6 +113,37 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 
 	} 
 	
+	public function setUpdatedAt($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [updated_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->updated_at !== $ts) {
+			$this->updated_at = $ts;
+			$this->modifiedColumns[] = TipoEquipamientoPeer::UPDATED_AT;
+		}
+
+	} 
+	
+	public function setUpdatedBy($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->updated_by !== $v) {
+			$this->updated_by = $v;
+			$this->modifiedColumns[] = TipoEquipamientoPeer::UPDATED_BY;
+		}
+
+	} 
+	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
@@ -84,11 +152,15 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 
 			$this->tipo = $rs->getString($startcol + 1);
 
+			$this->updated_at = $rs->getTimestamp($startcol + 2, null);
+
+			$this->updated_by = $rs->getInt($startcol + 3);
+
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 2; 
+						return $startcol + 4; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating TipoEquipamiento object", $e);
 		}
@@ -119,6 +191,11 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 	
 	public function save($con = null)
 	{
+    if ($this->isModified() && !$this->isColumnModified(TipoEquipamientoPeer::UPDATED_AT))
+    {
+      $this->setUpdatedAt(time());
+    }
+
 		if ($this->isDeleted()) {
 			throw new PropelException("You cannot save an object that has been deleted.");
 		}
@@ -149,6 +226,7 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 				if ($this->isNew()) {
 					$pk = TipoEquipamientoPeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
+					$this->setId($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += TipoEquipamientoPeer::doUpdate($this, $con);
@@ -252,6 +330,12 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 			case 1:
 				return $this->getTipo();
 				break;
+			case 2:
+				return $this->getUpdatedAt();
+				break;
+			case 3:
+				return $this->getUpdatedBy();
+				break;
 			default:
 				return null;
 				break;
@@ -264,6 +348,8 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getTipo(),
+			$keys[2] => $this->getUpdatedAt(),
+			$keys[3] => $this->getUpdatedBy(),
 		);
 		return $result;
 	}
@@ -285,6 +371,12 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 			case 1:
 				$this->setTipo($value);
 				break;
+			case 2:
+				$this->setUpdatedAt($value);
+				break;
+			case 3:
+				$this->setUpdatedBy($value);
+				break;
 		} 	}
 
 	
@@ -294,6 +386,8 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setTipo($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setUpdatedAt($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setUpdatedBy($arr[$keys[3]]);
 	}
 
 	
@@ -303,6 +397,8 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 
 		if ($this->isColumnModified(TipoEquipamientoPeer::ID)) $criteria->add(TipoEquipamientoPeer::ID, $this->id);
 		if ($this->isColumnModified(TipoEquipamientoPeer::TIPO)) $criteria->add(TipoEquipamientoPeer::TIPO, $this->tipo);
+		if ($this->isColumnModified(TipoEquipamientoPeer::UPDATED_AT)) $criteria->add(TipoEquipamientoPeer::UPDATED_AT, $this->updated_at);
+		if ($this->isColumnModified(TipoEquipamientoPeer::UPDATED_BY)) $criteria->add(TipoEquipamientoPeer::UPDATED_BY, $this->updated_by);
 
 		return $criteria;
 	}
@@ -334,6 +430,10 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 	{
 
 		$copyObj->setTipo($this->tipo);
+
+		$copyObj->setUpdatedAt($this->updated_at);
+
+		$copyObj->setUpdatedBy($this->updated_by);
 
 
 		if ($deepCopy) {

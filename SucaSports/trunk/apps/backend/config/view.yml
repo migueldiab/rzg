@@ -3,15 +3,19 @@ default:
     content-type: text/html
 
   metas:
-    #title:        symfony project
+    title:        SucaSports CMS
     #description:  symfony project
     #keywords:     symfony, project
     #language:     en
     robots:       index, follow
 
-  stylesheets:    [main]
+  stylesheets:    [main, nihilo/nihilo, dojo]
 
-  javascripts:    []
+  javascripts:
+    dojo:
+      dojo/dojo/dojo:  { djConfig: parseOnLoad:true, isDebug: true }
+    prototype:    prototype
+
 
   has_layout:     on
   layout:         layout

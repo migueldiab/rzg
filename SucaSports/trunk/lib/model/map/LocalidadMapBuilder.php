@@ -30,13 +30,17 @@ class LocalidadMapBuilder {
 		$tMap = $this->dbMap->addTable('localidad');
 		$tMap->setPhpName('Localidad');
 
-		$tMap->setUseIdGenerator(false);
+		$tMap->setUseIdGenerator(true);
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 
 		$tMap->addForeignKey('ID_PAIS', 'IdPais', 'int', CreoleTypes::INTEGER, 'pais', 'ID', false, null);
 
 		$tMap->addColumn('NOMBRE', 'Nombre', 'string', CreoleTypes::VARCHAR, false, 45);
+
+		$tMap->addColumn('UPDATED_BY', 'UpdatedBy', 'int', CreoleTypes::INTEGER, false, null);
+
+		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 
 	} 
 } 

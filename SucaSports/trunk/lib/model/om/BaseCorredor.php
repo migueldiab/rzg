@@ -13,6 +13,10 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 
 	
+	protected $documento;
+
+
+	
 	protected $tipo_documento;
 
 
@@ -77,7 +81,19 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 
 	
-	protected $id_usuario;
+	protected $updated_at;
+
+
+	
+	protected $updated_by;
+
+
+	
+	protected $created_at;
+
+
+	
+	protected $created_by;
 
 	
 	protected $aSociedadMedica;
@@ -89,10 +105,7 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 	protected $aPais;
 
 	
-	protected $aChips;
-
-	
-	protected $aUsuarios;
+	protected $aChip;
 
 	
 	protected $collAsociacionCorredors;
@@ -119,6 +132,18 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 	protected $lastInscripcionCriteria = null;
 
 	
+	protected $collResultados;
+
+	
+	protected $lastResultadoCriteria = null;
+
+	
+	protected $collUsuarios;
+
+	
+	protected $lastUsuarioCriteria = null;
+
+	
 	protected $alreadyInSave = false;
 
 	
@@ -129,6 +154,13 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 	{
 
 		return $this->id;
+	}
+
+	
+	public function getDocumento()
+	{
+
+		return $this->documento;
 	}
 
 	
@@ -259,10 +291,61 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 	}
 
 	
-	public function getIdUsuario()
+	public function getUpdatedAt($format = 'Y-m-d H:i:s')
 	{
 
-		return $this->id_usuario;
+		if ($this->updated_at === null || $this->updated_at === '') {
+			return null;
+		} elseif (!is_int($this->updated_at)) {
+						$ts = strtotime($this->updated_at);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [updated_at] as date/time value: " . var_export($this->updated_at, true));
+			}
+		} else {
+			$ts = $this->updated_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getUpdatedBy()
+	{
+
+		return $this->updated_by;
+	}
+
+	
+	public function getCreatedAt($format = 'Y-m-d H:i:s')
+	{
+
+		if ($this->created_at === null || $this->created_at === '') {
+			return null;
+		} elseif (!is_int($this->created_at)) {
+						$ts = strtotime($this->created_at);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [created_at] as date/time value: " . var_export($this->created_at, true));
+			}
+		} else {
+			$ts = $this->created_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getCreatedBy()
+	{
+
+		return $this->created_by;
 	}
 
 	
@@ -276,6 +359,20 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 		if ($this->id !== $v) {
 			$this->id = $v;
 			$this->modifiedColumns[] = CorredorPeer::ID;
+		}
+
+	} 
+	
+	public function setDocumento($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->documento !== $v) {
+			$this->documento = $v;
+			$this->modifiedColumns[] = CorredorPeer::DOCUMENTO;
 		}
 
 	} 
@@ -517,26 +614,70 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 			$this->modifiedColumns[] = CorredorPeer::ID_CHIPS;
 		}
 
-		if ($this->aChips !== null && $this->aChips->getId() !== $v) {
-			$this->aChips = null;
+		if ($this->aChip !== null && $this->aChip->getId() !== $v) {
+			$this->aChip = null;
 		}
 
 	} 
 	
-	public function setIdUsuario($v)
+	public function setUpdatedAt($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [updated_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->updated_at !== $ts) {
+			$this->updated_at = $ts;
+			$this->modifiedColumns[] = CorredorPeer::UPDATED_AT;
+		}
+
+	} 
+	
+	public function setUpdatedBy($v)
 	{
 
 						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
-		if ($this->id_usuario !== $v) {
-			$this->id_usuario = $v;
-			$this->modifiedColumns[] = CorredorPeer::ID_USUARIO;
+		if ($this->updated_by !== $v) {
+			$this->updated_by = $v;
+			$this->modifiedColumns[] = CorredorPeer::UPDATED_BY;
 		}
 
-		if ($this->aUsuarios !== null && $this->aUsuarios->getId() !== $v) {
-			$this->aUsuarios = null;
+	} 
+	
+	public function setCreatedAt($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [created_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->created_at !== $ts) {
+			$this->created_at = $ts;
+			$this->modifiedColumns[] = CorredorPeer::CREATED_AT;
+		}
+
+	} 
+	
+	public function setCreatedBy($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->created_by !== $v) {
+			$this->created_by = $v;
+			$this->modifiedColumns[] = CorredorPeer::CREATED_BY;
 		}
 
 	} 
@@ -547,45 +688,53 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 			$this->id = $rs->getInt($startcol + 0);
 
-			$this->tipo_documento = $rs->getInt($startcol + 1);
+			$this->documento = $rs->getString($startcol + 1);
 
-			$this->nombre = $rs->getString($startcol + 2);
+			$this->tipo_documento = $rs->getInt($startcol + 2);
 
-			$this->apellido = $rs->getString($startcol + 3);
+			$this->nombre = $rs->getString($startcol + 3);
 
-			$this->telefono = $rs->getString($startcol + 4);
+			$this->apellido = $rs->getString($startcol + 4);
 
-			$this->movil = $rs->getString($startcol + 5);
+			$this->telefono = $rs->getString($startcol + 5);
 
-			$this->telefono_emergencia = $rs->getString($startcol + 6);
+			$this->movil = $rs->getString($startcol + 6);
 
-			$this->direccion = $rs->getString($startcol + 7);
+			$this->telefono_emergencia = $rs->getString($startcol + 7);
 
-			$this->fecha_nacimiento = $rs->getDate($startcol + 8, null);
+			$this->direccion = $rs->getString($startcol + 8);
 
-			$this->pareja = $rs->getString($startcol + 9);
+			$this->fecha_nacimiento = $rs->getDate($startcol + 9, null);
 
-			$this->hijos = $rs->getString($startcol + 10);
+			$this->pareja = $rs->getString($startcol + 10);
 
-			$this->id_sociedad_medica = $rs->getInt($startcol + 11);
+			$this->hijos = $rs->getString($startcol + 11);
 
-			$this->historia_medica = $rs->getString($startcol + 12);
+			$this->id_sociedad_medica = $rs->getInt($startcol + 12);
 
-			$this->sexo = $rs->getString($startcol + 13);
+			$this->historia_medica = $rs->getString($startcol + 13);
 
-			$this->id_localidad = $rs->getInt($startcol + 14);
+			$this->sexo = $rs->getString($startcol + 14);
 
-			$this->id_pais = $rs->getInt($startcol + 15);
+			$this->id_localidad = $rs->getInt($startcol + 15);
 
-			$this->id_chips = $rs->getInt($startcol + 16);
+			$this->id_pais = $rs->getInt($startcol + 16);
 
-			$this->id_usuario = $rs->getInt($startcol + 17);
+			$this->id_chips = $rs->getInt($startcol + 17);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 18, null);
+
+			$this->updated_by = $rs->getInt($startcol + 19);
+
+			$this->created_at = $rs->getTimestamp($startcol + 20, null);
+
+			$this->created_by = $rs->getInt($startcol + 21);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 18; 
+						return $startcol + 22; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Corredor object", $e);
 		}
@@ -616,6 +765,16 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 	
 	public function save($con = null)
 	{
+    if ($this->isModified() && !$this->isColumnModified(CorredorPeer::UPDATED_AT))
+    {
+      $this->setUpdatedAt(time());
+    }
+
+    if ($this->isNew() && !$this->isColumnModified(CorredorPeer::CREATED_AT))
+    {
+      $this->setCreatedAt(time());
+    }
+
 		if ($this->isDeleted()) {
 			throw new PropelException("You cannot save an object that has been deleted.");
 		}
@@ -664,18 +823,11 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 				$this->setPais($this->aPais);
 			}
 
-			if ($this->aChips !== null) {
-				if ($this->aChips->isModified()) {
-					$affectedRows += $this->aChips->save($con);
+			if ($this->aChip !== null) {
+				if ($this->aChip->isModified()) {
+					$affectedRows += $this->aChip->save($con);
 				}
-				$this->setChips($this->aChips);
-			}
-
-			if ($this->aUsuarios !== null) {
-				if ($this->aUsuarios->isModified()) {
-					$affectedRows += $this->aUsuarios->save($con);
-				}
-				$this->setUsuarios($this->aUsuarios);
+				$this->setChip($this->aChip);
 			}
 
 
@@ -683,6 +835,7 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 				if ($this->isNew()) {
 					$pk = CorredorPeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
+					$this->setId($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += CorredorPeer::doUpdate($this, $con);
@@ -715,6 +868,22 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 			if ($this->collInscripcions !== null) {
 				foreach($this->collInscripcions as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->collResultados !== null) {
+				foreach($this->collResultados as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->collUsuarios !== null) {
+				foreach($this->collUsuarios as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
 						$affectedRows += $referrerFK->save($con);
 					}
@@ -776,15 +945,9 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 				}
 			}
 
-			if ($this->aChips !== null) {
-				if (!$this->aChips->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aChips->getValidationFailures());
-				}
-			}
-
-			if ($this->aUsuarios !== null) {
-				if (!$this->aUsuarios->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aUsuarios->getValidationFailures());
+			if ($this->aChip !== null) {
+				if (!$this->aChip->validate($columns)) {
+					$failureMap = array_merge($failureMap, $this->aChip->getValidationFailures());
 				}
 			}
 
@@ -826,6 +989,22 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 					}
 				}
 
+				if ($this->collResultados !== null) {
+					foreach($this->collResultados as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collUsuarios !== null) {
+					foreach($this->collUsuarios as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
 
 			$this->alreadyInValidation = false;
 		}
@@ -848,55 +1027,67 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getTipoDocumento();
+				return $this->getDocumento();
 				break;
 			case 2:
-				return $this->getNombre();
+				return $this->getTipoDocumento();
 				break;
 			case 3:
-				return $this->getApellido();
+				return $this->getNombre();
 				break;
 			case 4:
-				return $this->getTelefono();
+				return $this->getApellido();
 				break;
 			case 5:
-				return $this->getMovil();
+				return $this->getTelefono();
 				break;
 			case 6:
-				return $this->getTelefonoEmergencia();
+				return $this->getMovil();
 				break;
 			case 7:
-				return $this->getDireccion();
+				return $this->getTelefonoEmergencia();
 				break;
 			case 8:
-				return $this->getFechaNacimiento();
+				return $this->getDireccion();
 				break;
 			case 9:
-				return $this->getPareja();
+				return $this->getFechaNacimiento();
 				break;
 			case 10:
-				return $this->getHijos();
+				return $this->getPareja();
 				break;
 			case 11:
-				return $this->getIdSociedadMedica();
+				return $this->getHijos();
 				break;
 			case 12:
-				return $this->getHistoriaMedica();
+				return $this->getIdSociedadMedica();
 				break;
 			case 13:
-				return $this->getSexo();
+				return $this->getHistoriaMedica();
 				break;
 			case 14:
-				return $this->getIdLocalidad();
+				return $this->getSexo();
 				break;
 			case 15:
-				return $this->getIdPais();
+				return $this->getIdLocalidad();
 				break;
 			case 16:
-				return $this->getIdChips();
+				return $this->getIdPais();
 				break;
 			case 17:
-				return $this->getIdUsuario();
+				return $this->getIdChips();
+				break;
+			case 18:
+				return $this->getUpdatedAt();
+				break;
+			case 19:
+				return $this->getUpdatedBy();
+				break;
+			case 20:
+				return $this->getCreatedAt();
+				break;
+			case 21:
+				return $this->getCreatedBy();
 				break;
 			default:
 				return null;
@@ -909,23 +1100,27 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 		$keys = CorredorPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getTipoDocumento(),
-			$keys[2] => $this->getNombre(),
-			$keys[3] => $this->getApellido(),
-			$keys[4] => $this->getTelefono(),
-			$keys[5] => $this->getMovil(),
-			$keys[6] => $this->getTelefonoEmergencia(),
-			$keys[7] => $this->getDireccion(),
-			$keys[8] => $this->getFechaNacimiento(),
-			$keys[9] => $this->getPareja(),
-			$keys[10] => $this->getHijos(),
-			$keys[11] => $this->getIdSociedadMedica(),
-			$keys[12] => $this->getHistoriaMedica(),
-			$keys[13] => $this->getSexo(),
-			$keys[14] => $this->getIdLocalidad(),
-			$keys[15] => $this->getIdPais(),
-			$keys[16] => $this->getIdChips(),
-			$keys[17] => $this->getIdUsuario(),
+			$keys[1] => $this->getDocumento(),
+			$keys[2] => $this->getTipoDocumento(),
+			$keys[3] => $this->getNombre(),
+			$keys[4] => $this->getApellido(),
+			$keys[5] => $this->getTelefono(),
+			$keys[6] => $this->getMovil(),
+			$keys[7] => $this->getTelefonoEmergencia(),
+			$keys[8] => $this->getDireccion(),
+			$keys[9] => $this->getFechaNacimiento(),
+			$keys[10] => $this->getPareja(),
+			$keys[11] => $this->getHijos(),
+			$keys[12] => $this->getIdSociedadMedica(),
+			$keys[13] => $this->getHistoriaMedica(),
+			$keys[14] => $this->getSexo(),
+			$keys[15] => $this->getIdLocalidad(),
+			$keys[16] => $this->getIdPais(),
+			$keys[17] => $this->getIdChips(),
+			$keys[18] => $this->getUpdatedAt(),
+			$keys[19] => $this->getUpdatedBy(),
+			$keys[20] => $this->getCreatedAt(),
+			$keys[21] => $this->getCreatedBy(),
 		);
 		return $result;
 	}
@@ -945,55 +1140,67 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setTipoDocumento($value);
+				$this->setDocumento($value);
 				break;
 			case 2:
-				$this->setNombre($value);
+				$this->setTipoDocumento($value);
 				break;
 			case 3:
-				$this->setApellido($value);
+				$this->setNombre($value);
 				break;
 			case 4:
-				$this->setTelefono($value);
+				$this->setApellido($value);
 				break;
 			case 5:
-				$this->setMovil($value);
+				$this->setTelefono($value);
 				break;
 			case 6:
-				$this->setTelefonoEmergencia($value);
+				$this->setMovil($value);
 				break;
 			case 7:
-				$this->setDireccion($value);
+				$this->setTelefonoEmergencia($value);
 				break;
 			case 8:
-				$this->setFechaNacimiento($value);
+				$this->setDireccion($value);
 				break;
 			case 9:
-				$this->setPareja($value);
+				$this->setFechaNacimiento($value);
 				break;
 			case 10:
-				$this->setHijos($value);
+				$this->setPareja($value);
 				break;
 			case 11:
-				$this->setIdSociedadMedica($value);
+				$this->setHijos($value);
 				break;
 			case 12:
-				$this->setHistoriaMedica($value);
+				$this->setIdSociedadMedica($value);
 				break;
 			case 13:
-				$this->setSexo($value);
+				$this->setHistoriaMedica($value);
 				break;
 			case 14:
-				$this->setIdLocalidad($value);
+				$this->setSexo($value);
 				break;
 			case 15:
-				$this->setIdPais($value);
+				$this->setIdLocalidad($value);
 				break;
 			case 16:
-				$this->setIdChips($value);
+				$this->setIdPais($value);
 				break;
 			case 17:
-				$this->setIdUsuario($value);
+				$this->setIdChips($value);
+				break;
+			case 18:
+				$this->setUpdatedAt($value);
+				break;
+			case 19:
+				$this->setUpdatedBy($value);
+				break;
+			case 20:
+				$this->setCreatedAt($value);
+				break;
+			case 21:
+				$this->setCreatedBy($value);
 				break;
 		} 	}
 
@@ -1003,23 +1210,27 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 		$keys = CorredorPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setTipoDocumento($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setNombre($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setApellido($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setTelefono($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setMovil($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setTelefonoEmergencia($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setDireccion($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setFechaNacimiento($arr[$keys[8]]);
-		if (array_key_exists($keys[9], $arr)) $this->setPareja($arr[$keys[9]]);
-		if (array_key_exists($keys[10], $arr)) $this->setHijos($arr[$keys[10]]);
-		if (array_key_exists($keys[11], $arr)) $this->setIdSociedadMedica($arr[$keys[11]]);
-		if (array_key_exists($keys[12], $arr)) $this->setHistoriaMedica($arr[$keys[12]]);
-		if (array_key_exists($keys[13], $arr)) $this->setSexo($arr[$keys[13]]);
-		if (array_key_exists($keys[14], $arr)) $this->setIdLocalidad($arr[$keys[14]]);
-		if (array_key_exists($keys[15], $arr)) $this->setIdPais($arr[$keys[15]]);
-		if (array_key_exists($keys[16], $arr)) $this->setIdChips($arr[$keys[16]]);
-		if (array_key_exists($keys[17], $arr)) $this->setIdUsuario($arr[$keys[17]]);
+		if (array_key_exists($keys[1], $arr)) $this->setDocumento($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setTipoDocumento($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setNombre($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setApellido($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setTelefono($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setMovil($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setTelefonoEmergencia($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setDireccion($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setFechaNacimiento($arr[$keys[9]]);
+		if (array_key_exists($keys[10], $arr)) $this->setPareja($arr[$keys[10]]);
+		if (array_key_exists($keys[11], $arr)) $this->setHijos($arr[$keys[11]]);
+		if (array_key_exists($keys[12], $arr)) $this->setIdSociedadMedica($arr[$keys[12]]);
+		if (array_key_exists($keys[13], $arr)) $this->setHistoriaMedica($arr[$keys[13]]);
+		if (array_key_exists($keys[14], $arr)) $this->setSexo($arr[$keys[14]]);
+		if (array_key_exists($keys[15], $arr)) $this->setIdLocalidad($arr[$keys[15]]);
+		if (array_key_exists($keys[16], $arr)) $this->setIdPais($arr[$keys[16]]);
+		if (array_key_exists($keys[17], $arr)) $this->setIdChips($arr[$keys[17]]);
+		if (array_key_exists($keys[18], $arr)) $this->setUpdatedAt($arr[$keys[18]]);
+		if (array_key_exists($keys[19], $arr)) $this->setUpdatedBy($arr[$keys[19]]);
+		if (array_key_exists($keys[20], $arr)) $this->setCreatedAt($arr[$keys[20]]);
+		if (array_key_exists($keys[21], $arr)) $this->setCreatedBy($arr[$keys[21]]);
 	}
 
 	
@@ -1028,6 +1239,7 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 		$criteria = new Criteria(CorredorPeer::DATABASE_NAME);
 
 		if ($this->isColumnModified(CorredorPeer::ID)) $criteria->add(CorredorPeer::ID, $this->id);
+		if ($this->isColumnModified(CorredorPeer::DOCUMENTO)) $criteria->add(CorredorPeer::DOCUMENTO, $this->documento);
 		if ($this->isColumnModified(CorredorPeer::TIPO_DOCUMENTO)) $criteria->add(CorredorPeer::TIPO_DOCUMENTO, $this->tipo_documento);
 		if ($this->isColumnModified(CorredorPeer::NOMBRE)) $criteria->add(CorredorPeer::NOMBRE, $this->nombre);
 		if ($this->isColumnModified(CorredorPeer::APELLIDO)) $criteria->add(CorredorPeer::APELLIDO, $this->apellido);
@@ -1044,7 +1256,10 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(CorredorPeer::ID_LOCALIDAD)) $criteria->add(CorredorPeer::ID_LOCALIDAD, $this->id_localidad);
 		if ($this->isColumnModified(CorredorPeer::ID_PAIS)) $criteria->add(CorredorPeer::ID_PAIS, $this->id_pais);
 		if ($this->isColumnModified(CorredorPeer::ID_CHIPS)) $criteria->add(CorredorPeer::ID_CHIPS, $this->id_chips);
-		if ($this->isColumnModified(CorredorPeer::ID_USUARIO)) $criteria->add(CorredorPeer::ID_USUARIO, $this->id_usuario);
+		if ($this->isColumnModified(CorredorPeer::UPDATED_AT)) $criteria->add(CorredorPeer::UPDATED_AT, $this->updated_at);
+		if ($this->isColumnModified(CorredorPeer::UPDATED_BY)) $criteria->add(CorredorPeer::UPDATED_BY, $this->updated_by);
+		if ($this->isColumnModified(CorredorPeer::CREATED_AT)) $criteria->add(CorredorPeer::CREATED_AT, $this->created_at);
+		if ($this->isColumnModified(CorredorPeer::CREATED_BY)) $criteria->add(CorredorPeer::CREATED_BY, $this->created_by);
 
 		return $criteria;
 	}
@@ -1055,7 +1270,6 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 		$criteria = new Criteria(CorredorPeer::DATABASE_NAME);
 
 		$criteria->add(CorredorPeer::ID, $this->id);
-		$criteria->add(CorredorPeer::ID_USUARIO, $this->id_usuario);
 
 		return $criteria;
 	}
@@ -1063,28 +1277,20 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 	
 	public function getPrimaryKey()
 	{
-		$pks = array();
-
-		$pks[0] = $this->getId();
-
-		$pks[1] = $this->getIdUsuario();
-
-		return $pks;
+		return $this->getId();
 	}
 
 	
-	public function setPrimaryKey($keys)
+	public function setPrimaryKey($key)
 	{
-
-		$this->setId($keys[0]);
-
-		$this->setIdUsuario($keys[1]);
-
+		$this->setId($key);
 	}
 
 	
 	public function copyInto($copyObj, $deepCopy = false)
 	{
+
+		$copyObj->setDocumento($this->documento);
 
 		$copyObj->setTipoDocumento($this->tipo_documento);
 
@@ -1118,6 +1324,14 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 		$copyObj->setIdChips($this->id_chips);
 
+		$copyObj->setUpdatedAt($this->updated_at);
+
+		$copyObj->setUpdatedBy($this->updated_by);
+
+		$copyObj->setCreatedAt($this->created_at);
+
+		$copyObj->setCreatedBy($this->created_by);
+
 
 		if ($deepCopy) {
 									$copyObj->setNew(false);
@@ -1138,12 +1352,19 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 				$copyObj->addInscripcion($relObj->copy($deepCopy));
 			}
 
+			foreach($this->getResultados() as $relObj) {
+				$copyObj->addResultado($relObj->copy($deepCopy));
+			}
+
+			foreach($this->getUsuarios() as $relObj) {
+				$copyObj->addUsuario($relObj->copy($deepCopy));
+			}
+
 		} 
 
 		$copyObj->setNew(true);
 
 		$copyObj->setId(NULL); 
-		$copyObj->setIdUsuario(NULL); 
 	}
 
 	
@@ -1246,7 +1467,7 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 	}
 
 	
-	public function setChips($v)
+	public function setChip($v)
 	{
 
 
@@ -1257,46 +1478,19 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 		}
 
 
-		$this->aChips = $v;
+		$this->aChip = $v;
 	}
 
 
 	
-	public function getChips($con = null)
+	public function getChip($con = null)
 	{
-		if ($this->aChips === null && ($this->id_chips !== null)) {
-						$this->aChips = ChipsPeer::retrieveByPK($this->id_chips, $con);
+		if ($this->aChip === null && ($this->id_chips !== null)) {
+						$this->aChip = ChipPeer::retrieveByPK($this->id_chips, $con);
 
 			
 		}
-		return $this->aChips;
-	}
-
-	
-	public function setUsuarios($v)
-	{
-
-
-		if ($v === null) {
-			$this->setIdUsuario(NULL);
-		} else {
-			$this->setIdUsuario($v->getId());
-		}
-
-
-		$this->aUsuarios = $v;
-	}
-
-
-	
-	public function getUsuarios($con = null)
-	{
-		if ($this->aUsuarios === null && ($this->id_usuario !== null)) {
-						$this->aUsuarios = UsuariosPeer::retrieveByPK($this->id_usuario, $con);
-
-			
-		}
-		return $this->aUsuarios;
+		return $this->aChip;
 	}
 
 	
@@ -1705,6 +1899,244 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 		$this->lastInscripcionCriteria = $criteria;
 
 		return $this->collInscripcions;
+	}
+
+
+	
+	public function getInscripcionsJoinCuentaCorriente($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collInscripcions === null) {
+			if ($this->isNew()) {
+				$this->collInscripcions = array();
+			} else {
+
+				$criteria->add(InscripcionPeer::ID_CORREDOR, $this->getId());
+
+				$this->collInscripcions = InscripcionPeer::doSelectJoinCuentaCorriente($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(InscripcionPeer::ID_CORREDOR, $this->getId());
+
+			if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
+				$this->collInscripcions = InscripcionPeer::doSelectJoinCuentaCorriente($criteria, $con);
+			}
+		}
+		$this->lastInscripcionCriteria = $criteria;
+
+		return $this->collInscripcions;
+	}
+
+	
+	public function initResultados()
+	{
+		if ($this->collResultados === null) {
+			$this->collResultados = array();
+		}
+	}
+
+	
+	public function getResultados($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collResultados === null) {
+			if ($this->isNew()) {
+			   $this->collResultados = array();
+			} else {
+
+				$criteria->add(ResultadoPeer::ID_CORREDOR, $this->getId());
+
+				ResultadoPeer::addSelectColumns($criteria);
+				$this->collResultados = ResultadoPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(ResultadoPeer::ID_CORREDOR, $this->getId());
+
+				ResultadoPeer::addSelectColumns($criteria);
+				if (!isset($this->lastResultadoCriteria) || !$this->lastResultadoCriteria->equals($criteria)) {
+					$this->collResultados = ResultadoPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastResultadoCriteria = $criteria;
+		return $this->collResultados;
+	}
+
+	
+	public function countResultados($criteria = null, $distinct = false, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(ResultadoPeer::ID_CORREDOR, $this->getId());
+
+		return ResultadoPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addResultado(Resultado $l)
+	{
+		$this->collResultados[] = $l;
+		$l->setCorredor($this);
+	}
+
+
+	
+	public function getResultadosJoinFechaEtapaCarrera($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collResultados === null) {
+			if ($this->isNew()) {
+				$this->collResultados = array();
+			} else {
+
+				$criteria->add(ResultadoPeer::ID_CORREDOR, $this->getId());
+
+				$this->collResultados = ResultadoPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(ResultadoPeer::ID_CORREDOR, $this->getId());
+
+			if (!isset($this->lastResultadoCriteria) || !$this->lastResultadoCriteria->equals($criteria)) {
+				$this->collResultados = ResultadoPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
+			}
+		}
+		$this->lastResultadoCriteria = $criteria;
+
+		return $this->collResultados;
+	}
+
+	
+	public function initUsuarios()
+	{
+		if ($this->collUsuarios === null) {
+			$this->collUsuarios = array();
+		}
+	}
+
+	
+	public function getUsuarios($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collUsuarios === null) {
+			if ($this->isNew()) {
+			   $this->collUsuarios = array();
+			} else {
+
+				$criteria->add(UsuarioPeer::ID_CORREDOR, $this->getId());
+
+				UsuarioPeer::addSelectColumns($criteria);
+				$this->collUsuarios = UsuarioPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(UsuarioPeer::ID_CORREDOR, $this->getId());
+
+				UsuarioPeer::addSelectColumns($criteria);
+				if (!isset($this->lastUsuarioCriteria) || !$this->lastUsuarioCriteria->equals($criteria)) {
+					$this->collUsuarios = UsuarioPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastUsuarioCriteria = $criteria;
+		return $this->collUsuarios;
+	}
+
+	
+	public function countUsuarios($criteria = null, $distinct = false, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(UsuarioPeer::ID_CORREDOR, $this->getId());
+
+		return UsuarioPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addUsuario(Usuario $l)
+	{
+		$this->collUsuarios[] = $l;
+		$l->setCorredor($this);
+	}
+
+
+	
+	public function getUsuariosJoinGrupo($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collUsuarios === null) {
+			if ($this->isNew()) {
+				$this->collUsuarios = array();
+			} else {
+
+				$criteria->add(UsuarioPeer::ID_CORREDOR, $this->getId());
+
+				$this->collUsuarios = UsuarioPeer::doSelectJoinGrupo($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(UsuarioPeer::ID_CORREDOR, $this->getId());
+
+			if (!isset($this->lastUsuarioCriteria) || !$this->lastUsuarioCriteria->equals($criteria)) {
+				$this->collUsuarios = UsuarioPeer::doSelectJoinGrupo($criteria, $con);
+			}
+		}
+		$this->lastUsuarioCriteria = $criteria;
+
+		return $this->collUsuarios;
 	}
 
 } 

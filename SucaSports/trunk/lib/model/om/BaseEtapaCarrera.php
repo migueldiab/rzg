@@ -13,6 +13,10 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 
 
 	
+	protected $id_carrera;
+
+
+	
 	protected $nombre;
 
 
@@ -21,7 +25,19 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 
 
 	
-	protected $id_etapa;
+	protected $created_at;
+
+
+	
+	protected $created_by;
+
+
+	
+	protected $updated_at;
+
+
+	
+	protected $updated_by;
 
 	
 	protected $aCarrera;
@@ -46,6 +62,13 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 	}
 
 	
+	public function getIdCarrera()
+	{
+
+		return $this->id_carrera;
+	}
+
+	
 	public function getNombre()
 	{
 
@@ -60,10 +83,61 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 	}
 
 	
-	public function getIdEtapa()
+	public function getCreatedAt($format = 'Y-m-d H:i:s')
 	{
 
-		return $this->id_etapa;
+		if ($this->created_at === null || $this->created_at === '') {
+			return null;
+		} elseif (!is_int($this->created_at)) {
+						$ts = strtotime($this->created_at);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [created_at] as date/time value: " . var_export($this->created_at, true));
+			}
+		} else {
+			$ts = $this->created_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getCreatedBy()
+	{
+
+		return $this->created_by;
+	}
+
+	
+	public function getUpdatedAt($format = 'Y-m-d H:i:s')
+	{
+
+		if ($this->updated_at === null || $this->updated_at === '') {
+			return null;
+		} elseif (!is_int($this->updated_at)) {
+						$ts = strtotime($this->updated_at);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [updated_at] as date/time value: " . var_export($this->updated_at, true));
+			}
+		} else {
+			$ts = $this->updated_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getUpdatedBy()
+	{
+
+		return $this->updated_by;
 	}
 
 	
@@ -77,6 +151,24 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 		if ($this->id !== $v) {
 			$this->id = $v;
 			$this->modifiedColumns[] = EtapaCarreraPeer::ID;
+		}
+
+	} 
+	
+	public function setIdCarrera($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->id_carrera !== $v) {
+			$this->id_carrera = $v;
+			$this->modifiedColumns[] = EtapaCarreraPeer::ID_CARRERA;
+		}
+
+		if ($this->aCarrera !== null && $this->aCarrera->getId() !== $v) {
+			$this->aCarrera = null;
 		}
 
 	} 
@@ -109,20 +201,64 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 
 	} 
 	
-	public function setIdEtapa($v)
+	public function setCreatedAt($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [created_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->created_at !== $ts) {
+			$this->created_at = $ts;
+			$this->modifiedColumns[] = EtapaCarreraPeer::CREATED_AT;
+		}
+
+	} 
+	
+	public function setCreatedBy($v)
 	{
 
 						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
-		if ($this->id_etapa !== $v) {
-			$this->id_etapa = $v;
-			$this->modifiedColumns[] = EtapaCarreraPeer::ID_ETAPA;
+		if ($this->created_by !== $v) {
+			$this->created_by = $v;
+			$this->modifiedColumns[] = EtapaCarreraPeer::CREATED_BY;
 		}
 
-		if ($this->aCarrera !== null && $this->aCarrera->getId() !== $v) {
-			$this->aCarrera = null;
+	} 
+	
+	public function setUpdatedAt($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [updated_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->updated_at !== $ts) {
+			$this->updated_at = $ts;
+			$this->modifiedColumns[] = EtapaCarreraPeer::UPDATED_AT;
+		}
+
+	} 
+	
+	public function setUpdatedBy($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->updated_by !== $v) {
+			$this->updated_by = $v;
+			$this->modifiedColumns[] = EtapaCarreraPeer::UPDATED_BY;
 		}
 
 	} 
@@ -133,17 +269,25 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 
 			$this->id = $rs->getInt($startcol + 0);
 
-			$this->nombre = $rs->getString($startcol + 1);
+			$this->id_carrera = $rs->getInt($startcol + 1);
 
-			$this->numero_etapa = $rs->getInt($startcol + 2);
+			$this->nombre = $rs->getString($startcol + 2);
 
-			$this->id_etapa = $rs->getInt($startcol + 3);
+			$this->numero_etapa = $rs->getInt($startcol + 3);
+
+			$this->created_at = $rs->getTimestamp($startcol + 4, null);
+
+			$this->created_by = $rs->getInt($startcol + 5);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 6, null);
+
+			$this->updated_by = $rs->getInt($startcol + 7);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 4; 
+						return $startcol + 8; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating EtapaCarrera object", $e);
 		}
@@ -174,6 +318,16 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 	
 	public function save($con = null)
 	{
+    if ($this->isNew() && !$this->isColumnModified(EtapaCarreraPeer::CREATED_AT))
+    {
+      $this->setCreatedAt(time());
+    }
+
+    if ($this->isModified() && !$this->isColumnModified(EtapaCarreraPeer::UPDATED_AT))
+    {
+      $this->setUpdatedAt(time());
+    }
+
 		if ($this->isDeleted()) {
 			throw new PropelException("You cannot save an object that has been deleted.");
 		}
@@ -213,6 +367,7 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 				if ($this->isNew()) {
 					$pk = EtapaCarreraPeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
+					$this->setId($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += EtapaCarreraPeer::doUpdate($this, $con);
@@ -306,13 +461,25 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getNombre();
+				return $this->getIdCarrera();
 				break;
 			case 2:
-				return $this->getNumeroEtapa();
+				return $this->getNombre();
 				break;
 			case 3:
-				return $this->getIdEtapa();
+				return $this->getNumeroEtapa();
+				break;
+			case 4:
+				return $this->getCreatedAt();
+				break;
+			case 5:
+				return $this->getCreatedBy();
+				break;
+			case 6:
+				return $this->getUpdatedAt();
+				break;
+			case 7:
+				return $this->getUpdatedBy();
 				break;
 			default:
 				return null;
@@ -325,9 +492,13 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 		$keys = EtapaCarreraPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getNombre(),
-			$keys[2] => $this->getNumeroEtapa(),
-			$keys[3] => $this->getIdEtapa(),
+			$keys[1] => $this->getIdCarrera(),
+			$keys[2] => $this->getNombre(),
+			$keys[3] => $this->getNumeroEtapa(),
+			$keys[4] => $this->getCreatedAt(),
+			$keys[5] => $this->getCreatedBy(),
+			$keys[6] => $this->getUpdatedAt(),
+			$keys[7] => $this->getUpdatedBy(),
 		);
 		return $result;
 	}
@@ -347,13 +518,25 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setNombre($value);
+				$this->setIdCarrera($value);
 				break;
 			case 2:
-				$this->setNumeroEtapa($value);
+				$this->setNombre($value);
 				break;
 			case 3:
-				$this->setIdEtapa($value);
+				$this->setNumeroEtapa($value);
+				break;
+			case 4:
+				$this->setCreatedAt($value);
+				break;
+			case 5:
+				$this->setCreatedBy($value);
+				break;
+			case 6:
+				$this->setUpdatedAt($value);
+				break;
+			case 7:
+				$this->setUpdatedBy($value);
 				break;
 		} 	}
 
@@ -363,9 +546,13 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 		$keys = EtapaCarreraPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setNombre($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setNumeroEtapa($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setIdEtapa($arr[$keys[3]]);
+		if (array_key_exists($keys[1], $arr)) $this->setIdCarrera($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setNombre($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setNumeroEtapa($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setCreatedAt($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setCreatedBy($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setUpdatedAt($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setUpdatedBy($arr[$keys[7]]);
 	}
 
 	
@@ -374,9 +561,13 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 		$criteria = new Criteria(EtapaCarreraPeer::DATABASE_NAME);
 
 		if ($this->isColumnModified(EtapaCarreraPeer::ID)) $criteria->add(EtapaCarreraPeer::ID, $this->id);
+		if ($this->isColumnModified(EtapaCarreraPeer::ID_CARRERA)) $criteria->add(EtapaCarreraPeer::ID_CARRERA, $this->id_carrera);
 		if ($this->isColumnModified(EtapaCarreraPeer::NOMBRE)) $criteria->add(EtapaCarreraPeer::NOMBRE, $this->nombre);
 		if ($this->isColumnModified(EtapaCarreraPeer::NUMERO_ETAPA)) $criteria->add(EtapaCarreraPeer::NUMERO_ETAPA, $this->numero_etapa);
-		if ($this->isColumnModified(EtapaCarreraPeer::ID_ETAPA)) $criteria->add(EtapaCarreraPeer::ID_ETAPA, $this->id_etapa);
+		if ($this->isColumnModified(EtapaCarreraPeer::CREATED_AT)) $criteria->add(EtapaCarreraPeer::CREATED_AT, $this->created_at);
+		if ($this->isColumnModified(EtapaCarreraPeer::CREATED_BY)) $criteria->add(EtapaCarreraPeer::CREATED_BY, $this->created_by);
+		if ($this->isColumnModified(EtapaCarreraPeer::UPDATED_AT)) $criteria->add(EtapaCarreraPeer::UPDATED_AT, $this->updated_at);
+		if ($this->isColumnModified(EtapaCarreraPeer::UPDATED_BY)) $criteria->add(EtapaCarreraPeer::UPDATED_BY, $this->updated_by);
 
 		return $criteria;
 	}
@@ -387,6 +578,7 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 		$criteria = new Criteria(EtapaCarreraPeer::DATABASE_NAME);
 
 		$criteria->add(EtapaCarreraPeer::ID, $this->id);
+		$criteria->add(EtapaCarreraPeer::ID_CARRERA, $this->id_carrera);
 
 		return $criteria;
 	}
@@ -394,13 +586,23 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 	
 	public function getPrimaryKey()
 	{
-		return $this->getId();
+		$pks = array();
+
+		$pks[0] = $this->getId();
+
+		$pks[1] = $this->getIdCarrera();
+
+		return $pks;
 	}
 
 	
-	public function setPrimaryKey($key)
+	public function setPrimaryKey($keys)
 	{
-		$this->setId($key);
+
+		$this->setId($keys[0]);
+
+		$this->setIdCarrera($keys[1]);
+
 	}
 
 	
@@ -411,7 +613,13 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 
 		$copyObj->setNumeroEtapa($this->numero_etapa);
 
-		$copyObj->setIdEtapa($this->id_etapa);
+		$copyObj->setCreatedAt($this->created_at);
+
+		$copyObj->setCreatedBy($this->created_by);
+
+		$copyObj->setUpdatedAt($this->updated_at);
+
+		$copyObj->setUpdatedBy($this->updated_by);
 
 
 		if ($deepCopy) {
@@ -426,6 +634,7 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 		$copyObj->setNew(true);
 
 		$copyObj->setId(NULL); 
+		$copyObj->setIdCarrera(NULL); 
 	}
 
 	
@@ -452,9 +661,9 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 
 
 		if ($v === null) {
-			$this->setIdEtapa(NULL);
+			$this->setIdCarrera(NULL);
 		} else {
-			$this->setIdEtapa($v->getId());
+			$this->setIdCarrera($v->getId());
 		}
 
 
@@ -465,8 +674,8 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 	
 	public function getCarrera($con = null)
 	{
-		if ($this->aCarrera === null && ($this->id_etapa !== null)) {
-						$this->aCarrera = CarreraPeer::retrieveByPK($this->id_etapa, $con);
+		if ($this->aCarrera === null && ($this->id_carrera !== null)) {
+						$this->aCarrera = CarreraPeer::retrieveByPK($this->id_carrera, $con);
 
 			
 		}
@@ -497,7 +706,7 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 			   $this->collFechaEtapaCarreras = array();
 			} else {
 
-				$criteria->add(FechaEtapaCarreraPeer::ID_CARRERA, $this->getId());
+				$criteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $this->getId());
 
 				FechaEtapaCarreraPeer::addSelectColumns($criteria);
 				$this->collFechaEtapaCarreras = FechaEtapaCarreraPeer::doSelect($criteria, $con);
@@ -506,7 +715,7 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 						if (!$this->isNew()) {
 												
 
-				$criteria->add(FechaEtapaCarreraPeer::ID_CARRERA, $this->getId());
+				$criteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $this->getId());
 
 				FechaEtapaCarreraPeer::addSelectColumns($criteria);
 				if (!isset($this->lastFechaEtapaCarreraCriteria) || !$this->lastFechaEtapaCarreraCriteria->equals($criteria)) {
@@ -529,7 +738,7 @@ abstract class BaseEtapaCarrera extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		$criteria->add(FechaEtapaCarreraPeer::ID_CARRERA, $this->getId());
+		$criteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $this->getId());
 
 		return FechaEtapaCarreraPeer::doCount($criteria, $distinct, $con);
 	}

@@ -36,5 +36,9 @@ class CorredorEquipamientoMapBuilder {
 
 		$tMap->addForeignPrimaryKey('ID_EQUIPAMIENTO', 'IdEquipamiento', 'int' , CreoleTypes::INTEGER, 'equipamiento', 'ID', true, null);
 
+		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
+
+		$tMap->addColumn('UPDATED_BY', 'UpdatedBy', 'int', CreoleTypes::INTEGER, false, null);
+
 	} 
 } 

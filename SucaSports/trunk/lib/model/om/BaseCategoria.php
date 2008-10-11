@@ -15,6 +15,18 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 	
 	protected $nombre;
 
+
+	
+	protected $updated_at;
+
+
+	
+	protected $updated_by;
+
+
+	
+	protected $regla;
+
 	
 	protected $collCategoriaCarreras;
 
@@ -39,6 +51,42 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 	{
 
 		return $this->nombre;
+	}
+
+	
+	public function getUpdatedAt($format = 'Y-m-d H:i:s')
+	{
+
+		if ($this->updated_at === null || $this->updated_at === '') {
+			return null;
+		} elseif (!is_int($this->updated_at)) {
+						$ts = strtotime($this->updated_at);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [updated_at] as date/time value: " . var_export($this->updated_at, true));
+			}
+		} else {
+			$ts = $this->updated_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getUpdatedBy()
+	{
+
+		return $this->updated_by;
+	}
+
+	
+	public function getRegla()
+	{
+
+		return $this->regla;
 	}
 
 	
@@ -70,6 +118,51 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 
 	} 
 	
+	public function setUpdatedAt($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [updated_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->updated_at !== $ts) {
+			$this->updated_at = $ts;
+			$this->modifiedColumns[] = CategoriaPeer::UPDATED_AT;
+		}
+
+	} 
+	
+	public function setUpdatedBy($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->updated_by !== $v) {
+			$this->updated_by = $v;
+			$this->modifiedColumns[] = CategoriaPeer::UPDATED_BY;
+		}
+
+	} 
+	
+	public function setRegla($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->regla !== $v) {
+			$this->regla = $v;
+			$this->modifiedColumns[] = CategoriaPeer::REGLA;
+		}
+
+	} 
+	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
@@ -78,11 +171,17 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 
 			$this->nombre = $rs->getString($startcol + 1);
 
+			$this->updated_at = $rs->getTimestamp($startcol + 2, null);
+
+			$this->updated_by = $rs->getInt($startcol + 3);
+
+			$this->regla = $rs->getString($startcol + 4);
+
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 2; 
+						return $startcol + 5; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Categoria object", $e);
 		}
@@ -113,6 +212,11 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 	
 	public function save($con = null)
 	{
+    if ($this->isModified() && !$this->isColumnModified(CategoriaPeer::UPDATED_AT))
+    {
+      $this->setUpdatedAt(time());
+    }
+
 		if ($this->isDeleted()) {
 			throw new PropelException("You cannot save an object that has been deleted.");
 		}
@@ -230,6 +334,15 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 			case 1:
 				return $this->getNombre();
 				break;
+			case 2:
+				return $this->getUpdatedAt();
+				break;
+			case 3:
+				return $this->getUpdatedBy();
+				break;
+			case 4:
+				return $this->getRegla();
+				break;
 			default:
 				return null;
 				break;
@@ -242,6 +355,9 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getNombre(),
+			$keys[2] => $this->getUpdatedAt(),
+			$keys[3] => $this->getUpdatedBy(),
+			$keys[4] => $this->getRegla(),
 		);
 		return $result;
 	}
@@ -263,6 +379,15 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 			case 1:
 				$this->setNombre($value);
 				break;
+			case 2:
+				$this->setUpdatedAt($value);
+				break;
+			case 3:
+				$this->setUpdatedBy($value);
+				break;
+			case 4:
+				$this->setRegla($value);
+				break;
 		} 	}
 
 	
@@ -272,6 +397,9 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setNombre($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setUpdatedAt($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setUpdatedBy($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setRegla($arr[$keys[4]]);
 	}
 
 	
@@ -281,6 +409,9 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 
 		if ($this->isColumnModified(CategoriaPeer::ID)) $criteria->add(CategoriaPeer::ID, $this->id);
 		if ($this->isColumnModified(CategoriaPeer::NOMBRE)) $criteria->add(CategoriaPeer::NOMBRE, $this->nombre);
+		if ($this->isColumnModified(CategoriaPeer::UPDATED_AT)) $criteria->add(CategoriaPeer::UPDATED_AT, $this->updated_at);
+		if ($this->isColumnModified(CategoriaPeer::UPDATED_BY)) $criteria->add(CategoriaPeer::UPDATED_BY, $this->updated_by);
+		if ($this->isColumnModified(CategoriaPeer::REGLA)) $criteria->add(CategoriaPeer::REGLA, $this->regla);
 
 		return $criteria;
 	}
@@ -312,6 +443,12 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 	{
 
 		$copyObj->setNombre($this->nombre);
+
+		$copyObj->setUpdatedAt($this->updated_at);
+
+		$copyObj->setUpdatedBy($this->updated_by);
+
+		$copyObj->setRegla($this->regla);
 
 
 		if ($deepCopy) {

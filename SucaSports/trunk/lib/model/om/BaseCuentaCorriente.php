@@ -23,11 +23,49 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 	
 	protected $monto;
 
+
+	
+	protected $concepto;
+
+
+	
+	protected $firma_digital;
+
+
+	
+	protected $fecha_de_pago;
+
+
+	
+	protected $nota;
+
+
+	
+	protected $created_at;
+
+
+	
+	protected $created_by;
+
+
+	
+	protected $updated_at;
+
+
+	
+	protected $updated_by;
+
 	
 	protected $aCorredor;
 
 	
 	protected $aFormaPago;
+
+	
+	protected $collInscripcions;
+
+	
+	protected $lastInscripcionCriteria = null;
 
 	
 	protected $alreadyInSave = false;
@@ -61,6 +99,107 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 	{
 
 		return $this->monto;
+	}
+
+	
+	public function getConcepto()
+	{
+
+		return $this->concepto;
+	}
+
+	
+	public function getFirmaDigital()
+	{
+
+		return $this->firma_digital;
+	}
+
+	
+	public function getFechaDePago($format = 'Y-m-d')
+	{
+
+		if ($this->fecha_de_pago === null || $this->fecha_de_pago === '') {
+			return null;
+		} elseif (!is_int($this->fecha_de_pago)) {
+						$ts = strtotime($this->fecha_de_pago);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [fecha_de_pago] as date/time value: " . var_export($this->fecha_de_pago, true));
+			}
+		} else {
+			$ts = $this->fecha_de_pago;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getNota()
+	{
+
+		return $this->nota;
+	}
+
+	
+	public function getCreatedAt($format = 'Y-m-d H:i:s')
+	{
+
+		if ($this->created_at === null || $this->created_at === '') {
+			return null;
+		} elseif (!is_int($this->created_at)) {
+						$ts = strtotime($this->created_at);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [created_at] as date/time value: " . var_export($this->created_at, true));
+			}
+		} else {
+			$ts = $this->created_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getCreatedBy()
+	{
+
+		return $this->created_by;
+	}
+
+	
+	public function getUpdatedAt($format = 'Y-m-d H:i:s')
+	{
+
+		if ($this->updated_at === null || $this->updated_at === '') {
+			return null;
+		} elseif (!is_int($this->updated_at)) {
+						$ts = strtotime($this->updated_at);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [updated_at] as date/time value: " . var_export($this->updated_at, true));
+			}
+		} else {
+			$ts = $this->updated_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getUpdatedBy()
+	{
+
+		return $this->updated_by;
 	}
 
 	
@@ -124,6 +263,127 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 
 	} 
 	
+	public function setConcepto($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->concepto !== $v) {
+			$this->concepto = $v;
+			$this->modifiedColumns[] = CuentaCorrientePeer::CONCEPTO;
+		}
+
+	} 
+	
+	public function setFirmaDigital($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->firma_digital !== $v) {
+			$this->firma_digital = $v;
+			$this->modifiedColumns[] = CuentaCorrientePeer::FIRMA_DIGITAL;
+		}
+
+	} 
+	
+	public function setFechaDePago($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [fecha_de_pago] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->fecha_de_pago !== $ts) {
+			$this->fecha_de_pago = $ts;
+			$this->modifiedColumns[] = CuentaCorrientePeer::FECHA_DE_PAGO;
+		}
+
+	} 
+	
+	public function setNota($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->nota !== $v) {
+			$this->nota = $v;
+			$this->modifiedColumns[] = CuentaCorrientePeer::NOTA;
+		}
+
+	} 
+	
+	public function setCreatedAt($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [created_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->created_at !== $ts) {
+			$this->created_at = $ts;
+			$this->modifiedColumns[] = CuentaCorrientePeer::CREATED_AT;
+		}
+
+	} 
+	
+	public function setCreatedBy($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->created_by !== $v) {
+			$this->created_by = $v;
+			$this->modifiedColumns[] = CuentaCorrientePeer::CREATED_BY;
+		}
+
+	} 
+	
+	public function setUpdatedAt($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [updated_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->updated_at !== $ts) {
+			$this->updated_at = $ts;
+			$this->modifiedColumns[] = CuentaCorrientePeer::UPDATED_AT;
+		}
+
+	} 
+	
+	public function setUpdatedBy($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->updated_by !== $v) {
+			$this->updated_by = $v;
+			$this->modifiedColumns[] = CuentaCorrientePeer::UPDATED_BY;
+		}
+
+	} 
+	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
@@ -136,11 +396,27 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 
 			$this->monto = $rs->getFloat($startcol + 3);
 
+			$this->concepto = $rs->getString($startcol + 4);
+
+			$this->firma_digital = $rs->getString($startcol + 5);
+
+			$this->fecha_de_pago = $rs->getDate($startcol + 6, null);
+
+			$this->nota = $rs->getString($startcol + 7);
+
+			$this->created_at = $rs->getTimestamp($startcol + 8, null);
+
+			$this->created_by = $rs->getInt($startcol + 9);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 10, null);
+
+			$this->updated_by = $rs->getInt($startcol + 11);
+
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 4; 
+						return $startcol + 12; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating CuentaCorriente object", $e);
 		}
@@ -171,6 +447,16 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 	
 	public function save($con = null)
 	{
+    if ($this->isNew() && !$this->isColumnModified(CuentaCorrientePeer::CREATED_AT))
+    {
+      $this->setCreatedAt(time());
+    }
+
+    if ($this->isModified() && !$this->isColumnModified(CuentaCorrientePeer::UPDATED_AT))
+    {
+      $this->setUpdatedAt(time());
+    }
+
 		if ($this->isDeleted()) {
 			throw new PropelException("You cannot save an object that has been deleted.");
 		}
@@ -217,11 +503,20 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 				if ($this->isNew()) {
 					$pk = CuentaCorrientePeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
+					$this->setId($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += CuentaCorrientePeer::doUpdate($this, $con);
 				}
 				$this->resetModified(); 			}
+
+			if ($this->collInscripcions !== null) {
+				foreach($this->collInscripcions as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
 
 			$this->alreadyInSave = false;
 		}
@@ -278,6 +573,14 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 			}
 
 
+				if ($this->collInscripcions !== null) {
+					foreach($this->collInscripcions as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
 
 			$this->alreadyInValidation = false;
 		}
@@ -308,6 +611,30 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 			case 3:
 				return $this->getMonto();
 				break;
+			case 4:
+				return $this->getConcepto();
+				break;
+			case 5:
+				return $this->getFirmaDigital();
+				break;
+			case 6:
+				return $this->getFechaDePago();
+				break;
+			case 7:
+				return $this->getNota();
+				break;
+			case 8:
+				return $this->getCreatedAt();
+				break;
+			case 9:
+				return $this->getCreatedBy();
+				break;
+			case 10:
+				return $this->getUpdatedAt();
+				break;
+			case 11:
+				return $this->getUpdatedBy();
+				break;
 			default:
 				return null;
 				break;
@@ -322,6 +649,14 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 			$keys[1] => $this->getIdCorredor(),
 			$keys[2] => $this->getIdFormaPago(),
 			$keys[3] => $this->getMonto(),
+			$keys[4] => $this->getConcepto(),
+			$keys[5] => $this->getFirmaDigital(),
+			$keys[6] => $this->getFechaDePago(),
+			$keys[7] => $this->getNota(),
+			$keys[8] => $this->getCreatedAt(),
+			$keys[9] => $this->getCreatedBy(),
+			$keys[10] => $this->getUpdatedAt(),
+			$keys[11] => $this->getUpdatedBy(),
 		);
 		return $result;
 	}
@@ -349,6 +684,30 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 			case 3:
 				$this->setMonto($value);
 				break;
+			case 4:
+				$this->setConcepto($value);
+				break;
+			case 5:
+				$this->setFirmaDigital($value);
+				break;
+			case 6:
+				$this->setFechaDePago($value);
+				break;
+			case 7:
+				$this->setNota($value);
+				break;
+			case 8:
+				$this->setCreatedAt($value);
+				break;
+			case 9:
+				$this->setCreatedBy($value);
+				break;
+			case 10:
+				$this->setUpdatedAt($value);
+				break;
+			case 11:
+				$this->setUpdatedBy($value);
+				break;
 		} 	}
 
 	
@@ -360,6 +719,14 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[1], $arr)) $this->setIdCorredor($arr[$keys[1]]);
 		if (array_key_exists($keys[2], $arr)) $this->setIdFormaPago($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setMonto($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setConcepto($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setFirmaDigital($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setFechaDePago($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setNota($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setCreatedAt($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setCreatedBy($arr[$keys[9]]);
+		if (array_key_exists($keys[10], $arr)) $this->setUpdatedAt($arr[$keys[10]]);
+		if (array_key_exists($keys[11], $arr)) $this->setUpdatedBy($arr[$keys[11]]);
 	}
 
 	
@@ -371,6 +738,14 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(CuentaCorrientePeer::ID_CORREDOR)) $criteria->add(CuentaCorrientePeer::ID_CORREDOR, $this->id_corredor);
 		if ($this->isColumnModified(CuentaCorrientePeer::ID_FORMA_PAGO)) $criteria->add(CuentaCorrientePeer::ID_FORMA_PAGO, $this->id_forma_pago);
 		if ($this->isColumnModified(CuentaCorrientePeer::MONTO)) $criteria->add(CuentaCorrientePeer::MONTO, $this->monto);
+		if ($this->isColumnModified(CuentaCorrientePeer::CONCEPTO)) $criteria->add(CuentaCorrientePeer::CONCEPTO, $this->concepto);
+		if ($this->isColumnModified(CuentaCorrientePeer::FIRMA_DIGITAL)) $criteria->add(CuentaCorrientePeer::FIRMA_DIGITAL, $this->firma_digital);
+		if ($this->isColumnModified(CuentaCorrientePeer::FECHA_DE_PAGO)) $criteria->add(CuentaCorrientePeer::FECHA_DE_PAGO, $this->fecha_de_pago);
+		if ($this->isColumnModified(CuentaCorrientePeer::NOTA)) $criteria->add(CuentaCorrientePeer::NOTA, $this->nota);
+		if ($this->isColumnModified(CuentaCorrientePeer::CREATED_AT)) $criteria->add(CuentaCorrientePeer::CREATED_AT, $this->created_at);
+		if ($this->isColumnModified(CuentaCorrientePeer::CREATED_BY)) $criteria->add(CuentaCorrientePeer::CREATED_BY, $this->created_by);
+		if ($this->isColumnModified(CuentaCorrientePeer::UPDATED_AT)) $criteria->add(CuentaCorrientePeer::UPDATED_AT, $this->updated_at);
+		if ($this->isColumnModified(CuentaCorrientePeer::UPDATED_BY)) $criteria->add(CuentaCorrientePeer::UPDATED_BY, $this->updated_by);
 
 		return $criteria;
 	}
@@ -407,6 +782,31 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 
 		$copyObj->setMonto($this->monto);
 
+		$copyObj->setConcepto($this->concepto);
+
+		$copyObj->setFirmaDigital($this->firma_digital);
+
+		$copyObj->setFechaDePago($this->fecha_de_pago);
+
+		$copyObj->setNota($this->nota);
+
+		$copyObj->setCreatedAt($this->created_at);
+
+		$copyObj->setCreatedBy($this->created_by);
+
+		$copyObj->setUpdatedAt($this->updated_at);
+
+		$copyObj->setUpdatedBy($this->updated_by);
+
+
+		if ($deepCopy) {
+									$copyObj->setNew(false);
+
+			foreach($this->getInscripcions() as $relObj) {
+				$copyObj->addInscripcion($relObj->copy($deepCopy));
+			}
+
+		} 
 
 		$copyObj->setNew(true);
 
@@ -483,6 +883,142 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 			
 		}
 		return $this->aFormaPago;
+	}
+
+	
+	public function initInscripcions()
+	{
+		if ($this->collInscripcions === null) {
+			$this->collInscripcions = array();
+		}
+	}
+
+	
+	public function getInscripcions($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collInscripcions === null) {
+			if ($this->isNew()) {
+			   $this->collInscripcions = array();
+			} else {
+
+				$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
+
+				InscripcionPeer::addSelectColumns($criteria);
+				$this->collInscripcions = InscripcionPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
+
+				InscripcionPeer::addSelectColumns($criteria);
+				if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
+					$this->collInscripcions = InscripcionPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastInscripcionCriteria = $criteria;
+		return $this->collInscripcions;
+	}
+
+	
+	public function countInscripcions($criteria = null, $distinct = false, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
+
+		return InscripcionPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addInscripcion(Inscripcion $l)
+	{
+		$this->collInscripcions[] = $l;
+		$l->setCuentaCorriente($this);
+	}
+
+
+	
+	public function getInscripcionsJoinFechaEtapaCarrera($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collInscripcions === null) {
+			if ($this->isNew()) {
+				$this->collInscripcions = array();
+			} else {
+
+				$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
+
+				$this->collInscripcions = InscripcionPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
+
+			if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
+				$this->collInscripcions = InscripcionPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
+			}
+		}
+		$this->lastInscripcionCriteria = $criteria;
+
+		return $this->collInscripcions;
+	}
+
+
+	
+	public function getInscripcionsJoinCorredor($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collInscripcions === null) {
+			if ($this->isNew()) {
+				$this->collInscripcions = array();
+			} else {
+
+				$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
+
+				$this->collInscripcions = InscripcionPeer::doSelectJoinCorredor($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
+
+			if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
+				$this->collInscripcions = InscripcionPeer::doSelectJoinCorredor($criteria, $con);
+			}
+		}
+		$this->lastInscripcionCriteria = $criteria;
+
+		return $this->collInscripcions;
 	}
 
 } 

@@ -13,7 +13,7 @@ abstract class BaseCarreraPeer {
 	const CLASS_DEFAULT = 'lib.model.Carrera';
 
 	
-	const NUM_COLUMNS = 3;
+	const NUM_COLUMNS = 8;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -29,23 +29,38 @@ abstract class BaseCarreraPeer {
 	const URL = 'carrera.URL';
 
 	
+	const DESCRIPCION = 'carrera.DESCRIPCION';
+
+	
+	const CREATED_AT = 'carrera.CREATED_AT';
+
+	
+	const CREATED_BY = 'carrera.CREATED_BY';
+
+	
+	const UPDATED_AT = 'carrera.UPDATED_AT';
+
+	
+	const UPDATED_BY = 'carrera.UPDATED_BY';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', 'Url', ),
-		BasePeer::TYPE_COLNAME => array (CarreraPeer::ID, CarreraPeer::NOMBRE, CarreraPeer::URL, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', 'url', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', 'Url', 'Descripcion', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (CarreraPeer::ID, CarreraPeer::NOMBRE, CarreraPeer::URL, CarreraPeer::DESCRIPCION, CarreraPeer::CREATED_AT, CarreraPeer::CREATED_BY, CarreraPeer::UPDATED_AT, CarreraPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', 'url', 'descripcion', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, 'Url' => 2, ),
-		BasePeer::TYPE_COLNAME => array (CarreraPeer::ID => 0, CarreraPeer::NOMBRE => 1, CarreraPeer::URL => 2, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, 'url' => 2, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, 'Url' => 2, 'Descripcion' => 3, 'CreatedAt' => 4, 'CreatedBy' => 5, 'UpdatedAt' => 6, 'UpdatedBy' => 7, ),
+		BasePeer::TYPE_COLNAME => array (CarreraPeer::ID => 0, CarreraPeer::NOMBRE => 1, CarreraPeer::URL => 2, CarreraPeer::DESCRIPCION => 3, CarreraPeer::CREATED_AT => 4, CarreraPeer::CREATED_BY => 5, CarreraPeer::UPDATED_AT => 6, CarreraPeer::UPDATED_BY => 7, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, 'url' => 2, 'descripcion' => 3, 'created_at' => 4, 'created_by' => 5, 'updated_at' => 6, 'updated_by' => 7, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
 	);
 
 	
@@ -103,6 +118,16 @@ abstract class BaseCarreraPeer {
 		$criteria->addSelectColumn(CarreraPeer::NOMBRE);
 
 		$criteria->addSelectColumn(CarreraPeer::URL);
+
+		$criteria->addSelectColumn(CarreraPeer::DESCRIPCION);
+
+		$criteria->addSelectColumn(CarreraPeer::CREATED_AT);
+
+		$criteria->addSelectColumn(CarreraPeer::CREATED_BY);
+
+		$criteria->addSelectColumn(CarreraPeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(CarreraPeer::UPDATED_BY);
 
 	}
 

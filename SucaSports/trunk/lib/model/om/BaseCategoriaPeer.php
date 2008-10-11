@@ -13,7 +13,7 @@ abstract class BaseCategoriaPeer {
 	const CLASS_DEFAULT = 'lib.model.Categoria';
 
 	
-	const NUM_COLUMNS = 2;
+	const NUM_COLUMNS = 5;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -26,23 +26,32 @@ abstract class BaseCategoriaPeer {
 	const NOMBRE = 'categoria.NOMBRE';
 
 	
+	const UPDATED_AT = 'categoria.UPDATED_AT';
+
+	
+	const UPDATED_BY = 'categoria.UPDATED_BY';
+
+	
+	const REGLA = 'categoria.REGLA';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', ),
-		BasePeer::TYPE_COLNAME => array (CategoriaPeer::ID, CategoriaPeer::NOMBRE, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', 'UpdatedAt', 'UpdatedBy', 'Regla', ),
+		BasePeer::TYPE_COLNAME => array (CategoriaPeer::ID, CategoriaPeer::NOMBRE, CategoriaPeer::UPDATED_AT, CategoriaPeer::UPDATED_BY, CategoriaPeer::REGLA, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', 'updated_at', 'updated_by', 'regla', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, ),
-		BasePeer::TYPE_COLNAME => array (CategoriaPeer::ID => 0, CategoriaPeer::NOMBRE => 1, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, 'UpdatedAt' => 2, 'UpdatedBy' => 3, 'Regla' => 4, ),
+		BasePeer::TYPE_COLNAME => array (CategoriaPeer::ID => 0, CategoriaPeer::NOMBRE => 1, CategoriaPeer::UPDATED_AT => 2, CategoriaPeer::UPDATED_BY => 3, CategoriaPeer::REGLA => 4, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, 'updated_at' => 2, 'updated_by' => 3, 'regla' => 4, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
 	);
 
 	
@@ -98,6 +107,12 @@ abstract class BaseCategoriaPeer {
 		$criteria->addSelectColumn(CategoriaPeer::ID);
 
 		$criteria->addSelectColumn(CategoriaPeer::NOMBRE);
+
+		$criteria->addSelectColumn(CategoriaPeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(CategoriaPeer::UPDATED_BY);
+
+		$criteria->addSelectColumn(CategoriaPeer::REGLA);
 
 	}
 

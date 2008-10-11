@@ -19,6 +19,26 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 	
 	protected $url;
 
+
+	
+	protected $descripcion;
+
+
+	
+	protected $created_at;
+
+
+	
+	protected $created_by;
+
+
+	
+	protected $updated_at;
+
+
+	
+	protected $updated_by;
+
 	
 	protected $collCategoriaCarreras;
 
@@ -56,6 +76,71 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 	{
 
 		return $this->url;
+	}
+
+	
+	public function getDescripcion()
+	{
+
+		return $this->descripcion;
+	}
+
+	
+	public function getCreatedAt($format = 'Y-m-d H:i:s')
+	{
+
+		if ($this->created_at === null || $this->created_at === '') {
+			return null;
+		} elseif (!is_int($this->created_at)) {
+						$ts = strtotime($this->created_at);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [created_at] as date/time value: " . var_export($this->created_at, true));
+			}
+		} else {
+			$ts = $this->created_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getCreatedBy()
+	{
+
+		return $this->created_by;
+	}
+
+	
+	public function getUpdatedAt($format = 'Y-m-d H:i:s')
+	{
+
+		if ($this->updated_at === null || $this->updated_at === '') {
+			return null;
+		} elseif (!is_int($this->updated_at)) {
+						$ts = strtotime($this->updated_at);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [updated_at] as date/time value: " . var_export($this->updated_at, true));
+			}
+		} else {
+			$ts = $this->updated_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getUpdatedBy()
+	{
+
+		return $this->updated_by;
 	}
 
 	
@@ -101,6 +186,82 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 
 	} 
 	
+	public function setDescripcion($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->descripcion !== $v) {
+			$this->descripcion = $v;
+			$this->modifiedColumns[] = CarreraPeer::DESCRIPCION;
+		}
+
+	} 
+	
+	public function setCreatedAt($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [created_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->created_at !== $ts) {
+			$this->created_at = $ts;
+			$this->modifiedColumns[] = CarreraPeer::CREATED_AT;
+		}
+
+	} 
+	
+	public function setCreatedBy($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->created_by !== $v) {
+			$this->created_by = $v;
+			$this->modifiedColumns[] = CarreraPeer::CREATED_BY;
+		}
+
+	} 
+	
+	public function setUpdatedAt($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [updated_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->updated_at !== $ts) {
+			$this->updated_at = $ts;
+			$this->modifiedColumns[] = CarreraPeer::UPDATED_AT;
+		}
+
+	} 
+	
+	public function setUpdatedBy($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->updated_by !== $v) {
+			$this->updated_by = $v;
+			$this->modifiedColumns[] = CarreraPeer::UPDATED_BY;
+		}
+
+	} 
+	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
@@ -111,11 +272,21 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 
 			$this->url = $rs->getString($startcol + 2);
 
+			$this->descripcion = $rs->getString($startcol + 3);
+
+			$this->created_at = $rs->getTimestamp($startcol + 4, null);
+
+			$this->created_by = $rs->getInt($startcol + 5);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 6, null);
+
+			$this->updated_by = $rs->getString($startcol + 7);
+
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 3; 
+						return $startcol + 8; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Carrera object", $e);
 		}
@@ -146,6 +317,16 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 	
 	public function save($con = null)
 	{
+    if ($this->isNew() && !$this->isColumnModified(CarreraPeer::CREATED_AT))
+    {
+      $this->setCreatedAt(time());
+    }
+
+    if ($this->isModified() && !$this->isColumnModified(CarreraPeer::UPDATED_AT))
+    {
+      $this->setUpdatedAt(time());
+    }
+
 		if ($this->isDeleted()) {
 			throw new PropelException("You cannot save an object that has been deleted.");
 		}
@@ -282,6 +463,21 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 			case 2:
 				return $this->getUrl();
 				break;
+			case 3:
+				return $this->getDescripcion();
+				break;
+			case 4:
+				return $this->getCreatedAt();
+				break;
+			case 5:
+				return $this->getCreatedBy();
+				break;
+			case 6:
+				return $this->getUpdatedAt();
+				break;
+			case 7:
+				return $this->getUpdatedBy();
+				break;
 			default:
 				return null;
 				break;
@@ -295,6 +491,11 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getNombre(),
 			$keys[2] => $this->getUrl(),
+			$keys[3] => $this->getDescripcion(),
+			$keys[4] => $this->getCreatedAt(),
+			$keys[5] => $this->getCreatedBy(),
+			$keys[6] => $this->getUpdatedAt(),
+			$keys[7] => $this->getUpdatedBy(),
 		);
 		return $result;
 	}
@@ -319,6 +520,21 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 			case 2:
 				$this->setUrl($value);
 				break;
+			case 3:
+				$this->setDescripcion($value);
+				break;
+			case 4:
+				$this->setCreatedAt($value);
+				break;
+			case 5:
+				$this->setCreatedBy($value);
+				break;
+			case 6:
+				$this->setUpdatedAt($value);
+				break;
+			case 7:
+				$this->setUpdatedBy($value);
+				break;
 		} 	}
 
 	
@@ -329,6 +545,11 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setNombre($arr[$keys[1]]);
 		if (array_key_exists($keys[2], $arr)) $this->setUrl($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setDescripcion($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setCreatedAt($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setCreatedBy($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setUpdatedAt($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setUpdatedBy($arr[$keys[7]]);
 	}
 
 	
@@ -339,6 +560,11 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(CarreraPeer::ID)) $criteria->add(CarreraPeer::ID, $this->id);
 		if ($this->isColumnModified(CarreraPeer::NOMBRE)) $criteria->add(CarreraPeer::NOMBRE, $this->nombre);
 		if ($this->isColumnModified(CarreraPeer::URL)) $criteria->add(CarreraPeer::URL, $this->url);
+		if ($this->isColumnModified(CarreraPeer::DESCRIPCION)) $criteria->add(CarreraPeer::DESCRIPCION, $this->descripcion);
+		if ($this->isColumnModified(CarreraPeer::CREATED_AT)) $criteria->add(CarreraPeer::CREATED_AT, $this->created_at);
+		if ($this->isColumnModified(CarreraPeer::CREATED_BY)) $criteria->add(CarreraPeer::CREATED_BY, $this->created_by);
+		if ($this->isColumnModified(CarreraPeer::UPDATED_AT)) $criteria->add(CarreraPeer::UPDATED_AT, $this->updated_at);
+		if ($this->isColumnModified(CarreraPeer::UPDATED_BY)) $criteria->add(CarreraPeer::UPDATED_BY, $this->updated_by);
 
 		return $criteria;
 	}
@@ -372,6 +598,16 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 		$copyObj->setNombre($this->nombre);
 
 		$copyObj->setUrl($this->url);
+
+		$copyObj->setDescripcion($this->descripcion);
+
+		$copyObj->setCreatedAt($this->created_at);
+
+		$copyObj->setCreatedBy($this->created_by);
+
+		$copyObj->setUpdatedAt($this->updated_at);
+
+		$copyObj->setUpdatedBy($this->updated_by);
 
 
 		if ($deepCopy) {
@@ -536,7 +772,7 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 			   $this->collEtapaCarreras = array();
 			} else {
 
-				$criteria->add(EtapaCarreraPeer::ID_ETAPA, $this->getId());
+				$criteria->add(EtapaCarreraPeer::ID_CARRERA, $this->getId());
 
 				EtapaCarreraPeer::addSelectColumns($criteria);
 				$this->collEtapaCarreras = EtapaCarreraPeer::doSelect($criteria, $con);
@@ -545,7 +781,7 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 						if (!$this->isNew()) {
 												
 
-				$criteria->add(EtapaCarreraPeer::ID_ETAPA, $this->getId());
+				$criteria->add(EtapaCarreraPeer::ID_CARRERA, $this->getId());
 
 				EtapaCarreraPeer::addSelectColumns($criteria);
 				if (!isset($this->lastEtapaCarreraCriteria) || !$this->lastEtapaCarreraCriteria->equals($criteria)) {
@@ -568,7 +804,7 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		$criteria->add(EtapaCarreraPeer::ID_ETAPA, $this->getId());
+		$criteria->add(EtapaCarreraPeer::ID_CARRERA, $this->getId());
 
 		return EtapaCarreraPeer::doCount($criteria, $distinct, $con);
 	}

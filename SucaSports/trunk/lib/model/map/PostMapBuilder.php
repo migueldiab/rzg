@@ -36,7 +36,13 @@ class PostMapBuilder {
 
 		$tMap->addColumn('TEXTO', 'Texto', 'string', CreoleTypes::LONGVARCHAR, false, null);
 
-		$tMap->addForeignKey('ID_USUARIOS', 'IdUsuarios', 'int', CreoleTypes::INTEGER, 'usuarios', 'ID', false, null);
+		$tMap->addForeignKey('CREATED_BY', 'CreatedBy', 'int', CreoleTypes::INTEGER, 'usuario', 'ID', false, null);
+
+		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
+
+		$tMap->addForeignKey('UPDATED_BY', 'UpdatedBy', 'int', CreoleTypes::INTEGER, 'usuario', 'ID', false, null);
+
+		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 
 	} 
 } 

@@ -13,7 +13,7 @@ abstract class BaseAsociacionPeer {
 	const CLASS_DEFAULT = 'lib.model.Asociacion';
 
 	
-	const NUM_COLUMNS = 2;
+	const NUM_COLUMNS = 9;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -26,23 +26,44 @@ abstract class BaseAsociacionPeer {
 	const NOMBRE = 'asociacion.NOMBRE';
 
 	
+	const DIRECCION = 'asociacion.DIRECCION';
+
+	
+	const TELEFONO = 'asociacion.TELEFONO';
+
+	
+	const CONTACTO = 'asociacion.CONTACTO';
+
+	
+	const CREATED_BY = 'asociacion.CREATED_BY';
+
+	
+	const CREATED_AT = 'asociacion.CREATED_AT';
+
+	
+	const UPDATED_BY = 'asociacion.UPDATED_BY';
+
+	
+	const UPDATED_AT = 'asociacion.UPDATED_AT';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', ),
-		BasePeer::TYPE_COLNAME => array (AsociacionPeer::ID, AsociacionPeer::NOMBRE, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', 'Direccion', 'Telefono', 'Contacto', 'CreatedBy', 'CreatedAt', 'UpdatedBy', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (AsociacionPeer::ID, AsociacionPeer::NOMBRE, AsociacionPeer::DIRECCION, AsociacionPeer::TELEFONO, AsociacionPeer::CONTACTO, AsociacionPeer::CREATED_BY, AsociacionPeer::CREATED_AT, AsociacionPeer::UPDATED_BY, AsociacionPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', 'direccion', 'telefono', 'contacto', 'created_by', 'created_at', 'updated_by', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, ),
-		BasePeer::TYPE_COLNAME => array (AsociacionPeer::ID => 0, AsociacionPeer::NOMBRE => 1, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, 'Direccion' => 2, 'Telefono' => 3, 'Contacto' => 4, 'CreatedBy' => 5, 'CreatedAt' => 6, 'UpdatedBy' => 7, 'UpdatedAt' => 8, ),
+		BasePeer::TYPE_COLNAME => array (AsociacionPeer::ID => 0, AsociacionPeer::NOMBRE => 1, AsociacionPeer::DIRECCION => 2, AsociacionPeer::TELEFONO => 3, AsociacionPeer::CONTACTO => 4, AsociacionPeer::CREATED_BY => 5, AsociacionPeer::CREATED_AT => 6, AsociacionPeer::UPDATED_BY => 7, AsociacionPeer::UPDATED_AT => 8, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, 'direccion' => 2, 'telefono' => 3, 'contacto' => 4, 'created_by' => 5, 'created_at' => 6, 'updated_by' => 7, 'updated_at' => 8, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	
@@ -98,6 +119,20 @@ abstract class BaseAsociacionPeer {
 		$criteria->addSelectColumn(AsociacionPeer::ID);
 
 		$criteria->addSelectColumn(AsociacionPeer::NOMBRE);
+
+		$criteria->addSelectColumn(AsociacionPeer::DIRECCION);
+
+		$criteria->addSelectColumn(AsociacionPeer::TELEFONO);
+
+		$criteria->addSelectColumn(AsociacionPeer::CONTACTO);
+
+		$criteria->addSelectColumn(AsociacionPeer::CREATED_BY);
+
+		$criteria->addSelectColumn(AsociacionPeer::CREATED_AT);
+
+		$criteria->addSelectColumn(AsociacionPeer::UPDATED_BY);
+
+		$criteria->addSelectColumn(AsociacionPeer::UPDATED_AT);
 
 	}
 
@@ -204,6 +239,7 @@ abstract class BaseAsociacionPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
+		$criteria->remove(AsociacionPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 

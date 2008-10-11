@@ -13,7 +13,7 @@ abstract class BaseFormaPagoPeer {
 	const CLASS_DEFAULT = 'lib.model.FormaPago';
 
 	
-	const NUM_COLUMNS = 2;
+	const NUM_COLUMNS = 6;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -26,23 +26,35 @@ abstract class BaseFormaPagoPeer {
 	const NOMBRE = 'forma_pago.NOMBRE';
 
 	
+	const CREATED_AT = 'forma_pago.CREATED_AT';
+
+	
+	const CREATED_BY = 'forma_pago.CREATED_BY';
+
+	
+	const UPDATED_AT = 'forma_pago.UPDATED_AT';
+
+	
+	const UPDATED_BY = 'forma_pago.UPDATED_BY';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', ),
-		BasePeer::TYPE_COLNAME => array (FormaPagoPeer::ID, FormaPagoPeer::NOMBRE, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (FormaPagoPeer::ID, FormaPagoPeer::NOMBRE, FormaPagoPeer::CREATED_AT, FormaPagoPeer::CREATED_BY, FormaPagoPeer::UPDATED_AT, FormaPagoPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, ),
-		BasePeer::TYPE_COLNAME => array (FormaPagoPeer::ID => 0, FormaPagoPeer::NOMBRE => 1, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, 'CreatedAt' => 2, 'CreatedBy' => 3, 'UpdatedAt' => 4, 'UpdatedBy' => 5, ),
+		BasePeer::TYPE_COLNAME => array (FormaPagoPeer::ID => 0, FormaPagoPeer::NOMBRE => 1, FormaPagoPeer::CREATED_AT => 2, FormaPagoPeer::CREATED_BY => 3, FormaPagoPeer::UPDATED_AT => 4, FormaPagoPeer::UPDATED_BY => 5, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, 'created_at' => 2, 'created_by' => 3, 'updated_at' => 4, 'updated_by' => 5, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	
@@ -98,6 +110,14 @@ abstract class BaseFormaPagoPeer {
 		$criteria->addSelectColumn(FormaPagoPeer::ID);
 
 		$criteria->addSelectColumn(FormaPagoPeer::NOMBRE);
+
+		$criteria->addSelectColumn(FormaPagoPeer::CREATED_AT);
+
+		$criteria->addSelectColumn(FormaPagoPeer::CREATED_BY);
+
+		$criteria->addSelectColumn(FormaPagoPeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(FormaPagoPeer::UPDATED_BY);
 
 	}
 
@@ -204,6 +224,7 @@ abstract class BaseFormaPagoPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
+		$criteria->remove(FormaPagoPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 

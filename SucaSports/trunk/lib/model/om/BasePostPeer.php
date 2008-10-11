@@ -13,7 +13,7 @@ abstract class BasePostPeer {
 	const CLASS_DEFAULT = 'lib.model.Post';
 
 	
-	const NUM_COLUMNS = 3;
+	const NUM_COLUMNS = 6;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -26,7 +26,16 @@ abstract class BasePostPeer {
 	const TEXTO = 'post.TEXTO';
 
 	
-	const ID_USUARIOS = 'post.ID_USUARIOS';
+	const CREATED_BY = 'post.CREATED_BY';
+
+	
+	const CREATED_AT = 'post.CREATED_AT';
+
+	
+	const UPDATED_BY = 'post.UPDATED_BY';
+
+	
+	const UPDATED_AT = 'post.UPDATED_AT';
 
 	
 	private static $phpNameMap = null;
@@ -34,18 +43,18 @@ abstract class BasePostPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Texto', 'IdUsuarios', ),
-		BasePeer::TYPE_COLNAME => array (PostPeer::ID, PostPeer::TEXTO, PostPeer::ID_USUARIOS, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'texto', 'id_usuarios', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Texto', 'CreatedBy', 'CreatedAt', 'UpdatedBy', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (PostPeer::ID, PostPeer::TEXTO, PostPeer::CREATED_BY, PostPeer::CREATED_AT, PostPeer::UPDATED_BY, PostPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'texto', 'created_by', 'created_at', 'updated_by', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Texto' => 1, 'IdUsuarios' => 2, ),
-		BasePeer::TYPE_COLNAME => array (PostPeer::ID => 0, PostPeer::TEXTO => 1, PostPeer::ID_USUARIOS => 2, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'texto' => 1, 'id_usuarios' => 2, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Texto' => 1, 'CreatedBy' => 2, 'CreatedAt' => 3, 'UpdatedBy' => 4, 'UpdatedAt' => 5, ),
+		BasePeer::TYPE_COLNAME => array (PostPeer::ID => 0, PostPeer::TEXTO => 1, PostPeer::CREATED_BY => 2, PostPeer::CREATED_AT => 3, PostPeer::UPDATED_BY => 4, PostPeer::UPDATED_AT => 5, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'texto' => 1, 'created_by' => 2, 'created_at' => 3, 'updated_by' => 4, 'updated_at' => 5, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	
@@ -102,7 +111,13 @@ abstract class BasePostPeer {
 
 		$criteria->addSelectColumn(PostPeer::TEXTO);
 
-		$criteria->addSelectColumn(PostPeer::ID_USUARIOS);
+		$criteria->addSelectColumn(PostPeer::CREATED_BY);
+
+		$criteria->addSelectColumn(PostPeer::CREATED_AT);
+
+		$criteria->addSelectColumn(PostPeer::UPDATED_BY);
+
+		$criteria->addSelectColumn(PostPeer::UPDATED_AT);
 
 	}
 
@@ -183,7 +198,7 @@ abstract class BasePostPeer {
 	}
 
 	
-	public static function doCountJoinUsuarios(Criteria $criteria, $distinct = false, $con = null)
+	public static function doCountJoinUsuarioRelatedByCreatedBy(Criteria $criteria, $distinct = false, $con = null)
 	{
 				$criteria = clone $criteria;
 
@@ -199,7 +214,7 @@ abstract class BasePostPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(PostPeer::ID_USUARIOS, UsuariosPeer::ID);
+		$criteria->addJoin(PostPeer::CREATED_BY, UsuarioPeer::ID);
 
 		$rs = PostPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -211,7 +226,35 @@ abstract class BasePostPeer {
 
 
 	
-	public static function doSelectJoinUsuarios(Criteria $c, $con = null)
+	public static function doCountJoinUsuarioRelatedByUpdatedBy(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(PostPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(PostPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$criteria->addJoin(PostPeer::UPDATED_BY, UsuarioPeer::ID);
+
+		$rs = PostPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
+	public static function doSelectJoinUsuarioRelatedByCreatedBy(Criteria $c, $con = null)
 	{
 		$c = clone $c;
 
@@ -221,9 +264,9 @@ abstract class BasePostPeer {
 
 		PostPeer::addSelectColumns($c);
 		$startcol = (PostPeer::NUM_COLUMNS - PostPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		UsuariosPeer::addSelectColumns($c);
+		UsuarioPeer::addSelectColumns($c);
 
-		$c->addJoin(PostPeer::ID_USUARIOS, UsuariosPeer::ID);
+		$c->addJoin(PostPeer::CREATED_BY, UsuarioPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
@@ -235,7 +278,7 @@ abstract class BasePostPeer {
 			$obj1 = new $cls();
 			$obj1->hydrate($rs);
 
-			$omClass = UsuariosPeer::getOMClass();
+			$omClass = UsuarioPeer::getOMClass();
 
 			$cls = sfPropel::import($omClass);
 			$obj2 = new $cls();
@@ -243,14 +286,61 @@ abstract class BasePostPeer {
 
 			$newObject = true;
 			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getUsuarios(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+				$temp_obj2 = $temp_obj1->getUsuarioRelatedByCreatedBy(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-										$temp_obj2->addPost($obj1); 					break;
+										$temp_obj2->addPostRelatedByCreatedBy($obj1); 					break;
 				}
 			}
 			if ($newObject) {
-				$obj2->initPosts();
-				$obj2->addPost($obj1); 			}
+				$obj2->initPostsRelatedByCreatedBy();
+				$obj2->addPostRelatedByCreatedBy($obj1); 			}
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doSelectJoinUsuarioRelatedByUpdatedBy(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+				if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		PostPeer::addSelectColumns($c);
+		$startcol = (PostPeer::NUM_COLUMNS - PostPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		UsuarioPeer::addSelectColumns($c);
+
+		$c->addJoin(PostPeer::UPDATED_BY, UsuarioPeer::ID);
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = PostPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = UsuarioPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj2 = new $cls();
+			$obj2->hydrate($rs, $startcol);
+
+			$newObject = true;
+			foreach($results as $temp_obj1) {
+				$temp_obj2 = $temp_obj1->getUsuarioRelatedByUpdatedBy(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+										$temp_obj2->addPostRelatedByUpdatedBy($obj1); 					break;
+				}
+			}
+			if ($newObject) {
+				$obj2->initPostsRelatedByUpdatedBy();
+				$obj2->addPostRelatedByUpdatedBy($obj1); 			}
 			$results[] = $obj1;
 		}
 		return $results;
@@ -274,7 +364,9 @@ abstract class BasePostPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(PostPeer::ID_USUARIOS, UsuariosPeer::ID);
+		$criteria->addJoin(PostPeer::CREATED_BY, UsuarioPeer::ID);
+
+		$criteria->addJoin(PostPeer::UPDATED_BY, UsuarioPeer::ID);
 
 		$rs = PostPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -297,10 +389,15 @@ abstract class BasePostPeer {
 		PostPeer::addSelectColumns($c);
 		$startcol2 = (PostPeer::NUM_COLUMNS - PostPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 
-		UsuariosPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + UsuariosPeer::NUM_COLUMNS;
+		UsuarioPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + UsuarioPeer::NUM_COLUMNS;
 
-		$c->addJoin(PostPeer::ID_USUARIOS, UsuariosPeer::ID);
+		UsuarioPeer::addSelectColumns($c);
+		$startcol4 = $startcol3 + UsuarioPeer::NUM_COLUMNS;
+
+		$c->addJoin(PostPeer::CREATED_BY, UsuarioPeer::ID);
+
+		$c->addJoin(PostPeer::UPDATED_BY, UsuarioPeer::ID);
 
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
@@ -316,7 +413,7 @@ abstract class BasePostPeer {
 
 
 					
-			$omClass = UsuariosPeer::getOMClass();
+			$omClass = UsuarioPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -326,16 +423,151 @@ abstract class BasePostPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getUsuarios(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+				$temp_obj2 = $temp_obj1->getUsuarioRelatedByCreatedBy(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-					$temp_obj2->addPost($obj1); 					break;
+					$temp_obj2->addPostRelatedByCreatedBy($obj1); 					break;
 				}
 			}
 
 			if ($newObject) {
-				$obj2->initPosts();
-				$obj2->addPost($obj1);
+				$obj2->initPostsRelatedByCreatedBy();
+				$obj2->addPostRelatedByCreatedBy($obj1);
 			}
+
+
+					
+			$omClass = UsuarioPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj3 = new $cls();
+			$obj3->hydrate($rs, $startcol3);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj3 = $temp_obj1->getUsuarioRelatedByUpdatedBy(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj3->addPostRelatedByUpdatedBy($obj1); 					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj3->initPostsRelatedByUpdatedBy();
+				$obj3->addPostRelatedByUpdatedBy($obj1);
+			}
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doCountJoinAllExceptUsuarioRelatedByCreatedBy(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(PostPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(PostPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$rs = PostPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
+	public static function doCountJoinAllExceptUsuarioRelatedByUpdatedBy(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(PostPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(PostPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$rs = PostPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
+	public static function doSelectJoinAllExceptUsuarioRelatedByCreatedBy(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		PostPeer::addSelectColumns($c);
+		$startcol2 = (PostPeer::NUM_COLUMNS - PostPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = PostPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doSelectJoinAllExceptUsuarioRelatedByUpdatedBy(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		PostPeer::addSelectColumns($c);
+		$startcol2 = (PostPeer::NUM_COLUMNS - PostPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = PostPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
 
 			$results[] = $obj1;
 		}

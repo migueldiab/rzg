@@ -13,7 +13,7 @@ abstract class BasePaisPeer {
 	const CLASS_DEFAULT = 'lib.model.Pais';
 
 	
-	const NUM_COLUMNS = 2;
+	const NUM_COLUMNS = 4;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -26,23 +26,29 @@ abstract class BasePaisPeer {
 	const NOMBRE = 'pais.NOMBRE';
 
 	
+	const UPDATED_BY = 'pais.UPDATED_BY';
+
+	
+	const UPDATED_AT = 'pais.UPDATED_AT';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', ),
-		BasePeer::TYPE_COLNAME => array (PaisPeer::ID, PaisPeer::NOMBRE, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', 'UpdatedBy', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (PaisPeer::ID, PaisPeer::NOMBRE, PaisPeer::UPDATED_BY, PaisPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', 'updated_by', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, ),
-		BasePeer::TYPE_COLNAME => array (PaisPeer::ID => 0, PaisPeer::NOMBRE => 1, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, 'UpdatedBy' => 2, 'UpdatedAt' => 3, ),
+		BasePeer::TYPE_COLNAME => array (PaisPeer::ID => 0, PaisPeer::NOMBRE => 1, PaisPeer::UPDATED_BY => 2, PaisPeer::UPDATED_AT => 3, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, 'updated_by' => 2, 'updated_at' => 3, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	
@@ -98,6 +104,10 @@ abstract class BasePaisPeer {
 		$criteria->addSelectColumn(PaisPeer::ID);
 
 		$criteria->addSelectColumn(PaisPeer::NOMBRE);
+
+		$criteria->addSelectColumn(PaisPeer::UPDATED_BY);
+
+		$criteria->addSelectColumn(PaisPeer::UPDATED_AT);
 
 	}
 
@@ -204,6 +214,7 @@ abstract class BasePaisPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
+		$criteria->remove(PaisPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 

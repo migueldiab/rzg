@@ -13,7 +13,7 @@ abstract class BaseCategoriaCarreraPeer {
 	const CLASS_DEFAULT = 'lib.model.CategoriaCarrera';
 
 	
-	const NUM_COLUMNS = 2;
+	const NUM_COLUMNS = 4;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -26,23 +26,29 @@ abstract class BaseCategoriaCarreraPeer {
 	const ID_CARRERA = 'categoria_carrera.ID_CARRERA';
 
 	
+	const UPDATED_AT = 'categoria_carrera.UPDATED_AT';
+
+	
+	const UPDATED_BY = 'categoria_carrera.UPDATED_BY';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('IdCategoria', 'IdCarrera', ),
-		BasePeer::TYPE_COLNAME => array (CategoriaCarreraPeer::ID_CATEGORIA, CategoriaCarreraPeer::ID_CARRERA, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_categoria', 'id_carrera', ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('IdCategoria', 'IdCarrera', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (CategoriaCarreraPeer::ID_CATEGORIA, CategoriaCarreraPeer::ID_CARRERA, CategoriaCarreraPeer::UPDATED_AT, CategoriaCarreraPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_categoria', 'id_carrera', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('IdCategoria' => 0, 'IdCarrera' => 1, ),
-		BasePeer::TYPE_COLNAME => array (CategoriaCarreraPeer::ID_CATEGORIA => 0, CategoriaCarreraPeer::ID_CARRERA => 1, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_categoria' => 0, 'id_carrera' => 1, ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('IdCategoria' => 0, 'IdCarrera' => 1, 'UpdatedAt' => 2, 'UpdatedBy' => 3, ),
+		BasePeer::TYPE_COLNAME => array (CategoriaCarreraPeer::ID_CATEGORIA => 0, CategoriaCarreraPeer::ID_CARRERA => 1, CategoriaCarreraPeer::UPDATED_AT => 2, CategoriaCarreraPeer::UPDATED_BY => 3, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_categoria' => 0, 'id_carrera' => 1, 'updated_at' => 2, 'updated_by' => 3, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	
@@ -98,6 +104,10 @@ abstract class BaseCategoriaCarreraPeer {
 		$criteria->addSelectColumn(CategoriaCarreraPeer::ID_CATEGORIA);
 
 		$criteria->addSelectColumn(CategoriaCarreraPeer::ID_CARRERA);
+
+		$criteria->addSelectColumn(CategoriaCarreraPeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(CategoriaCarreraPeer::UPDATED_BY);
 
 	}
 
