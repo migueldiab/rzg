@@ -1,4 +1,4 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+﻿SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
@@ -267,7 +267,7 @@ CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`corredor` (
   `updated_at` TIMESTAMP NULL ,
   `updated_by` INT NULL ,
   `created_at` TIMESTAMP NULL ,
-  `updated_by` INT NULL ,
+  `created_by` INT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_corredor_id_sociedad_medida` (`id_sociedad_medica` ASC) ,
   INDEX `fk_corredor_id_pais` (`id_pais` ASC) ,
@@ -297,22 +297,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Suca_Sports`.`usuarios`
+-- Table `Suca_Sports`.`usuario`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`usuarios` (
-  `id` INT NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`usuario` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
-  `id_grupos` INT NULL ,
+  `id_grupo` INT NULL ,
   `id_corredor` INT NULL ,
   `created_at` TIMESTAMP NULL ,
   `created_by` INT NULL ,
   `updated_at` TIMESTAMP NULL ,
   `updated_by` INT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_usuarios_grupos` (`id_grupos` ASC) ,
-  INDEX `fk_usuarios_corredor` (`id_corredor` ASC) ,
+  INDEX `fk_usuario_grupos` (`id_grupo` ASC) ,
+  INDEX `fk_usuario_corredor` (`id_corredor` ASC) ,
   CONSTRAINT `fk_usuarios_grupos`
-    FOREIGN KEY (`id_grupos` )
+    FOREIGN KEY (`id_grupo` )
     REFERENCES `Suca_Sports`.`grupo` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -331,7 +331,7 @@ CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`alquiler` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `id_equipamiento` INT NOT NULL ,
   `id_fecha_carrera` INT NOT NULL ,
-  `id_usuarios` INT NULL ,
+  `id_usuario` INT NOT NULL ,
   `created_at` TIMESTAMP NULL ,
   `created_by` INT NULL ,
   `updated_at` TIMESTAMP NULL ,
@@ -339,7 +339,7 @@ CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`alquiler` (
   PRIMARY KEY (`id`) ,
   INDEX `fk_alquileres_equipamiento_id` (`id_equipamiento` ASC) ,
   INDEX `fk_alquileres_fecha_carrera_id` (`id_fecha_carrera` ASC) ,
-  INDEX `fk_alquileres_usuarios` (`id_usuarios` ASC) ,
+  INDEX `fk_alquileres_usuarios` (`id_usuario` ASC) ,
   CONSTRAINT `fk_alquileres_equipamiento_id`
     FOREIGN KEY (`id_equipamiento` )
     REFERENCES `Suca_Sports`.`inventario` (`id` )
@@ -351,8 +351,8 @@ CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`alquiler` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_alquileres_usuarios`
-    FOREIGN KEY (`id_usuarios` )
-    REFERENCES `Suca_Sports`.`usuarios` (`id` )
+    FOREIGN KEY (`id_usuario` )
+    REFERENCES `Suca_Sports`.`usuario` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -463,8 +463,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`resultado` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `id_fecha_carrera` INT NULL ,
-  `id_corredor` INT NULL ,
+  `id_fecha_carrera` INT NOT NULL ,
+  `id_corredor` INT NOT NULL ,
   `tiempo` TIMESTAMP NULL ,
   `updated_at` TIMESTAMP NULL ,
   `updated_by` INT NULL ,
@@ -584,12 +584,12 @@ CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`post` (
   INDEX `fk_post_usuarios1` (`updated_by` ASC) ,
   CONSTRAINT `fk_post_usuarios`
     FOREIGN KEY (`created_by` )
-    REFERENCES `Suca_Sports`.`usuarios` (`id` )
+    REFERENCES `Suca_Sports`.`usuario` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_post_usuarios1`
     FOREIGN KEY (`updated_by` )
-    REFERENCES `Suca_Sports`.`usuarios` (`id` )
+    REFERENCES `Suca_Sports`.`usuario` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
