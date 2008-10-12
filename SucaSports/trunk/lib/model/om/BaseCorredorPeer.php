@@ -26,7 +26,7 @@ abstract class BaseCorredorPeer {
 	const DOCUMENTO = 'corredor.DOCUMENTO';
 
 	
-	const TIPO_DOCUMENTO = 'corredor.TIPO_DOCUMENTO';
+	const ID_TIPO_DOCUMENTO = 'corredor.ID_TIPO_DOCUMENTO';
 
 	
 	const NOMBRE = 'corredor.NOMBRE';
@@ -91,17 +91,17 @@ abstract class BaseCorredorPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Documento', 'TipoDocumento', 'Nombre', 'Apellido', 'Telefono', 'Movil', 'TelefonoEmergencia', 'Direccion', 'FechaNacimiento', 'Pareja', 'Hijos', 'IdSociedadMedica', 'HistoriaMedica', 'Sexo', 'IdLocalidad', 'IdPais', 'IdChips', 'UpdatedAt', 'UpdatedBy', 'CreatedAt', 'CreatedBy', ),
-		BasePeer::TYPE_COLNAME => array (CorredorPeer::ID, CorredorPeer::DOCUMENTO, CorredorPeer::TIPO_DOCUMENTO, CorredorPeer::NOMBRE, CorredorPeer::APELLIDO, CorredorPeer::TELEFONO, CorredorPeer::MOVIL, CorredorPeer::TELEFONO_EMERGENCIA, CorredorPeer::DIRECCION, CorredorPeer::FECHA_NACIMIENTO, CorredorPeer::PAREJA, CorredorPeer::HIJOS, CorredorPeer::ID_SOCIEDAD_MEDICA, CorredorPeer::HISTORIA_MEDICA, CorredorPeer::SEXO, CorredorPeer::ID_LOCALIDAD, CorredorPeer::ID_PAIS, CorredorPeer::ID_CHIPS, CorredorPeer::UPDATED_AT, CorredorPeer::UPDATED_BY, CorredorPeer::CREATED_AT, CorredorPeer::CREATED_BY, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'documento', 'tipo_documento', 'nombre', 'apellido', 'telefono', 'movil', 'telefono_emergencia', 'direccion', 'fecha_nacimiento', 'pareja', 'hijos', 'id_sociedad_medica', 'historia_medica', 'sexo', 'id_localidad', 'id_pais', 'id_chips', 'updated_at', 'updated_by', 'created_at', 'created_by', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Documento', 'IdTipoDocumento', 'Nombre', 'Apellido', 'Telefono', 'Movil', 'TelefonoEmergencia', 'Direccion', 'FechaNacimiento', 'Pareja', 'Hijos', 'IdSociedadMedica', 'HistoriaMedica', 'Sexo', 'IdLocalidad', 'IdPais', 'IdChips', 'UpdatedAt', 'UpdatedBy', 'CreatedAt', 'CreatedBy', ),
+		BasePeer::TYPE_COLNAME => array (CorredorPeer::ID, CorredorPeer::DOCUMENTO, CorredorPeer::ID_TIPO_DOCUMENTO, CorredorPeer::NOMBRE, CorredorPeer::APELLIDO, CorredorPeer::TELEFONO, CorredorPeer::MOVIL, CorredorPeer::TELEFONO_EMERGENCIA, CorredorPeer::DIRECCION, CorredorPeer::FECHA_NACIMIENTO, CorredorPeer::PAREJA, CorredorPeer::HIJOS, CorredorPeer::ID_SOCIEDAD_MEDICA, CorredorPeer::HISTORIA_MEDICA, CorredorPeer::SEXO, CorredorPeer::ID_LOCALIDAD, CorredorPeer::ID_PAIS, CorredorPeer::ID_CHIPS, CorredorPeer::UPDATED_AT, CorredorPeer::UPDATED_BY, CorredorPeer::CREATED_AT, CorredorPeer::CREATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'documento', 'id_tipo_documento', 'nombre', 'apellido', 'telefono', 'movil', 'telefono_emergencia', 'direccion', 'fecha_nacimiento', 'pareja', 'hijos', 'id_sociedad_medica', 'historia_medica', 'sexo', 'id_localidad', 'id_pais', 'id_chips', 'updated_at', 'updated_by', 'created_at', 'created_by', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Documento' => 1, 'TipoDocumento' => 2, 'Nombre' => 3, 'Apellido' => 4, 'Telefono' => 5, 'Movil' => 6, 'TelefonoEmergencia' => 7, 'Direccion' => 8, 'FechaNacimiento' => 9, 'Pareja' => 10, 'Hijos' => 11, 'IdSociedadMedica' => 12, 'HistoriaMedica' => 13, 'Sexo' => 14, 'IdLocalidad' => 15, 'IdPais' => 16, 'IdChips' => 17, 'UpdatedAt' => 18, 'UpdatedBy' => 19, 'CreatedAt' => 20, 'CreatedBy' => 21, ),
-		BasePeer::TYPE_COLNAME => array (CorredorPeer::ID => 0, CorredorPeer::DOCUMENTO => 1, CorredorPeer::TIPO_DOCUMENTO => 2, CorredorPeer::NOMBRE => 3, CorredorPeer::APELLIDO => 4, CorredorPeer::TELEFONO => 5, CorredorPeer::MOVIL => 6, CorredorPeer::TELEFONO_EMERGENCIA => 7, CorredorPeer::DIRECCION => 8, CorredorPeer::FECHA_NACIMIENTO => 9, CorredorPeer::PAREJA => 10, CorredorPeer::HIJOS => 11, CorredorPeer::ID_SOCIEDAD_MEDICA => 12, CorredorPeer::HISTORIA_MEDICA => 13, CorredorPeer::SEXO => 14, CorredorPeer::ID_LOCALIDAD => 15, CorredorPeer::ID_PAIS => 16, CorredorPeer::ID_CHIPS => 17, CorredorPeer::UPDATED_AT => 18, CorredorPeer::UPDATED_BY => 19, CorredorPeer::CREATED_AT => 20, CorredorPeer::CREATED_BY => 21, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'documento' => 1, 'tipo_documento' => 2, 'nombre' => 3, 'apellido' => 4, 'telefono' => 5, 'movil' => 6, 'telefono_emergencia' => 7, 'direccion' => 8, 'fecha_nacimiento' => 9, 'pareja' => 10, 'hijos' => 11, 'id_sociedad_medica' => 12, 'historia_medica' => 13, 'sexo' => 14, 'id_localidad' => 15, 'id_pais' => 16, 'id_chips' => 17, 'updated_at' => 18, 'updated_by' => 19, 'created_at' => 20, 'created_by' => 21, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Documento' => 1, 'IdTipoDocumento' => 2, 'Nombre' => 3, 'Apellido' => 4, 'Telefono' => 5, 'Movil' => 6, 'TelefonoEmergencia' => 7, 'Direccion' => 8, 'FechaNacimiento' => 9, 'Pareja' => 10, 'Hijos' => 11, 'IdSociedadMedica' => 12, 'HistoriaMedica' => 13, 'Sexo' => 14, 'IdLocalidad' => 15, 'IdPais' => 16, 'IdChips' => 17, 'UpdatedAt' => 18, 'UpdatedBy' => 19, 'CreatedAt' => 20, 'CreatedBy' => 21, ),
+		BasePeer::TYPE_COLNAME => array (CorredorPeer::ID => 0, CorredorPeer::DOCUMENTO => 1, CorredorPeer::ID_TIPO_DOCUMENTO => 2, CorredorPeer::NOMBRE => 3, CorredorPeer::APELLIDO => 4, CorredorPeer::TELEFONO => 5, CorredorPeer::MOVIL => 6, CorredorPeer::TELEFONO_EMERGENCIA => 7, CorredorPeer::DIRECCION => 8, CorredorPeer::FECHA_NACIMIENTO => 9, CorredorPeer::PAREJA => 10, CorredorPeer::HIJOS => 11, CorredorPeer::ID_SOCIEDAD_MEDICA => 12, CorredorPeer::HISTORIA_MEDICA => 13, CorredorPeer::SEXO => 14, CorredorPeer::ID_LOCALIDAD => 15, CorredorPeer::ID_PAIS => 16, CorredorPeer::ID_CHIPS => 17, CorredorPeer::UPDATED_AT => 18, CorredorPeer::UPDATED_BY => 19, CorredorPeer::CREATED_AT => 20, CorredorPeer::CREATED_BY => 21, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'documento' => 1, 'id_tipo_documento' => 2, 'nombre' => 3, 'apellido' => 4, 'telefono' => 5, 'movil' => 6, 'telefono_emergencia' => 7, 'direccion' => 8, 'fecha_nacimiento' => 9, 'pareja' => 10, 'hijos' => 11, 'id_sociedad_medica' => 12, 'historia_medica' => 13, 'sexo' => 14, 'id_localidad' => 15, 'id_pais' => 16, 'id_chips' => 17, 'updated_at' => 18, 'updated_by' => 19, 'created_at' => 20, 'created_by' => 21, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, )
 	);
 
@@ -159,7 +159,7 @@ abstract class BaseCorredorPeer {
 
 		$criteria->addSelectColumn(CorredorPeer::DOCUMENTO);
 
-		$criteria->addSelectColumn(CorredorPeer::TIPO_DOCUMENTO);
+		$criteria->addSelectColumn(CorredorPeer::ID_TIPO_DOCUMENTO);
 
 		$criteria->addSelectColumn(CorredorPeer::NOMBRE);
 
@@ -278,6 +278,34 @@ abstract class BaseCorredorPeer {
 	}
 
 	
+	public static function doCountJoinTipoDocumento(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(CorredorPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(CorredorPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$criteria->addJoin(CorredorPeer::ID_TIPO_DOCUMENTO, TipoDocumentoPeer::ID);
+
+		$rs = CorredorPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
 	public static function doCountJoinSociedadMedica(Criteria $criteria, $distinct = false, $con = null)
 	{
 				$criteria = clone $criteria;
@@ -386,6 +414,53 @@ abstract class BaseCorredorPeer {
 		} else {
 						return 0;
 		}
+	}
+
+
+	
+	public static function doSelectJoinTipoDocumento(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+				if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		CorredorPeer::addSelectColumns($c);
+		$startcol = (CorredorPeer::NUM_COLUMNS - CorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		TipoDocumentoPeer::addSelectColumns($c);
+
+		$c->addJoin(CorredorPeer::ID_TIPO_DOCUMENTO, TipoDocumentoPeer::ID);
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = CorredorPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = TipoDocumentoPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj2 = new $cls();
+			$obj2->hydrate($rs, $startcol);
+
+			$newObject = true;
+			foreach($results as $temp_obj1) {
+				$temp_obj2 = $temp_obj1->getTipoDocumento(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+										$temp_obj2->addCorredor($obj1); 					break;
+				}
+			}
+			if ($newObject) {
+				$obj2->initCorredors();
+				$obj2->addCorredor($obj1); 			}
+			$results[] = $obj1;
+		}
+		return $results;
 	}
 
 
@@ -594,6 +669,8 @@ abstract class BaseCorredorPeer {
 			$criteria->addSelectColumn($column);
 		}
 
+		$criteria->addJoin(CorredorPeer::ID_TIPO_DOCUMENTO, TipoDocumentoPeer::ID);
+
 		$criteria->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
 
 		$criteria->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
@@ -623,17 +700,22 @@ abstract class BaseCorredorPeer {
 		CorredorPeer::addSelectColumns($c);
 		$startcol2 = (CorredorPeer::NUM_COLUMNS - CorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 
+		TipoDocumentoPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + TipoDocumentoPeer::NUM_COLUMNS;
+
 		SociedadMedicaPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + SociedadMedicaPeer::NUM_COLUMNS;
+		$startcol4 = $startcol3 + SociedadMedicaPeer::NUM_COLUMNS;
 
 		LocalidadPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + LocalidadPeer::NUM_COLUMNS;
+		$startcol5 = $startcol4 + LocalidadPeer::NUM_COLUMNS;
 
 		PaisPeer::addSelectColumns($c);
-		$startcol5 = $startcol4 + PaisPeer::NUM_COLUMNS;
+		$startcol6 = $startcol5 + PaisPeer::NUM_COLUMNS;
 
 		ChipPeer::addSelectColumns($c);
-		$startcol6 = $startcol5 + ChipPeer::NUM_COLUMNS;
+		$startcol7 = $startcol6 + ChipPeer::NUM_COLUMNS;
+
+		$c->addJoin(CorredorPeer::ID_TIPO_DOCUMENTO, TipoDocumentoPeer::ID);
 
 		$c->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
 
@@ -657,7 +739,7 @@ abstract class BaseCorredorPeer {
 
 
 					
-			$omClass = SociedadMedicaPeer::getOMClass();
+			$omClass = TipoDocumentoPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -667,7 +749,7 @@ abstract class BaseCorredorPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getSociedadMedica(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+				$temp_obj2 = $temp_obj1->getTipoDocumento(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj2->addCorredor($obj1); 					break;
 				}
@@ -680,7 +762,7 @@ abstract class BaseCorredorPeer {
 
 
 					
-			$omClass = LocalidadPeer::getOMClass();
+			$omClass = SociedadMedicaPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -690,7 +772,7 @@ abstract class BaseCorredorPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getLocalidad(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
+				$temp_obj3 = $temp_obj1->getSociedadMedica(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj3->addCorredor($obj1); 					break;
 				}
@@ -703,7 +785,7 @@ abstract class BaseCorredorPeer {
 
 
 					
-			$omClass = PaisPeer::getOMClass();
+			$omClass = LocalidadPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -713,7 +795,7 @@ abstract class BaseCorredorPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj4 = $temp_obj1->getPais(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
+				$temp_obj4 = $temp_obj1->getLocalidad(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj4->addCorredor($obj1); 					break;
 				}
@@ -726,7 +808,7 @@ abstract class BaseCorredorPeer {
 
 
 					
-			$omClass = ChipPeer::getOMClass();
+			$omClass = PaisPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -736,7 +818,7 @@ abstract class BaseCorredorPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj5 = $temp_obj1->getChip(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
+				$temp_obj5 = $temp_obj1->getPais(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj5->addCorredor($obj1); 					break;
 				}
@@ -747,9 +829,66 @@ abstract class BaseCorredorPeer {
 				$obj5->addCorredor($obj1);
 			}
 
+
+					
+			$omClass = ChipPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj6 = new $cls();
+			$obj6->hydrate($rs, $startcol6);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj6 = $temp_obj1->getChip(); 				if ($temp_obj6->getPrimaryKey() === $obj6->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj6->addCorredor($obj1); 					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj6->initCorredors();
+				$obj6->addCorredor($obj1);
+			}
+
 			$results[] = $obj1;
 		}
 		return $results;
+	}
+
+
+	
+	public static function doCountJoinAllExceptTipoDocumento(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(CorredorPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(CorredorPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$criteria->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
+
+		$criteria->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
+
+		$criteria->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
+
+		$criteria->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
+
+		$rs = CorredorPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
 	}
 
 
@@ -769,6 +908,8 @@ abstract class BaseCorredorPeer {
 		{
 			$criteria->addSelectColumn($column);
 		}
+
+		$criteria->addJoin(CorredorPeer::ID_TIPO_DOCUMENTO, TipoDocumentoPeer::ID);
 
 		$criteria->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
 
@@ -802,6 +943,8 @@ abstract class BaseCorredorPeer {
 			$criteria->addSelectColumn($column);
 		}
 
+		$criteria->addJoin(CorredorPeer::ID_TIPO_DOCUMENTO, TipoDocumentoPeer::ID);
+
 		$criteria->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
 
 		$criteria->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
@@ -833,6 +976,8 @@ abstract class BaseCorredorPeer {
 		{
 			$criteria->addSelectColumn($column);
 		}
+
+		$criteria->addJoin(CorredorPeer::ID_TIPO_DOCUMENTO, TipoDocumentoPeer::ID);
 
 		$criteria->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
 
@@ -866,6 +1011,8 @@ abstract class BaseCorredorPeer {
 			$criteria->addSelectColumn($column);
 		}
 
+		$criteria->addJoin(CorredorPeer::ID_TIPO_DOCUMENTO, TipoDocumentoPeer::ID);
+
 		$criteria->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
 
 		$criteria->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
@@ -882,340 +1029,7 @@ abstract class BaseCorredorPeer {
 
 
 	
-	public static function doSelectJoinAllExceptSociedadMedica(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		CorredorPeer::addSelectColumns($c);
-		$startcol2 = (CorredorPeer::NUM_COLUMNS - CorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		LocalidadPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + LocalidadPeer::NUM_COLUMNS;
-
-		PaisPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + PaisPeer::NUM_COLUMNS;
-
-		ChipPeer::addSelectColumns($c);
-		$startcol5 = $startcol4 + ChipPeer::NUM_COLUMNS;
-
-		$c->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = CorredorPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = LocalidadPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getLocalidad(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initCorredors();
-				$obj2->addCorredor($obj1);
-			}
-
-			$omClass = PaisPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getPais(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initCorredors();
-				$obj3->addCorredor($obj1);
-			}
-
-			$omClass = ChipPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj4  = new $cls();
-			$obj4->hydrate($rs, $startcol4);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj4 = $temp_obj1->getChip(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj4->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj4->initCorredors();
-				$obj4->addCorredor($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinAllExceptLocalidad(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		CorredorPeer::addSelectColumns($c);
-		$startcol2 = (CorredorPeer::NUM_COLUMNS - CorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		SociedadMedicaPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + SociedadMedicaPeer::NUM_COLUMNS;
-
-		PaisPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + PaisPeer::NUM_COLUMNS;
-
-		ChipPeer::addSelectColumns($c);
-		$startcol5 = $startcol4 + ChipPeer::NUM_COLUMNS;
-
-		$c->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = CorredorPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = SociedadMedicaPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getSociedadMedica(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initCorredors();
-				$obj2->addCorredor($obj1);
-			}
-
-			$omClass = PaisPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getPais(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initCorredors();
-				$obj3->addCorredor($obj1);
-			}
-
-			$omClass = ChipPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj4  = new $cls();
-			$obj4->hydrate($rs, $startcol4);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj4 = $temp_obj1->getChip(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj4->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj4->initCorredors();
-				$obj4->addCorredor($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinAllExceptPais(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		CorredorPeer::addSelectColumns($c);
-		$startcol2 = (CorredorPeer::NUM_COLUMNS - CorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		SociedadMedicaPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + SociedadMedicaPeer::NUM_COLUMNS;
-
-		LocalidadPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + LocalidadPeer::NUM_COLUMNS;
-
-		ChipPeer::addSelectColumns($c);
-		$startcol5 = $startcol4 + ChipPeer::NUM_COLUMNS;
-
-		$c->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
-
-		$c->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = CorredorPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = SociedadMedicaPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getSociedadMedica(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initCorredors();
-				$obj2->addCorredor($obj1);
-			}
-
-			$omClass = LocalidadPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getLocalidad(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initCorredors();
-				$obj3->addCorredor($obj1);
-			}
-
-			$omClass = ChipPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj4  = new $cls();
-			$obj4->hydrate($rs, $startcol4);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj4 = $temp_obj1->getChip(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj4->addCorredor($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj4->initCorredors();
-				$obj4->addCorredor($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinAllExceptChip(Criteria $c, $con = null)
+	public static function doSelectJoinAllExceptTipoDocumento(Criteria $c, $con = null)
 	{
 		$c = clone $c;
 
@@ -1235,11 +1049,16 @@ abstract class BaseCorredorPeer {
 		PaisPeer::addSelectColumns($c);
 		$startcol5 = $startcol4 + PaisPeer::NUM_COLUMNS;
 
+		ChipPeer::addSelectColumns($c);
+		$startcol6 = $startcol5 + ChipPeer::NUM_COLUMNS;
+
 		$c->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
 
 		$c->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
 
 		$c->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
 
 
 		$rs = BasePeer::doSelect($c, $con);
@@ -1317,6 +1136,580 @@ abstract class BaseCorredorPeer {
 			if ($newObject) {
 				$obj4->initCorredors();
 				$obj4->addCorredor($obj1);
+			}
+
+			$omClass = ChipPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj5  = new $cls();
+			$obj5->hydrate($rs, $startcol5);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj5 = $temp_obj1->getChip(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj5->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj5->initCorredors();
+				$obj5->addCorredor($obj1);
+			}
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doSelectJoinAllExceptSociedadMedica(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		CorredorPeer::addSelectColumns($c);
+		$startcol2 = (CorredorPeer::NUM_COLUMNS - CorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+		TipoDocumentoPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + TipoDocumentoPeer::NUM_COLUMNS;
+
+		LocalidadPeer::addSelectColumns($c);
+		$startcol4 = $startcol3 + LocalidadPeer::NUM_COLUMNS;
+
+		PaisPeer::addSelectColumns($c);
+		$startcol5 = $startcol4 + PaisPeer::NUM_COLUMNS;
+
+		ChipPeer::addSelectColumns($c);
+		$startcol6 = $startcol5 + ChipPeer::NUM_COLUMNS;
+
+		$c->addJoin(CorredorPeer::ID_TIPO_DOCUMENTO, TipoDocumentoPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = CorredorPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = TipoDocumentoPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj2  = new $cls();
+			$obj2->hydrate($rs, $startcol2);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj2 = $temp_obj1->getTipoDocumento(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj2->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj2->initCorredors();
+				$obj2->addCorredor($obj1);
+			}
+
+			$omClass = LocalidadPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj3  = new $cls();
+			$obj3->hydrate($rs, $startcol3);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj3 = $temp_obj1->getLocalidad(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj3->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj3->initCorredors();
+				$obj3->addCorredor($obj1);
+			}
+
+			$omClass = PaisPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj4  = new $cls();
+			$obj4->hydrate($rs, $startcol4);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj4 = $temp_obj1->getPais(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj4->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj4->initCorredors();
+				$obj4->addCorredor($obj1);
+			}
+
+			$omClass = ChipPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj5  = new $cls();
+			$obj5->hydrate($rs, $startcol5);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj5 = $temp_obj1->getChip(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj5->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj5->initCorredors();
+				$obj5->addCorredor($obj1);
+			}
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doSelectJoinAllExceptLocalidad(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		CorredorPeer::addSelectColumns($c);
+		$startcol2 = (CorredorPeer::NUM_COLUMNS - CorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+		TipoDocumentoPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + TipoDocumentoPeer::NUM_COLUMNS;
+
+		SociedadMedicaPeer::addSelectColumns($c);
+		$startcol4 = $startcol3 + SociedadMedicaPeer::NUM_COLUMNS;
+
+		PaisPeer::addSelectColumns($c);
+		$startcol5 = $startcol4 + PaisPeer::NUM_COLUMNS;
+
+		ChipPeer::addSelectColumns($c);
+		$startcol6 = $startcol5 + ChipPeer::NUM_COLUMNS;
+
+		$c->addJoin(CorredorPeer::ID_TIPO_DOCUMENTO, TipoDocumentoPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = CorredorPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = TipoDocumentoPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj2  = new $cls();
+			$obj2->hydrate($rs, $startcol2);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj2 = $temp_obj1->getTipoDocumento(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj2->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj2->initCorredors();
+				$obj2->addCorredor($obj1);
+			}
+
+			$omClass = SociedadMedicaPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj3  = new $cls();
+			$obj3->hydrate($rs, $startcol3);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj3 = $temp_obj1->getSociedadMedica(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj3->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj3->initCorredors();
+				$obj3->addCorredor($obj1);
+			}
+
+			$omClass = PaisPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj4  = new $cls();
+			$obj4->hydrate($rs, $startcol4);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj4 = $temp_obj1->getPais(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj4->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj4->initCorredors();
+				$obj4->addCorredor($obj1);
+			}
+
+			$omClass = ChipPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj5  = new $cls();
+			$obj5->hydrate($rs, $startcol5);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj5 = $temp_obj1->getChip(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj5->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj5->initCorredors();
+				$obj5->addCorredor($obj1);
+			}
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doSelectJoinAllExceptPais(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		CorredorPeer::addSelectColumns($c);
+		$startcol2 = (CorredorPeer::NUM_COLUMNS - CorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+		TipoDocumentoPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + TipoDocumentoPeer::NUM_COLUMNS;
+
+		SociedadMedicaPeer::addSelectColumns($c);
+		$startcol4 = $startcol3 + SociedadMedicaPeer::NUM_COLUMNS;
+
+		LocalidadPeer::addSelectColumns($c);
+		$startcol5 = $startcol4 + LocalidadPeer::NUM_COLUMNS;
+
+		ChipPeer::addSelectColumns($c);
+		$startcol6 = $startcol5 + ChipPeer::NUM_COLUMNS;
+
+		$c->addJoin(CorredorPeer::ID_TIPO_DOCUMENTO, TipoDocumentoPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_CHIPS, ChipPeer::ID);
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = CorredorPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = TipoDocumentoPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj2  = new $cls();
+			$obj2->hydrate($rs, $startcol2);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj2 = $temp_obj1->getTipoDocumento(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj2->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj2->initCorredors();
+				$obj2->addCorredor($obj1);
+			}
+
+			$omClass = SociedadMedicaPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj3  = new $cls();
+			$obj3->hydrate($rs, $startcol3);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj3 = $temp_obj1->getSociedadMedica(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj3->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj3->initCorredors();
+				$obj3->addCorredor($obj1);
+			}
+
+			$omClass = LocalidadPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj4  = new $cls();
+			$obj4->hydrate($rs, $startcol4);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj4 = $temp_obj1->getLocalidad(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj4->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj4->initCorredors();
+				$obj4->addCorredor($obj1);
+			}
+
+			$omClass = ChipPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj5  = new $cls();
+			$obj5->hydrate($rs, $startcol5);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj5 = $temp_obj1->getChip(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj5->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj5->initCorredors();
+				$obj5->addCorredor($obj1);
+			}
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doSelectJoinAllExceptChip(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		CorredorPeer::addSelectColumns($c);
+		$startcol2 = (CorredorPeer::NUM_COLUMNS - CorredorPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+		TipoDocumentoPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + TipoDocumentoPeer::NUM_COLUMNS;
+
+		SociedadMedicaPeer::addSelectColumns($c);
+		$startcol4 = $startcol3 + SociedadMedicaPeer::NUM_COLUMNS;
+
+		LocalidadPeer::addSelectColumns($c);
+		$startcol5 = $startcol4 + LocalidadPeer::NUM_COLUMNS;
+
+		PaisPeer::addSelectColumns($c);
+		$startcol6 = $startcol5 + PaisPeer::NUM_COLUMNS;
+
+		$c->addJoin(CorredorPeer::ID_TIPO_DOCUMENTO, TipoDocumentoPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_SOCIEDAD_MEDICA, SociedadMedicaPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_LOCALIDAD, LocalidadPeer::ID);
+
+		$c->addJoin(CorredorPeer::ID_PAIS, PaisPeer::ID);
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = CorredorPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = TipoDocumentoPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj2  = new $cls();
+			$obj2->hydrate($rs, $startcol2);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj2 = $temp_obj1->getTipoDocumento(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj2->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj2->initCorredors();
+				$obj2->addCorredor($obj1);
+			}
+
+			$omClass = SociedadMedicaPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj3  = new $cls();
+			$obj3->hydrate($rs, $startcol3);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj3 = $temp_obj1->getSociedadMedica(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj3->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj3->initCorredors();
+				$obj3->addCorredor($obj1);
+			}
+
+			$omClass = LocalidadPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj4  = new $cls();
+			$obj4->hydrate($rs, $startcol4);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj4 = $temp_obj1->getLocalidad(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj4->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj4->initCorredors();
+				$obj4->addCorredor($obj1);
+			}
+
+			$omClass = PaisPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj5  = new $cls();
+			$obj5->hydrate($rs, $startcol5);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj5 = $temp_obj1->getPais(); 				if ($temp_obj5->getPrimaryKey() === $obj5->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj5->addCorredor($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj5->initCorredors();
+				$obj5->addCorredor($obj1);
 			}
 
 			$results[] = $obj1;

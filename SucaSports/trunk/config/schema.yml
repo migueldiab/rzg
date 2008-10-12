@@ -64,7 +64,7 @@ propel:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
     documento: { type: VARCHAR, size: '45' }
-    tipo_documento: { type: INTEGER }
+    id_tipo_documento: { type: INTEGER, foreignTable: tipo_documento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     nombre: { type: VARCHAR, size: '45' }
     apellido: { type: VARCHAR, size: '45' }
     telefono: { type: VARCHAR, size: '45' }
@@ -84,7 +84,7 @@ propel:
     updated_by: { type: INTEGER }
     created_at: { type: TIMESTAMP }
     created_by: { type: INTEGER }
-    _indexes: { fk_corredor_id_sociedad_medida: [id_sociedad_medica], fk_corredor_id_pais: [id_pais], fk_corredor_id_localidad: [id_localidad], fk_corredor_chips: [id_chips] }
+    _indexes: { fk_corredor_id_sociedad_medida: [id_sociedad_medica], fk_corredor_id_pais: [id_pais], fk_corredor_id_localidad: [id_localidad], fk_corredor_chips: [id_chips], fk_corredor_tipo_documento: [id_tipo_documento] }
   corredor_equipamiento:
     id_corredor: { type: INTEGER, required: true, primaryKey: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     id_equipamiento: { type: INTEGER, required: true, primaryKey: true, foreignTable: equipamiento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }

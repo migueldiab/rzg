@@ -36,7 +36,7 @@ class CorredorMapBuilder {
 
 		$tMap->addColumn('DOCUMENTO', 'Documento', 'string', CreoleTypes::VARCHAR, false, 45);
 
-		$tMap->addColumn('TIPO_DOCUMENTO', 'TipoDocumento', 'int', CreoleTypes::INTEGER, false, null);
+		$tMap->addForeignKey('ID_TIPO_DOCUMENTO', 'IdTipoDocumento', 'int', CreoleTypes::INTEGER, 'tipo_documento', 'ID', false, null);
 
 		$tMap->addColumn('NOMBRE', 'Nombre', 'string', CreoleTypes::VARCHAR, false, 45);
 

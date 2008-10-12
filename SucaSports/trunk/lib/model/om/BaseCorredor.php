@@ -17,7 +17,7 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 
 	
-	protected $tipo_documento;
+	protected $id_tipo_documento;
 
 
 	
@@ -96,6 +96,9 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 	protected $created_by;
 
 	
+	protected $aTipoDocumento;
+
+	
 	protected $aSociedadMedica;
 
 	
@@ -164,10 +167,10 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 	}
 
 	
-	public function getTipoDocumento()
+	public function getIdTipoDocumento()
 	{
 
-		return $this->tipo_documento;
+		return $this->id_tipo_documento;
 	}
 
 	
@@ -377,16 +380,20 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 	} 
 	
-	public function setTipoDocumento($v)
+	public function setIdTipoDocumento($v)
 	{
 
 						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
-		if ($this->tipo_documento !== $v) {
-			$this->tipo_documento = $v;
-			$this->modifiedColumns[] = CorredorPeer::TIPO_DOCUMENTO;
+		if ($this->id_tipo_documento !== $v) {
+			$this->id_tipo_documento = $v;
+			$this->modifiedColumns[] = CorredorPeer::ID_TIPO_DOCUMENTO;
+		}
+
+		if ($this->aTipoDocumento !== null && $this->aTipoDocumento->getId() !== $v) {
+			$this->aTipoDocumento = null;
 		}
 
 	} 
@@ -690,7 +697,7 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 			$this->documento = $rs->getString($startcol + 1);
 
-			$this->tipo_documento = $rs->getInt($startcol + 2);
+			$this->id_tipo_documento = $rs->getInt($startcol + 2);
 
 			$this->nombre = $rs->getString($startcol + 3);
 
@@ -802,6 +809,13 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 
 												
+			if ($this->aTipoDocumento !== null) {
+				if ($this->aTipoDocumento->isModified()) {
+					$affectedRows += $this->aTipoDocumento->save($con);
+				}
+				$this->setTipoDocumento($this->aTipoDocumento);
+			}
+
 			if ($this->aSociedadMedica !== null) {
 				if ($this->aSociedadMedica->isModified()) {
 					$affectedRows += $this->aSociedadMedica->save($con);
@@ -927,6 +941,12 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 
 												
+			if ($this->aTipoDocumento !== null) {
+				if (!$this->aTipoDocumento->validate($columns)) {
+					$failureMap = array_merge($failureMap, $this->aTipoDocumento->getValidationFailures());
+				}
+			}
+
 			if ($this->aSociedadMedica !== null) {
 				if (!$this->aSociedadMedica->validate($columns)) {
 					$failureMap = array_merge($failureMap, $this->aSociedadMedica->getValidationFailures());
@@ -1030,7 +1050,7 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 				return $this->getDocumento();
 				break;
 			case 2:
-				return $this->getTipoDocumento();
+				return $this->getIdTipoDocumento();
 				break;
 			case 3:
 				return $this->getNombre();
@@ -1101,7 +1121,7 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getDocumento(),
-			$keys[2] => $this->getTipoDocumento(),
+			$keys[2] => $this->getIdTipoDocumento(),
 			$keys[3] => $this->getNombre(),
 			$keys[4] => $this->getApellido(),
 			$keys[5] => $this->getTelefono(),
@@ -1143,7 +1163,7 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 				$this->setDocumento($value);
 				break;
 			case 2:
-				$this->setTipoDocumento($value);
+				$this->setIdTipoDocumento($value);
 				break;
 			case 3:
 				$this->setNombre($value);
@@ -1211,7 +1231,7 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setDocumento($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setTipoDocumento($arr[$keys[2]]);
+		if (array_key_exists($keys[2], $arr)) $this->setIdTipoDocumento($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setNombre($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setApellido($arr[$keys[4]]);
 		if (array_key_exists($keys[5], $arr)) $this->setTelefono($arr[$keys[5]]);
@@ -1240,7 +1260,7 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 		if ($this->isColumnModified(CorredorPeer::ID)) $criteria->add(CorredorPeer::ID, $this->id);
 		if ($this->isColumnModified(CorredorPeer::DOCUMENTO)) $criteria->add(CorredorPeer::DOCUMENTO, $this->documento);
-		if ($this->isColumnModified(CorredorPeer::TIPO_DOCUMENTO)) $criteria->add(CorredorPeer::TIPO_DOCUMENTO, $this->tipo_documento);
+		if ($this->isColumnModified(CorredorPeer::ID_TIPO_DOCUMENTO)) $criteria->add(CorredorPeer::ID_TIPO_DOCUMENTO, $this->id_tipo_documento);
 		if ($this->isColumnModified(CorredorPeer::NOMBRE)) $criteria->add(CorredorPeer::NOMBRE, $this->nombre);
 		if ($this->isColumnModified(CorredorPeer::APELLIDO)) $criteria->add(CorredorPeer::APELLIDO, $this->apellido);
 		if ($this->isColumnModified(CorredorPeer::TELEFONO)) $criteria->add(CorredorPeer::TELEFONO, $this->telefono);
@@ -1292,7 +1312,7 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 
 		$copyObj->setDocumento($this->documento);
 
-		$copyObj->setTipoDocumento($this->tipo_documento);
+		$copyObj->setIdTipoDocumento($this->id_tipo_documento);
 
 		$copyObj->setNombre($this->nombre);
 
@@ -1383,6 +1403,33 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 			self::$peer = new CorredorPeer();
 		}
 		return self::$peer;
+	}
+
+	
+	public function setTipoDocumento($v)
+	{
+
+
+		if ($v === null) {
+			$this->setIdTipoDocumento(NULL);
+		} else {
+			$this->setIdTipoDocumento($v->getId());
+		}
+
+
+		$this->aTipoDocumento = $v;
+	}
+
+
+	
+	public function getTipoDocumento($con = null)
+	{
+		if ($this->aTipoDocumento === null && ($this->id_tipo_documento !== null)) {
+						$this->aTipoDocumento = TipoDocumentoPeer::retrieveByPK($this->id_tipo_documento, $con);
+
+			
+		}
+		return $this->aTipoDocumento;
 	}
 
 	
