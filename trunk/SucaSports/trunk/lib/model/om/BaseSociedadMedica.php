@@ -516,6 +516,40 @@ abstract class BaseSociedadMedica extends BaseObject  implements Persistent {
 
 
 	
+	public function getCorredorsJoinTipoDocumento($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collCorredors === null) {
+			if ($this->isNew()) {
+				$this->collCorredors = array();
+			} else {
+
+				$criteria->add(CorredorPeer::ID_SOCIEDAD_MEDICA, $this->getId());
+
+				$this->collCorredors = CorredorPeer::doSelectJoinTipoDocumento($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(CorredorPeer::ID_SOCIEDAD_MEDICA, $this->getId());
+
+			if (!isset($this->lastCorredorCriteria) || !$this->lastCorredorCriteria->equals($criteria)) {
+				$this->collCorredors = CorredorPeer::doSelectJoinTipoDocumento($criteria, $con);
+			}
+		}
+		$this->lastCorredorCriteria = $criteria;
+
+		return $this->collCorredors;
+	}
+
+
+	
 	public function getCorredorsJoinLocalidad($criteria = null, $con = null)
 	{
 				if ($criteria === null) {

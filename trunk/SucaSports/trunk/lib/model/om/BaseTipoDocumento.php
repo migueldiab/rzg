@@ -16,6 +16,12 @@ abstract class BaseTipoDocumento extends BaseObject  implements Persistent {
 	protected $nombre;
 
 	
+	protected $collCorredors;
+
+	
+	protected $lastCorredorCriteria = null;
+
+	
 	protected $alreadyInSave = false;
 
 	
@@ -144,6 +150,14 @@ abstract class BaseTipoDocumento extends BaseObject  implements Persistent {
 				}
 				$this->resetModified(); 			}
 
+			if ($this->collCorredors !== null) {
+				foreach($this->collCorredors as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			$this->alreadyInSave = false;
 		}
 		return $affectedRows;
@@ -184,6 +198,14 @@ abstract class BaseTipoDocumento extends BaseObject  implements Persistent {
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
+
+				if ($this->collCorredors !== null) {
+					foreach($this->collCorredors as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
 
 
 			$this->alreadyInValidation = false;
@@ -293,6 +315,15 @@ abstract class BaseTipoDocumento extends BaseObject  implements Persistent {
 		$copyObj->setNombre($this->nombre);
 
 
+		if ($deepCopy) {
+									$copyObj->setNew(false);
+
+			foreach($this->getCorredors() as $relObj) {
+				$copyObj->addCorredor($relObj->copy($deepCopy));
+			}
+
+		} 
+
 		$copyObj->setNew(true);
 
 		$copyObj->setId(NULL); 
@@ -314,6 +345,210 @@ abstract class BaseTipoDocumento extends BaseObject  implements Persistent {
 			self::$peer = new TipoDocumentoPeer();
 		}
 		return self::$peer;
+	}
+
+	
+	public function initCorredors()
+	{
+		if ($this->collCorredors === null) {
+			$this->collCorredors = array();
+		}
+	}
+
+	
+	public function getCorredors($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collCorredors === null) {
+			if ($this->isNew()) {
+			   $this->collCorredors = array();
+			} else {
+
+				$criteria->add(CorredorPeer::ID_TIPO_DOCUMENTO, $this->getId());
+
+				CorredorPeer::addSelectColumns($criteria);
+				$this->collCorredors = CorredorPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(CorredorPeer::ID_TIPO_DOCUMENTO, $this->getId());
+
+				CorredorPeer::addSelectColumns($criteria);
+				if (!isset($this->lastCorredorCriteria) || !$this->lastCorredorCriteria->equals($criteria)) {
+					$this->collCorredors = CorredorPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastCorredorCriteria = $criteria;
+		return $this->collCorredors;
+	}
+
+	
+	public function countCorredors($criteria = null, $distinct = false, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(CorredorPeer::ID_TIPO_DOCUMENTO, $this->getId());
+
+		return CorredorPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addCorredor(Corredor $l)
+	{
+		$this->collCorredors[] = $l;
+		$l->setTipoDocumento($this);
+	}
+
+
+	
+	public function getCorredorsJoinSociedadMedica($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collCorredors === null) {
+			if ($this->isNew()) {
+				$this->collCorredors = array();
+			} else {
+
+				$criteria->add(CorredorPeer::ID_TIPO_DOCUMENTO, $this->getId());
+
+				$this->collCorredors = CorredorPeer::doSelectJoinSociedadMedica($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(CorredorPeer::ID_TIPO_DOCUMENTO, $this->getId());
+
+			if (!isset($this->lastCorredorCriteria) || !$this->lastCorredorCriteria->equals($criteria)) {
+				$this->collCorredors = CorredorPeer::doSelectJoinSociedadMedica($criteria, $con);
+			}
+		}
+		$this->lastCorredorCriteria = $criteria;
+
+		return $this->collCorredors;
+	}
+
+
+	
+	public function getCorredorsJoinLocalidad($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collCorredors === null) {
+			if ($this->isNew()) {
+				$this->collCorredors = array();
+			} else {
+
+				$criteria->add(CorredorPeer::ID_TIPO_DOCUMENTO, $this->getId());
+
+				$this->collCorredors = CorredorPeer::doSelectJoinLocalidad($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(CorredorPeer::ID_TIPO_DOCUMENTO, $this->getId());
+
+			if (!isset($this->lastCorredorCriteria) || !$this->lastCorredorCriteria->equals($criteria)) {
+				$this->collCorredors = CorredorPeer::doSelectJoinLocalidad($criteria, $con);
+			}
+		}
+		$this->lastCorredorCriteria = $criteria;
+
+		return $this->collCorredors;
+	}
+
+
+	
+	public function getCorredorsJoinPais($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collCorredors === null) {
+			if ($this->isNew()) {
+				$this->collCorredors = array();
+			} else {
+
+				$criteria->add(CorredorPeer::ID_TIPO_DOCUMENTO, $this->getId());
+
+				$this->collCorredors = CorredorPeer::doSelectJoinPais($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(CorredorPeer::ID_TIPO_DOCUMENTO, $this->getId());
+
+			if (!isset($this->lastCorredorCriteria) || !$this->lastCorredorCriteria->equals($criteria)) {
+				$this->collCorredors = CorredorPeer::doSelectJoinPais($criteria, $con);
+			}
+		}
+		$this->lastCorredorCriteria = $criteria;
+
+		return $this->collCorredors;
+	}
+
+
+	
+	public function getCorredorsJoinChip($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collCorredors === null) {
+			if ($this->isNew()) {
+				$this->collCorredors = array();
+			} else {
+
+				$criteria->add(CorredorPeer::ID_TIPO_DOCUMENTO, $this->getId());
+
+				$this->collCorredors = CorredorPeer::doSelectJoinChip($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(CorredorPeer::ID_TIPO_DOCUMENTO, $this->getId());
+
+			if (!isset($this->lastCorredorCriteria) || !$this->lastCorredorCriteria->equals($criteria)) {
+				$this->collCorredors = CorredorPeer::doSelectJoinChip($criteria, $con);
+			}
+		}
+		$this->lastCorredorCriteria = $criteria;
+
+		return $this->collCorredors;
 	}
 
 } 
