@@ -9,4 +9,7 @@
  */ 
 class Usuario extends BaseUsuario
 {
+    public function __toString() {
+        return $this->getNombre();
+    }
 }

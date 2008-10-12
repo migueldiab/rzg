@@ -9,4 +9,9 @@
  */ 
 class Pais extends BasePais
 {
+
+    public function __toString() {
+        return $this->getNombre();
+    }
+    
 }
