@@ -9,4 +9,8 @@
  */ 
 class SociedadMedica extends BaseSociedadMedica
 {
+  public function __toString() {
+    return $this->getNombre();
+  }
+    
 }

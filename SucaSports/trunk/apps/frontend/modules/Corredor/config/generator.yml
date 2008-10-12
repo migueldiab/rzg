@@ -3,3 +3,28 @@ generator:
   param:
     model_class:      Corredor
     theme:            default
+
+    fields:
+      documento:       { name: Numero de Documento}
+#     historia_medica: { params: rich=true tinymce_options=height:150 }
+#      category_id:  { params: disabled=true }
+#      is_published: { type: plain}
+#      created_on:   { type: plain, params: date_format='dd/MM/yy' }
+#      author_id:    { params: size=5 include_custom=>> Choose an author << }
+#      published_on: { credentials:  }
+
+    list:
+      title:          Lista de Corredores
+      display:        [apellido, nombre, documento, telefono]
+      filters:        [apellido, nombre, documento, telefono]
+      max_per_page:   15
+
+    edit:
+      title:          Editar mi perfil
+      display:
+        "Datos Personales":       [id_tipo_documento, documento, nombre, apellido, sexo, fecha_nacimiento]
+        "Contacto":               [telefono, movil, telefono_emergencia, direccion, id_pais, id_localidad]
+        "Datos Medicos":          [id_sociedad_medica, historia_medica]
+        "Datos Corredor":         [id_chips]
+        "Informacion Adicional":  [pareja, hijos]
+

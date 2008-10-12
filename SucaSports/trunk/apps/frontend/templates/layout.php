@@ -9,14 +9,9 @@
 
 	<link rel="shortcut icon" href="/favicon.ico" />
 </head>
-<body bgcolor="#99CC33" topmargin="0" link="#3D0F7A" vlink="#3D0F7A" alink="#3D0F7A">
-	<div align="center">
-		<table border="0" width="90%" cellspacing="0" cellpadding="0" id="table1">
+<body>
 
-			<?php echo $sf_content ?>
-			
+  <?php echo $sf_content ?>
 					
-		</table>
-	</div>
 </body>
 </html>

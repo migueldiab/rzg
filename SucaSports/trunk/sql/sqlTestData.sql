@@ -15,6 +15,12 @@
 
 
 USE suca_sports;
+INSERT INTO `localidad` (`id`,`id_pais`,`nombre`,`updated_by`,`updated_at`) VALUES 
+ (1,1,'Maldonado',NULL,NULL);
+INSERT INTO `pais` (`id`,`nombre`,`updated_by`,`updated_at`) VALUES 
+ (1,'Uruguay',NULL,NULL);
+INSERT INTO `sociedad_medica` (`id`,`nombre`,`updated_at`,`updated_by`) VALUES 
+ (1,'Asistencial Medica de Maldonado',NULL,NULL);
 INSERT INTO `tipo_documento` (`id`,`nombre`) VALUES 
  (1,'CI'),
  (2,'Pasaporte');

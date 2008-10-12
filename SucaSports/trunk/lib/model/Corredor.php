@@ -9,4 +9,9 @@
  */ 
 class Corredor extends BaseCorredor
 {
+    public function __toString() {
+      return $nombre = $this->getApellido() + ", " + $this->getNombre();
+       
+    }
+    
 }
