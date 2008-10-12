@@ -9,9 +9,12 @@ default:
     #language:     en
     robots:       index, follow
 
-  stylesheets:    [main]
+  stylesheets:    [main, dojo, dijit, nihilo/nihilo]
 
-  javascripts:    []
+  javascripts:
+    dojo:
+      dojo/dojo/dojo:  { djConfig: parseOnLoad:true, isDebug: 'true' }
+      prototype:    prototype
 
   has_layout:     on
   layout:         layout
