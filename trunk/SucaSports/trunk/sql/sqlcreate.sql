@@ -1,4 +1,4 @@
-﻿SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
@@ -243,12 +243,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `Suca_Sports`.`tipo_documento`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`tipo_documento` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `nombre` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `Suca_Sports`.`corredor`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`corredor` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `documento` VARCHAR(45) NULL ,
-  `tipo_documento` INT NULL ,
+  `id_tipo_documento` INT NULL ,
   `nombre` VARCHAR(45) NULL ,
   `apellido` VARCHAR(45) NULL ,
   `telefono` VARCHAR(45) NULL ,
@@ -273,6 +283,7 @@ CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`corredor` (
   INDEX `fk_corredor_id_pais` (`id_pais` ASC) ,
   INDEX `fk_corredor_id_localidad` (`id_localidad` ASC) ,
   INDEX `fk_corredor_chips` (`id_chips` ASC) ,
+  INDEX `fk_corredor_tipo_documento` (`id_tipo_documento` ASC) ,
   CONSTRAINT `fk_corredor_id_sociedad_medida`
     FOREIGN KEY (`id_sociedad_medica` )
     REFERENCES `Suca_Sports`.`sociedad_medica` (`id` )
@@ -292,6 +303,11 @@ CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`corredor` (
     FOREIGN KEY (`id_chips` )
     REFERENCES `Suca_Sports`.`chip` (`id` )
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_corredor_tipo_documento`
+    FOREIGN KEY (`id_tipo_documento` )
+    REFERENCES `Suca_Sports`.`tipo_documento` (`id` )
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -309,8 +325,8 @@ CREATE  TABLE IF NOT EXISTS `Suca_Sports`.`usuario` (
   `updated_at` TIMESTAMP NULL ,
   `updated_by` INT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_usuario_grupos` (`id_grupo` ASC) ,
-  INDEX `fk_usuario_corredor` (`id_corredor` ASC) ,
+  INDEX `fk_usuarios_grupos` (`id_grupo` ASC) ,
+  INDEX `fk_usuarios_corredor` (`id_corredor` ASC) ,
   CONSTRAINT `fk_usuarios_grupos`
     FOREIGN KEY (`id_grupo` )
     REFERENCES `Suca_Sports`.`grupo` (`id` )
