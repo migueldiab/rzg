@@ -8,9 +8,6 @@
 	<?php include_title() ?>
 
 	<link rel="shortcut icon" href="/favicon.ico" />
-	<div align="center">
-		<h1>Suca Sports</h1>
-	</div>
 </head>
 <body bgcolor="#99CC33" topmargin="0" link="#3D0F7A" vlink="#3D0F7A" alink="#3D0F7A">
 	<div align="center">

@@ -236,6 +236,10 @@ propel:
     nombre: { type: VARCHAR, size: '45' }
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
+  tipo_documento:
+    _attributes: { idMethod: native }
+    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
+    nombre: { type: VARCHAR, size: '45' }
   tipo_equipamiento:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
