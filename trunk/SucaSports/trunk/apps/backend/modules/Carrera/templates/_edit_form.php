@@ -23,8 +23,7 @@
     </div>
 </div>
 <div class="form-row">
- <!-- <?php echo label_for('carrera[categoria]', __($labels['carrera{categoria}']), '') ?>-->
-Categoria 
+  <?php echo label_for('carrera[nombre]', __('Categoria'), '') ?>
   <div class="content<?php if ($sf_request->hasError('carrera{categoria}')): ?> form-error<?php endif; ?>">
   <?php if ($sf_request->hasError('carrera{categoria}')): ?>
     <?php echo form_error('carrera{categoria}', array('class' => 'form-error-msg')) ?>
@@ -32,7 +31,7 @@ Categoria
 
   <?php $value = object_select_tag($carrera, 'getId', array (
   'related_class' => 'Categoria',
-  'control_name' => 'categoria[id]',
+  'control_name' => 'carrera[id_categoria]',
   'include_blank' => true,
 )); echo $value ? $value : '&nbsp;' ?>
     </div>
