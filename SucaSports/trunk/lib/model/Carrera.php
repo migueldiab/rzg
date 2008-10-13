@@ -9,4 +9,7 @@
  */ 
 class Carrera extends BaseCarrera
 {
+    public function __toString() {
+      return $this->getNombre();
+    }
 }

@@ -43,7 +43,7 @@ public function executeIndex()
 
   public function executeSave()
   {
-    return $this->forward('carrera', 'edit');
+    //return $this->forward('carrera', 'edit');
   }
 
 
@@ -138,7 +138,6 @@ public function executeIndex()
   protected function saveCarrera($carrera)
   {
     $carrera->save();
-
   }
 
   protected function deleteCarrera($carrera)
@@ -149,7 +148,6 @@ public function executeIndex()
   protected function updateCarreraFromRequest()
   {
     $carrera = $this->getRequestParameter('carrera');
-
     if (isset($carrera['nombre']))
     {
       $this->carrera->setNombre($carrera['nombre']);
