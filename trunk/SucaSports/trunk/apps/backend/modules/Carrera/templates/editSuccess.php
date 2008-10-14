@@ -2,6 +2,19 @@
 
 <?php use_stylesheet('/sf/sf_admin/css/main') ?>
 
+<script type="text/javascript">
+  dojo.require("dijit.Dialog");
+  dojo.require("dijit.form.Form");
+  dojo.require("dijit.form.TextBox");
+  dojo.require("dijit.form.TimeTextBox");
+  dojo.require("dijit.form.Button");
+  dojo.require("dijit.form.DateTextBox");
+  dojo.require("dijit.form.FilteringSelect");
+  //dojo.require("dojox.widget.SortList");
+  dojo.require("dojo.parser");  // scan page for widgets and instantiate them
+</script>
+
+
 <div id="sf_admin_container">
 
 <h1><?php echo __('edit carrera', 

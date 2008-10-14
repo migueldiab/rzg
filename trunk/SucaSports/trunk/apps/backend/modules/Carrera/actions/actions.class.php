@@ -44,6 +44,30 @@ public function executeIndex()
   public function executeSave()
   {
     //return $this->forward('carrera', 'edit');
+        if ($this->getRequest()->isMethod('post'))
+    {
+     $data = $this->getRequestParameter('data');
+     
+     $NombreCarrera = CarreraPeer::retrieveByPk($data['nombre']);     
+     $NombreCarrera = new Carrera();
+     $NombreCarrera -> setNombre($data['nombre']);
+     $NombreCarrera -> save();
+     
+     $data = $this->getRequestParameter('data');
+     
+     $NombreCarrera = CarreraPeer::retrieveByPk($data['url']);     
+     $NombreCarrera = new Carrera();
+     $NombreCarrera -> setUrl($data['url']);
+     $NombreCarrera -> save();
+     
+     $data = $this->getRequestParameter('data');
+     
+     $NombreCarrera = CarreraPeer::retrieveByPk($data['descripcion']);     
+     $NombreCarrera = new Carrera();
+     $NombreCarrera -> setDescripcion($data['descripcion']);
+     $NombreCarrera -> save();
+
+    }
   }
 
 
@@ -285,8 +309,10 @@ public function executeIndex()
   {
     return array(
       'carrera{id}' => 'Id:',
+      'carrera{categoria}' =>'Categoria:',
       'carrera{nombre}' => 'Nombre:',
       'carrera{url}' => 'Url:',
+      'carrera{fecha}' =>'Fecha',
       'carrera{descripcion}' => 'Descripcion:',
       'carrera{created_at}' => 'Created at:',
       'carrera{created_by}' => 'Created by:',
