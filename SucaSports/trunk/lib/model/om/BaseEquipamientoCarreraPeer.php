@@ -20,7 +20,7 @@ abstract class BaseEquipamientoCarreraPeer {
 
 
 	
-	const ID_CARRERA = 'equipamiento_carrera.ID_CARRERA';
+	const ID_FECHA_ETAPA_CARRERA = 'equipamiento_carrera.ID_FECHA_ETAPA_CARRERA';
 
 	
 	const ID_TIPO_EQUIPAMIENTO = 'equipamiento_carrera.ID_TIPO_EQUIPAMIENTO';
@@ -43,17 +43,17 @@ abstract class BaseEquipamientoCarreraPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('IdCarrera', 'IdTipoEquipamiento', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
-		BasePeer::TYPE_COLNAME => array (EquipamientoCarreraPeer::ID_CARRERA, EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, EquipamientoCarreraPeer::CREATED_AT, EquipamientoCarreraPeer::CREATED_BY, EquipamientoCarreraPeer::UPDATED_AT, EquipamientoCarreraPeer::UPDATED_BY, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_carrera', 'id_tipo_equipamiento', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_PHPNAME => array ('IdFechaEtapaCarrera', 'IdTipoEquipamiento', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, EquipamientoCarreraPeer::CREATED_AT, EquipamientoCarreraPeer::CREATED_BY, EquipamientoCarreraPeer::UPDATED_AT, EquipamientoCarreraPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_fecha_etapa_carrera', 'id_tipo_equipamiento', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('IdCarrera' => 0, 'IdTipoEquipamiento' => 1, 'CreatedAt' => 2, 'CreatedBy' => 3, 'UpdatedAt' => 4, 'UpdatedBy' => 5, ),
-		BasePeer::TYPE_COLNAME => array (EquipamientoCarreraPeer::ID_CARRERA => 0, EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO => 1, EquipamientoCarreraPeer::CREATED_AT => 2, EquipamientoCarreraPeer::CREATED_BY => 3, EquipamientoCarreraPeer::UPDATED_AT => 4, EquipamientoCarreraPeer::UPDATED_BY => 5, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_carrera' => 0, 'id_tipo_equipamiento' => 1, 'created_at' => 2, 'created_by' => 3, 'updated_at' => 4, 'updated_by' => 5, ),
+		BasePeer::TYPE_PHPNAME => array ('IdFechaEtapaCarrera' => 0, 'IdTipoEquipamiento' => 1, 'CreatedAt' => 2, 'CreatedBy' => 3, 'UpdatedAt' => 4, 'UpdatedBy' => 5, ),
+		BasePeer::TYPE_COLNAME => array (EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA => 0, EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO => 1, EquipamientoCarreraPeer::CREATED_AT => 2, EquipamientoCarreraPeer::CREATED_BY => 3, EquipamientoCarreraPeer::UPDATED_AT => 4, EquipamientoCarreraPeer::UPDATED_BY => 5, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_fecha_etapa_carrera' => 0, 'id_tipo_equipamiento' => 1, 'created_at' => 2, 'created_by' => 3, 'updated_at' => 4, 'updated_by' => 5, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
@@ -107,7 +107,7 @@ abstract class BaseEquipamientoCarreraPeer {
 	public static function addSelectColumns(Criteria $criteria)
 	{
 
-		$criteria->addSelectColumn(EquipamientoCarreraPeer::ID_CARRERA);
+		$criteria->addSelectColumn(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA);
 
 		$criteria->addSelectColumn(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO);
 
@@ -121,8 +121,8 @@ abstract class BaseEquipamientoCarreraPeer {
 
 	}
 
-	const COUNT = 'COUNT(equipamiento_carrera.ID_CARRERA)';
-	const COUNT_DISTINCT = 'COUNT(DISTINCT equipamiento_carrera.ID_CARRERA)';
+	const COUNT = 'COUNT(equipamiento_carrera.ID_FECHA_ETAPA_CARRERA)';
+	const COUNT_DISTINCT = 'COUNT(DISTINCT equipamiento_carrera.ID_FECHA_ETAPA_CARRERA)';
 
 	
 	public static function doCount(Criteria $criteria, $distinct = false, $con = null)
@@ -214,7 +214,7 @@ abstract class BaseEquipamientoCarreraPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(EquipamientoCarreraPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$rs = EquipamientoCarreraPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -266,7 +266,7 @@ abstract class BaseEquipamientoCarreraPeer {
 		$startcol = (EquipamientoCarreraPeer::NUM_COLUMNS - EquipamientoCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 		FechaEtapaCarreraPeer::addSelectColumns($c);
 
-		$c->addJoin(EquipamientoCarreraPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
@@ -364,7 +364,7 @@ abstract class BaseEquipamientoCarreraPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(EquipamientoCarreraPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$criteria->addJoin(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, TipoEquipamientoPeer::ID);
 
@@ -395,7 +395,7 @@ abstract class BaseEquipamientoCarreraPeer {
 		TipoEquipamientoPeer::addSelectColumns($c);
 		$startcol4 = $startcol3 + TipoEquipamientoPeer::NUM_COLUMNS;
 
-		$c->addJoin(EquipamientoCarreraPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$c->addJoin(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, TipoEquipamientoPeer::ID);
 
@@ -508,7 +508,7 @@ abstract class BaseEquipamientoCarreraPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(EquipamientoCarreraPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$rs = EquipamientoCarreraPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -591,7 +591,7 @@ abstract class BaseEquipamientoCarreraPeer {
 		FechaEtapaCarreraPeer::addSelectColumns($c);
 		$startcol3 = $startcol2 + FechaEtapaCarreraPeer::NUM_COLUMNS;
 
-		$c->addJoin(EquipamientoCarreraPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 
 		$rs = BasePeer::doSelect($c, $con);
@@ -660,7 +660,7 @@ abstract class BaseEquipamientoCarreraPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
-		$criteria->remove(EquipamientoCarreraPeer::ID_CARRERA); 
+		$criteria->remove(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 
@@ -687,8 +687,8 @@ abstract class BaseEquipamientoCarreraPeer {
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; 
-			$comparison = $criteria->getComparison(EquipamientoCarreraPeer::ID_CARRERA);
-			$selectCriteria->add(EquipamientoCarreraPeer::ID_CARRERA, $criteria->remove(EquipamientoCarreraPeer::ID_CARRERA), $comparison);
+			$comparison = $criteria->getComparison(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA);
+			$selectCriteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $criteria->remove(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -727,7 +727,7 @@ abstract class BaseEquipamientoCarreraPeer {
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(EquipamientoCarreraPeer::ID_CARRERA, (array) $values, Criteria::IN);
+			$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, (array) $values, Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -789,7 +789,7 @@ abstract class BaseEquipamientoCarreraPeer {
 
 		$criteria = new Criteria(EquipamientoCarreraPeer::DATABASE_NAME);
 
-		$criteria->add(EquipamientoCarreraPeer::ID_CARRERA, $pk);
+		$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $pk);
 
 
 		$v = EquipamientoCarreraPeer::doSelect($criteria, $con);
@@ -809,7 +809,7 @@ abstract class BaseEquipamientoCarreraPeer {
 			$objs = array();
 		} else {
 			$criteria = new Criteria();
-			$criteria->add(EquipamientoCarreraPeer::ID_CARRERA, $pks, Criteria::IN);
+			$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $pks, Criteria::IN);
 			$objs = EquipamientoCarreraPeer::doSelect($criteria, $con);
 		}
 		return $objs;

@@ -23,7 +23,7 @@ abstract class BaseResultadoPeer {
 	const ID = 'resultado.ID';
 
 	
-	const ID_FECHA_CARRERA = 'resultado.ID_FECHA_CARRERA';
+	const ID_FECHA_ETAPA_CARRERA = 'resultado.ID_FECHA_ETAPA_CARRERA';
 
 	
 	const ID_CORREDOR = 'resultado.ID_CORREDOR';
@@ -43,17 +43,17 @@ abstract class BaseResultadoPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'IdFechaCarrera', 'IdCorredor', 'Tiempo', 'UpdatedAt', 'UpdatedBy', ),
-		BasePeer::TYPE_COLNAME => array (ResultadoPeer::ID, ResultadoPeer::ID_FECHA_CARRERA, ResultadoPeer::ID_CORREDOR, ResultadoPeer::TIEMPO, ResultadoPeer::UPDATED_AT, ResultadoPeer::UPDATED_BY, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'id_fecha_carrera', 'id_corredor', 'tiempo', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'IdFechaEtapaCarrera', 'IdCorredor', 'Tiempo', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (ResultadoPeer::ID, ResultadoPeer::ID_FECHA_ETAPA_CARRERA, ResultadoPeer::ID_CORREDOR, ResultadoPeer::TIEMPO, ResultadoPeer::UPDATED_AT, ResultadoPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'id_fecha_etapa_carrera', 'id_corredor', 'tiempo', 'updated_at', 'updated_by', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdFechaCarrera' => 1, 'IdCorredor' => 2, 'Tiempo' => 3, 'UpdatedAt' => 4, 'UpdatedBy' => 5, ),
-		BasePeer::TYPE_COLNAME => array (ResultadoPeer::ID => 0, ResultadoPeer::ID_FECHA_CARRERA => 1, ResultadoPeer::ID_CORREDOR => 2, ResultadoPeer::TIEMPO => 3, ResultadoPeer::UPDATED_AT => 4, ResultadoPeer::UPDATED_BY => 5, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_fecha_carrera' => 1, 'id_corredor' => 2, 'tiempo' => 3, 'updated_at' => 4, 'updated_by' => 5, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdFechaEtapaCarrera' => 1, 'IdCorredor' => 2, 'Tiempo' => 3, 'UpdatedAt' => 4, 'UpdatedBy' => 5, ),
+		BasePeer::TYPE_COLNAME => array (ResultadoPeer::ID => 0, ResultadoPeer::ID_FECHA_ETAPA_CARRERA => 1, ResultadoPeer::ID_CORREDOR => 2, ResultadoPeer::TIEMPO => 3, ResultadoPeer::UPDATED_AT => 4, ResultadoPeer::UPDATED_BY => 5, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_fecha_etapa_carrera' => 1, 'id_corredor' => 2, 'tiempo' => 3, 'updated_at' => 4, 'updated_by' => 5, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
@@ -109,7 +109,7 @@ abstract class BaseResultadoPeer {
 
 		$criteria->addSelectColumn(ResultadoPeer::ID);
 
-		$criteria->addSelectColumn(ResultadoPeer::ID_FECHA_CARRERA);
+		$criteria->addSelectColumn(ResultadoPeer::ID_FECHA_ETAPA_CARRERA);
 
 		$criteria->addSelectColumn(ResultadoPeer::ID_CORREDOR);
 
@@ -214,7 +214,7 @@ abstract class BaseResultadoPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(ResultadoPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$rs = ResultadoPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -266,7 +266,7 @@ abstract class BaseResultadoPeer {
 		$startcol = (ResultadoPeer::NUM_COLUMNS - ResultadoPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 		FechaEtapaCarreraPeer::addSelectColumns($c);
 
-		$c->addJoin(ResultadoPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
@@ -364,7 +364,7 @@ abstract class BaseResultadoPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(ResultadoPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$criteria->addJoin(ResultadoPeer::ID_CORREDOR, CorredorPeer::ID);
 
@@ -395,7 +395,7 @@ abstract class BaseResultadoPeer {
 		CorredorPeer::addSelectColumns($c);
 		$startcol4 = $startcol3 + CorredorPeer::NUM_COLUMNS;
 
-		$c->addJoin(ResultadoPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$c->addJoin(ResultadoPeer::ID_CORREDOR, CorredorPeer::ID);
 
@@ -508,7 +508,7 @@ abstract class BaseResultadoPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(ResultadoPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$rs = ResultadoPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -591,7 +591,7 @@ abstract class BaseResultadoPeer {
 		FechaEtapaCarreraPeer::addSelectColumns($c);
 		$startcol3 = $startcol2 + FechaEtapaCarreraPeer::NUM_COLUMNS;
 
-		$c->addJoin(ResultadoPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 
 		$rs = BasePeer::doSelect($c, $con);

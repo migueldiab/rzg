@@ -5,13 +5,13 @@ propel:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
     id_equipamiento: { type: INTEGER, required: true, foreignTable: inventario, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id_fecha_carrera: { type: INTEGER, required: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_fecha_etapa_carrera: { type: INTEGER, required: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     id_usuario: { type: INTEGER, required: true, foreignTable: usuario, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     created_at: { type: TIMESTAMP }
     created_by: { type: INTEGER }
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
-    _indexes: { fk_alquileres_equipamiento_id: [id_equipamiento], fk_alquileres_fecha_carrera_id: [id_fecha_carrera], fk_alquileres_usuarios: [id_usuario] }
+    _indexes: { fk_alquileres_equipamiento_id: [id_equipamiento], fk_alquileres_fecha_carrera_id: [id_fecha_etapa_carrera], fk_alquileres_usuarios: [id_usuario] }
   asociacion:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
@@ -118,13 +118,13 @@ propel:
     _indexes: { fk_equipamiento_tipo_equipamiento: [id_tipo_equipamiento] }
   equipamiento_carrera:
     _attributes: { idMethod: native }
-    id_carrera: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_fecha_etapa_carrera: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     id_tipo_equipamiento: { type: INTEGER, required: true, foreignTable: tipo_equipamiento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     created_at: { type: TIMESTAMP }
     created_by: { type: INTEGER }
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
-    _indexes: { fk_equipamiento_carrera_id_carrera: [id_carrera], fk_equipamiento_carrera_tipo_equipamiento: [id_tipo_equipamiento] }
+    _indexes: { fk_equipamiento_carrera_id_carrera: [id_fecha_etapa_carrera], fk_equipamiento_carrera_tipo_equipamiento: [id_tipo_equipamiento] }
   estado:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
@@ -145,16 +145,18 @@ propel:
   fecha_etapa_carrera:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    id_etapa_carrera: { type: INTEGER, required: true, primaryKey: true, foreignTable: etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     max_corredores: { type: INTEGER }
-    fecha_inicio: { type: DATE }
+    fecha_inicio: { type: DATE, required: true }
     fecha_fin: { type: DATE }
     costo: { type: DOUBLE }
     created_at: { type: TIMESTAMP }
     created_by: { type: INTEGER }
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
-    _indexes: { fk_fecha_carrera_id_carrera: [id_etapa_carrera] }
+    id_etapa_carrera: { type: INTEGER, required: true }
+    id_carrera: { type: INTEGER, required: true }
+    _indexes: { fk_fecha_etapa_carrera_etapa_carrera: [id_etapa_carrera, id_carrera] }
+    _uniques: { unique_etapa_carrera_fecha: [fecha_inicio, id_etapa_carrera, id_carrera] }
   forma_pago:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
@@ -174,7 +176,7 @@ propel:
   inscripcion:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    id_carrera: { type: INTEGER, required: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_fecha_etapa_carrera: { type: INTEGER, required: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     id_corredor: { type: INTEGER, required: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     created_at: { type: TIMESTAMP }
     created_by: { type: INTEGER }
@@ -183,7 +185,7 @@ propel:
     fecha_inscripcion: { type: DATE }
     firma_digital: { type: VARCHAR, size: '255' }
     cuenta_corriente_id: { type: INTEGER, foreignTable: cuenta_corriente, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    _indexes: { fk_inscripcion_id_carrera: [id_carrera], fk_inscripcion_id_corredor: [id_corredor], fk_inscripcion_cuenta_corriente: [cuenta_corriente_id] }
+    _indexes: { fk_inscripcion_id_carrera: [id_fecha_etapa_carrera], fk_inscripcion_id_corredor: [id_corredor], fk_inscripcion_cuenta_corriente: [cuenta_corriente_id] }
   inventario:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
@@ -224,12 +226,12 @@ propel:
   resultado:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    id_fecha_carrera: { type: INTEGER, required: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_fecha_etapa_carrera: { type: INTEGER, required: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     id_corredor: { type: INTEGER, required: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     tiempo: { type: TIMESTAMP }
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
-    _indexes: { fk_resultados_fecha_carrera: [id_fecha_carrera], fk_resultado_corredor: [id_corredor] }
+    _indexes: { fk_resultados_fecha_carrera: [id_fecha_etapa_carrera], fk_resultado_corredor: [id_corredor] }
   sociedad_medica:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }

@@ -17,7 +17,7 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 
 
 	
-	protected $id_fecha_carrera;
+	protected $id_fecha_etapa_carrera;
 
 
 	
@@ -69,10 +69,10 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	}
 
 	
-	public function getIdFechaCarrera()
+	public function getIdFechaEtapaCarrera()
 	{
 
-		return $this->id_fecha_carrera;
+		return $this->id_fecha_etapa_carrera;
 	}
 
 	
@@ -173,16 +173,16 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 
 	} 
 	
-	public function setIdFechaCarrera($v)
+	public function setIdFechaEtapaCarrera($v)
 	{
 
 						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
-		if ($this->id_fecha_carrera !== $v) {
-			$this->id_fecha_carrera = $v;
-			$this->modifiedColumns[] = AlquilerPeer::ID_FECHA_CARRERA;
+		if ($this->id_fecha_etapa_carrera !== $v) {
+			$this->id_fecha_etapa_carrera = $v;
+			$this->modifiedColumns[] = AlquilerPeer::ID_FECHA_ETAPA_CARRERA;
 		}
 
 		if ($this->aFechaEtapaCarrera !== null && $this->aFechaEtapaCarrera->getId() !== $v) {
@@ -279,7 +279,7 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 
 			$this->id_equipamiento = $rs->getInt($startcol + 1);
 
-			$this->id_fecha_carrera = $rs->getInt($startcol + 2);
+			$this->id_fecha_etapa_carrera = $rs->getInt($startcol + 2);
 
 			$this->id_usuario = $rs->getInt($startcol + 3);
 
@@ -482,7 +482,7 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 				return $this->getIdEquipamiento();
 				break;
 			case 2:
-				return $this->getIdFechaCarrera();
+				return $this->getIdFechaEtapaCarrera();
 				break;
 			case 3:
 				return $this->getIdUsuario();
@@ -511,7 +511,7 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getIdEquipamiento(),
-			$keys[2] => $this->getIdFechaCarrera(),
+			$keys[2] => $this->getIdFechaEtapaCarrera(),
 			$keys[3] => $this->getIdUsuario(),
 			$keys[4] => $this->getCreatedAt(),
 			$keys[5] => $this->getCreatedBy(),
@@ -539,7 +539,7 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 				$this->setIdEquipamiento($value);
 				break;
 			case 2:
-				$this->setIdFechaCarrera($value);
+				$this->setIdFechaEtapaCarrera($value);
 				break;
 			case 3:
 				$this->setIdUsuario($value);
@@ -565,7 +565,7 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setIdEquipamiento($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setIdFechaCarrera($arr[$keys[2]]);
+		if (array_key_exists($keys[2], $arr)) $this->setIdFechaEtapaCarrera($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setIdUsuario($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setCreatedAt($arr[$keys[4]]);
 		if (array_key_exists($keys[5], $arr)) $this->setCreatedBy($arr[$keys[5]]);
@@ -580,7 +580,7 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 
 		if ($this->isColumnModified(AlquilerPeer::ID)) $criteria->add(AlquilerPeer::ID, $this->id);
 		if ($this->isColumnModified(AlquilerPeer::ID_EQUIPAMIENTO)) $criteria->add(AlquilerPeer::ID_EQUIPAMIENTO, $this->id_equipamiento);
-		if ($this->isColumnModified(AlquilerPeer::ID_FECHA_CARRERA)) $criteria->add(AlquilerPeer::ID_FECHA_CARRERA, $this->id_fecha_carrera);
+		if ($this->isColumnModified(AlquilerPeer::ID_FECHA_ETAPA_CARRERA)) $criteria->add(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, $this->id_fecha_etapa_carrera);
 		if ($this->isColumnModified(AlquilerPeer::ID_USUARIO)) $criteria->add(AlquilerPeer::ID_USUARIO, $this->id_usuario);
 		if ($this->isColumnModified(AlquilerPeer::CREATED_AT)) $criteria->add(AlquilerPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(AlquilerPeer::CREATED_BY)) $criteria->add(AlquilerPeer::CREATED_BY, $this->created_by);
@@ -618,7 +618,7 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 
 		$copyObj->setIdEquipamiento($this->id_equipamiento);
 
-		$copyObj->setIdFechaCarrera($this->id_fecha_carrera);
+		$copyObj->setIdFechaEtapaCarrera($this->id_fecha_etapa_carrera);
 
 		$copyObj->setIdUsuario($this->id_usuario);
 
@@ -687,9 +687,9 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 
 
 		if ($v === null) {
-			$this->setIdFechaCarrera(NULL);
+			$this->setIdFechaEtapaCarrera(NULL);
 		} else {
-			$this->setIdFechaCarrera($v->getId());
+			$this->setIdFechaEtapaCarrera($v->getId());
 		}
 
 
@@ -700,8 +700,8 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	
 	public function getFechaEtapaCarrera($con = null)
 	{
-		if ($this->aFechaEtapaCarrera === null && ($this->id_fecha_carrera !== null)) {
-						$this->aFechaEtapaCarrera = FechaEtapaCarreraPeer::retrieveByPK($this->id_fecha_carrera, $con);
+		if ($this->aFechaEtapaCarrera === null && ($this->id_fecha_etapa_carrera !== null)) {
+						$this->aFechaEtapaCarrera = FechaEtapaCarreraPeer::retrieveByPK($this->id_fecha_etapa_carrera, $con);
 
 			
 		}

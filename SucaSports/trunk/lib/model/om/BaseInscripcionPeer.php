@@ -23,7 +23,7 @@ abstract class BaseInscripcionPeer {
 	const ID = 'inscripcion.ID';
 
 	
-	const ID_CARRERA = 'inscripcion.ID_CARRERA';
+	const ID_FECHA_ETAPA_CARRERA = 'inscripcion.ID_FECHA_ETAPA_CARRERA';
 
 	
 	const ID_CORREDOR = 'inscripcion.ID_CORREDOR';
@@ -55,17 +55,17 @@ abstract class BaseInscripcionPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'IdCarrera', 'IdCorredor', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', 'FechaInscripcion', 'FirmaDigital', 'CuentaCorrienteId', ),
-		BasePeer::TYPE_COLNAME => array (InscripcionPeer::ID, InscripcionPeer::ID_CARRERA, InscripcionPeer::ID_CORREDOR, InscripcionPeer::CREATED_AT, InscripcionPeer::CREATED_BY, InscripcionPeer::UPDATED_AT, InscripcionPeer::UPDATED_BY, InscripcionPeer::FECHA_INSCRIPCION, InscripcionPeer::FIRMA_DIGITAL, InscripcionPeer::CUENTA_CORRIENTE_ID, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'id_carrera', 'id_corredor', 'created_at', 'created_by', 'updated_at', 'updated_by', 'fecha_inscripcion', 'firma_digital', 'cuenta_corriente_id', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'IdFechaEtapaCarrera', 'IdCorredor', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', 'FechaInscripcion', 'FirmaDigital', 'CuentaCorrienteId', ),
+		BasePeer::TYPE_COLNAME => array (InscripcionPeer::ID, InscripcionPeer::ID_FECHA_ETAPA_CARRERA, InscripcionPeer::ID_CORREDOR, InscripcionPeer::CREATED_AT, InscripcionPeer::CREATED_BY, InscripcionPeer::UPDATED_AT, InscripcionPeer::UPDATED_BY, InscripcionPeer::FECHA_INSCRIPCION, InscripcionPeer::FIRMA_DIGITAL, InscripcionPeer::CUENTA_CORRIENTE_ID, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'id_fecha_etapa_carrera', 'id_corredor', 'created_at', 'created_by', 'updated_at', 'updated_by', 'fecha_inscripcion', 'firma_digital', 'cuenta_corriente_id', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdCarrera' => 1, 'IdCorredor' => 2, 'CreatedAt' => 3, 'CreatedBy' => 4, 'UpdatedAt' => 5, 'UpdatedBy' => 6, 'FechaInscripcion' => 7, 'FirmaDigital' => 8, 'CuentaCorrienteId' => 9, ),
-		BasePeer::TYPE_COLNAME => array (InscripcionPeer::ID => 0, InscripcionPeer::ID_CARRERA => 1, InscripcionPeer::ID_CORREDOR => 2, InscripcionPeer::CREATED_AT => 3, InscripcionPeer::CREATED_BY => 4, InscripcionPeer::UPDATED_AT => 5, InscripcionPeer::UPDATED_BY => 6, InscripcionPeer::FECHA_INSCRIPCION => 7, InscripcionPeer::FIRMA_DIGITAL => 8, InscripcionPeer::CUENTA_CORRIENTE_ID => 9, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_carrera' => 1, 'id_corredor' => 2, 'created_at' => 3, 'created_by' => 4, 'updated_at' => 5, 'updated_by' => 6, 'fecha_inscripcion' => 7, 'firma_digital' => 8, 'cuenta_corriente_id' => 9, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdFechaEtapaCarrera' => 1, 'IdCorredor' => 2, 'CreatedAt' => 3, 'CreatedBy' => 4, 'UpdatedAt' => 5, 'UpdatedBy' => 6, 'FechaInscripcion' => 7, 'FirmaDigital' => 8, 'CuentaCorrienteId' => 9, ),
+		BasePeer::TYPE_COLNAME => array (InscripcionPeer::ID => 0, InscripcionPeer::ID_FECHA_ETAPA_CARRERA => 1, InscripcionPeer::ID_CORREDOR => 2, InscripcionPeer::CREATED_AT => 3, InscripcionPeer::CREATED_BY => 4, InscripcionPeer::UPDATED_AT => 5, InscripcionPeer::UPDATED_BY => 6, InscripcionPeer::FECHA_INSCRIPCION => 7, InscripcionPeer::FIRMA_DIGITAL => 8, InscripcionPeer::CUENTA_CORRIENTE_ID => 9, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_fecha_etapa_carrera' => 1, 'id_corredor' => 2, 'created_at' => 3, 'created_by' => 4, 'updated_at' => 5, 'updated_by' => 6, 'fecha_inscripcion' => 7, 'firma_digital' => 8, 'cuenta_corriente_id' => 9, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
@@ -121,7 +121,7 @@ abstract class BaseInscripcionPeer {
 
 		$criteria->addSelectColumn(InscripcionPeer::ID);
 
-		$criteria->addSelectColumn(InscripcionPeer::ID_CARRERA);
+		$criteria->addSelectColumn(InscripcionPeer::ID_FECHA_ETAPA_CARRERA);
 
 		$criteria->addSelectColumn(InscripcionPeer::ID_CORREDOR);
 
@@ -234,7 +234,7 @@ abstract class BaseInscripcionPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(InscripcionPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$rs = InscripcionPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -314,7 +314,7 @@ abstract class BaseInscripcionPeer {
 		$startcol = (InscripcionPeer::NUM_COLUMNS - InscripcionPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 		FechaEtapaCarreraPeer::addSelectColumns($c);
 
-		$c->addJoin(InscripcionPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
@@ -459,7 +459,7 @@ abstract class BaseInscripcionPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(InscripcionPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$criteria->addJoin(InscripcionPeer::ID_CORREDOR, CorredorPeer::ID);
 
@@ -495,7 +495,7 @@ abstract class BaseInscripcionPeer {
 		CuentaCorrientePeer::addSelectColumns($c);
 		$startcol5 = $startcol4 + CuentaCorrientePeer::NUM_COLUMNS;
 
-		$c->addJoin(InscripcionPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$c->addJoin(InscripcionPeer::ID_CORREDOR, CorredorPeer::ID);
 
@@ -635,7 +635,7 @@ abstract class BaseInscripcionPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(InscripcionPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$criteria->addJoin(InscripcionPeer::CUENTA_CORRIENTE_ID, CuentaCorrientePeer::ID);
 
@@ -665,7 +665,7 @@ abstract class BaseInscripcionPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(InscripcionPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$criteria->addJoin(InscripcionPeer::ID_CORREDOR, CorredorPeer::ID);
 
@@ -780,7 +780,7 @@ abstract class BaseInscripcionPeer {
 		CuentaCorrientePeer::addSelectColumns($c);
 		$startcol4 = $startcol3 + CuentaCorrientePeer::NUM_COLUMNS;
 
-		$c->addJoin(InscripcionPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$c->addJoin(InscripcionPeer::CUENTA_CORRIENTE_ID, CuentaCorrientePeer::ID);
 
@@ -864,7 +864,7 @@ abstract class BaseInscripcionPeer {
 		CorredorPeer::addSelectColumns($c);
 		$startcol4 = $startcol3 + CorredorPeer::NUM_COLUMNS;
 
-		$c->addJoin(InscripcionPeer::ID_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$c->addJoin(InscripcionPeer::ID_CORREDOR, CorredorPeer::ID);
 

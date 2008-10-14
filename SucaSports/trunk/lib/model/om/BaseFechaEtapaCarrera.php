@@ -13,10 +13,6 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 
 
 	
-	protected $id_etapa_carrera;
-
-
-	
 	protected $max_corredores;
 
 
@@ -47,8 +43,13 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 	
 	protected $updated_by;
 
+
 	
-	protected $aEtapaCarrera;
+	protected $id_etapa_carrera;
+
+
+	
+	protected $id_carrera;
 
 	
 	protected $collAlquilers;
@@ -85,13 +86,6 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 	{
 
 		return $this->id;
-	}
-
-	
-	public function getIdEtapaCarrera()
-	{
-
-		return $this->id_etapa_carrera;
 	}
 
 	
@@ -211,6 +205,20 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 	}
 
 	
+	public function getIdEtapaCarrera()
+	{
+
+		return $this->id_etapa_carrera;
+	}
+
+	
+	public function getIdCarrera()
+	{
+
+		return $this->id_carrera;
+	}
+
+	
 	public function setId($v)
 	{
 
@@ -221,24 +229,6 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 		if ($this->id !== $v) {
 			$this->id = $v;
 			$this->modifiedColumns[] = FechaEtapaCarreraPeer::ID;
-		}
-
-	} 
-	
-	public function setIdEtapaCarrera($v)
-	{
-
-						if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->id_etapa_carrera !== $v) {
-			$this->id_etapa_carrera = $v;
-			$this->modifiedColumns[] = FechaEtapaCarreraPeer::ID_ETAPA_CARRERA;
-		}
-
-		if ($this->aEtapaCarrera !== null && $this->aEtapaCarrera->getId() !== $v) {
-			$this->aEtapaCarrera = null;
 		}
 
 	} 
@@ -363,35 +353,65 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 
 	} 
 	
+	public function setIdEtapaCarrera($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->id_etapa_carrera !== $v) {
+			$this->id_etapa_carrera = $v;
+			$this->modifiedColumns[] = FechaEtapaCarreraPeer::ID_ETAPA_CARRERA;
+		}
+
+	} 
+	
+	public function setIdCarrera($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->id_carrera !== $v) {
+			$this->id_carrera = $v;
+			$this->modifiedColumns[] = FechaEtapaCarreraPeer::ID_CARRERA;
+		}
+
+	} 
+	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
 
 			$this->id = $rs->getInt($startcol + 0);
 
-			$this->id_etapa_carrera = $rs->getInt($startcol + 1);
+			$this->max_corredores = $rs->getInt($startcol + 1);
 
-			$this->max_corredores = $rs->getInt($startcol + 2);
+			$this->fecha_inicio = $rs->getDate($startcol + 2, null);
 
-			$this->fecha_inicio = $rs->getDate($startcol + 3, null);
+			$this->fecha_fin = $rs->getDate($startcol + 3, null);
 
-			$this->fecha_fin = $rs->getDate($startcol + 4, null);
+			$this->costo = $rs->getFloat($startcol + 4);
 
-			$this->costo = $rs->getFloat($startcol + 5);
+			$this->created_at = $rs->getTimestamp($startcol + 5, null);
 
-			$this->created_at = $rs->getTimestamp($startcol + 6, null);
+			$this->created_by = $rs->getInt($startcol + 6);
 
-			$this->created_by = $rs->getInt($startcol + 7);
+			$this->updated_at = $rs->getTimestamp($startcol + 7, null);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 8, null);
+			$this->updated_by = $rs->getInt($startcol + 8);
 
-			$this->updated_by = $rs->getInt($startcol + 9);
+			$this->id_etapa_carrera = $rs->getInt($startcol + 9);
+
+			$this->id_carrera = $rs->getInt($startcol + 10);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 10; 
+						return $startcol + 11; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating FechaEtapaCarrera object", $e);
 		}
@@ -456,15 +476,6 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 	{
 		$affectedRows = 0; 		if (!$this->alreadyInSave) {
 			$this->alreadyInSave = true;
-
-
-												
-			if ($this->aEtapaCarrera !== null) {
-				if ($this->aEtapaCarrera->isModified()) {
-					$affectedRows += $this->aEtapaCarrera->save($con);
-				}
-				$this->setEtapaCarrera($this->aEtapaCarrera);
-			}
 
 
 						if ($this->isModified()) {
@@ -546,14 +557,6 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			$failureMap = array();
 
 
-												
-			if ($this->aEtapaCarrera !== null) {
-				if (!$this->aEtapaCarrera->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aEtapaCarrera->getValidationFailures());
-				}
-			}
-
-
 			if (($retval = FechaEtapaCarreraPeer::doValidate($this, $columns)) !== true) {
 				$failureMap = array_merge($failureMap, $retval);
 			}
@@ -613,31 +616,34 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getIdEtapaCarrera();
-				break;
-			case 2:
 				return $this->getMaxCorredores();
 				break;
-			case 3:
+			case 2:
 				return $this->getFechaInicio();
 				break;
-			case 4:
+			case 3:
 				return $this->getFechaFin();
 				break;
-			case 5:
+			case 4:
 				return $this->getCosto();
 				break;
-			case 6:
+			case 5:
 				return $this->getCreatedAt();
 				break;
-			case 7:
+			case 6:
 				return $this->getCreatedBy();
 				break;
-			case 8:
+			case 7:
 				return $this->getUpdatedAt();
 				break;
-			case 9:
+			case 8:
 				return $this->getUpdatedBy();
+				break;
+			case 9:
+				return $this->getIdEtapaCarrera();
+				break;
+			case 10:
+				return $this->getIdCarrera();
 				break;
 			default:
 				return null;
@@ -650,15 +656,16 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 		$keys = FechaEtapaCarreraPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getIdEtapaCarrera(),
-			$keys[2] => $this->getMaxCorredores(),
-			$keys[3] => $this->getFechaInicio(),
-			$keys[4] => $this->getFechaFin(),
-			$keys[5] => $this->getCosto(),
-			$keys[6] => $this->getCreatedAt(),
-			$keys[7] => $this->getCreatedBy(),
-			$keys[8] => $this->getUpdatedAt(),
-			$keys[9] => $this->getUpdatedBy(),
+			$keys[1] => $this->getMaxCorredores(),
+			$keys[2] => $this->getFechaInicio(),
+			$keys[3] => $this->getFechaFin(),
+			$keys[4] => $this->getCosto(),
+			$keys[5] => $this->getCreatedAt(),
+			$keys[6] => $this->getCreatedBy(),
+			$keys[7] => $this->getUpdatedAt(),
+			$keys[8] => $this->getUpdatedBy(),
+			$keys[9] => $this->getIdEtapaCarrera(),
+			$keys[10] => $this->getIdCarrera(),
 		);
 		return $result;
 	}
@@ -678,31 +685,34 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setIdEtapaCarrera($value);
-				break;
-			case 2:
 				$this->setMaxCorredores($value);
 				break;
-			case 3:
+			case 2:
 				$this->setFechaInicio($value);
 				break;
-			case 4:
+			case 3:
 				$this->setFechaFin($value);
 				break;
-			case 5:
+			case 4:
 				$this->setCosto($value);
 				break;
-			case 6:
+			case 5:
 				$this->setCreatedAt($value);
 				break;
-			case 7:
+			case 6:
 				$this->setCreatedBy($value);
 				break;
-			case 8:
+			case 7:
 				$this->setUpdatedAt($value);
 				break;
-			case 9:
+			case 8:
 				$this->setUpdatedBy($value);
+				break;
+			case 9:
+				$this->setIdEtapaCarrera($value);
+				break;
+			case 10:
+				$this->setIdCarrera($value);
 				break;
 		} 	}
 
@@ -712,15 +722,16 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 		$keys = FechaEtapaCarreraPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setIdEtapaCarrera($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setMaxCorredores($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setFechaInicio($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setFechaFin($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setCosto($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setCreatedAt($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setCreatedBy($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setUpdatedAt($arr[$keys[8]]);
-		if (array_key_exists($keys[9], $arr)) $this->setUpdatedBy($arr[$keys[9]]);
+		if (array_key_exists($keys[1], $arr)) $this->setMaxCorredores($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setFechaInicio($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setFechaFin($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setCosto($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setCreatedAt($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setCreatedBy($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setUpdatedAt($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setUpdatedBy($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setIdEtapaCarrera($arr[$keys[9]]);
+		if (array_key_exists($keys[10], $arr)) $this->setIdCarrera($arr[$keys[10]]);
 	}
 
 	
@@ -729,7 +740,6 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 		$criteria = new Criteria(FechaEtapaCarreraPeer::DATABASE_NAME);
 
 		if ($this->isColumnModified(FechaEtapaCarreraPeer::ID)) $criteria->add(FechaEtapaCarreraPeer::ID, $this->id);
-		if ($this->isColumnModified(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA)) $criteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $this->id_etapa_carrera);
 		if ($this->isColumnModified(FechaEtapaCarreraPeer::MAX_CORREDORES)) $criteria->add(FechaEtapaCarreraPeer::MAX_CORREDORES, $this->max_corredores);
 		if ($this->isColumnModified(FechaEtapaCarreraPeer::FECHA_INICIO)) $criteria->add(FechaEtapaCarreraPeer::FECHA_INICIO, $this->fecha_inicio);
 		if ($this->isColumnModified(FechaEtapaCarreraPeer::FECHA_FIN)) $criteria->add(FechaEtapaCarreraPeer::FECHA_FIN, $this->fecha_fin);
@@ -738,6 +748,8 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(FechaEtapaCarreraPeer::CREATED_BY)) $criteria->add(FechaEtapaCarreraPeer::CREATED_BY, $this->created_by);
 		if ($this->isColumnModified(FechaEtapaCarreraPeer::UPDATED_AT)) $criteria->add(FechaEtapaCarreraPeer::UPDATED_AT, $this->updated_at);
 		if ($this->isColumnModified(FechaEtapaCarreraPeer::UPDATED_BY)) $criteria->add(FechaEtapaCarreraPeer::UPDATED_BY, $this->updated_by);
+		if ($this->isColumnModified(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA)) $criteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $this->id_etapa_carrera);
+		if ($this->isColumnModified(FechaEtapaCarreraPeer::ID_CARRERA)) $criteria->add(FechaEtapaCarreraPeer::ID_CARRERA, $this->id_carrera);
 
 		return $criteria;
 	}
@@ -748,7 +760,6 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 		$criteria = new Criteria(FechaEtapaCarreraPeer::DATABASE_NAME);
 
 		$criteria->add(FechaEtapaCarreraPeer::ID, $this->id);
-		$criteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $this->id_etapa_carrera);
 
 		return $criteria;
 	}
@@ -756,23 +767,13 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 	
 	public function getPrimaryKey()
 	{
-		$pks = array();
-
-		$pks[0] = $this->getId();
-
-		$pks[1] = $this->getIdEtapaCarrera();
-
-		return $pks;
+		return $this->getId();
 	}
 
 	
-	public function setPrimaryKey($keys)
+	public function setPrimaryKey($key)
 	{
-
-		$this->setId($keys[0]);
-
-		$this->setIdEtapaCarrera($keys[1]);
-
+		$this->setId($key);
 	}
 
 	
@@ -794,6 +795,10 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 		$copyObj->setUpdatedAt($this->updated_at);
 
 		$copyObj->setUpdatedBy($this->updated_by);
+
+		$copyObj->setIdEtapaCarrera($this->id_etapa_carrera);
+
+		$copyObj->setIdCarrera($this->id_carrera);
 
 
 		if ($deepCopy) {
@@ -820,7 +825,6 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 		$copyObj->setNew(true);
 
 		$copyObj->setId(NULL); 
-		$copyObj->setIdEtapaCarrera(NULL); 
 	}
 
 	
@@ -839,33 +843,6 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			self::$peer = new FechaEtapaCarreraPeer();
 		}
 		return self::$peer;
-	}
-
-	
-	public function setEtapaCarrera($v)
-	{
-
-
-		if ($v === null) {
-			$this->setIdEtapaCarrera(NULL);
-		} else {
-			$this->setIdEtapaCarrera($v->getId());
-		}
-
-
-		$this->aEtapaCarrera = $v;
-	}
-
-
-	
-	public function getEtapaCarrera($con = null)
-	{
-		if ($this->aEtapaCarrera === null && ($this->id_etapa_carrera !== null)) {
-						$this->aEtapaCarrera = EtapaCarreraPeer::retrieveByPK($this->id_etapa_carrera, $con);
-
-			
-		}
-		return $this->aEtapaCarrera;
 	}
 
 	
@@ -892,7 +869,7 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			   $this->collAlquilers = array();
 			} else {
 
-				$criteria->add(AlquilerPeer::ID_FECHA_CARRERA, $this->getId());
+				$criteria->add(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				AlquilerPeer::addSelectColumns($criteria);
 				$this->collAlquilers = AlquilerPeer::doSelect($criteria, $con);
@@ -901,7 +878,7 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 						if (!$this->isNew()) {
 												
 
-				$criteria->add(AlquilerPeer::ID_FECHA_CARRERA, $this->getId());
+				$criteria->add(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				AlquilerPeer::addSelectColumns($criteria);
 				if (!isset($this->lastAlquilerCriteria) || !$this->lastAlquilerCriteria->equals($criteria)) {
@@ -924,7 +901,7 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		$criteria->add(AlquilerPeer::ID_FECHA_CARRERA, $this->getId());
+		$criteria->add(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 		return AlquilerPeer::doCount($criteria, $distinct, $con);
 	}
@@ -953,13 +930,13 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 				$this->collAlquilers = array();
 			} else {
 
-				$criteria->add(AlquilerPeer::ID_FECHA_CARRERA, $this->getId());
+				$criteria->add(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				$this->collAlquilers = AlquilerPeer::doSelectJoinInventario($criteria, $con);
 			}
 		} else {
 									
-			$criteria->add(AlquilerPeer::ID_FECHA_CARRERA, $this->getId());
+			$criteria->add(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 			if (!isset($this->lastAlquilerCriteria) || !$this->lastAlquilerCriteria->equals($criteria)) {
 				$this->collAlquilers = AlquilerPeer::doSelectJoinInventario($criteria, $con);
@@ -987,13 +964,13 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 				$this->collAlquilers = array();
 			} else {
 
-				$criteria->add(AlquilerPeer::ID_FECHA_CARRERA, $this->getId());
+				$criteria->add(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				$this->collAlquilers = AlquilerPeer::doSelectJoinUsuario($criteria, $con);
 			}
 		} else {
 									
-			$criteria->add(AlquilerPeer::ID_FECHA_CARRERA, $this->getId());
+			$criteria->add(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 			if (!isset($this->lastAlquilerCriteria) || !$this->lastAlquilerCriteria->equals($criteria)) {
 				$this->collAlquilers = AlquilerPeer::doSelectJoinUsuario($criteria, $con);
@@ -1028,7 +1005,7 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			   $this->collEquipamientoCarreras = array();
 			} else {
 
-				$criteria->add(EquipamientoCarreraPeer::ID_CARRERA, $this->getId());
+				$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				EquipamientoCarreraPeer::addSelectColumns($criteria);
 				$this->collEquipamientoCarreras = EquipamientoCarreraPeer::doSelect($criteria, $con);
@@ -1037,7 +1014,7 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 						if (!$this->isNew()) {
 												
 
-				$criteria->add(EquipamientoCarreraPeer::ID_CARRERA, $this->getId());
+				$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				EquipamientoCarreraPeer::addSelectColumns($criteria);
 				if (!isset($this->lastEquipamientoCarreraCriteria) || !$this->lastEquipamientoCarreraCriteria->equals($criteria)) {
@@ -1060,7 +1037,7 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		$criteria->add(EquipamientoCarreraPeer::ID_CARRERA, $this->getId());
+		$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 		return EquipamientoCarreraPeer::doCount($criteria, $distinct, $con);
 	}
@@ -1089,13 +1066,13 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 				$this->collEquipamientoCarreras = array();
 			} else {
 
-				$criteria->add(EquipamientoCarreraPeer::ID_CARRERA, $this->getId());
+				$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				$this->collEquipamientoCarreras = EquipamientoCarreraPeer::doSelectJoinTipoEquipamiento($criteria, $con);
 			}
 		} else {
 									
-			$criteria->add(EquipamientoCarreraPeer::ID_CARRERA, $this->getId());
+			$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 			if (!isset($this->lastEquipamientoCarreraCriteria) || !$this->lastEquipamientoCarreraCriteria->equals($criteria)) {
 				$this->collEquipamientoCarreras = EquipamientoCarreraPeer::doSelectJoinTipoEquipamiento($criteria, $con);
@@ -1130,7 +1107,7 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			   $this->collInscripcions = array();
 			} else {
 
-				$criteria->add(InscripcionPeer::ID_CARRERA, $this->getId());
+				$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				InscripcionPeer::addSelectColumns($criteria);
 				$this->collInscripcions = InscripcionPeer::doSelect($criteria, $con);
@@ -1139,7 +1116,7 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 						if (!$this->isNew()) {
 												
 
-				$criteria->add(InscripcionPeer::ID_CARRERA, $this->getId());
+				$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				InscripcionPeer::addSelectColumns($criteria);
 				if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
@@ -1162,7 +1139,7 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		$criteria->add(InscripcionPeer::ID_CARRERA, $this->getId());
+		$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 		return InscripcionPeer::doCount($criteria, $distinct, $con);
 	}
@@ -1191,13 +1168,13 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 				$this->collInscripcions = array();
 			} else {
 
-				$criteria->add(InscripcionPeer::ID_CARRERA, $this->getId());
+				$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				$this->collInscripcions = InscripcionPeer::doSelectJoinCorredor($criteria, $con);
 			}
 		} else {
 									
-			$criteria->add(InscripcionPeer::ID_CARRERA, $this->getId());
+			$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 			if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
 				$this->collInscripcions = InscripcionPeer::doSelectJoinCorredor($criteria, $con);
@@ -1225,13 +1202,13 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 				$this->collInscripcions = array();
 			} else {
 
-				$criteria->add(InscripcionPeer::ID_CARRERA, $this->getId());
+				$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				$this->collInscripcions = InscripcionPeer::doSelectJoinCuentaCorriente($criteria, $con);
 			}
 		} else {
 									
-			$criteria->add(InscripcionPeer::ID_CARRERA, $this->getId());
+			$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 			if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
 				$this->collInscripcions = InscripcionPeer::doSelectJoinCuentaCorriente($criteria, $con);
@@ -1266,7 +1243,7 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			   $this->collResultados = array();
 			} else {
 
-				$criteria->add(ResultadoPeer::ID_FECHA_CARRERA, $this->getId());
+				$criteria->add(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				ResultadoPeer::addSelectColumns($criteria);
 				$this->collResultados = ResultadoPeer::doSelect($criteria, $con);
@@ -1275,7 +1252,7 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 						if (!$this->isNew()) {
 												
 
-				$criteria->add(ResultadoPeer::ID_FECHA_CARRERA, $this->getId());
+				$criteria->add(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				ResultadoPeer::addSelectColumns($criteria);
 				if (!isset($this->lastResultadoCriteria) || !$this->lastResultadoCriteria->equals($criteria)) {
@@ -1298,7 +1275,7 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		$criteria->add(ResultadoPeer::ID_FECHA_CARRERA, $this->getId());
+		$criteria->add(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 		return ResultadoPeer::doCount($criteria, $distinct, $con);
 	}
@@ -1327,13 +1304,13 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 				$this->collResultados = array();
 			} else {
 
-				$criteria->add(ResultadoPeer::ID_FECHA_CARRERA, $this->getId());
+				$criteria->add(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 				$this->collResultados = ResultadoPeer::doSelectJoinCorredor($criteria, $con);
 			}
 		} else {
 									
-			$criteria->add(ResultadoPeer::ID_FECHA_CARRERA, $this->getId());
+			$criteria->add(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, $this->getId());
 
 			if (!isset($this->lastResultadoCriteria) || !$this->lastResultadoCriteria->equals($criteria)) {
 				$this->collResultados = ResultadoPeer::doSelectJoinCorredor($criteria, $con);
