@@ -32,7 +32,7 @@ class EquipamientoCarreraMapBuilder {
 
 		$tMap->setUseIdGenerator(true);
 
-		$tMap->addForeignPrimaryKey('ID_CARRERA', 'IdCarrera', 'int' , CreoleTypes::INTEGER, 'fecha_etapa_carrera', 'ID', true, null);
+		$tMap->addForeignPrimaryKey('ID_FECHA_ETAPA_CARRERA', 'IdFechaEtapaCarrera', 'int' , CreoleTypes::INTEGER, 'fecha_etapa_carrera', 'ID', true, null);
 
 		$tMap->addForeignKey('ID_TIPO_EQUIPAMIENTO', 'IdTipoEquipamiento', 'int', CreoleTypes::INTEGER, 'tipo_equipamiento', 'ID', true, null);
 

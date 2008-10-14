@@ -13,7 +13,7 @@ abstract class BaseFechaEtapaCarreraPeer {
 	const CLASS_DEFAULT = 'lib.model.FechaEtapaCarrera';
 
 	
-	const NUM_COLUMNS = 10;
+	const NUM_COLUMNS = 11;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -21,9 +21,6 @@ abstract class BaseFechaEtapaCarreraPeer {
 
 	
 	const ID = 'fecha_etapa_carrera.ID';
-
-	
-	const ID_ETAPA_CARRERA = 'fecha_etapa_carrera.ID_ETAPA_CARRERA';
 
 	
 	const MAX_CORREDORES = 'fecha_etapa_carrera.MAX_CORREDORES';
@@ -50,23 +47,29 @@ abstract class BaseFechaEtapaCarreraPeer {
 	const UPDATED_BY = 'fecha_etapa_carrera.UPDATED_BY';
 
 	
+	const ID_ETAPA_CARRERA = 'fecha_etapa_carrera.ID_ETAPA_CARRERA';
+
+	
+	const ID_CARRERA = 'fecha_etapa_carrera.ID_CARRERA';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'IdEtapaCarrera', 'MaxCorredores', 'FechaInicio', 'FechaFin', 'Costo', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
-		BasePeer::TYPE_COLNAME => array (FechaEtapaCarreraPeer::ID, FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, FechaEtapaCarreraPeer::MAX_CORREDORES, FechaEtapaCarreraPeer::FECHA_INICIO, FechaEtapaCarreraPeer::FECHA_FIN, FechaEtapaCarreraPeer::COSTO, FechaEtapaCarreraPeer::CREATED_AT, FechaEtapaCarreraPeer::CREATED_BY, FechaEtapaCarreraPeer::UPDATED_AT, FechaEtapaCarreraPeer::UPDATED_BY, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'id_etapa_carrera', 'max_corredores', 'fecha_inicio', 'fecha_fin', 'costo', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'MaxCorredores', 'FechaInicio', 'FechaFin', 'Costo', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', 'IdEtapaCarrera', 'IdCarrera', ),
+		BasePeer::TYPE_COLNAME => array (FechaEtapaCarreraPeer::ID, FechaEtapaCarreraPeer::MAX_CORREDORES, FechaEtapaCarreraPeer::FECHA_INICIO, FechaEtapaCarreraPeer::FECHA_FIN, FechaEtapaCarreraPeer::COSTO, FechaEtapaCarreraPeer::CREATED_AT, FechaEtapaCarreraPeer::CREATED_BY, FechaEtapaCarreraPeer::UPDATED_AT, FechaEtapaCarreraPeer::UPDATED_BY, FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID_CARRERA, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'max_corredores', 'fecha_inicio', 'fecha_fin', 'costo', 'created_at', 'created_by', 'updated_at', 'updated_by', 'id_etapa_carrera', 'id_carrera', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdEtapaCarrera' => 1, 'MaxCorredores' => 2, 'FechaInicio' => 3, 'FechaFin' => 4, 'Costo' => 5, 'CreatedAt' => 6, 'CreatedBy' => 7, 'UpdatedAt' => 8, 'UpdatedBy' => 9, ),
-		BasePeer::TYPE_COLNAME => array (FechaEtapaCarreraPeer::ID => 0, FechaEtapaCarreraPeer::ID_ETAPA_CARRERA => 1, FechaEtapaCarreraPeer::MAX_CORREDORES => 2, FechaEtapaCarreraPeer::FECHA_INICIO => 3, FechaEtapaCarreraPeer::FECHA_FIN => 4, FechaEtapaCarreraPeer::COSTO => 5, FechaEtapaCarreraPeer::CREATED_AT => 6, FechaEtapaCarreraPeer::CREATED_BY => 7, FechaEtapaCarreraPeer::UPDATED_AT => 8, FechaEtapaCarreraPeer::UPDATED_BY => 9, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_etapa_carrera' => 1, 'max_corredores' => 2, 'fecha_inicio' => 3, 'fecha_fin' => 4, 'costo' => 5, 'created_at' => 6, 'created_by' => 7, 'updated_at' => 8, 'updated_by' => 9, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'MaxCorredores' => 1, 'FechaInicio' => 2, 'FechaFin' => 3, 'Costo' => 4, 'CreatedAt' => 5, 'CreatedBy' => 6, 'UpdatedAt' => 7, 'UpdatedBy' => 8, 'IdEtapaCarrera' => 9, 'IdCarrera' => 10, ),
+		BasePeer::TYPE_COLNAME => array (FechaEtapaCarreraPeer::ID => 0, FechaEtapaCarreraPeer::MAX_CORREDORES => 1, FechaEtapaCarreraPeer::FECHA_INICIO => 2, FechaEtapaCarreraPeer::FECHA_FIN => 3, FechaEtapaCarreraPeer::COSTO => 4, FechaEtapaCarreraPeer::CREATED_AT => 5, FechaEtapaCarreraPeer::CREATED_BY => 6, FechaEtapaCarreraPeer::UPDATED_AT => 7, FechaEtapaCarreraPeer::UPDATED_BY => 8, FechaEtapaCarreraPeer::ID_ETAPA_CARRERA => 9, FechaEtapaCarreraPeer::ID_CARRERA => 10, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'max_corredores' => 1, 'fecha_inicio' => 2, 'fecha_fin' => 3, 'costo' => 4, 'created_at' => 5, 'created_by' => 6, 'updated_at' => 7, 'updated_by' => 8, 'id_etapa_carrera' => 9, 'id_carrera' => 10, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
 	);
 
 	
@@ -121,8 +124,6 @@ abstract class BaseFechaEtapaCarreraPeer {
 
 		$criteria->addSelectColumn(FechaEtapaCarreraPeer::ID);
 
-		$criteria->addSelectColumn(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA);
-
 		$criteria->addSelectColumn(FechaEtapaCarreraPeer::MAX_CORREDORES);
 
 		$criteria->addSelectColumn(FechaEtapaCarreraPeer::FECHA_INICIO);
@@ -138,6 +139,10 @@ abstract class BaseFechaEtapaCarreraPeer {
 		$criteria->addSelectColumn(FechaEtapaCarreraPeer::UPDATED_AT);
 
 		$criteria->addSelectColumn(FechaEtapaCarreraPeer::UPDATED_BY);
+
+		$criteria->addSelectColumn(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA);
+
+		$criteria->addSelectColumn(FechaEtapaCarreraPeer::ID_CARRERA);
 
 	}
 
@@ -217,170 +222,9 @@ abstract class BaseFechaEtapaCarreraPeer {
 		return $results;
 	}
 
-	
-	public static function doCountJoinEtapaCarrera(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, EtapaCarreraPeer::ID);
-
-		$rs = FechaEtapaCarreraPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doSelectJoinEtapaCarrera(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-		$startcol = (FechaEtapaCarreraPeer::NUM_COLUMNS - FechaEtapaCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		EtapaCarreraPeer::addSelectColumns($c);
-
-		$c->addJoin(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, EtapaCarreraPeer::ID);
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = EtapaCarreraPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol);
-
-			$newObject = true;
-			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-										$temp_obj2->addFechaEtapaCarrera($obj1); 					break;
-				}
-			}
-			if ($newObject) {
-				$obj2->initFechaEtapaCarreras();
-				$obj2->addFechaEtapaCarrera($obj1); 			}
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doCountJoinAll(Criteria $criteria, $distinct = false, $con = null)
-	{
-		$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, EtapaCarreraPeer::ID);
-
-		$rs = FechaEtapaCarreraPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doSelectJoinAll(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-		$startcol2 = (FechaEtapaCarreraPeer::NUM_COLUMNS - FechaEtapaCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		EtapaCarreraPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + EtapaCarreraPeer::NUM_COLUMNS;
-
-		$c->addJoin(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, EtapaCarreraPeer::ID);
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-
-					
-			$omClass = EtapaCarreraPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addFechaEtapaCarrera($obj1); 					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initFechaEtapaCarreras();
-				$obj2->addFechaEtapaCarrera($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
   static public function getUniqueColumnNames()
   {
-    return array();
+    return array(array('fecha_inicio', 'id_etapa_carrera', 'id_carrera'));
   }
 	
 	public static function getTableMap()
@@ -435,9 +279,6 @@ abstract class BaseFechaEtapaCarreraPeer {
 			$comparison = $criteria->getComparison(FechaEtapaCarreraPeer::ID);
 			$selectCriteria->add(FechaEtapaCarreraPeer::ID, $criteria->remove(FechaEtapaCarreraPeer::ID), $comparison);
 
-			$comparison = $criteria->getComparison(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA);
-			$selectCriteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $criteria->remove(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA), $comparison);
-
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -475,20 +316,7 @@ abstract class BaseFechaEtapaCarreraPeer {
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-												if(count($values) == count($values, COUNT_RECURSIVE))
-			{
-								$values = array($values);
-			}
-			$vals = array();
-			foreach($values as $value)
-			{
-
-				$vals[0][] = $value[0];
-				$vals[1][] = $value[1];
-			}
-
-			$criteria->add(FechaEtapaCarreraPeer::ID, $vals[0], Criteria::IN);
-			$criteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $vals[1], Criteria::IN);
+			$criteria->add(FechaEtapaCarreraPeer::ID, (array) $values, Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -542,17 +370,40 @@ abstract class BaseFechaEtapaCarreraPeer {
 	}
 
 	
-	public static function retrieveByPK( $id, $id_etapa_carrera, $con = null) {
+	public static function retrieveByPK($pk, $con = null)
+	{
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
-		$criteria = new Criteria();
-		$criteria->add(FechaEtapaCarreraPeer::ID, $id);
-		$criteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $id_etapa_carrera);
+
+		$criteria = new Criteria(FechaEtapaCarreraPeer::DATABASE_NAME);
+
+		$criteria->add(FechaEtapaCarreraPeer::ID, $pk);
+
+
 		$v = FechaEtapaCarreraPeer::doSelect($criteria, $con);
 
-		return !empty($v) ? $v[0] : null;
+		return !empty($v) > 0 ? $v[0] : null;
 	}
+
+	
+	public static function retrieveByPKs($pks, $con = null)
+	{
+		if ($con === null) {
+			$con = Propel::getConnection(self::DATABASE_NAME);
+		}
+
+		$objs = null;
+		if (empty($pks)) {
+			$objs = array();
+		} else {
+			$criteria = new Criteria();
+			$criteria->add(FechaEtapaCarreraPeer::ID, $pks, Criteria::IN);
+			$objs = FechaEtapaCarreraPeer::doSelect($criteria, $con);
+		}
+		return $objs;
+	}
+
 } 
 if (Propel::isInit()) {
 			try {

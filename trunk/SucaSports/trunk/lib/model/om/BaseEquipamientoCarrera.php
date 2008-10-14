@@ -9,7 +9,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 
 
 	
-	protected $id_carrera;
+	protected $id_fecha_etapa_carrera;
 
 
 	
@@ -44,10 +44,10 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 	protected $alreadyInValidation = false;
 
 	
-	public function getIdCarrera()
+	public function getIdFechaEtapaCarrera()
 	{
 
-		return $this->id_carrera;
+		return $this->id_fecha_etapa_carrera;
 	}
 
 	
@@ -116,16 +116,16 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 	}
 
 	
-	public function setIdCarrera($v)
+	public function setIdFechaEtapaCarrera($v)
 	{
 
 						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
-		if ($this->id_carrera !== $v) {
-			$this->id_carrera = $v;
-			$this->modifiedColumns[] = EquipamientoCarreraPeer::ID_CARRERA;
+		if ($this->id_fecha_etapa_carrera !== $v) {
+			$this->id_fecha_etapa_carrera = $v;
+			$this->modifiedColumns[] = EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA;
 		}
 
 		if ($this->aFechaEtapaCarrera !== null && $this->aFechaEtapaCarrera->getId() !== $v) {
@@ -218,7 +218,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 	{
 		try {
 
-			$this->id_carrera = $rs->getInt($startcol + 0);
+			$this->id_fecha_etapa_carrera = $rs->getInt($startcol + 0);
 
 			$this->id_tipo_equipamiento = $rs->getInt($startcol + 1);
 
@@ -321,7 +321,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 				if ($this->isNew()) {
 					$pk = EquipamientoCarreraPeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
-					$this->setIdCarrera($pk);  
+					$this->setIdFechaEtapaCarrera($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += EquipamientoCarreraPeer::doUpdate($this, $con);
@@ -402,7 +402,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 	{
 		switch($pos) {
 			case 0:
-				return $this->getIdCarrera();
+				return $this->getIdFechaEtapaCarrera();
 				break;
 			case 1:
 				return $this->getIdTipoEquipamiento();
@@ -429,7 +429,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 	{
 		$keys = EquipamientoCarreraPeer::getFieldNames($keyType);
 		$result = array(
-			$keys[0] => $this->getIdCarrera(),
+			$keys[0] => $this->getIdFechaEtapaCarrera(),
 			$keys[1] => $this->getIdTipoEquipamiento(),
 			$keys[2] => $this->getCreatedAt(),
 			$keys[3] => $this->getCreatedBy(),
@@ -451,7 +451,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 	{
 		switch($pos) {
 			case 0:
-				$this->setIdCarrera($value);
+				$this->setIdFechaEtapaCarrera($value);
 				break;
 			case 1:
 				$this->setIdTipoEquipamiento($value);
@@ -475,7 +475,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 	{
 		$keys = EquipamientoCarreraPeer::getFieldNames($keyType);
 
-		if (array_key_exists($keys[0], $arr)) $this->setIdCarrera($arr[$keys[0]]);
+		if (array_key_exists($keys[0], $arr)) $this->setIdFechaEtapaCarrera($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setIdTipoEquipamiento($arr[$keys[1]]);
 		if (array_key_exists($keys[2], $arr)) $this->setCreatedAt($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setCreatedBy($arr[$keys[3]]);
@@ -488,7 +488,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 	{
 		$criteria = new Criteria(EquipamientoCarreraPeer::DATABASE_NAME);
 
-		if ($this->isColumnModified(EquipamientoCarreraPeer::ID_CARRERA)) $criteria->add(EquipamientoCarreraPeer::ID_CARRERA, $this->id_carrera);
+		if ($this->isColumnModified(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA)) $criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $this->id_fecha_etapa_carrera);
 		if ($this->isColumnModified(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO)) $criteria->add(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, $this->id_tipo_equipamiento);
 		if ($this->isColumnModified(EquipamientoCarreraPeer::CREATED_AT)) $criteria->add(EquipamientoCarreraPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(EquipamientoCarreraPeer::CREATED_BY)) $criteria->add(EquipamientoCarreraPeer::CREATED_BY, $this->created_by);
@@ -503,7 +503,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 	{
 		$criteria = new Criteria(EquipamientoCarreraPeer::DATABASE_NAME);
 
-		$criteria->add(EquipamientoCarreraPeer::ID_CARRERA, $this->id_carrera);
+		$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $this->id_fecha_etapa_carrera);
 
 		return $criteria;
 	}
@@ -511,13 +511,13 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 	
 	public function getPrimaryKey()
 	{
-		return $this->getIdCarrera();
+		return $this->getIdFechaEtapaCarrera();
 	}
 
 	
 	public function setPrimaryKey($key)
 	{
-		$this->setIdCarrera($key);
+		$this->setIdFechaEtapaCarrera($key);
 	}
 
 	
@@ -537,7 +537,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 
 		$copyObj->setNew(true);
 
-		$copyObj->setIdCarrera(NULL); 
+		$copyObj->setIdFechaEtapaCarrera(NULL); 
 	}
 
 	
@@ -564,9 +564,9 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 
 
 		if ($v === null) {
-			$this->setIdCarrera(NULL);
+			$this->setIdFechaEtapaCarrera(NULL);
 		} else {
-			$this->setIdCarrera($v->getId());
+			$this->setIdFechaEtapaCarrera($v->getId());
 		}
 
 
@@ -577,8 +577,8 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 	
 	public function getFechaEtapaCarrera($con = null)
 	{
-		if ($this->aFechaEtapaCarrera === null && ($this->id_carrera !== null)) {
-						$this->aFechaEtapaCarrera = FechaEtapaCarreraPeer::retrieveByPK($this->id_carrera, $con);
+		if ($this->aFechaEtapaCarrera === null && ($this->id_fecha_etapa_carrera !== null)) {
+						$this->aFechaEtapaCarrera = FechaEtapaCarreraPeer::retrieveByPK($this->id_fecha_etapa_carrera, $con);
 
 			
 		}

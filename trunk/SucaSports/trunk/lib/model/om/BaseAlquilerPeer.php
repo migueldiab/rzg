@@ -26,7 +26,7 @@ abstract class BaseAlquilerPeer {
 	const ID_EQUIPAMIENTO = 'alquiler.ID_EQUIPAMIENTO';
 
 	
-	const ID_FECHA_CARRERA = 'alquiler.ID_FECHA_CARRERA';
+	const ID_FECHA_ETAPA_CARRERA = 'alquiler.ID_FECHA_ETAPA_CARRERA';
 
 	
 	const ID_USUARIO = 'alquiler.ID_USUARIO';
@@ -49,17 +49,17 @@ abstract class BaseAlquilerPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'IdEquipamiento', 'IdFechaCarrera', 'IdUsuario', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
-		BasePeer::TYPE_COLNAME => array (AlquilerPeer::ID, AlquilerPeer::ID_EQUIPAMIENTO, AlquilerPeer::ID_FECHA_CARRERA, AlquilerPeer::ID_USUARIO, AlquilerPeer::CREATED_AT, AlquilerPeer::CREATED_BY, AlquilerPeer::UPDATED_AT, AlquilerPeer::UPDATED_BY, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'id_equipamiento', 'id_fecha_carrera', 'id_usuario', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'IdEquipamiento', 'IdFechaEtapaCarrera', 'IdUsuario', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (AlquilerPeer::ID, AlquilerPeer::ID_EQUIPAMIENTO, AlquilerPeer::ID_FECHA_ETAPA_CARRERA, AlquilerPeer::ID_USUARIO, AlquilerPeer::CREATED_AT, AlquilerPeer::CREATED_BY, AlquilerPeer::UPDATED_AT, AlquilerPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'id_equipamiento', 'id_fecha_etapa_carrera', 'id_usuario', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdEquipamiento' => 1, 'IdFechaCarrera' => 2, 'IdUsuario' => 3, 'CreatedAt' => 4, 'CreatedBy' => 5, 'UpdatedAt' => 6, 'UpdatedBy' => 7, ),
-		BasePeer::TYPE_COLNAME => array (AlquilerPeer::ID => 0, AlquilerPeer::ID_EQUIPAMIENTO => 1, AlquilerPeer::ID_FECHA_CARRERA => 2, AlquilerPeer::ID_USUARIO => 3, AlquilerPeer::CREATED_AT => 4, AlquilerPeer::CREATED_BY => 5, AlquilerPeer::UPDATED_AT => 6, AlquilerPeer::UPDATED_BY => 7, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_equipamiento' => 1, 'id_fecha_carrera' => 2, 'id_usuario' => 3, 'created_at' => 4, 'created_by' => 5, 'updated_at' => 6, 'updated_by' => 7, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdEquipamiento' => 1, 'IdFechaEtapaCarrera' => 2, 'IdUsuario' => 3, 'CreatedAt' => 4, 'CreatedBy' => 5, 'UpdatedAt' => 6, 'UpdatedBy' => 7, ),
+		BasePeer::TYPE_COLNAME => array (AlquilerPeer::ID => 0, AlquilerPeer::ID_EQUIPAMIENTO => 1, AlquilerPeer::ID_FECHA_ETAPA_CARRERA => 2, AlquilerPeer::ID_USUARIO => 3, AlquilerPeer::CREATED_AT => 4, AlquilerPeer::CREATED_BY => 5, AlquilerPeer::UPDATED_AT => 6, AlquilerPeer::UPDATED_BY => 7, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_equipamiento' => 1, 'id_fecha_etapa_carrera' => 2, 'id_usuario' => 3, 'created_at' => 4, 'created_by' => 5, 'updated_at' => 6, 'updated_by' => 7, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
 	);
 
@@ -117,7 +117,7 @@ abstract class BaseAlquilerPeer {
 
 		$criteria->addSelectColumn(AlquilerPeer::ID_EQUIPAMIENTO);
 
-		$criteria->addSelectColumn(AlquilerPeer::ID_FECHA_CARRERA);
+		$criteria->addSelectColumn(AlquilerPeer::ID_FECHA_ETAPA_CARRERA);
 
 		$criteria->addSelectColumn(AlquilerPeer::ID_USUARIO);
 
@@ -252,7 +252,7 @@ abstract class BaseAlquilerPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(AlquilerPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$rs = AlquilerPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -351,7 +351,7 @@ abstract class BaseAlquilerPeer {
 		$startcol = (AlquilerPeer::NUM_COLUMNS - AlquilerPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 		FechaEtapaCarreraPeer::addSelectColumns($c);
 
-		$c->addJoin(AlquilerPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
@@ -451,7 +451,7 @@ abstract class BaseAlquilerPeer {
 
 		$criteria->addJoin(AlquilerPeer::ID_EQUIPAMIENTO, InventarioPeer::ID);
 
-		$criteria->addJoin(AlquilerPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$criteria->addJoin(AlquilerPeer::ID_USUARIO, UsuarioPeer::ID);
 
@@ -487,7 +487,7 @@ abstract class BaseAlquilerPeer {
 
 		$c->addJoin(AlquilerPeer::ID_EQUIPAMIENTO, InventarioPeer::ID);
 
-		$c->addJoin(AlquilerPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$c->addJoin(AlquilerPeer::ID_USUARIO, UsuarioPeer::ID);
 
@@ -595,7 +595,7 @@ abstract class BaseAlquilerPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(AlquilerPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$criteria->addJoin(AlquilerPeer::ID_USUARIO, UsuarioPeer::ID);
 
@@ -657,7 +657,7 @@ abstract class BaseAlquilerPeer {
 
 		$criteria->addJoin(AlquilerPeer::ID_EQUIPAMIENTO, InventarioPeer::ID);
 
-		$criteria->addJoin(AlquilerPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$criteria->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$rs = AlquilerPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -686,7 +686,7 @@ abstract class BaseAlquilerPeer {
 		UsuarioPeer::addSelectColumns($c);
 		$startcol4 = $startcol3 + UsuarioPeer::NUM_COLUMNS;
 
-		$c->addJoin(AlquilerPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 		$c->addJoin(AlquilerPeer::ID_USUARIO, UsuarioPeer::ID);
 
@@ -856,7 +856,7 @@ abstract class BaseAlquilerPeer {
 
 		$c->addJoin(AlquilerPeer::ID_EQUIPAMIENTO, InventarioPeer::ID);
 
-		$c->addJoin(AlquilerPeer::ID_FECHA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$c->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
 
 
 		$rs = BasePeer::doSelect($c, $con);

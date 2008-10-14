@@ -34,11 +34,9 @@ class FechaEtapaCarreraMapBuilder {
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addForeignPrimaryKey('ID_ETAPA_CARRERA', 'IdEtapaCarrera', 'int' , CreoleTypes::INTEGER, 'etapa_carrera', 'ID', true, null);
-
 		$tMap->addColumn('MAX_CORREDORES', 'MaxCorredores', 'int', CreoleTypes::INTEGER, false, null);
 
-		$tMap->addColumn('FECHA_INICIO', 'FechaInicio', 'int', CreoleTypes::DATE, false, null);
+		$tMap->addColumn('FECHA_INICIO', 'FechaInicio', 'int', CreoleTypes::DATE, true, null);
 
 		$tMap->addColumn('FECHA_FIN', 'FechaFin', 'int', CreoleTypes::DATE, false, null);
 
@@ -51,6 +49,10 @@ class FechaEtapaCarreraMapBuilder {
 		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 
 		$tMap->addColumn('UPDATED_BY', 'UpdatedBy', 'int', CreoleTypes::INTEGER, false, null);
+
+		$tMap->addColumn('ID_ETAPA_CARRERA', 'IdEtapaCarrera', 'int', CreoleTypes::INTEGER, true, null);
+
+		$tMap->addColumn('ID_CARRERA', 'IdCarrera', 'int', CreoleTypes::INTEGER, true, null);
 
 	} 
 } 
