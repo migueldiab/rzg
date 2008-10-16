@@ -9,13 +9,21 @@ default:
     #language:     en
     robots:       index, follow
 
-  stylesheets:    [main, nihilo/nihilo, dojo]
+  stylesheets:    [main, soria/soria, dijit, dojo]
 
   javascripts:
     dojo:
-      dojo/dojo/dojo:  { djConfig: parseOnLoad:true, isDebug: true }
-    prototype:    prototype
+      dojo/dojo/dojo:  { djConfig: 'parseOnLoad: false', isDebug: 'true' }
+    dijit:		  dojo/dijit/dijit.js.uncompressed.js
+    dijit-all:		  
+      dojo/dijit/dijit-all.js.uncompressed.js: { charset: utf-8 }
+    main:		  main
 
 
   has_layout:     on
   layout:         layout
+
+  components:
+    sidebar:      [menu, inicio]
+    context:      [menu, context]
+    

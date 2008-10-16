@@ -1,8 +1,8 @@
----------------------------------------------
--- Script para crear 1 carrera con
--- dos etapas (1,2) y dos fechas de comienzo.
----------------------------------------------
-
+﻿/*---------------------------------------------
+*- Script para crear 1 carrera con
+*- dos etapas (1,2) y dos fechas de comienzo.
+*--------------------------------------------
+*/
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -34,7 +34,6 @@ INSERT INTO fecha_etapa_carrera(max_corredores,fecha_inicio,fecha_fin,id_etapa_c
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-
 
 
 
