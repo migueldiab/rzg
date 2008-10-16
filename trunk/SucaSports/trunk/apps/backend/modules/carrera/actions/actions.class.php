@@ -94,8 +94,10 @@ public function executeIndex()
   public function executeEdit()
   {
     $this->carrera = $this->getCarreraOrCreate();
-
-    if ($this->getRequest()->isMethod('post'))
+	
+	$this->categoria = new Categoria();
+    
+	if ($this->getRequest()->isMethod('post'))
     {
       $this->updateCarreraFromRequest();
 
