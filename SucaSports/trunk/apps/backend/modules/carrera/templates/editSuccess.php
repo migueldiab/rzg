@@ -26,7 +26,7 @@ array()) ?></h1>
 
 <div id="sf_admin_content">
 <?php include_partial('carrera/edit_messages', array('carrera' => $carrera, 'labels' => $labels)) ?>
-<?php include_partial('carrera/edit_form', array('carrera' => $carrera, 'labels' => $labels)) ?>
+<?php include_partial('carrera/edit_form', array('carrera' => $carrera, 'labels' => $labels, 'categoria' => $categoria)) ?>
 </div>
 
 <div id="sf_admin_footer">

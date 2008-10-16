@@ -7,7 +7,6 @@
 </SCRIPT>
 
 
-<form>
 <?php use_helper('Object', 'Validation', 'ObjectAdmin', 'I18N', 'Date') ?>
 <?php echo form_tag('carrera/save', array(
   'id'        => 'sf_admin_edit_form',
@@ -75,4 +74,4 @@
   )) ?>
 </div>
 
-</form>
+<?php echo '</form>'; ?>
