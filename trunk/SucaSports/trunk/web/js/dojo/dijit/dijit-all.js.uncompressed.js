@@ -5950,7 +5950,7 @@ dojo.declare("dijit.Menu",
 	bindDomNode: function(/*String|DomNode*/ node){
 		// summary: attach menu to given node
 		node = dojo.byId(node);
-
+		
 		//TODO: this is to support context popups in Editor.  Maybe this shouldn't be in dijit.Menu
 		var win = dijit.getDocumentWindow(node.ownerDocument);
 		if(node.tagName.toLowerCase()=="iframe"){
