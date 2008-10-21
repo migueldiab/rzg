@@ -1,0 +1,7 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      FechaEtapaCarrera
+    theme:            default
+    list:
+      filters:  [id_carrera,id_etapa_carrera]
