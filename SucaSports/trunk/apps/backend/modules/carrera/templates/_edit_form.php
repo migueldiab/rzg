@@ -40,13 +40,17 @@
   'control_name' => 'categoria[id]',
   'multiple' => true,
 )); echo $value ? $value : '&nbsp;' ?></td>
-  <td><?php echo button_to_function('  Add  ', 'doadd')?><br/>
-<?php echo button_to_function('remove', 'doadd')?></td>
-  <td><?php echo Select_tag('data[categoria]', $sf_params->get('data[categoria]'),array (
-  'related_class' => 'categoria',
+
+<td>
+<?php echo button_to_function('  Add  ', 'doadd()')?><br/>
+<?php echo button_to_function('remove', 'doadd()')?>
+</td>
+
+<td><?php $value = object_select_tag($categoria, 'getId', array (
+  'related_class' => 'Categoria',
   'control_name' => 'categoria[id]',
-  'multiple' => true));
-  ?> </td>
+  'multiple' => true,
+)); echo $value ? $value : '&nbsp;' ?></td>
   </tr>
   </tbody>
   </table>
