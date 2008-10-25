@@ -9,4 +9,7 @@
  */ 
 class FechaEtapaCarrera extends BaseFechaEtapaCarrera
 {
+    public function __toString() {
+      return $this->getNombre();
+    }
 }
