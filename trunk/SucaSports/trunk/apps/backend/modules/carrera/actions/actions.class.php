@@ -316,6 +316,7 @@ public function executeIndex()
       'carrera{url}' => 'Url:',
       'carrera{fecha}' =>'Fecha',
       'carrera{descripcion}' => 'Descripcion:',
+      'carrera{categoria_carrera}' => 'Categoria carrera:',
       'carrera{created_at}' => 'Created at:',
       'carrera{created_by}' => 'Created by:',
       'carrera{updated_at}' => 'Updated at:',
