@@ -25,6 +25,7 @@ INSERT INTO etapa_carrera(id_carrera,nombre,numero_etapa) value((select max(id) 
 
 INSERT INTO fecha_etapa_carrera(max_corredores,fecha_inicio,fecha_fin,id_etapa_carrera,id_carrera) VALUES(5,current_date + 1,current_date + 1,(select max(id) from etapa_carrera),(select max(id) from carrera));
 
+INSERT INTO `categoria` (`id`,`nombre`,`updated_at`,`updated_by`,`regla`) VALUES (0,'Damas','2008-10-13 00:00:00',NULL,NULL), (1,'Caballeros',NULL,NULL,NULL);
 
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -34,6 +35,5 @@ INSERT INTO fecha_etapa_carrera(max_corredores,fecha_inicio,fecha_fin,id_etapa_c
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-
 
 
