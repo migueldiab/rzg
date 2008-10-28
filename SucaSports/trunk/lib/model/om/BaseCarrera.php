@@ -357,6 +357,7 @@ abstract class BaseCarrera extends BaseObject  implements Persistent {
 				if ($this->isNew()) {
 					$pk = CarreraPeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
+					$this->setId($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += CarreraPeer::doUpdate($this, $con);

@@ -219,6 +219,7 @@ abstract class BaseCategoriaPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
+		$criteria->remove(CategoriaPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 

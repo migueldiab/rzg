@@ -30,7 +30,7 @@ class CategoriaMapBuilder {
 		$tMap = $this->dbMap->addTable('categoria');
 		$tMap->setPhpName('Categoria');
 
-		$tMap->setUseIdGenerator(false);
+		$tMap->setUseIdGenerator(true);
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 

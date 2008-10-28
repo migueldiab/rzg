@@ -9,4 +9,7 @@
  */ 
 class EtapaCarrera extends BaseEtapaCarrera
 {
+    public function __toString() {
+      return $this->getNombre();
+    }
 }

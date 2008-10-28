@@ -9,10 +9,6 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 
 
 	
-	protected $id;
-
-
-	
 	protected $id_fecha_etapa_carrera;
 
 
@@ -42,13 +38,6 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 
 	
 	protected $alreadyInValidation = false;
-
-	
-	public function getId()
-	{
-
-		return $this->id;
-	}
 
 	
 	public function getIdFechaEtapaCarrera()
@@ -115,20 +104,6 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 		return $this->updated_by;
 	}
 
-	
-	public function setId($v)
-	{
-
-						if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->id !== $v) {
-			$this->id = $v;
-			$this->modifiedColumns[] = ResultadoPeer::ID;
-		}
-
-	} 
 	
 	public function setIdFechaEtapaCarrera($v)
 	{
@@ -218,23 +193,21 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 	{
 		try {
 
-			$this->id = $rs->getInt($startcol + 0);
+			$this->id_fecha_etapa_carrera = $rs->getInt($startcol + 0);
 
-			$this->id_fecha_etapa_carrera = $rs->getInt($startcol + 1);
+			$this->id_corredor = $rs->getInt($startcol + 1);
 
-			$this->id_corredor = $rs->getInt($startcol + 2);
+			$this->tiempo = $rs->getTimestamp($startcol + 2, null);
 
-			$this->tiempo = $rs->getTimestamp($startcol + 3, null);
+			$this->updated_at = $rs->getTimestamp($startcol + 3, null);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 4, null);
-
-			$this->updated_by = $rs->getInt($startcol + 5);
+			$this->updated_by = $rs->getInt($startcol + 4);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 6; 
+						return $startcol + 5; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Resultado object", $e);
 		}
@@ -316,7 +289,6 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 				if ($this->isNew()) {
 					$pk = ResultadoPeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
-					$this->setId($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += ResultadoPeer::doUpdate($this, $con);
@@ -397,21 +369,18 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 	{
 		switch($pos) {
 			case 0:
-				return $this->getId();
-				break;
-			case 1:
 				return $this->getIdFechaEtapaCarrera();
 				break;
-			case 2:
+			case 1:
 				return $this->getIdCorredor();
 				break;
-			case 3:
+			case 2:
 				return $this->getTiempo();
 				break;
-			case 4:
+			case 3:
 				return $this->getUpdatedAt();
 				break;
-			case 5:
+			case 4:
 				return $this->getUpdatedBy();
 				break;
 			default:
@@ -424,12 +393,11 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 	{
 		$keys = ResultadoPeer::getFieldNames($keyType);
 		$result = array(
-			$keys[0] => $this->getId(),
-			$keys[1] => $this->getIdFechaEtapaCarrera(),
-			$keys[2] => $this->getIdCorredor(),
-			$keys[3] => $this->getTiempo(),
-			$keys[4] => $this->getUpdatedAt(),
-			$keys[5] => $this->getUpdatedBy(),
+			$keys[0] => $this->getIdFechaEtapaCarrera(),
+			$keys[1] => $this->getIdCorredor(),
+			$keys[2] => $this->getTiempo(),
+			$keys[3] => $this->getUpdatedAt(),
+			$keys[4] => $this->getUpdatedBy(),
 		);
 		return $result;
 	}
@@ -446,21 +414,18 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 	{
 		switch($pos) {
 			case 0:
-				$this->setId($value);
-				break;
-			case 1:
 				$this->setIdFechaEtapaCarrera($value);
 				break;
-			case 2:
+			case 1:
 				$this->setIdCorredor($value);
 				break;
-			case 3:
+			case 2:
 				$this->setTiempo($value);
 				break;
-			case 4:
+			case 3:
 				$this->setUpdatedAt($value);
 				break;
-			case 5:
+			case 4:
 				$this->setUpdatedBy($value);
 				break;
 		} 	}
@@ -470,12 +435,11 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 	{
 		$keys = ResultadoPeer::getFieldNames($keyType);
 
-		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setIdFechaEtapaCarrera($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setIdCorredor($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setTiempo($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setUpdatedAt($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setUpdatedBy($arr[$keys[5]]);
+		if (array_key_exists($keys[0], $arr)) $this->setIdFechaEtapaCarrera($arr[$keys[0]]);
+		if (array_key_exists($keys[1], $arr)) $this->setIdCorredor($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setTiempo($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setUpdatedAt($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setUpdatedBy($arr[$keys[4]]);
 	}
 
 	
@@ -483,7 +447,6 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 	{
 		$criteria = new Criteria(ResultadoPeer::DATABASE_NAME);
 
-		if ($this->isColumnModified(ResultadoPeer::ID)) $criteria->add(ResultadoPeer::ID, $this->id);
 		if ($this->isColumnModified(ResultadoPeer::ID_FECHA_ETAPA_CARRERA)) $criteria->add(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, $this->id_fecha_etapa_carrera);
 		if ($this->isColumnModified(ResultadoPeer::ID_CORREDOR)) $criteria->add(ResultadoPeer::ID_CORREDOR, $this->id_corredor);
 		if ($this->isColumnModified(ResultadoPeer::TIEMPO)) $criteria->add(ResultadoPeer::TIEMPO, $this->tiempo);
@@ -498,7 +461,8 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 	{
 		$criteria = new Criteria(ResultadoPeer::DATABASE_NAME);
 
-		$criteria->add(ResultadoPeer::ID, $this->id);
+		$criteria->add(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, $this->id_fecha_etapa_carrera);
+		$criteria->add(ResultadoPeer::ID_CORREDOR, $this->id_corredor);
 
 		return $criteria;
 	}
@@ -506,22 +470,28 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 	
 	public function getPrimaryKey()
 	{
-		return $this->getId();
+		$pks = array();
+
+		$pks[0] = $this->getIdFechaEtapaCarrera();
+
+		$pks[1] = $this->getIdCorredor();
+
+		return $pks;
 	}
 
 	
-	public function setPrimaryKey($key)
+	public function setPrimaryKey($keys)
 	{
-		$this->setId($key);
+
+		$this->setIdFechaEtapaCarrera($keys[0]);
+
+		$this->setIdCorredor($keys[1]);
+
 	}
 
 	
 	public function copyInto($copyObj, $deepCopy = false)
 	{
-
-		$copyObj->setIdFechaEtapaCarrera($this->id_fecha_etapa_carrera);
-
-		$copyObj->setIdCorredor($this->id_corredor);
 
 		$copyObj->setTiempo($this->tiempo);
 
@@ -532,7 +502,8 @@ abstract class BaseResultado extends BaseObject  implements Persistent {
 
 		$copyObj->setNew(true);
 
-		$copyObj->setId(NULL); 
+		$copyObj->setIdFechaEtapaCarrera(NULL); 
+		$copyObj->setIdCorredor(NULL); 
 	}
 
 	

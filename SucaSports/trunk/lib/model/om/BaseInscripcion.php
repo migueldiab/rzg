@@ -9,10 +9,6 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 
 	
-	protected $id;
-
-
-	
 	protected $id_fecha_etapa_carrera;
 
 
@@ -61,13 +57,6 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 	
 	protected $alreadyInValidation = false;
-
-	
-	public function getId()
-	{
-
-		return $this->id;
-	}
 
 	
 	public function getIdFechaEtapaCarrera()
@@ -177,20 +166,6 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 		return $this->cuenta_corriente_id;
 	}
 
-	
-	public function setId($v)
-	{
-
-						if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->id !== $v) {
-			$this->id = $v;
-			$this->modifiedColumns[] = InscripcionPeer::ID;
-		}
-
-	} 
 	
 	public function setIdFechaEtapaCarrera($v)
 	{
@@ -343,31 +318,29 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		try {
 
-			$this->id = $rs->getInt($startcol + 0);
+			$this->id_fecha_etapa_carrera = $rs->getInt($startcol + 0);
 
-			$this->id_fecha_etapa_carrera = $rs->getInt($startcol + 1);
+			$this->id_corredor = $rs->getInt($startcol + 1);
 
-			$this->id_corredor = $rs->getInt($startcol + 2);
+			$this->created_at = $rs->getTimestamp($startcol + 2, null);
 
-			$this->created_at = $rs->getTimestamp($startcol + 3, null);
+			$this->created_by = $rs->getInt($startcol + 3);
 
-			$this->created_by = $rs->getInt($startcol + 4);
+			$this->updated_at = $rs->getTimestamp($startcol + 4, null);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 5, null);
+			$this->updated_by = $rs->getInt($startcol + 5);
 
-			$this->updated_by = $rs->getInt($startcol + 6);
+			$this->fecha_inscripcion = $rs->getDate($startcol + 6, null);
 
-			$this->fecha_inscripcion = $rs->getDate($startcol + 7, null);
+			$this->firma_digital = $rs->getString($startcol + 7);
 
-			$this->firma_digital = $rs->getString($startcol + 8);
-
-			$this->cuenta_corriente_id = $rs->getInt($startcol + 9);
+			$this->cuenta_corriente_id = $rs->getInt($startcol + 8);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 10; 
+						return $startcol + 9; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Inscripcion object", $e);
 		}
@@ -461,7 +434,6 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 				if ($this->isNew()) {
 					$pk = InscripcionPeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
-					$this->setId($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += InscripcionPeer::doUpdate($this, $con);
@@ -548,33 +520,30 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		switch($pos) {
 			case 0:
-				return $this->getId();
-				break;
-			case 1:
 				return $this->getIdFechaEtapaCarrera();
 				break;
-			case 2:
+			case 1:
 				return $this->getIdCorredor();
 				break;
-			case 3:
+			case 2:
 				return $this->getCreatedAt();
 				break;
-			case 4:
+			case 3:
 				return $this->getCreatedBy();
 				break;
-			case 5:
+			case 4:
 				return $this->getUpdatedAt();
 				break;
-			case 6:
+			case 5:
 				return $this->getUpdatedBy();
 				break;
-			case 7:
+			case 6:
 				return $this->getFechaInscripcion();
 				break;
-			case 8:
+			case 7:
 				return $this->getFirmaDigital();
 				break;
-			case 9:
+			case 8:
 				return $this->getCuentaCorrienteId();
 				break;
 			default:
@@ -587,16 +556,15 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		$keys = InscripcionPeer::getFieldNames($keyType);
 		$result = array(
-			$keys[0] => $this->getId(),
-			$keys[1] => $this->getIdFechaEtapaCarrera(),
-			$keys[2] => $this->getIdCorredor(),
-			$keys[3] => $this->getCreatedAt(),
-			$keys[4] => $this->getCreatedBy(),
-			$keys[5] => $this->getUpdatedAt(),
-			$keys[6] => $this->getUpdatedBy(),
-			$keys[7] => $this->getFechaInscripcion(),
-			$keys[8] => $this->getFirmaDigital(),
-			$keys[9] => $this->getCuentaCorrienteId(),
+			$keys[0] => $this->getIdFechaEtapaCarrera(),
+			$keys[1] => $this->getIdCorredor(),
+			$keys[2] => $this->getCreatedAt(),
+			$keys[3] => $this->getCreatedBy(),
+			$keys[4] => $this->getUpdatedAt(),
+			$keys[5] => $this->getUpdatedBy(),
+			$keys[6] => $this->getFechaInscripcion(),
+			$keys[7] => $this->getFirmaDigital(),
+			$keys[8] => $this->getCuentaCorrienteId(),
 		);
 		return $result;
 	}
@@ -613,33 +581,30 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		switch($pos) {
 			case 0:
-				$this->setId($value);
-				break;
-			case 1:
 				$this->setIdFechaEtapaCarrera($value);
 				break;
-			case 2:
+			case 1:
 				$this->setIdCorredor($value);
 				break;
-			case 3:
+			case 2:
 				$this->setCreatedAt($value);
 				break;
-			case 4:
+			case 3:
 				$this->setCreatedBy($value);
 				break;
-			case 5:
+			case 4:
 				$this->setUpdatedAt($value);
 				break;
-			case 6:
+			case 5:
 				$this->setUpdatedBy($value);
 				break;
-			case 7:
+			case 6:
 				$this->setFechaInscripcion($value);
 				break;
-			case 8:
+			case 7:
 				$this->setFirmaDigital($value);
 				break;
-			case 9:
+			case 8:
 				$this->setCuentaCorrienteId($value);
 				break;
 		} 	}
@@ -649,16 +614,15 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		$keys = InscripcionPeer::getFieldNames($keyType);
 
-		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setIdFechaEtapaCarrera($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setIdCorredor($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setCreatedAt($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setCreatedBy($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setUpdatedAt($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setUpdatedBy($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setFechaInscripcion($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setFirmaDigital($arr[$keys[8]]);
-		if (array_key_exists($keys[9], $arr)) $this->setCuentaCorrienteId($arr[$keys[9]]);
+		if (array_key_exists($keys[0], $arr)) $this->setIdFechaEtapaCarrera($arr[$keys[0]]);
+		if (array_key_exists($keys[1], $arr)) $this->setIdCorredor($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setCreatedAt($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setCreatedBy($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setUpdatedAt($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setUpdatedBy($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setFechaInscripcion($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setFirmaDigital($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setCuentaCorrienteId($arr[$keys[8]]);
 	}
 
 	
@@ -666,7 +630,6 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		$criteria = new Criteria(InscripcionPeer::DATABASE_NAME);
 
-		if ($this->isColumnModified(InscripcionPeer::ID)) $criteria->add(InscripcionPeer::ID, $this->id);
 		if ($this->isColumnModified(InscripcionPeer::ID_FECHA_ETAPA_CARRERA)) $criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $this->id_fecha_etapa_carrera);
 		if ($this->isColumnModified(InscripcionPeer::ID_CORREDOR)) $criteria->add(InscripcionPeer::ID_CORREDOR, $this->id_corredor);
 		if ($this->isColumnModified(InscripcionPeer::CREATED_AT)) $criteria->add(InscripcionPeer::CREATED_AT, $this->created_at);
@@ -685,7 +648,8 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		$criteria = new Criteria(InscripcionPeer::DATABASE_NAME);
 
-		$criteria->add(InscripcionPeer::ID, $this->id);
+		$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $this->id_fecha_etapa_carrera);
+		$criteria->add(InscripcionPeer::ID_CORREDOR, $this->id_corredor);
 
 		return $criteria;
 	}
@@ -693,22 +657,28 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	
 	public function getPrimaryKey()
 	{
-		return $this->getId();
+		$pks = array();
+
+		$pks[0] = $this->getIdFechaEtapaCarrera();
+
+		$pks[1] = $this->getIdCorredor();
+
+		return $pks;
 	}
 
 	
-	public function setPrimaryKey($key)
+	public function setPrimaryKey($keys)
 	{
-		$this->setId($key);
+
+		$this->setIdFechaEtapaCarrera($keys[0]);
+
+		$this->setIdCorredor($keys[1]);
+
 	}
 
 	
 	public function copyInto($copyObj, $deepCopy = false)
 	{
-
-		$copyObj->setIdFechaEtapaCarrera($this->id_fecha_etapa_carrera);
-
-		$copyObj->setIdCorredor($this->id_corredor);
 
 		$copyObj->setCreatedAt($this->created_at);
 
@@ -727,7 +697,8 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 		$copyObj->setNew(true);
 
-		$copyObj->setId(NULL); 
+		$copyObj->setIdFechaEtapaCarrera(NULL); 
+		$copyObj->setIdCorredor(NULL); 
 	}
 
 	

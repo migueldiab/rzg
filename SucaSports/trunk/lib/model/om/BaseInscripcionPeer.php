@@ -13,14 +13,11 @@ abstract class BaseInscripcionPeer {
 	const CLASS_DEFAULT = 'lib.model.Inscripcion';
 
 	
-	const NUM_COLUMNS = 10;
+	const NUM_COLUMNS = 9;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
-
-	
-	const ID = 'inscripcion.ID';
 
 	
 	const ID_FECHA_ETAPA_CARRERA = 'inscripcion.ID_FECHA_ETAPA_CARRERA';
@@ -55,18 +52,18 @@ abstract class BaseInscripcionPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'IdFechaEtapaCarrera', 'IdCorredor', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', 'FechaInscripcion', 'FirmaDigital', 'CuentaCorrienteId', ),
-		BasePeer::TYPE_COLNAME => array (InscripcionPeer::ID, InscripcionPeer::ID_FECHA_ETAPA_CARRERA, InscripcionPeer::ID_CORREDOR, InscripcionPeer::CREATED_AT, InscripcionPeer::CREATED_BY, InscripcionPeer::UPDATED_AT, InscripcionPeer::UPDATED_BY, InscripcionPeer::FECHA_INSCRIPCION, InscripcionPeer::FIRMA_DIGITAL, InscripcionPeer::CUENTA_CORRIENTE_ID, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'id_fecha_etapa_carrera', 'id_corredor', 'created_at', 'created_by', 'updated_at', 'updated_by', 'fecha_inscripcion', 'firma_digital', 'cuenta_corriente_id', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+		BasePeer::TYPE_PHPNAME => array ('IdFechaEtapaCarrera', 'IdCorredor', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', 'FechaInscripcion', 'FirmaDigital', 'CuentaCorrienteId', ),
+		BasePeer::TYPE_COLNAME => array (InscripcionPeer::ID_FECHA_ETAPA_CARRERA, InscripcionPeer::ID_CORREDOR, InscripcionPeer::CREATED_AT, InscripcionPeer::CREATED_BY, InscripcionPeer::UPDATED_AT, InscripcionPeer::UPDATED_BY, InscripcionPeer::FECHA_INSCRIPCION, InscripcionPeer::FIRMA_DIGITAL, InscripcionPeer::CUENTA_CORRIENTE_ID, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_fecha_etapa_carrera', 'id_corredor', 'created_at', 'created_by', 'updated_at', 'updated_by', 'fecha_inscripcion', 'firma_digital', 'cuenta_corriente_id', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdFechaEtapaCarrera' => 1, 'IdCorredor' => 2, 'CreatedAt' => 3, 'CreatedBy' => 4, 'UpdatedAt' => 5, 'UpdatedBy' => 6, 'FechaInscripcion' => 7, 'FirmaDigital' => 8, 'CuentaCorrienteId' => 9, ),
-		BasePeer::TYPE_COLNAME => array (InscripcionPeer::ID => 0, InscripcionPeer::ID_FECHA_ETAPA_CARRERA => 1, InscripcionPeer::ID_CORREDOR => 2, InscripcionPeer::CREATED_AT => 3, InscripcionPeer::CREATED_BY => 4, InscripcionPeer::UPDATED_AT => 5, InscripcionPeer::UPDATED_BY => 6, InscripcionPeer::FECHA_INSCRIPCION => 7, InscripcionPeer::FIRMA_DIGITAL => 8, InscripcionPeer::CUENTA_CORRIENTE_ID => 9, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_fecha_etapa_carrera' => 1, 'id_corredor' => 2, 'created_at' => 3, 'created_by' => 4, 'updated_at' => 5, 'updated_by' => 6, 'fecha_inscripcion' => 7, 'firma_digital' => 8, 'cuenta_corriente_id' => 9, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+		BasePeer::TYPE_PHPNAME => array ('IdFechaEtapaCarrera' => 0, 'IdCorredor' => 1, 'CreatedAt' => 2, 'CreatedBy' => 3, 'UpdatedAt' => 4, 'UpdatedBy' => 5, 'FechaInscripcion' => 6, 'FirmaDigital' => 7, 'CuentaCorrienteId' => 8, ),
+		BasePeer::TYPE_COLNAME => array (InscripcionPeer::ID_FECHA_ETAPA_CARRERA => 0, InscripcionPeer::ID_CORREDOR => 1, InscripcionPeer::CREATED_AT => 2, InscripcionPeer::CREATED_BY => 3, InscripcionPeer::UPDATED_AT => 4, InscripcionPeer::UPDATED_BY => 5, InscripcionPeer::FECHA_INSCRIPCION => 6, InscripcionPeer::FIRMA_DIGITAL => 7, InscripcionPeer::CUENTA_CORRIENTE_ID => 8, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_fecha_etapa_carrera' => 0, 'id_corredor' => 1, 'created_at' => 2, 'created_by' => 3, 'updated_at' => 4, 'updated_by' => 5, 'fecha_inscripcion' => 6, 'firma_digital' => 7, 'cuenta_corriente_id' => 8, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	
@@ -119,8 +116,6 @@ abstract class BaseInscripcionPeer {
 	public static function addSelectColumns(Criteria $criteria)
 	{
 
-		$criteria->addSelectColumn(InscripcionPeer::ID);
-
 		$criteria->addSelectColumn(InscripcionPeer::ID_FECHA_ETAPA_CARRERA);
 
 		$criteria->addSelectColumn(InscripcionPeer::ID_CORREDOR);
@@ -141,8 +136,8 @@ abstract class BaseInscripcionPeer {
 
 	}
 
-	const COUNT = 'COUNT(inscripcion.ID)';
-	const COUNT_DISTINCT = 'COUNT(DISTINCT inscripcion.ID)';
+	const COUNT = 'COUNT(inscripcion.ID_FECHA_ETAPA_CARRERA)';
+	const COUNT_DISTINCT = 'COUNT(DISTINCT inscripcion.ID_FECHA_ETAPA_CARRERA)';
 
 	
 	public static function doCount(Criteria $criteria, $distinct = false, $con = null)
@@ -957,7 +952,6 @@ abstract class BaseInscripcionPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
-		$criteria->remove(InscripcionPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 
@@ -984,8 +978,11 @@ abstract class BaseInscripcionPeer {
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; 
-			$comparison = $criteria->getComparison(InscripcionPeer::ID);
-			$selectCriteria->add(InscripcionPeer::ID, $criteria->remove(InscripcionPeer::ID), $comparison);
+			$comparison = $criteria->getComparison(InscripcionPeer::ID_FECHA_ETAPA_CARRERA);
+			$selectCriteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $criteria->remove(InscripcionPeer::ID_FECHA_ETAPA_CARRERA), $comparison);
+
+			$comparison = $criteria->getComparison(InscripcionPeer::ID_CORREDOR);
+			$selectCriteria->add(InscripcionPeer::ID_CORREDOR, $criteria->remove(InscripcionPeer::ID_CORREDOR), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -1024,7 +1021,20 @@ abstract class BaseInscripcionPeer {
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(InscripcionPeer::ID, (array) $values, Criteria::IN);
+												if(count($values) == count($values, COUNT_RECURSIVE))
+			{
+								$values = array($values);
+			}
+			$vals = array();
+			foreach($values as $value)
+			{
+
+				$vals[0][] = $value[0];
+				$vals[1][] = $value[1];
+			}
+
+			$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $vals[0], Criteria::IN);
+			$criteria->add(InscripcionPeer::ID_CORREDOR, $vals[1], Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -1078,40 +1088,17 @@ abstract class BaseInscripcionPeer {
 	}
 
 	
-	public static function retrieveByPK($pk, $con = null)
-	{
+	public static function retrieveByPK( $id_fecha_etapa_carrera, $id_corredor, $con = null) {
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
-
-		$criteria = new Criteria(InscripcionPeer::DATABASE_NAME);
-
-		$criteria->add(InscripcionPeer::ID, $pk);
-
-
+		$criteria = new Criteria();
+		$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $id_fecha_etapa_carrera);
+		$criteria->add(InscripcionPeer::ID_CORREDOR, $id_corredor);
 		$v = InscripcionPeer::doSelect($criteria, $con);
 
-		return !empty($v) > 0 ? $v[0] : null;
+		return !empty($v) ? $v[0] : null;
 	}
-
-	
-	public static function retrieveByPKs($pks, $con = null)
-	{
-		if ($con === null) {
-			$con = Propel::getConnection(self::DATABASE_NAME);
-		}
-
-		$objs = null;
-		if (empty($pks)) {
-			$objs = array();
-		} else {
-			$criteria = new Criteria();
-			$criteria->add(InscripcionPeer::ID, $pks, Criteria::IN);
-			$objs = InscripcionPeer::doSelect($criteria, $con);
-		}
-		return $objs;
-	}
-
 } 
 if (Propel::isInit()) {
 			try {

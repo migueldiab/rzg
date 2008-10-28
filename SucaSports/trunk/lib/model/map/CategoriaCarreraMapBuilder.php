@@ -34,7 +34,7 @@ class CategoriaCarreraMapBuilder {
 
 		$tMap->addForeignPrimaryKey('ID_CATEGORIA', 'IdCategoria', 'int' , CreoleTypes::INTEGER, 'categoria', 'ID', true, null);
 
-		$tMap->addForeignKey('ID_CARRERA', 'IdCarrera', 'int', CreoleTypes::INTEGER, 'carrera', 'ID', false, null);
+		$tMap->addForeignPrimaryKey('ID_CARRERA', 'IdCarrera', 'int' , CreoleTypes::INTEGER, 'carrera', 'ID', true, null);
 
 		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 

@@ -9,7 +9,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 
 
 	
-	protected $id_fecha_etapa_carrera;
+	protected $id_fecha_etapa_carrera = 0;
 
 
 	
@@ -123,7 +123,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 			$v = (int) $v;
 		}
 
-		if ($this->id_fecha_etapa_carrera !== $v) {
+		if ($this->id_fecha_etapa_carrera !== $v || $v === 0) {
 			$this->id_fecha_etapa_carrera = $v;
 			$this->modifiedColumns[] = EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA;
 		}
@@ -321,7 +321,6 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 				if ($this->isNew()) {
 					$pk = EquipamientoCarreraPeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
-					$this->setIdFechaEtapaCarrera($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += EquipamientoCarreraPeer::doUpdate($this, $con);
@@ -504,6 +503,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 		$criteria = new Criteria(EquipamientoCarreraPeer::DATABASE_NAME);
 
 		$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $this->id_fecha_etapa_carrera);
+		$criteria->add(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, $this->id_tipo_equipamiento);
 
 		return $criteria;
 	}
@@ -511,20 +511,28 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 	
 	public function getPrimaryKey()
 	{
-		return $this->getIdFechaEtapaCarrera();
+		$pks = array();
+
+		$pks[0] = $this->getIdFechaEtapaCarrera();
+
+		$pks[1] = $this->getIdTipoEquipamiento();
+
+		return $pks;
 	}
 
 	
-	public function setPrimaryKey($key)
+	public function setPrimaryKey($keys)
 	{
-		$this->setIdFechaEtapaCarrera($key);
+
+		$this->setIdFechaEtapaCarrera($keys[0]);
+
+		$this->setIdTipoEquipamiento($keys[1]);
+
 	}
 
 	
 	public function copyInto($copyObj, $deepCopy = false)
 	{
-
-		$copyObj->setIdTipoEquipamiento($this->id_tipo_equipamiento);
 
 		$copyObj->setCreatedAt($this->created_at);
 
@@ -537,7 +545,8 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 
 		$copyObj->setNew(true);
 
-		$copyObj->setIdFechaEtapaCarrera(NULL); 
+		$copyObj->setIdFechaEtapaCarrera('0'); 
+		$copyObj->setIdTipoEquipamiento(NULL); 
 	}
 
 	
@@ -564,7 +573,7 @@ abstract class BaseEquipamientoCarrera extends BaseObject  implements Persistent
 
 
 		if ($v === null) {
-			$this->setIdFechaEtapaCarrera(NULL);
+			$this->setIdFechaEtapaCarrera('0');
 		} else {
 			$this->setIdFechaEtapaCarrera($v->getId());
 		}

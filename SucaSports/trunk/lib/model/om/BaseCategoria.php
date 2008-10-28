@@ -247,6 +247,7 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 				if ($this->isNew()) {
 					$pk = CategoriaPeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
+					$this->setId($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += CategoriaPeer::doUpdate($this, $con);
