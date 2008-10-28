@@ -7,5 +7,4 @@ generator:
       title: Editor de carreras
       display: [nombre,url,descripcion,categoria_carrera]
       fields:
-        categoria_carrera:{type: admin_double_list, params: through_class=CategoriaCarrera}
-
+        categoria_carrera: { type: admin_double_list, params: through_class=CategoriaCarrera }
