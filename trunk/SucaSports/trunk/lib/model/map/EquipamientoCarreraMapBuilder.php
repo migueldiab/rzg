@@ -30,11 +30,11 @@ class EquipamientoCarreraMapBuilder {
 		$tMap = $this->dbMap->addTable('equipamiento_carrera');
 		$tMap->setPhpName('EquipamientoCarrera');
 
-		$tMap->setUseIdGenerator(true);
+		$tMap->setUseIdGenerator(false);
 
 		$tMap->addForeignPrimaryKey('ID_FECHA_ETAPA_CARRERA', 'IdFechaEtapaCarrera', 'int' , CreoleTypes::INTEGER, 'fecha_etapa_carrera', 'ID', true, null);
 
-		$tMap->addForeignKey('ID_TIPO_EQUIPAMIENTO', 'IdTipoEquipamiento', 'int', CreoleTypes::INTEGER, 'tipo_equipamiento', 'ID', true, null);
+		$tMap->addForeignPrimaryKey('ID_TIPO_EQUIPAMIENTO', 'IdTipoEquipamiento', 'int' , CreoleTypes::INTEGER, 'tipo_equipamiento', 'ID', true, null);
 
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 

@@ -660,7 +660,6 @@ abstract class BaseEquipamientoCarreraPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
-		$criteria->remove(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 
@@ -689,6 +688,9 @@ abstract class BaseEquipamientoCarreraPeer {
 			$criteria = clone $values; 
 			$comparison = $criteria->getComparison(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA);
 			$selectCriteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $criteria->remove(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA), $comparison);
+
+			$comparison = $criteria->getComparison(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO);
+			$selectCriteria->add(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, $criteria->remove(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -727,7 +729,20 @@ abstract class BaseEquipamientoCarreraPeer {
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, (array) $values, Criteria::IN);
+												if(count($values) == count($values, COUNT_RECURSIVE))
+			{
+								$values = array($values);
+			}
+			$vals = array();
+			foreach($values as $value)
+			{
+
+				$vals[0][] = $value[0];
+				$vals[1][] = $value[1];
+			}
+
+			$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $vals[0], Criteria::IN);
+			$criteria->add(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, $vals[1], Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -781,40 +796,17 @@ abstract class BaseEquipamientoCarreraPeer {
 	}
 
 	
-	public static function retrieveByPK($pk, $con = null)
-	{
+	public static function retrieveByPK( $id_fecha_etapa_carrera, $id_tipo_equipamiento, $con = null) {
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
-
-		$criteria = new Criteria(EquipamientoCarreraPeer::DATABASE_NAME);
-
-		$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $pk);
-
-
+		$criteria = new Criteria();
+		$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $id_fecha_etapa_carrera);
+		$criteria->add(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, $id_tipo_equipamiento);
 		$v = EquipamientoCarreraPeer::doSelect($criteria, $con);
 
-		return !empty($v) > 0 ? $v[0] : null;
+		return !empty($v) ? $v[0] : null;
 	}
-
-	
-	public static function retrieveByPKs($pks, $con = null)
-	{
-		if ($con === null) {
-			$con = Propel::getConnection(self::DATABASE_NAME);
-		}
-
-		$objs = null;
-		if (empty($pks)) {
-			$objs = array();
-		} else {
-			$criteria = new Criteria();
-			$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $pks, Criteria::IN);
-			$objs = EquipamientoCarreraPeer::doSelect($criteria, $con);
-		}
-		return $objs;
-	}
-
 } 
 if (Propel::isInit()) {
 			try {

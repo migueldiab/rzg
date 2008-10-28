@@ -30,7 +30,7 @@ class CarreraMapBuilder {
 		$tMap = $this->dbMap->addTable('carrera');
 		$tMap->setPhpName('Carrera');
 
-		$tMap->setUseIdGenerator(false);
+		$tMap->setUseIdGenerator(true);
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 

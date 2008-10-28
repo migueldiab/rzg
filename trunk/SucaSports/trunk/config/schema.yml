@@ -30,7 +30,8 @@ propel:
     updated_by: { type: INTEGER }
     _indexes: { fk_asociacion_has_corredor_asociacion: [id_asociacion], fk_asociacion_has_corredor_corredor: [id_corredor] }
   carrera:
-    id: { type: INTEGER, required: true, primaryKey: true }
+    _attributes: { idMethod: native }
+    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
     nombre: { type: VARCHAR, size: '45' }
     url: { type: VARCHAR, size: '45' }
     descripcion: { type: LONGVARCHAR }
@@ -39,14 +40,15 @@ propel:
     updated_at: { type: TIMESTAMP }
     updated_by: { type: VARCHAR, size: '45' }
   categoria:
-    id: { type: INTEGER, required: true, primaryKey: true }
+    _attributes: { idMethod: native }
+    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
     nombre: { type: VARCHAR, size: '45' }
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
     regla: { type: VARCHAR, size: '255' }
   categoria_carrera:
-    id_categoria: { type: INTEGER, required: true, primaryKey: true, foreignTable: categoria, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id_carrera: { type: INTEGER, foreignTable: carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_categoria: { type: INTEGER, required: true, primaryKey: true, default: '0', foreignTable: categoria, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_carrera: { type: INTEGER, required: true, primaryKey: true, default: '0', foreignTable: carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
     _indexes: { fk_categoria_carrera_id_categoria: [id_categoria], fk_categoria_carrera_carrera: [id_carrera] }
@@ -117,9 +119,8 @@ propel:
     updated_by: { type: INTEGER }
     _indexes: { fk_equipamiento_tipo_equipamiento: [id_tipo_equipamiento] }
   equipamiento_carrera:
-    _attributes: { idMethod: native }
-    id_fecha_etapa_carrera: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id_tipo_equipamiento: { type: INTEGER, required: true, foreignTable: tipo_equipamiento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_fecha_etapa_carrera: { type: INTEGER, required: true, primaryKey: true, default: '0', foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_tipo_equipamiento: { type: INTEGER, required: true, primaryKey: true, foreignTable: tipo_equipamiento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     created_at: { type: TIMESTAMP }
     created_by: { type: INTEGER }
     updated_at: { type: TIMESTAMP }
@@ -174,10 +175,8 @@ propel:
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
   inscripcion:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    id_fecha_etapa_carrera: { type: INTEGER, required: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id_corredor: { type: INTEGER, required: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_fecha_etapa_carrera: { type: INTEGER, required: true, primaryKey: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_corredor: { type: INTEGER, required: true, primaryKey: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     created_at: { type: TIMESTAMP }
     created_by: { type: INTEGER }
     updated_at: { type: TIMESTAMP }
@@ -224,10 +223,8 @@ propel:
     updated_at: { type: TIMESTAMP }
     _indexes: { fk_post_usuarios: [created_by], fk_post_usuarios1: [updated_by] }
   resultado:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    id_fecha_etapa_carrera: { type: INTEGER, required: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id_corredor: { type: INTEGER, required: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_fecha_etapa_carrera: { type: INTEGER, required: true, primaryKey: true, foreignTable: fecha_etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_corredor: { type: INTEGER, required: true, primaryKey: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     tiempo: { type: TIMESTAMP }
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }

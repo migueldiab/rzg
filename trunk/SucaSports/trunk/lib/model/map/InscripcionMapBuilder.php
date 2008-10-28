@@ -30,13 +30,11 @@ class InscripcionMapBuilder {
 		$tMap = $this->dbMap->addTable('inscripcion');
 		$tMap->setPhpName('Inscripcion');
 
-		$tMap->setUseIdGenerator(true);
+		$tMap->setUseIdGenerator(false);
 
-		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
+		$tMap->addForeignPrimaryKey('ID_FECHA_ETAPA_CARRERA', 'IdFechaEtapaCarrera', 'int' , CreoleTypes::INTEGER, 'fecha_etapa_carrera', 'ID', true, null);
 
-		$tMap->addForeignKey('ID_FECHA_ETAPA_CARRERA', 'IdFechaEtapaCarrera', 'int', CreoleTypes::INTEGER, 'fecha_etapa_carrera', 'ID', true, null);
-
-		$tMap->addForeignKey('ID_CORREDOR', 'IdCorredor', 'int', CreoleTypes::INTEGER, 'corredor', 'ID', true, null);
+		$tMap->addForeignPrimaryKey('ID_CORREDOR', 'IdCorredor', 'int' , CreoleTypes::INTEGER, 'corredor', 'ID', true, null);
 
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 

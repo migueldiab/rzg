@@ -679,6 +679,9 @@ abstract class BaseCategoriaCarreraPeer {
 			$comparison = $criteria->getComparison(CategoriaCarreraPeer::ID_CATEGORIA);
 			$selectCriteria->add(CategoriaCarreraPeer::ID_CATEGORIA, $criteria->remove(CategoriaCarreraPeer::ID_CATEGORIA), $comparison);
 
+			$comparison = $criteria->getComparison(CategoriaCarreraPeer::ID_CARRERA);
+			$selectCriteria->add(CategoriaCarreraPeer::ID_CARRERA, $criteria->remove(CategoriaCarreraPeer::ID_CARRERA), $comparison);
+
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -716,7 +719,20 @@ abstract class BaseCategoriaCarreraPeer {
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(CategoriaCarreraPeer::ID_CATEGORIA, (array) $values, Criteria::IN);
+												if(count($values) == count($values, COUNT_RECURSIVE))
+			{
+								$values = array($values);
+			}
+			$vals = array();
+			foreach($values as $value)
+			{
+
+				$vals[0][] = $value[0];
+				$vals[1][] = $value[1];
+			}
+
+			$criteria->add(CategoriaCarreraPeer::ID_CATEGORIA, $vals[0], Criteria::IN);
+			$criteria->add(CategoriaCarreraPeer::ID_CARRERA, $vals[1], Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -770,40 +786,17 @@ abstract class BaseCategoriaCarreraPeer {
 	}
 
 	
-	public static function retrieveByPK($pk, $con = null)
-	{
+	public static function retrieveByPK( $id_categoria, $id_carrera, $con = null) {
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
-
-		$criteria = new Criteria(CategoriaCarreraPeer::DATABASE_NAME);
-
-		$criteria->add(CategoriaCarreraPeer::ID_CATEGORIA, $pk);
-
-
+		$criteria = new Criteria();
+		$criteria->add(CategoriaCarreraPeer::ID_CATEGORIA, $id_categoria);
+		$criteria->add(CategoriaCarreraPeer::ID_CARRERA, $id_carrera);
 		$v = CategoriaCarreraPeer::doSelect($criteria, $con);
 
-		return !empty($v) > 0 ? $v[0] : null;
+		return !empty($v) ? $v[0] : null;
 	}
-
-	
-	public static function retrieveByPKs($pks, $con = null)
-	{
-		if ($con === null) {
-			$con = Propel::getConnection(self::DATABASE_NAME);
-		}
-
-		$objs = null;
-		if (empty($pks)) {
-			$objs = array();
-		} else {
-			$criteria = new Criteria();
-			$criteria->add(CategoriaCarreraPeer::ID_CATEGORIA, $pks, Criteria::IN);
-			$objs = CategoriaCarreraPeer::doSelect($criteria, $con);
-		}
-		return $objs;
-	}
-
 } 
 if (Propel::isInit()) {
 			try {

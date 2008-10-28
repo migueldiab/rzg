@@ -13,14 +13,11 @@ abstract class BaseResultadoPeer {
 	const CLASS_DEFAULT = 'lib.model.Resultado';
 
 	
-	const NUM_COLUMNS = 6;
+	const NUM_COLUMNS = 5;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
-
-	
-	const ID = 'resultado.ID';
 
 	
 	const ID_FECHA_ETAPA_CARRERA = 'resultado.ID_FECHA_ETAPA_CARRERA';
@@ -43,18 +40,18 @@ abstract class BaseResultadoPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'IdFechaEtapaCarrera', 'IdCorredor', 'Tiempo', 'UpdatedAt', 'UpdatedBy', ),
-		BasePeer::TYPE_COLNAME => array (ResultadoPeer::ID, ResultadoPeer::ID_FECHA_ETAPA_CARRERA, ResultadoPeer::ID_CORREDOR, ResultadoPeer::TIEMPO, ResultadoPeer::UPDATED_AT, ResultadoPeer::UPDATED_BY, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'id_fecha_etapa_carrera', 'id_corredor', 'tiempo', 'updated_at', 'updated_by', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('IdFechaEtapaCarrera', 'IdCorredor', 'Tiempo', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (ResultadoPeer::ID_FECHA_ETAPA_CARRERA, ResultadoPeer::ID_CORREDOR, ResultadoPeer::TIEMPO, ResultadoPeer::UPDATED_AT, ResultadoPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_fecha_etapa_carrera', 'id_corredor', 'tiempo', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdFechaEtapaCarrera' => 1, 'IdCorredor' => 2, 'Tiempo' => 3, 'UpdatedAt' => 4, 'UpdatedBy' => 5, ),
-		BasePeer::TYPE_COLNAME => array (ResultadoPeer::ID => 0, ResultadoPeer::ID_FECHA_ETAPA_CARRERA => 1, ResultadoPeer::ID_CORREDOR => 2, ResultadoPeer::TIEMPO => 3, ResultadoPeer::UPDATED_AT => 4, ResultadoPeer::UPDATED_BY => 5, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_fecha_etapa_carrera' => 1, 'id_corredor' => 2, 'tiempo' => 3, 'updated_at' => 4, 'updated_by' => 5, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('IdFechaEtapaCarrera' => 0, 'IdCorredor' => 1, 'Tiempo' => 2, 'UpdatedAt' => 3, 'UpdatedBy' => 4, ),
+		BasePeer::TYPE_COLNAME => array (ResultadoPeer::ID_FECHA_ETAPA_CARRERA => 0, ResultadoPeer::ID_CORREDOR => 1, ResultadoPeer::TIEMPO => 2, ResultadoPeer::UPDATED_AT => 3, ResultadoPeer::UPDATED_BY => 4, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_fecha_etapa_carrera' => 0, 'id_corredor' => 1, 'tiempo' => 2, 'updated_at' => 3, 'updated_by' => 4, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
 	);
 
 	
@@ -107,8 +104,6 @@ abstract class BaseResultadoPeer {
 	public static function addSelectColumns(Criteria $criteria)
 	{
 
-		$criteria->addSelectColumn(ResultadoPeer::ID);
-
 		$criteria->addSelectColumn(ResultadoPeer::ID_FECHA_ETAPA_CARRERA);
 
 		$criteria->addSelectColumn(ResultadoPeer::ID_CORREDOR);
@@ -121,8 +116,8 @@ abstract class BaseResultadoPeer {
 
 	}
 
-	const COUNT = 'COUNT(resultado.ID)';
-	const COUNT_DISTINCT = 'COUNT(DISTINCT resultado.ID)';
+	const COUNT = 'COUNT(resultado.ID_FECHA_ETAPA_CARRERA)';
+	const COUNT_DISTINCT = 'COUNT(DISTINCT resultado.ID_FECHA_ETAPA_CARRERA)';
 
 	
 	public static function doCount(Criteria $criteria, $distinct = false, $con = null)
@@ -660,7 +655,6 @@ abstract class BaseResultadoPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
-		$criteria->remove(ResultadoPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 
@@ -687,8 +681,11 @@ abstract class BaseResultadoPeer {
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; 
-			$comparison = $criteria->getComparison(ResultadoPeer::ID);
-			$selectCriteria->add(ResultadoPeer::ID, $criteria->remove(ResultadoPeer::ID), $comparison);
+			$comparison = $criteria->getComparison(ResultadoPeer::ID_FECHA_ETAPA_CARRERA);
+			$selectCriteria->add(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, $criteria->remove(ResultadoPeer::ID_FECHA_ETAPA_CARRERA), $comparison);
+
+			$comparison = $criteria->getComparison(ResultadoPeer::ID_CORREDOR);
+			$selectCriteria->add(ResultadoPeer::ID_CORREDOR, $criteria->remove(ResultadoPeer::ID_CORREDOR), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -727,7 +724,20 @@ abstract class BaseResultadoPeer {
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(ResultadoPeer::ID, (array) $values, Criteria::IN);
+												if(count($values) == count($values, COUNT_RECURSIVE))
+			{
+								$values = array($values);
+			}
+			$vals = array();
+			foreach($values as $value)
+			{
+
+				$vals[0][] = $value[0];
+				$vals[1][] = $value[1];
+			}
+
+			$criteria->add(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, $vals[0], Criteria::IN);
+			$criteria->add(ResultadoPeer::ID_CORREDOR, $vals[1], Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -781,40 +791,17 @@ abstract class BaseResultadoPeer {
 	}
 
 	
-	public static function retrieveByPK($pk, $con = null)
-	{
+	public static function retrieveByPK( $id_fecha_etapa_carrera, $id_corredor, $con = null) {
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
-
-		$criteria = new Criteria(ResultadoPeer::DATABASE_NAME);
-
-		$criteria->add(ResultadoPeer::ID, $pk);
-
-
+		$criteria = new Criteria();
+		$criteria->add(ResultadoPeer::ID_FECHA_ETAPA_CARRERA, $id_fecha_etapa_carrera);
+		$criteria->add(ResultadoPeer::ID_CORREDOR, $id_corredor);
 		$v = ResultadoPeer::doSelect($criteria, $con);
 
-		return !empty($v) > 0 ? $v[0] : null;
+		return !empty($v) ? $v[0] : null;
 	}
-
-	
-	public static function retrieveByPKs($pks, $con = null)
-	{
-		if ($con === null) {
-			$con = Propel::getConnection(self::DATABASE_NAME);
-		}
-
-		$objs = null;
-		if (empty($pks)) {
-			$objs = array();
-		} else {
-			$criteria = new Criteria();
-			$criteria->add(ResultadoPeer::ID, $pks, Criteria::IN);
-			$objs = ResultadoPeer::doSelect($criteria, $con);
-		}
-		return $objs;
-	}
-
 } 
 if (Propel::isInit()) {
 			try {

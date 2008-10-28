@@ -9,11 +9,11 @@ abstract class BaseCategoriaCarrera extends BaseObject  implements Persistent {
 
 
 	
-	protected $id_categoria;
+	protected $id_categoria = 0;
 
 
 	
-	protected $id_carrera;
+	protected $id_carrera = 0;
 
 
 	
@@ -86,7 +86,7 @@ abstract class BaseCategoriaCarrera extends BaseObject  implements Persistent {
 			$v = (int) $v;
 		}
 
-		if ($this->id_categoria !== $v) {
+		if ($this->id_categoria !== $v || $v === 0) {
 			$this->id_categoria = $v;
 			$this->modifiedColumns[] = CategoriaCarreraPeer::ID_CATEGORIA;
 		}
@@ -104,7 +104,7 @@ abstract class BaseCategoriaCarrera extends BaseObject  implements Persistent {
 			$v = (int) $v;
 		}
 
-		if ($this->id_carrera !== $v) {
+		if ($this->id_carrera !== $v || $v === 0) {
 			$this->id_carrera = $v;
 			$this->modifiedColumns[] = CategoriaCarreraPeer::ID_CARRERA;
 		}
@@ -408,6 +408,7 @@ abstract class BaseCategoriaCarrera extends BaseObject  implements Persistent {
 		$criteria = new Criteria(CategoriaCarreraPeer::DATABASE_NAME);
 
 		$criteria->add(CategoriaCarreraPeer::ID_CATEGORIA, $this->id_categoria);
+		$criteria->add(CategoriaCarreraPeer::ID_CARRERA, $this->id_carrera);
 
 		return $criteria;
 	}
@@ -415,20 +416,28 @@ abstract class BaseCategoriaCarrera extends BaseObject  implements Persistent {
 	
 	public function getPrimaryKey()
 	{
-		return $this->getIdCategoria();
+		$pks = array();
+
+		$pks[0] = $this->getIdCategoria();
+
+		$pks[1] = $this->getIdCarrera();
+
+		return $pks;
 	}
 
 	
-	public function setPrimaryKey($key)
+	public function setPrimaryKey($keys)
 	{
-		$this->setIdCategoria($key);
+
+		$this->setIdCategoria($keys[0]);
+
+		$this->setIdCarrera($keys[1]);
+
 	}
 
 	
 	public function copyInto($copyObj, $deepCopy = false)
 	{
-
-		$copyObj->setIdCarrera($this->id_carrera);
 
 		$copyObj->setUpdatedAt($this->updated_at);
 
@@ -437,7 +446,8 @@ abstract class BaseCategoriaCarrera extends BaseObject  implements Persistent {
 
 		$copyObj->setNew(true);
 
-		$copyObj->setIdCategoria(NULL); 
+		$copyObj->setIdCategoria('0'); 
+		$copyObj->setIdCarrera('0'); 
 	}
 
 	
@@ -464,7 +474,7 @@ abstract class BaseCategoriaCarrera extends BaseObject  implements Persistent {
 
 
 		if ($v === null) {
-			$this->setIdCategoria(NULL);
+			$this->setIdCategoria('0');
 		} else {
 			$this->setIdCategoria($v->getId());
 		}
@@ -491,7 +501,7 @@ abstract class BaseCategoriaCarrera extends BaseObject  implements Persistent {
 
 
 		if ($v === null) {
-			$this->setIdCarrera(NULL);
+			$this->setIdCarrera('0');
 		} else {
 			$this->setIdCarrera($v->getId());
 		}
