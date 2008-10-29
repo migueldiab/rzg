@@ -50,9 +50,9 @@ class FechaEtapaCarreraMapBuilder {
 
 		$tMap->addColumn('UPDATED_BY', 'UpdatedBy', 'int', CreoleTypes::INTEGER, false, null);
 
-		$tMap->addColumn('ID_ETAPA_CARRERA', 'IdEtapaCarrera', 'int', CreoleTypes::INTEGER, true, null);
+		$tMap->addForeignKey('ID_ETAPA_CARRERA', 'IdEtapaCarrera', 'int', CreoleTypes::INTEGER, 'etapa_carrera', 'ID', true, null);
 
-		$tMap->addColumn('ID_CARRERA', 'IdCarrera', 'int', CreoleTypes::INTEGER, true, null);
+		$tMap->addForeignKey('ID_CARRERA', 'IdCarrera', 'int', CreoleTypes::INTEGER, 'etapa_carrera', 'ID', true, null);
 
 	} 
 } 

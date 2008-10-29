@@ -222,6 +222,384 @@ abstract class BaseFechaEtapaCarreraPeer {
 		return $results;
 	}
 
+	
+	public static function doCountJoinEtapaCarreraRelatedByIdEtapaCarrera(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$criteria->addJoin(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, EtapaCarreraPeer::ID);
+
+		$rs = FechaEtapaCarreraPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
+	public static function doCountJoinEtapaCarreraRelatedByIdCarrera(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$criteria->addJoin(FechaEtapaCarreraPeer::ID_CARRERA, EtapaCarreraPeer::ID);
+
+		$rs = FechaEtapaCarreraPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
+	public static function doSelectJoinEtapaCarreraRelatedByIdEtapaCarrera(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+				if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		FechaEtapaCarreraPeer::addSelectColumns($c);
+		$startcol = (FechaEtapaCarreraPeer::NUM_COLUMNS - FechaEtapaCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		EtapaCarreraPeer::addSelectColumns($c);
+
+		$c->addJoin(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, EtapaCarreraPeer::ID);
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = FechaEtapaCarreraPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = EtapaCarreraPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj2 = new $cls();
+			$obj2->hydrate($rs, $startcol);
+
+			$newObject = true;
+			foreach($results as $temp_obj1) {
+				$temp_obj2 = $temp_obj1->getEtapaCarreraRelatedByIdEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+										$temp_obj2->addFechaEtapaCarreraRelatedByIdEtapaCarrera($obj1); 					break;
+				}
+			}
+			if ($newObject) {
+				$obj2->initFechaEtapaCarrerasRelatedByIdEtapaCarrera();
+				$obj2->addFechaEtapaCarreraRelatedByIdEtapaCarrera($obj1); 			}
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doSelectJoinEtapaCarreraRelatedByIdCarrera(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+				if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		FechaEtapaCarreraPeer::addSelectColumns($c);
+		$startcol = (FechaEtapaCarreraPeer::NUM_COLUMNS - FechaEtapaCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		EtapaCarreraPeer::addSelectColumns($c);
+
+		$c->addJoin(FechaEtapaCarreraPeer::ID_CARRERA, EtapaCarreraPeer::ID);
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = FechaEtapaCarreraPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = EtapaCarreraPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj2 = new $cls();
+			$obj2->hydrate($rs, $startcol);
+
+			$newObject = true;
+			foreach($results as $temp_obj1) {
+				$temp_obj2 = $temp_obj1->getEtapaCarreraRelatedByIdCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+										$temp_obj2->addFechaEtapaCarreraRelatedByIdCarrera($obj1); 					break;
+				}
+			}
+			if ($newObject) {
+				$obj2->initFechaEtapaCarrerasRelatedByIdCarrera();
+				$obj2->addFechaEtapaCarreraRelatedByIdCarrera($obj1); 			}
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doCountJoinAll(Criteria $criteria, $distinct = false, $con = null)
+	{
+		$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$criteria->addJoin(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, EtapaCarreraPeer::ID);
+
+		$criteria->addJoin(FechaEtapaCarreraPeer::ID_CARRERA, EtapaCarreraPeer::ID);
+
+		$rs = FechaEtapaCarreraPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
+	public static function doSelectJoinAll(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+				if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		FechaEtapaCarreraPeer::addSelectColumns($c);
+		$startcol2 = (FechaEtapaCarreraPeer::NUM_COLUMNS - FechaEtapaCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+		EtapaCarreraPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + EtapaCarreraPeer::NUM_COLUMNS;
+
+		EtapaCarreraPeer::addSelectColumns($c);
+		$startcol4 = $startcol3 + EtapaCarreraPeer::NUM_COLUMNS;
+
+		$c->addJoin(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, EtapaCarreraPeer::ID);
+
+		$c->addJoin(FechaEtapaCarreraPeer::ID_CARRERA, EtapaCarreraPeer::ID);
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = FechaEtapaCarreraPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+
+					
+			$omClass = EtapaCarreraPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj2 = new $cls();
+			$obj2->hydrate($rs, $startcol2);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj2 = $temp_obj1->getEtapaCarreraRelatedByIdEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj2->addFechaEtapaCarreraRelatedByIdEtapaCarrera($obj1); 					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj2->initFechaEtapaCarrerasRelatedByIdEtapaCarrera();
+				$obj2->addFechaEtapaCarreraRelatedByIdEtapaCarrera($obj1);
+			}
+
+
+					
+			$omClass = EtapaCarreraPeer::getOMClass();
+
+
+			$cls = sfPropel::import($omClass);
+			$obj3 = new $cls();
+			$obj3->hydrate($rs, $startcol3);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj3 = $temp_obj1->getEtapaCarreraRelatedByIdCarrera(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj3->addFechaEtapaCarreraRelatedByIdCarrera($obj1); 					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj3->initFechaEtapaCarrerasRelatedByIdCarrera();
+				$obj3->addFechaEtapaCarreraRelatedByIdCarrera($obj1);
+			}
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doCountJoinAllExceptEtapaCarreraRelatedByIdEtapaCarrera(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$rs = FechaEtapaCarreraPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
+	public static function doCountJoinAllExceptEtapaCarreraRelatedByIdCarrera(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(FechaEtapaCarreraPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$rs = FechaEtapaCarreraPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
+	public static function doSelectJoinAllExceptEtapaCarreraRelatedByIdEtapaCarrera(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		FechaEtapaCarreraPeer::addSelectColumns($c);
+		$startcol2 = (FechaEtapaCarreraPeer::NUM_COLUMNS - FechaEtapaCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = FechaEtapaCarreraPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doSelectJoinAllExceptEtapaCarreraRelatedByIdCarrera(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		FechaEtapaCarreraPeer::addSelectColumns($c);
+		$startcol2 = (FechaEtapaCarreraPeer::NUM_COLUMNS - FechaEtapaCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = FechaEtapaCarreraPeer::getOMClass();
+
+			$cls = sfPropel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
   static public function getUniqueColumnNames()
   {
     return array(array('fecha_inicio', 'id_etapa_carrera', 'id_carrera'));

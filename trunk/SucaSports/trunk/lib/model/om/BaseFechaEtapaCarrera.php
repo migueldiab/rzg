@@ -52,6 +52,12 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 	protected $id_carrera;
 
 	
+	protected $aEtapaCarreraRelatedByIdEtapaCarrera;
+
+	
+	protected $aEtapaCarreraRelatedByIdCarrera;
+
+	
 	protected $collAlquilers;
 
 	
@@ -365,6 +371,10 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			$this->modifiedColumns[] = FechaEtapaCarreraPeer::ID_ETAPA_CARRERA;
 		}
 
+		if ($this->aEtapaCarreraRelatedByIdEtapaCarrera !== null && $this->aEtapaCarreraRelatedByIdEtapaCarrera->getId() !== $v) {
+			$this->aEtapaCarreraRelatedByIdEtapaCarrera = null;
+		}
+
 	} 
 	
 	public function setIdCarrera($v)
@@ -377,6 +387,10 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 		if ($this->id_carrera !== $v) {
 			$this->id_carrera = $v;
 			$this->modifiedColumns[] = FechaEtapaCarreraPeer::ID_CARRERA;
+		}
+
+		if ($this->aEtapaCarreraRelatedByIdCarrera !== null && $this->aEtapaCarreraRelatedByIdCarrera->getId() !== $v) {
+			$this->aEtapaCarreraRelatedByIdCarrera = null;
 		}
 
 	} 
@@ -478,6 +492,22 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			$this->alreadyInSave = true;
 
 
+												
+			if ($this->aEtapaCarreraRelatedByIdEtapaCarrera !== null) {
+				if ($this->aEtapaCarreraRelatedByIdEtapaCarrera->isModified()) {
+					$affectedRows += $this->aEtapaCarreraRelatedByIdEtapaCarrera->save($con);
+				}
+				$this->setEtapaCarreraRelatedByIdEtapaCarrera($this->aEtapaCarreraRelatedByIdEtapaCarrera);
+			}
+
+			if ($this->aEtapaCarreraRelatedByIdCarrera !== null) {
+				if ($this->aEtapaCarreraRelatedByIdCarrera->isModified()) {
+					$affectedRows += $this->aEtapaCarreraRelatedByIdCarrera->save($con);
+				}
+				$this->setEtapaCarreraRelatedByIdCarrera($this->aEtapaCarreraRelatedByIdCarrera);
+			}
+
+
 						if ($this->isModified()) {
 				if ($this->isNew()) {
 					$pk = FechaEtapaCarreraPeer::doInsert($this, $con);
@@ -555,6 +585,20 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			$retval = null;
 
 			$failureMap = array();
+
+
+												
+			if ($this->aEtapaCarreraRelatedByIdEtapaCarrera !== null) {
+				if (!$this->aEtapaCarreraRelatedByIdEtapaCarrera->validate($columns)) {
+					$failureMap = array_merge($failureMap, $this->aEtapaCarreraRelatedByIdEtapaCarrera->getValidationFailures());
+				}
+			}
+
+			if ($this->aEtapaCarreraRelatedByIdCarrera !== null) {
+				if (!$this->aEtapaCarreraRelatedByIdCarrera->validate($columns)) {
+					$failureMap = array_merge($failureMap, $this->aEtapaCarreraRelatedByIdCarrera->getValidationFailures());
+				}
+			}
 
 
 			if (($retval = FechaEtapaCarreraPeer::doValidate($this, $columns)) !== true) {
@@ -843,6 +887,60 @@ abstract class BaseFechaEtapaCarrera extends BaseObject  implements Persistent {
 			self::$peer = new FechaEtapaCarreraPeer();
 		}
 		return self::$peer;
+	}
+
+	
+	public function setEtapaCarreraRelatedByIdEtapaCarrera($v)
+	{
+
+
+		if ($v === null) {
+			$this->setIdEtapaCarrera(NULL);
+		} else {
+			$this->setIdEtapaCarrera($v->getId());
+		}
+
+
+		$this->aEtapaCarreraRelatedByIdEtapaCarrera = $v;
+	}
+
+
+	
+	public function getEtapaCarreraRelatedByIdEtapaCarrera($con = null)
+	{
+		if ($this->aEtapaCarreraRelatedByIdEtapaCarrera === null && ($this->id_etapa_carrera !== null)) {
+						$this->aEtapaCarreraRelatedByIdEtapaCarrera = EtapaCarreraPeer::retrieveByPK($this->id_etapa_carrera, $con);
+
+			
+		}
+		return $this->aEtapaCarreraRelatedByIdEtapaCarrera;
+	}
+
+	
+	public function setEtapaCarreraRelatedByIdCarrera($v)
+	{
+
+
+		if ($v === null) {
+			$this->setIdCarrera(NULL);
+		} else {
+			$this->setIdCarrera($v->getId());
+		}
+
+
+		$this->aEtapaCarreraRelatedByIdCarrera = $v;
+	}
+
+
+	
+	public function getEtapaCarreraRelatedByIdCarrera($con = null)
+	{
+		if ($this->aEtapaCarreraRelatedByIdCarrera === null && ($this->id_carrera !== null)) {
+						$this->aEtapaCarreraRelatedByIdCarrera = EtapaCarreraPeer::retrieveByPK($this->id_carrera, $con);
+
+			
+		}
+		return $this->aEtapaCarreraRelatedByIdCarrera;
 	}
 
 	
