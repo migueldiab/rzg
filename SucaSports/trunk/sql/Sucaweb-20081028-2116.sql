@@ -447,7 +447,8 @@ CREATE TABLE `fecha_etapa_carrera` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `unique_etapa_carrera_fecha` (`fecha_inicio`,`id_etapa_carrera`,`id_carrera`),
   KEY `fk_fecha_etapa_carrera_etapa_carrera` (`id_etapa_carrera`,`id_carrera`),
-  CONSTRAINT `fk_fecha_etapa_carrera_etapa_carrera` FOREIGN KEY (`id_etapa_carrera`, `id_carrera`) REFERENCES `etapa_carrera` (`id`, `id_carrera`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_fecha_etapa_carrera_etapa_carrera` FOREIGN KEY (`id_etapa_carrera`) REFERENCES `etapa_carrera` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ CONSTRAINT `fk_fecha_etapa_carrera_carrera` FOREIGN KEY (`id_carrera`) REFERENCES `etapa_carrera` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --

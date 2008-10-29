@@ -425,9 +425,6 @@ abstract class BaseEtapaCarreraPeer {
 			$comparison = $criteria->getComparison(EtapaCarreraPeer::ID);
 			$selectCriteria->add(EtapaCarreraPeer::ID, $criteria->remove(EtapaCarreraPeer::ID), $comparison);
 
-			$comparison = $criteria->getComparison(EtapaCarreraPeer::ID_CARRERA);
-			$selectCriteria->add(EtapaCarreraPeer::ID_CARRERA, $criteria->remove(EtapaCarreraPeer::ID_CARRERA), $comparison);
-
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -465,20 +462,7 @@ abstract class BaseEtapaCarreraPeer {
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-												if(count($values) == count($values, COUNT_RECURSIVE))
-			{
-								$values = array($values);
-			}
-			$vals = array();
-			foreach($values as $value)
-			{
-
-				$vals[0][] = $value[0];
-				$vals[1][] = $value[1];
-			}
-
-			$criteria->add(EtapaCarreraPeer::ID, $vals[0], Criteria::IN);
-			$criteria->add(EtapaCarreraPeer::ID_CARRERA, $vals[1], Criteria::IN);
+			$criteria->add(EtapaCarreraPeer::ID, (array) $values, Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -532,17 +516,40 @@ abstract class BaseEtapaCarreraPeer {
 	}
 
 	
-	public static function retrieveByPK( $id, $id_carrera, $con = null) {
+	public static function retrieveByPK($pk, $con = null)
+	{
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
-		$criteria = new Criteria();
-		$criteria->add(EtapaCarreraPeer::ID, $id);
-		$criteria->add(EtapaCarreraPeer::ID_CARRERA, $id_carrera);
+
+		$criteria = new Criteria(EtapaCarreraPeer::DATABASE_NAME);
+
+		$criteria->add(EtapaCarreraPeer::ID, $pk);
+
+
 		$v = EtapaCarreraPeer::doSelect($criteria, $con);
 
-		return !empty($v) ? $v[0] : null;
+		return !empty($v) > 0 ? $v[0] : null;
 	}
+
+	
+	public static function retrieveByPKs($pks, $con = null)
+	{
+		if ($con === null) {
+			$con = Propel::getConnection(self::DATABASE_NAME);
+		}
+
+		$objs = null;
+		if (empty($pks)) {
+			$objs = array();
+		} else {
+			$criteria = new Criteria();
+			$criteria->add(EtapaCarreraPeer::ID, $pks, Criteria::IN);
+			$objs = EtapaCarreraPeer::doSelect($criteria, $con);
+		}
+		return $objs;
+	}
+
 } 
 if (Propel::isInit()) {
 			try {

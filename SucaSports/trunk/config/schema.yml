@@ -135,7 +135,7 @@ propel:
   etapa_carrera:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    id_carrera: { type: INTEGER, required: true, primaryKey: true, foreignTable: carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_carrera: { type: INTEGER, required: true, foreignTable: carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     nombre: { type: VARCHAR, size: '45' }
     numero_etapa: { type: INTEGER }
     created_at: { type: TIMESTAMP }
@@ -154,9 +154,9 @@ propel:
     created_by: { type: INTEGER }
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
-    id_etapa_carrera: { type: INTEGER, required: true }
-    id_carrera: { type: INTEGER, required: true }
-    _indexes: { fk_fecha_etapa_carrera_etapa_carrera: [id_etapa_carrera, id_carrera] }
+    id_etapa_carrera: { type: INTEGER, required: true, foreignTable: etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_carrera: { type: INTEGER, required: true, foreignTable: etapa_carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _indexes: { fk_fecha_etapa_carrera_etapa_carrera: [id_etapa_carrera, id_carrera], fk_fecha_etapa_carrera_carrera: [id_carrera] }
     _uniques: { unique_etapa_carrera_fecha: [fecha_inicio, id_etapa_carrera, id_carrera] }
   forma_pago:
     _attributes: { idMethod: native }
