@@ -11,12 +11,18 @@
 class CarreraActions extends autoCarreraActions
 {
     public function executeEtapa(){
-        $c = new Criteria();
-        $c->add(EtapaCarreraPeer::ID_CARRERA, $this->getRequestParameter('id'));
-        $carrera = new Carrera();
-        $param = $carrera->getEtapaCarreras($c);
-        print_r($param);
-        print_r($this->getRequestParameter('id'));
+        
+    $etapa = new EtapaCarrera();    
+    $c = new Criteria();
+    $c->add(EtapaCarreraPeer::ID_CARRERA, $this->getRequestParameter('id'));
+    $etapa = EtapaCarreraPeer::doSelectOne($c);
+    echo "<br>".$etapa->getNumeroEtapa();
+    echo "<br> ".$etapa->getUpdatedBy();
+    echo "<br> ".$etapa->getNombre();
+    
+    
+//        print_r($param);
+//        print_r($this->getRequestParameter('id'));
         exit;
         return $this->redirect('etapacarrera/edit/$param');
     }    
