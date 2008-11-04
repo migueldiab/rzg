@@ -1,9 +1,9 @@
 listSuccess:
-  has_layout: off
+  has_layout: on
   
 createSuccess:
-  has_layout: off
+  has_layout: on
 
 editSuccess:
-  has_layout: off
+  has_layout: on
   
