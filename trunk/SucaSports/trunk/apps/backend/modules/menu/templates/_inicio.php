@@ -19,7 +19,7 @@
       <li>
         <span id="ttRich"><?php echo link_to_remote('Crear Carrera',
           array(
-          'url' => 'carrera/edit',
+          'url' => 'carrera/create',
           'update' => 'basicFormTab'        
           )
         ) ?></span>

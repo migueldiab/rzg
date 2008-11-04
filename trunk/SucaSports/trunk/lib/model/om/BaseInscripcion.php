@@ -9,11 +9,19 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 
 	
-	protected $id_fecha_etapa_carrera;
+	protected $id_corredor;
 
 
 	
-	protected $id_corredor;
+	protected $fecha_inicio;
+
+
+	
+	protected $id_etapa;
+
+
+	
+	protected $id_carrera;
 
 
 	
@@ -39,18 +47,8 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	
 	protected $firma_digital;
 
-
-	
-	protected $cuenta_corriente_id;
-
-	
-	protected $aFechaEtapaCarrera;
-
 	
 	protected $aCorredor;
-
-	
-	protected $aCuentaCorriente;
 
 	
 	protected $alreadyInSave = false;
@@ -59,17 +57,46 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	protected $alreadyInValidation = false;
 
 	
-	public function getIdFechaEtapaCarrera()
-	{
-
-		return $this->id_fecha_etapa_carrera;
-	}
-
-	
 	public function getIdCorredor()
 	{
 
 		return $this->id_corredor;
+	}
+
+	
+	public function getFechaInicio($format = 'Y-m-d')
+	{
+
+		if ($this->fecha_inicio === null || $this->fecha_inicio === '') {
+			return null;
+		} elseif (!is_int($this->fecha_inicio)) {
+						$ts = strtotime($this->fecha_inicio);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [fecha_inicio] as date/time value: " . var_export($this->fecha_inicio, true));
+			}
+		} else {
+			$ts = $this->fecha_inicio;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
+	}
+
+	
+	public function getIdEtapa()
+	{
+
+		return $this->id_etapa;
+	}
+
+	
+	public function getIdCarrera()
+	{
+
+		return $this->id_carrera;
 	}
 
 	
@@ -160,31 +187,6 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	}
 
 	
-	public function getCuentaCorrienteId()
-	{
-
-		return $this->cuenta_corriente_id;
-	}
-
-	
-	public function setIdFechaEtapaCarrera($v)
-	{
-
-						if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->id_fecha_etapa_carrera !== $v) {
-			$this->id_fecha_etapa_carrera = $v;
-			$this->modifiedColumns[] = InscripcionPeer::ID_FECHA_ETAPA_CARRERA;
-		}
-
-		if ($this->aFechaEtapaCarrera !== null && $this->aFechaEtapaCarrera->getId() !== $v) {
-			$this->aFechaEtapaCarrera = null;
-		}
-
-	} 
-	
 	public function setIdCorredor($v)
 	{
 
@@ -199,6 +201,51 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 		if ($this->aCorredor !== null && $this->aCorredor->getId() !== $v) {
 			$this->aCorredor = null;
+		}
+
+	} 
+	
+	public function setFechaInicio($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [fecha_inicio] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->fecha_inicio !== $ts) {
+			$this->fecha_inicio = $ts;
+			$this->modifiedColumns[] = InscripcionPeer::FECHA_INICIO;
+		}
+
+	} 
+	
+	public function setIdEtapa($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->id_etapa !== $v) {
+			$this->id_etapa = $v;
+			$this->modifiedColumns[] = InscripcionPeer::ID_ETAPA;
+		}
+
+	} 
+	
+	public function setIdCarrera($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->id_carrera !== $v) {
+			$this->id_carrera = $v;
+			$this->modifiedColumns[] = InscripcionPeer::ID_CARRERA;
 		}
 
 	} 
@@ -296,51 +343,35 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 	} 
 	
-	public function setCuentaCorrienteId($v)
-	{
-
-						if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->cuenta_corriente_id !== $v) {
-			$this->cuenta_corriente_id = $v;
-			$this->modifiedColumns[] = InscripcionPeer::CUENTA_CORRIENTE_ID;
-		}
-
-		if ($this->aCuentaCorriente !== null && $this->aCuentaCorriente->getId() !== $v) {
-			$this->aCuentaCorriente = null;
-		}
-
-	} 
-	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
 
-			$this->id_fecha_etapa_carrera = $rs->getInt($startcol + 0);
+			$this->id_corredor = $rs->getInt($startcol + 0);
 
-			$this->id_corredor = $rs->getInt($startcol + 1);
+			$this->fecha_inicio = $rs->getDate($startcol + 1, null);
 
-			$this->created_at = $rs->getTimestamp($startcol + 2, null);
+			$this->id_etapa = $rs->getInt($startcol + 2);
 
-			$this->created_by = $rs->getInt($startcol + 3);
+			$this->id_carrera = $rs->getInt($startcol + 3);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 4, null);
+			$this->created_at = $rs->getTimestamp($startcol + 4, null);
 
-			$this->updated_by = $rs->getInt($startcol + 5);
+			$this->created_by = $rs->getInt($startcol + 5);
 
-			$this->fecha_inscripcion = $rs->getDate($startcol + 6, null);
+			$this->updated_at = $rs->getTimestamp($startcol + 6, null);
 
-			$this->firma_digital = $rs->getString($startcol + 7);
+			$this->updated_by = $rs->getInt($startcol + 7);
 
-			$this->cuenta_corriente_id = $rs->getInt($startcol + 8);
+			$this->fecha_inscripcion = $rs->getDate($startcol + 8, null);
+
+			$this->firma_digital = $rs->getString($startcol + 9);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 9; 
+						return $startcol + 10; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Inscripcion object", $e);
 		}
@@ -408,25 +439,11 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 
 												
-			if ($this->aFechaEtapaCarrera !== null) {
-				if ($this->aFechaEtapaCarrera->isModified()) {
-					$affectedRows += $this->aFechaEtapaCarrera->save($con);
-				}
-				$this->setFechaEtapaCarrera($this->aFechaEtapaCarrera);
-			}
-
 			if ($this->aCorredor !== null) {
 				if ($this->aCorredor->isModified()) {
 					$affectedRows += $this->aCorredor->save($con);
 				}
 				$this->setCorredor($this->aCorredor);
-			}
-
-			if ($this->aCuentaCorriente !== null) {
-				if ($this->aCuentaCorriente->isModified()) {
-					$affectedRows += $this->aCuentaCorriente->save($con);
-				}
-				$this->setCuentaCorriente($this->aCuentaCorriente);
 			}
 
 
@@ -477,21 +494,9 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 
 												
-			if ($this->aFechaEtapaCarrera !== null) {
-				if (!$this->aFechaEtapaCarrera->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aFechaEtapaCarrera->getValidationFailures());
-				}
-			}
-
 			if ($this->aCorredor !== null) {
 				if (!$this->aCorredor->validate($columns)) {
 					$failureMap = array_merge($failureMap, $this->aCorredor->getValidationFailures());
-				}
-			}
-
-			if ($this->aCuentaCorriente !== null) {
-				if (!$this->aCuentaCorriente->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aCuentaCorriente->getValidationFailures());
 				}
 			}
 
@@ -520,31 +525,34 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		switch($pos) {
 			case 0:
-				return $this->getIdFechaEtapaCarrera();
-				break;
-			case 1:
 				return $this->getIdCorredor();
 				break;
+			case 1:
+				return $this->getFechaInicio();
+				break;
 			case 2:
-				return $this->getCreatedAt();
+				return $this->getIdEtapa();
 				break;
 			case 3:
-				return $this->getCreatedBy();
+				return $this->getIdCarrera();
 				break;
 			case 4:
-				return $this->getUpdatedAt();
+				return $this->getCreatedAt();
 				break;
 			case 5:
-				return $this->getUpdatedBy();
+				return $this->getCreatedBy();
 				break;
 			case 6:
-				return $this->getFechaInscripcion();
+				return $this->getUpdatedAt();
 				break;
 			case 7:
-				return $this->getFirmaDigital();
+				return $this->getUpdatedBy();
 				break;
 			case 8:
-				return $this->getCuentaCorrienteId();
+				return $this->getFechaInscripcion();
+				break;
+			case 9:
+				return $this->getFirmaDigital();
 				break;
 			default:
 				return null;
@@ -556,15 +564,16 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		$keys = InscripcionPeer::getFieldNames($keyType);
 		$result = array(
-			$keys[0] => $this->getIdFechaEtapaCarrera(),
-			$keys[1] => $this->getIdCorredor(),
-			$keys[2] => $this->getCreatedAt(),
-			$keys[3] => $this->getCreatedBy(),
-			$keys[4] => $this->getUpdatedAt(),
-			$keys[5] => $this->getUpdatedBy(),
-			$keys[6] => $this->getFechaInscripcion(),
-			$keys[7] => $this->getFirmaDigital(),
-			$keys[8] => $this->getCuentaCorrienteId(),
+			$keys[0] => $this->getIdCorredor(),
+			$keys[1] => $this->getFechaInicio(),
+			$keys[2] => $this->getIdEtapa(),
+			$keys[3] => $this->getIdCarrera(),
+			$keys[4] => $this->getCreatedAt(),
+			$keys[5] => $this->getCreatedBy(),
+			$keys[6] => $this->getUpdatedAt(),
+			$keys[7] => $this->getUpdatedBy(),
+			$keys[8] => $this->getFechaInscripcion(),
+			$keys[9] => $this->getFirmaDigital(),
 		);
 		return $result;
 	}
@@ -581,31 +590,34 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		switch($pos) {
 			case 0:
-				$this->setIdFechaEtapaCarrera($value);
-				break;
-			case 1:
 				$this->setIdCorredor($value);
 				break;
+			case 1:
+				$this->setFechaInicio($value);
+				break;
 			case 2:
-				$this->setCreatedAt($value);
+				$this->setIdEtapa($value);
 				break;
 			case 3:
-				$this->setCreatedBy($value);
+				$this->setIdCarrera($value);
 				break;
 			case 4:
-				$this->setUpdatedAt($value);
+				$this->setCreatedAt($value);
 				break;
 			case 5:
-				$this->setUpdatedBy($value);
+				$this->setCreatedBy($value);
 				break;
 			case 6:
-				$this->setFechaInscripcion($value);
+				$this->setUpdatedAt($value);
 				break;
 			case 7:
-				$this->setFirmaDigital($value);
+				$this->setUpdatedBy($value);
 				break;
 			case 8:
-				$this->setCuentaCorrienteId($value);
+				$this->setFechaInscripcion($value);
+				break;
+			case 9:
+				$this->setFirmaDigital($value);
 				break;
 		} 	}
 
@@ -614,15 +626,16 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		$keys = InscripcionPeer::getFieldNames($keyType);
 
-		if (array_key_exists($keys[0], $arr)) $this->setIdFechaEtapaCarrera($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setIdCorredor($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setCreatedAt($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setCreatedBy($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setUpdatedAt($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setUpdatedBy($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setFechaInscripcion($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setFirmaDigital($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setCuentaCorrienteId($arr[$keys[8]]);
+		if (array_key_exists($keys[0], $arr)) $this->setIdCorredor($arr[$keys[0]]);
+		if (array_key_exists($keys[1], $arr)) $this->setFechaInicio($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setIdEtapa($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setIdCarrera($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setCreatedAt($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setCreatedBy($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setUpdatedAt($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setUpdatedBy($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setFechaInscripcion($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setFirmaDigital($arr[$keys[9]]);
 	}
 
 	
@@ -630,15 +643,16 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		$criteria = new Criteria(InscripcionPeer::DATABASE_NAME);
 
-		if ($this->isColumnModified(InscripcionPeer::ID_FECHA_ETAPA_CARRERA)) $criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $this->id_fecha_etapa_carrera);
 		if ($this->isColumnModified(InscripcionPeer::ID_CORREDOR)) $criteria->add(InscripcionPeer::ID_CORREDOR, $this->id_corredor);
+		if ($this->isColumnModified(InscripcionPeer::FECHA_INICIO)) $criteria->add(InscripcionPeer::FECHA_INICIO, $this->fecha_inicio);
+		if ($this->isColumnModified(InscripcionPeer::ID_ETAPA)) $criteria->add(InscripcionPeer::ID_ETAPA, $this->id_etapa);
+		if ($this->isColumnModified(InscripcionPeer::ID_CARRERA)) $criteria->add(InscripcionPeer::ID_CARRERA, $this->id_carrera);
 		if ($this->isColumnModified(InscripcionPeer::CREATED_AT)) $criteria->add(InscripcionPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(InscripcionPeer::CREATED_BY)) $criteria->add(InscripcionPeer::CREATED_BY, $this->created_by);
 		if ($this->isColumnModified(InscripcionPeer::UPDATED_AT)) $criteria->add(InscripcionPeer::UPDATED_AT, $this->updated_at);
 		if ($this->isColumnModified(InscripcionPeer::UPDATED_BY)) $criteria->add(InscripcionPeer::UPDATED_BY, $this->updated_by);
 		if ($this->isColumnModified(InscripcionPeer::FECHA_INSCRIPCION)) $criteria->add(InscripcionPeer::FECHA_INSCRIPCION, $this->fecha_inscripcion);
 		if ($this->isColumnModified(InscripcionPeer::FIRMA_DIGITAL)) $criteria->add(InscripcionPeer::FIRMA_DIGITAL, $this->firma_digital);
-		if ($this->isColumnModified(InscripcionPeer::CUENTA_CORRIENTE_ID)) $criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->cuenta_corriente_id);
 
 		return $criteria;
 	}
@@ -648,8 +662,10 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		$criteria = new Criteria(InscripcionPeer::DATABASE_NAME);
 
-		$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $this->id_fecha_etapa_carrera);
 		$criteria->add(InscripcionPeer::ID_CORREDOR, $this->id_corredor);
+		$criteria->add(InscripcionPeer::FECHA_INICIO, $this->fecha_inicio);
+		$criteria->add(InscripcionPeer::ID_ETAPA, $this->id_etapa);
+		$criteria->add(InscripcionPeer::ID_CARRERA, $this->id_carrera);
 
 		return $criteria;
 	}
@@ -659,9 +675,13 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 		$pks = array();
 
-		$pks[0] = $this->getIdFechaEtapaCarrera();
+		$pks[0] = $this->getIdCorredor();
 
-		$pks[1] = $this->getIdCorredor();
+		$pks[1] = $this->getFechaInicio();
+
+		$pks[2] = $this->getIdEtapa();
+
+		$pks[3] = $this->getIdCarrera();
 
 		return $pks;
 	}
@@ -670,9 +690,13 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	public function setPrimaryKey($keys)
 	{
 
-		$this->setIdFechaEtapaCarrera($keys[0]);
+		$this->setIdCorredor($keys[0]);
 
-		$this->setIdCorredor($keys[1]);
+		$this->setFechaInicio($keys[1]);
+
+		$this->setIdEtapa($keys[2]);
+
+		$this->setIdCarrera($keys[3]);
 
 	}
 
@@ -692,13 +716,13 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 		$copyObj->setFirmaDigital($this->firma_digital);
 
-		$copyObj->setCuentaCorrienteId($this->cuenta_corriente_id);
-
 
 		$copyObj->setNew(true);
 
-		$copyObj->setIdFechaEtapaCarrera(NULL); 
 		$copyObj->setIdCorredor(NULL); 
+		$copyObj->setFechaInicio(NULL); 
+		$copyObj->setIdEtapa(NULL); 
+		$copyObj->setIdCarrera(NULL); 
 	}
 
 	
@@ -717,33 +741,6 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 			self::$peer = new InscripcionPeer();
 		}
 		return self::$peer;
-	}
-
-	
-	public function setFechaEtapaCarrera($v)
-	{
-
-
-		if ($v === null) {
-			$this->setIdFechaEtapaCarrera(NULL);
-		} else {
-			$this->setIdFechaEtapaCarrera($v->getId());
-		}
-
-
-		$this->aFechaEtapaCarrera = $v;
-	}
-
-
-	
-	public function getFechaEtapaCarrera($con = null)
-	{
-		if ($this->aFechaEtapaCarrera === null && ($this->id_fecha_etapa_carrera !== null)) {
-						$this->aFechaEtapaCarrera = FechaEtapaCarreraPeer::retrieveByPK($this->id_fecha_etapa_carrera, $con);
-
-			
-		}
-		return $this->aFechaEtapaCarrera;
 	}
 
 	
@@ -771,33 +768,6 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 			
 		}
 		return $this->aCorredor;
-	}
-
-	
-	public function setCuentaCorriente($v)
-	{
-
-
-		if ($v === null) {
-			$this->setCuentaCorrienteId(NULL);
-		} else {
-			$this->setCuentaCorrienteId($v->getId());
-		}
-
-
-		$this->aCuentaCorriente = $v;
-	}
-
-
-	
-	public function getCuentaCorriente($con = null)
-	{
-		if ($this->aCuentaCorriente === null && ($this->cuenta_corriente_id !== null)) {
-						$this->aCuentaCorriente = CuentaCorrientePeer::retrieveByPK($this->cuenta_corriente_id, $con);
-
-			
-		}
-		return $this->aCuentaCorriente;
 	}
 
 } 

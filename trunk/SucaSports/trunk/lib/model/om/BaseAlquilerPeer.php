@@ -13,23 +13,29 @@ abstract class BaseAlquilerPeer {
 	const CLASS_DEFAULT = 'lib.model.Alquiler';
 
 	
-	const NUM_COLUMNS = 8;
+	const NUM_COLUMNS = 10;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 
 	
-	const ID = 'alquiler.ID';
+	const ID_INVENTARIO = 'alquiler.ID_INVENTARIO';
 
 	
-	const ID_EQUIPAMIENTO = 'alquiler.ID_EQUIPAMIENTO';
+	const FECHA_INICIO = 'alquiler.FECHA_INICIO';
 
 	
-	const ID_FECHA_ETAPA_CARRERA = 'alquiler.ID_FECHA_ETAPA_CARRERA';
+	const ID_ETAPA = 'alquiler.ID_ETAPA';
 
 	
-	const ID_USUARIO = 'alquiler.ID_USUARIO';
+	const ID_CARRERA = 'alquiler.ID_CARRERA';
+
+	
+	const ID_CUENTA_CORRIENTE = 'alquiler.ID_CUENTA_CORRIENTE';
+
+	
+	const ID_CORREDOR = 'alquiler.ID_CORREDOR';
 
 	
 	const CREATED_AT = 'alquiler.CREATED_AT';
@@ -49,18 +55,18 @@ abstract class BaseAlquilerPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'IdEquipamiento', 'IdFechaEtapaCarrera', 'IdUsuario', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
-		BasePeer::TYPE_COLNAME => array (AlquilerPeer::ID, AlquilerPeer::ID_EQUIPAMIENTO, AlquilerPeer::ID_FECHA_ETAPA_CARRERA, AlquilerPeer::ID_USUARIO, AlquilerPeer::CREATED_AT, AlquilerPeer::CREATED_BY, AlquilerPeer::UPDATED_AT, AlquilerPeer::UPDATED_BY, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'id_equipamiento', 'id_fecha_etapa_carrera', 'id_usuario', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+		BasePeer::TYPE_PHPNAME => array ('IdInventario', 'FechaInicio', 'IdEtapa', 'IdCarrera', 'IdCuentaCorriente', 'IdCorredor', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (AlquilerPeer::ID_INVENTARIO, AlquilerPeer::FECHA_INICIO, AlquilerPeer::ID_ETAPA, AlquilerPeer::ID_CARRERA, AlquilerPeer::ID_CUENTA_CORRIENTE, AlquilerPeer::ID_CORREDOR, AlquilerPeer::CREATED_AT, AlquilerPeer::CREATED_BY, AlquilerPeer::UPDATED_AT, AlquilerPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_inventario', 'fecha_inicio', 'id_etapa', 'id_carrera', 'id_cuenta_corriente', 'id_corredor', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'IdEquipamiento' => 1, 'IdFechaEtapaCarrera' => 2, 'IdUsuario' => 3, 'CreatedAt' => 4, 'CreatedBy' => 5, 'UpdatedAt' => 6, 'UpdatedBy' => 7, ),
-		BasePeer::TYPE_COLNAME => array (AlquilerPeer::ID => 0, AlquilerPeer::ID_EQUIPAMIENTO => 1, AlquilerPeer::ID_FECHA_ETAPA_CARRERA => 2, AlquilerPeer::ID_USUARIO => 3, AlquilerPeer::CREATED_AT => 4, AlquilerPeer::CREATED_BY => 5, AlquilerPeer::UPDATED_AT => 6, AlquilerPeer::UPDATED_BY => 7, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'id_equipamiento' => 1, 'id_fecha_etapa_carrera' => 2, 'id_usuario' => 3, 'created_at' => 4, 'created_by' => 5, 'updated_at' => 6, 'updated_by' => 7, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+		BasePeer::TYPE_PHPNAME => array ('IdInventario' => 0, 'FechaInicio' => 1, 'IdEtapa' => 2, 'IdCarrera' => 3, 'IdCuentaCorriente' => 4, 'IdCorredor' => 5, 'CreatedAt' => 6, 'CreatedBy' => 7, 'UpdatedAt' => 8, 'UpdatedBy' => 9, ),
+		BasePeer::TYPE_COLNAME => array (AlquilerPeer::ID_INVENTARIO => 0, AlquilerPeer::FECHA_INICIO => 1, AlquilerPeer::ID_ETAPA => 2, AlquilerPeer::ID_CARRERA => 3, AlquilerPeer::ID_CUENTA_CORRIENTE => 4, AlquilerPeer::ID_CORREDOR => 5, AlquilerPeer::CREATED_AT => 6, AlquilerPeer::CREATED_BY => 7, AlquilerPeer::UPDATED_AT => 8, AlquilerPeer::UPDATED_BY => 9, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_inventario' => 0, 'fecha_inicio' => 1, 'id_etapa' => 2, 'id_carrera' => 3, 'id_cuenta_corriente' => 4, 'id_corredor' => 5, 'created_at' => 6, 'created_by' => 7, 'updated_at' => 8, 'updated_by' => 9, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
@@ -113,13 +119,17 @@ abstract class BaseAlquilerPeer {
 	public static function addSelectColumns(Criteria $criteria)
 	{
 
-		$criteria->addSelectColumn(AlquilerPeer::ID);
+		$criteria->addSelectColumn(AlquilerPeer::ID_INVENTARIO);
 
-		$criteria->addSelectColumn(AlquilerPeer::ID_EQUIPAMIENTO);
+		$criteria->addSelectColumn(AlquilerPeer::FECHA_INICIO);
 
-		$criteria->addSelectColumn(AlquilerPeer::ID_FECHA_ETAPA_CARRERA);
+		$criteria->addSelectColumn(AlquilerPeer::ID_ETAPA);
 
-		$criteria->addSelectColumn(AlquilerPeer::ID_USUARIO);
+		$criteria->addSelectColumn(AlquilerPeer::ID_CARRERA);
+
+		$criteria->addSelectColumn(AlquilerPeer::ID_CUENTA_CORRIENTE);
+
+		$criteria->addSelectColumn(AlquilerPeer::ID_CORREDOR);
 
 		$criteria->addSelectColumn(AlquilerPeer::CREATED_AT);
 
@@ -131,8 +141,8 @@ abstract class BaseAlquilerPeer {
 
 	}
 
-	const COUNT = 'COUNT(alquiler.ID)';
-	const COUNT_DISTINCT = 'COUNT(DISTINCT alquiler.ID)';
+	const COUNT = 'COUNT(alquiler.ID_INVENTARIO)';
+	const COUNT_DISTINCT = 'COUNT(DISTINCT alquiler.ID_INVENTARIO)';
 
 	
 	public static function doCount(Criteria $criteria, $distinct = false, $con = null)
@@ -224,63 +234,7 @@ abstract class BaseAlquilerPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(AlquilerPeer::ID_EQUIPAMIENTO, InventarioPeer::ID);
-
-		$rs = AlquilerPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinFechaEtapaCarrera(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(AlquilerPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(AlquilerPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$rs = AlquilerPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinUsuario(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(AlquilerPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(AlquilerPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(AlquilerPeer::ID_USUARIO, UsuarioPeer::ID);
+		$criteria->addJoin(AlquilerPeer::ID_INVENTARIO, InventarioPeer::ID);
 
 		$rs = AlquilerPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -304,7 +258,7 @@ abstract class BaseAlquilerPeer {
 		$startcol = (AlquilerPeer::NUM_COLUMNS - AlquilerPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 		InventarioPeer::addSelectColumns($c);
 
-		$c->addJoin(AlquilerPeer::ID_EQUIPAMIENTO, InventarioPeer::ID);
+		$c->addJoin(AlquilerPeer::ID_INVENTARIO, InventarioPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
@@ -339,100 +293,6 @@ abstract class BaseAlquilerPeer {
 
 
 	
-	public static function doSelectJoinFechaEtapaCarrera(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		AlquilerPeer::addSelectColumns($c);
-		$startcol = (AlquilerPeer::NUM_COLUMNS - AlquilerPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-
-		$c->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = AlquilerPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol);
-
-			$newObject = true;
-			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getFechaEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-										$temp_obj2->addAlquiler($obj1); 					break;
-				}
-			}
-			if ($newObject) {
-				$obj2->initAlquilers();
-				$obj2->addAlquiler($obj1); 			}
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinUsuario(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		AlquilerPeer::addSelectColumns($c);
-		$startcol = (AlquilerPeer::NUM_COLUMNS - AlquilerPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		UsuarioPeer::addSelectColumns($c);
-
-		$c->addJoin(AlquilerPeer::ID_USUARIO, UsuarioPeer::ID);
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = AlquilerPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = UsuarioPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol);
-
-			$newObject = true;
-			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getUsuario(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-										$temp_obj2->addAlquiler($obj1); 					break;
-				}
-			}
-			if ($newObject) {
-				$obj2->initAlquilers();
-				$obj2->addAlquiler($obj1); 			}
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
 	public static function doCountJoinAll(Criteria $criteria, $distinct = false, $con = null)
 	{
 		$criteria = clone $criteria;
@@ -449,11 +309,7 @@ abstract class BaseAlquilerPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(AlquilerPeer::ID_EQUIPAMIENTO, InventarioPeer::ID);
-
-		$criteria->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$criteria->addJoin(AlquilerPeer::ID_USUARIO, UsuarioPeer::ID);
+		$criteria->addJoin(AlquilerPeer::ID_INVENTARIO, InventarioPeer::ID);
 
 		$rs = AlquilerPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -479,17 +335,7 @@ abstract class BaseAlquilerPeer {
 		InventarioPeer::addSelectColumns($c);
 		$startcol3 = $startcol2 + InventarioPeer::NUM_COLUMNS;
 
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + FechaEtapaCarreraPeer::NUM_COLUMNS;
-
-		UsuarioPeer::addSelectColumns($c);
-		$startcol5 = $startcol4 + UsuarioPeer::NUM_COLUMNS;
-
-		$c->addJoin(AlquilerPeer::ID_EQUIPAMIENTO, InventarioPeer::ID);
-
-		$c->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$c->addJoin(AlquilerPeer::ID_USUARIO, UsuarioPeer::ID);
+		$c->addJoin(AlquilerPeer::ID_INVENTARIO, InventarioPeer::ID);
 
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
@@ -526,394 +372,6 @@ abstract class BaseAlquilerPeer {
 				$obj2->addAlquiler($obj1);
 			}
 
-
-					
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3 = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getFechaEtapaCarrera(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addAlquiler($obj1); 					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initAlquilers();
-				$obj3->addAlquiler($obj1);
-			}
-
-
-					
-			$omClass = UsuarioPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj4 = new $cls();
-			$obj4->hydrate($rs, $startcol4);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj4 = $temp_obj1->getUsuario(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj4->addAlquiler($obj1); 					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj4->initAlquilers();
-				$obj4->addAlquiler($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doCountJoinAllExceptInventario(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(AlquilerPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(AlquilerPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$criteria->addJoin(AlquilerPeer::ID_USUARIO, UsuarioPeer::ID);
-
-		$rs = AlquilerPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinAllExceptFechaEtapaCarrera(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(AlquilerPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(AlquilerPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(AlquilerPeer::ID_EQUIPAMIENTO, InventarioPeer::ID);
-
-		$criteria->addJoin(AlquilerPeer::ID_USUARIO, UsuarioPeer::ID);
-
-		$rs = AlquilerPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinAllExceptUsuario(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(AlquilerPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(AlquilerPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(AlquilerPeer::ID_EQUIPAMIENTO, InventarioPeer::ID);
-
-		$criteria->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$rs = AlquilerPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doSelectJoinAllExceptInventario(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		AlquilerPeer::addSelectColumns($c);
-		$startcol2 = (AlquilerPeer::NUM_COLUMNS - AlquilerPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + FechaEtapaCarreraPeer::NUM_COLUMNS;
-
-		UsuarioPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + UsuarioPeer::NUM_COLUMNS;
-
-		$c->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$c->addJoin(AlquilerPeer::ID_USUARIO, UsuarioPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = AlquilerPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getFechaEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addAlquiler($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initAlquilers();
-				$obj2->addAlquiler($obj1);
-			}
-
-			$omClass = UsuarioPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getUsuario(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addAlquiler($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initAlquilers();
-				$obj3->addAlquiler($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinAllExceptFechaEtapaCarrera(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		AlquilerPeer::addSelectColumns($c);
-		$startcol2 = (AlquilerPeer::NUM_COLUMNS - AlquilerPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		InventarioPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + InventarioPeer::NUM_COLUMNS;
-
-		UsuarioPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + UsuarioPeer::NUM_COLUMNS;
-
-		$c->addJoin(AlquilerPeer::ID_EQUIPAMIENTO, InventarioPeer::ID);
-
-		$c->addJoin(AlquilerPeer::ID_USUARIO, UsuarioPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = AlquilerPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = InventarioPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getInventario(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addAlquiler($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initAlquilers();
-				$obj2->addAlquiler($obj1);
-			}
-
-			$omClass = UsuarioPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getUsuario(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addAlquiler($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initAlquilers();
-				$obj3->addAlquiler($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinAllExceptUsuario(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		AlquilerPeer::addSelectColumns($c);
-		$startcol2 = (AlquilerPeer::NUM_COLUMNS - AlquilerPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		InventarioPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + InventarioPeer::NUM_COLUMNS;
-
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + FechaEtapaCarreraPeer::NUM_COLUMNS;
-
-		$c->addJoin(AlquilerPeer::ID_EQUIPAMIENTO, InventarioPeer::ID);
-
-		$c->addJoin(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = AlquilerPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = InventarioPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getInventario(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addAlquiler($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initAlquilers();
-				$obj2->addAlquiler($obj1);
-			}
-
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getFechaEtapaCarrera(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addAlquiler($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initAlquilers();
-				$obj3->addAlquiler($obj1);
-			}
-
 			$results[] = $obj1;
 		}
 		return $results;
@@ -947,7 +405,6 @@ abstract class BaseAlquilerPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
-		$criteria->remove(AlquilerPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 
@@ -974,8 +431,23 @@ abstract class BaseAlquilerPeer {
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; 
-			$comparison = $criteria->getComparison(AlquilerPeer::ID);
-			$selectCriteria->add(AlquilerPeer::ID, $criteria->remove(AlquilerPeer::ID), $comparison);
+			$comparison = $criteria->getComparison(AlquilerPeer::ID_INVENTARIO);
+			$selectCriteria->add(AlquilerPeer::ID_INVENTARIO, $criteria->remove(AlquilerPeer::ID_INVENTARIO), $comparison);
+
+			$comparison = $criteria->getComparison(AlquilerPeer::FECHA_INICIO);
+			$selectCriteria->add(AlquilerPeer::FECHA_INICIO, $criteria->remove(AlquilerPeer::FECHA_INICIO), $comparison);
+
+			$comparison = $criteria->getComparison(AlquilerPeer::ID_ETAPA);
+			$selectCriteria->add(AlquilerPeer::ID_ETAPA, $criteria->remove(AlquilerPeer::ID_ETAPA), $comparison);
+
+			$comparison = $criteria->getComparison(AlquilerPeer::ID_CARRERA);
+			$selectCriteria->add(AlquilerPeer::ID_CARRERA, $criteria->remove(AlquilerPeer::ID_CARRERA), $comparison);
+
+			$comparison = $criteria->getComparison(AlquilerPeer::ID_CUENTA_CORRIENTE);
+			$selectCriteria->add(AlquilerPeer::ID_CUENTA_CORRIENTE, $criteria->remove(AlquilerPeer::ID_CUENTA_CORRIENTE), $comparison);
+
+			$comparison = $criteria->getComparison(AlquilerPeer::ID_CORREDOR);
+			$selectCriteria->add(AlquilerPeer::ID_CORREDOR, $criteria->remove(AlquilerPeer::ID_CORREDOR), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -1014,7 +486,28 @@ abstract class BaseAlquilerPeer {
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(AlquilerPeer::ID, (array) $values, Criteria::IN);
+												if(count($values) == count($values, COUNT_RECURSIVE))
+			{
+								$values = array($values);
+			}
+			$vals = array();
+			foreach($values as $value)
+			{
+
+				$vals[0][] = $value[0];
+				$vals[1][] = $value[1];
+				$vals[2][] = $value[2];
+				$vals[3][] = $value[3];
+				$vals[4][] = $value[4];
+				$vals[5][] = $value[5];
+			}
+
+			$criteria->add(AlquilerPeer::ID_INVENTARIO, $vals[0], Criteria::IN);
+			$criteria->add(AlquilerPeer::FECHA_INICIO, $vals[1], Criteria::IN);
+			$criteria->add(AlquilerPeer::ID_ETAPA, $vals[2], Criteria::IN);
+			$criteria->add(AlquilerPeer::ID_CARRERA, $vals[3], Criteria::IN);
+			$criteria->add(AlquilerPeer::ID_CUENTA_CORRIENTE, $vals[4], Criteria::IN);
+			$criteria->add(AlquilerPeer::ID_CORREDOR, $vals[5], Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -1068,40 +561,21 @@ abstract class BaseAlquilerPeer {
 	}
 
 	
-	public static function retrieveByPK($pk, $con = null)
-	{
+	public static function retrieveByPK( $id_inventario, $fecha_inicio, $id_etapa, $id_carrera, $id_cuenta_corriente, $id_corredor, $con = null) {
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
-
-		$criteria = new Criteria(AlquilerPeer::DATABASE_NAME);
-
-		$criteria->add(AlquilerPeer::ID, $pk);
-
-
+		$criteria = new Criteria();
+		$criteria->add(AlquilerPeer::ID_INVENTARIO, $id_inventario);
+		$criteria->add(AlquilerPeer::FECHA_INICIO, $fecha_inicio);
+		$criteria->add(AlquilerPeer::ID_ETAPA, $id_etapa);
+		$criteria->add(AlquilerPeer::ID_CARRERA, $id_carrera);
+		$criteria->add(AlquilerPeer::ID_CUENTA_CORRIENTE, $id_cuenta_corriente);
+		$criteria->add(AlquilerPeer::ID_CORREDOR, $id_corredor);
 		$v = AlquilerPeer::doSelect($criteria, $con);
 
-		return !empty($v) > 0 ? $v[0] : null;
+		return !empty($v) ? $v[0] : null;
 	}
-
-	
-	public static function retrieveByPKs($pks, $con = null)
-	{
-		if ($con === null) {
-			$con = Propel::getConnection(self::DATABASE_NAME);
-		}
-
-		$objs = null;
-		if (empty($pks)) {
-			$objs = array();
-		} else {
-			$criteria = new Criteria();
-			$criteria->add(AlquilerPeer::ID, $pks, Criteria::IN);
-			$objs = AlquilerPeer::doSelect($criteria, $con);
-		}
-		return $objs;
-	}
-
 } 
 if (Propel::isInit()) {
 			try {

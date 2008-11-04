@@ -13,17 +13,23 @@ abstract class BaseInscripcionPeer {
 	const CLASS_DEFAULT = 'lib.model.Inscripcion';
 
 	
-	const NUM_COLUMNS = 9;
+	const NUM_COLUMNS = 10;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 
 	
-	const ID_FECHA_ETAPA_CARRERA = 'inscripcion.ID_FECHA_ETAPA_CARRERA';
+	const ID_CORREDOR = 'inscripcion.ID_CORREDOR';
 
 	
-	const ID_CORREDOR = 'inscripcion.ID_CORREDOR';
+	const FECHA_INICIO = 'inscripcion.FECHA_INICIO';
+
+	
+	const ID_ETAPA = 'inscripcion.ID_ETAPA';
+
+	
+	const ID_CARRERA = 'inscripcion.ID_CARRERA';
 
 	
 	const CREATED_AT = 'inscripcion.CREATED_AT';
@@ -44,26 +50,23 @@ abstract class BaseInscripcionPeer {
 	const FIRMA_DIGITAL = 'inscripcion.FIRMA_DIGITAL';
 
 	
-	const CUENTA_CORRIENTE_ID = 'inscripcion.CUENTA_CORRIENTE_ID';
-
-	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('IdFechaEtapaCarrera', 'IdCorredor', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', 'FechaInscripcion', 'FirmaDigital', 'CuentaCorrienteId', ),
-		BasePeer::TYPE_COLNAME => array (InscripcionPeer::ID_FECHA_ETAPA_CARRERA, InscripcionPeer::ID_CORREDOR, InscripcionPeer::CREATED_AT, InscripcionPeer::CREATED_BY, InscripcionPeer::UPDATED_AT, InscripcionPeer::UPDATED_BY, InscripcionPeer::FECHA_INSCRIPCION, InscripcionPeer::FIRMA_DIGITAL, InscripcionPeer::CUENTA_CORRIENTE_ID, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_fecha_etapa_carrera', 'id_corredor', 'created_at', 'created_by', 'updated_at', 'updated_by', 'fecha_inscripcion', 'firma_digital', 'cuenta_corriente_id', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
+		BasePeer::TYPE_PHPNAME => array ('IdCorredor', 'FechaInicio', 'IdEtapa', 'IdCarrera', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', 'FechaInscripcion', 'FirmaDigital', ),
+		BasePeer::TYPE_COLNAME => array (InscripcionPeer::ID_CORREDOR, InscripcionPeer::FECHA_INICIO, InscripcionPeer::ID_ETAPA, InscripcionPeer::ID_CARRERA, InscripcionPeer::CREATED_AT, InscripcionPeer::CREATED_BY, InscripcionPeer::UPDATED_AT, InscripcionPeer::UPDATED_BY, InscripcionPeer::FECHA_INSCRIPCION, InscripcionPeer::FIRMA_DIGITAL, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_corredor', 'fecha_inicio', 'id_etapa', 'id_carrera', 'created_at', 'created_by', 'updated_at', 'updated_by', 'fecha_inscripcion', 'firma_digital', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('IdFechaEtapaCarrera' => 0, 'IdCorredor' => 1, 'CreatedAt' => 2, 'CreatedBy' => 3, 'UpdatedAt' => 4, 'UpdatedBy' => 5, 'FechaInscripcion' => 6, 'FirmaDigital' => 7, 'CuentaCorrienteId' => 8, ),
-		BasePeer::TYPE_COLNAME => array (InscripcionPeer::ID_FECHA_ETAPA_CARRERA => 0, InscripcionPeer::ID_CORREDOR => 1, InscripcionPeer::CREATED_AT => 2, InscripcionPeer::CREATED_BY => 3, InscripcionPeer::UPDATED_AT => 4, InscripcionPeer::UPDATED_BY => 5, InscripcionPeer::FECHA_INSCRIPCION => 6, InscripcionPeer::FIRMA_DIGITAL => 7, InscripcionPeer::CUENTA_CORRIENTE_ID => 8, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_fecha_etapa_carrera' => 0, 'id_corredor' => 1, 'created_at' => 2, 'created_by' => 3, 'updated_at' => 4, 'updated_by' => 5, 'fecha_inscripcion' => 6, 'firma_digital' => 7, 'cuenta_corriente_id' => 8, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
+		BasePeer::TYPE_PHPNAME => array ('IdCorredor' => 0, 'FechaInicio' => 1, 'IdEtapa' => 2, 'IdCarrera' => 3, 'CreatedAt' => 4, 'CreatedBy' => 5, 'UpdatedAt' => 6, 'UpdatedBy' => 7, 'FechaInscripcion' => 8, 'FirmaDigital' => 9, ),
+		BasePeer::TYPE_COLNAME => array (InscripcionPeer::ID_CORREDOR => 0, InscripcionPeer::FECHA_INICIO => 1, InscripcionPeer::ID_ETAPA => 2, InscripcionPeer::ID_CARRERA => 3, InscripcionPeer::CREATED_AT => 4, InscripcionPeer::CREATED_BY => 5, InscripcionPeer::UPDATED_AT => 6, InscripcionPeer::UPDATED_BY => 7, InscripcionPeer::FECHA_INSCRIPCION => 8, InscripcionPeer::FIRMA_DIGITAL => 9, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_corredor' => 0, 'fecha_inicio' => 1, 'id_etapa' => 2, 'id_carrera' => 3, 'created_at' => 4, 'created_by' => 5, 'updated_at' => 6, 'updated_by' => 7, 'fecha_inscripcion' => 8, 'firma_digital' => 9, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
@@ -116,9 +119,13 @@ abstract class BaseInscripcionPeer {
 	public static function addSelectColumns(Criteria $criteria)
 	{
 
-		$criteria->addSelectColumn(InscripcionPeer::ID_FECHA_ETAPA_CARRERA);
-
 		$criteria->addSelectColumn(InscripcionPeer::ID_CORREDOR);
+
+		$criteria->addSelectColumn(InscripcionPeer::FECHA_INICIO);
+
+		$criteria->addSelectColumn(InscripcionPeer::ID_ETAPA);
+
+		$criteria->addSelectColumn(InscripcionPeer::ID_CARRERA);
 
 		$criteria->addSelectColumn(InscripcionPeer::CREATED_AT);
 
@@ -132,12 +139,10 @@ abstract class BaseInscripcionPeer {
 
 		$criteria->addSelectColumn(InscripcionPeer::FIRMA_DIGITAL);
 
-		$criteria->addSelectColumn(InscripcionPeer::CUENTA_CORRIENTE_ID);
-
 	}
 
-	const COUNT = 'COUNT(inscripcion.ID_FECHA_ETAPA_CARRERA)';
-	const COUNT_DISTINCT = 'COUNT(DISTINCT inscripcion.ID_FECHA_ETAPA_CARRERA)';
+	const COUNT = 'COUNT(inscripcion.ID_CORREDOR)';
+	const COUNT_DISTINCT = 'COUNT(DISTINCT inscripcion.ID_CORREDOR)';
 
 	
 	public static function doCount(Criteria $criteria, $distinct = false, $con = null)
@@ -213,34 +218,6 @@ abstract class BaseInscripcionPeer {
 	}
 
 	
-	public static function doCountJoinFechaEtapaCarrera(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(InscripcionPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(InscripcionPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$rs = InscripcionPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
 	public static function doCountJoinCorredor(Criteria $criteria, $distinct = false, $con = null)
 	{
 				$criteria = clone $criteria;
@@ -265,81 +242,6 @@ abstract class BaseInscripcionPeer {
 		} else {
 						return 0;
 		}
-	}
-
-
-	
-	public static function doCountJoinCuentaCorriente(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(InscripcionPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(InscripcionPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(InscripcionPeer::CUENTA_CORRIENTE_ID, CuentaCorrientePeer::ID);
-
-		$rs = InscripcionPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doSelectJoinFechaEtapaCarrera(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		InscripcionPeer::addSelectColumns($c);
-		$startcol = (InscripcionPeer::NUM_COLUMNS - InscripcionPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-
-		$c->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = InscripcionPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol);
-
-			$newObject = true;
-			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getFechaEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-										$temp_obj2->addInscripcion($obj1); 					break;
-				}
-			}
-			if ($newObject) {
-				$obj2->initInscripcions();
-				$obj2->addInscripcion($obj1); 			}
-			$results[] = $obj1;
-		}
-		return $results;
 	}
 
 
@@ -391,53 +293,6 @@ abstract class BaseInscripcionPeer {
 
 
 	
-	public static function doSelectJoinCuentaCorriente(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		InscripcionPeer::addSelectColumns($c);
-		$startcol = (InscripcionPeer::NUM_COLUMNS - InscripcionPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		CuentaCorrientePeer::addSelectColumns($c);
-
-		$c->addJoin(InscripcionPeer::CUENTA_CORRIENTE_ID, CuentaCorrientePeer::ID);
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = InscripcionPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = CuentaCorrientePeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol);
-
-			$newObject = true;
-			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getCuentaCorriente(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-										$temp_obj2->addInscripcion($obj1); 					break;
-				}
-			}
-			if ($newObject) {
-				$obj2->initInscripcions();
-				$obj2->addInscripcion($obj1); 			}
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
 	public static function doCountJoinAll(Criteria $criteria, $distinct = false, $con = null)
 	{
 		$criteria = clone $criteria;
@@ -454,11 +309,7 @@ abstract class BaseInscripcionPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
 		$criteria->addJoin(InscripcionPeer::ID_CORREDOR, CorredorPeer::ID);
-
-		$criteria->addJoin(InscripcionPeer::CUENTA_CORRIENTE_ID, CuentaCorrientePeer::ID);
 
 		$rs = InscripcionPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -481,20 +332,10 @@ abstract class BaseInscripcionPeer {
 		InscripcionPeer::addSelectColumns($c);
 		$startcol2 = (InscripcionPeer::NUM_COLUMNS - InscripcionPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + FechaEtapaCarreraPeer::NUM_COLUMNS;
-
 		CorredorPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + CorredorPeer::NUM_COLUMNS;
-
-		CuentaCorrientePeer::addSelectColumns($c);
-		$startcol5 = $startcol4 + CuentaCorrientePeer::NUM_COLUMNS;
-
-		$c->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$startcol3 = $startcol2 + CorredorPeer::NUM_COLUMNS;
 
 		$c->addJoin(InscripcionPeer::ID_CORREDOR, CorredorPeer::ID);
-
-		$c->addJoin(InscripcionPeer::CUENTA_CORRIENTE_ID, CuentaCorrientePeer::ID);
 
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
@@ -510,7 +351,7 @@ abstract class BaseInscripcionPeer {
 
 
 					
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
+			$omClass = CorredorPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -520,7 +361,7 @@ abstract class BaseInscripcionPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getFechaEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+				$temp_obj2 = $temp_obj1->getCorredor(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj2->addInscripcion($obj1); 					break;
 				}
@@ -529,394 +370,6 @@ abstract class BaseInscripcionPeer {
 			if ($newObject) {
 				$obj2->initInscripcions();
 				$obj2->addInscripcion($obj1);
-			}
-
-
-					
-			$omClass = CorredorPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3 = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getCorredor(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addInscripcion($obj1); 					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initInscripcions();
-				$obj3->addInscripcion($obj1);
-			}
-
-
-					
-			$omClass = CuentaCorrientePeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj4 = new $cls();
-			$obj4->hydrate($rs, $startcol4);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj4 = $temp_obj1->getCuentaCorriente(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj4->addInscripcion($obj1); 					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj4->initInscripcions();
-				$obj4->addInscripcion($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doCountJoinAllExceptFechaEtapaCarrera(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(InscripcionPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(InscripcionPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(InscripcionPeer::ID_CORREDOR, CorredorPeer::ID);
-
-		$criteria->addJoin(InscripcionPeer::CUENTA_CORRIENTE_ID, CuentaCorrientePeer::ID);
-
-		$rs = InscripcionPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinAllExceptCorredor(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(InscripcionPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(InscripcionPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$criteria->addJoin(InscripcionPeer::CUENTA_CORRIENTE_ID, CuentaCorrientePeer::ID);
-
-		$rs = InscripcionPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinAllExceptCuentaCorriente(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(InscripcionPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(InscripcionPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$criteria->addJoin(InscripcionPeer::ID_CORREDOR, CorredorPeer::ID);
-
-		$rs = InscripcionPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doSelectJoinAllExceptFechaEtapaCarrera(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		InscripcionPeer::addSelectColumns($c);
-		$startcol2 = (InscripcionPeer::NUM_COLUMNS - InscripcionPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		CorredorPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + CorredorPeer::NUM_COLUMNS;
-
-		CuentaCorrientePeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + CuentaCorrientePeer::NUM_COLUMNS;
-
-		$c->addJoin(InscripcionPeer::ID_CORREDOR, CorredorPeer::ID);
-
-		$c->addJoin(InscripcionPeer::CUENTA_CORRIENTE_ID, CuentaCorrientePeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = InscripcionPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = CorredorPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getCorredor(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addInscripcion($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initInscripcions();
-				$obj2->addInscripcion($obj1);
-			}
-
-			$omClass = CuentaCorrientePeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getCuentaCorriente(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addInscripcion($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initInscripcions();
-				$obj3->addInscripcion($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinAllExceptCorredor(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		InscripcionPeer::addSelectColumns($c);
-		$startcol2 = (InscripcionPeer::NUM_COLUMNS - InscripcionPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + FechaEtapaCarreraPeer::NUM_COLUMNS;
-
-		CuentaCorrientePeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + CuentaCorrientePeer::NUM_COLUMNS;
-
-		$c->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$c->addJoin(InscripcionPeer::CUENTA_CORRIENTE_ID, CuentaCorrientePeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = InscripcionPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getFechaEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addInscripcion($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initInscripcions();
-				$obj2->addInscripcion($obj1);
-			}
-
-			$omClass = CuentaCorrientePeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getCuentaCorriente(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addInscripcion($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initInscripcions();
-				$obj3->addInscripcion($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinAllExceptCuentaCorriente(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		InscripcionPeer::addSelectColumns($c);
-		$startcol2 = (InscripcionPeer::NUM_COLUMNS - InscripcionPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + FechaEtapaCarreraPeer::NUM_COLUMNS;
-
-		CorredorPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + CorredorPeer::NUM_COLUMNS;
-
-		$c->addJoin(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$c->addJoin(InscripcionPeer::ID_CORREDOR, CorredorPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = InscripcionPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getFechaEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addInscripcion($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initInscripcions();
-				$obj2->addInscripcion($obj1);
-			}
-
-			$omClass = CorredorPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getCorredor(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addInscripcion($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initInscripcions();
-				$obj3->addInscripcion($obj1);
 			}
 
 			$results[] = $obj1;
@@ -978,11 +431,17 @@ abstract class BaseInscripcionPeer {
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; 
-			$comparison = $criteria->getComparison(InscripcionPeer::ID_FECHA_ETAPA_CARRERA);
-			$selectCriteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $criteria->remove(InscripcionPeer::ID_FECHA_ETAPA_CARRERA), $comparison);
-
 			$comparison = $criteria->getComparison(InscripcionPeer::ID_CORREDOR);
 			$selectCriteria->add(InscripcionPeer::ID_CORREDOR, $criteria->remove(InscripcionPeer::ID_CORREDOR), $comparison);
+
+			$comparison = $criteria->getComparison(InscripcionPeer::FECHA_INICIO);
+			$selectCriteria->add(InscripcionPeer::FECHA_INICIO, $criteria->remove(InscripcionPeer::FECHA_INICIO), $comparison);
+
+			$comparison = $criteria->getComparison(InscripcionPeer::ID_ETAPA);
+			$selectCriteria->add(InscripcionPeer::ID_ETAPA, $criteria->remove(InscripcionPeer::ID_ETAPA), $comparison);
+
+			$comparison = $criteria->getComparison(InscripcionPeer::ID_CARRERA);
+			$selectCriteria->add(InscripcionPeer::ID_CARRERA, $criteria->remove(InscripcionPeer::ID_CARRERA), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -1031,10 +490,14 @@ abstract class BaseInscripcionPeer {
 
 				$vals[0][] = $value[0];
 				$vals[1][] = $value[1];
+				$vals[2][] = $value[2];
+				$vals[3][] = $value[3];
 			}
 
-			$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $vals[0], Criteria::IN);
-			$criteria->add(InscripcionPeer::ID_CORREDOR, $vals[1], Criteria::IN);
+			$criteria->add(InscripcionPeer::ID_CORREDOR, $vals[0], Criteria::IN);
+			$criteria->add(InscripcionPeer::FECHA_INICIO, $vals[1], Criteria::IN);
+			$criteria->add(InscripcionPeer::ID_ETAPA, $vals[2], Criteria::IN);
+			$criteria->add(InscripcionPeer::ID_CARRERA, $vals[3], Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -1088,13 +551,15 @@ abstract class BaseInscripcionPeer {
 	}
 
 	
-	public static function retrieveByPK( $id_fecha_etapa_carrera, $id_corredor, $con = null) {
+	public static function retrieveByPK( $id_corredor, $fecha_inicio, $id_etapa, $id_carrera, $con = null) {
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
 		$criteria = new Criteria();
-		$criteria->add(InscripcionPeer::ID_FECHA_ETAPA_CARRERA, $id_fecha_etapa_carrera);
 		$criteria->add(InscripcionPeer::ID_CORREDOR, $id_corredor);
+		$criteria->add(InscripcionPeer::FECHA_INICIO, $fecha_inicio);
+		$criteria->add(InscripcionPeer::ID_ETAPA, $id_etapa);
+		$criteria->add(InscripcionPeer::ID_CARRERA, $id_carrera);
 		$v = InscripcionPeer::doSelect($criteria, $con);
 
 		return !empty($v) ? $v[0] : null;

@@ -9,7 +9,7 @@
 
 	<link rel="shortcut icon" href="/favicon.ico" />
 </head>
-<body class="nihilo">
+<body class="soria">
 
   <?php echo $sf_content ?>
 					

@@ -690,7 +690,6 @@ abstract class BaseCuentaCorrientePeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
-		$criteria->remove(CuentaCorrientePeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 
@@ -719,6 +718,9 @@ abstract class BaseCuentaCorrientePeer {
 			$criteria = clone $values; 
 			$comparison = $criteria->getComparison(CuentaCorrientePeer::ID);
 			$selectCriteria->add(CuentaCorrientePeer::ID, $criteria->remove(CuentaCorrientePeer::ID), $comparison);
+
+			$comparison = $criteria->getComparison(CuentaCorrientePeer::ID_CORREDOR);
+			$selectCriteria->add(CuentaCorrientePeer::ID_CORREDOR, $criteria->remove(CuentaCorrientePeer::ID_CORREDOR), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -757,7 +759,20 @@ abstract class BaseCuentaCorrientePeer {
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(CuentaCorrientePeer::ID, (array) $values, Criteria::IN);
+												if(count($values) == count($values, COUNT_RECURSIVE))
+			{
+								$values = array($values);
+			}
+			$vals = array();
+			foreach($values as $value)
+			{
+
+				$vals[0][] = $value[0];
+				$vals[1][] = $value[1];
+			}
+
+			$criteria->add(CuentaCorrientePeer::ID, $vals[0], Criteria::IN);
+			$criteria->add(CuentaCorrientePeer::ID_CORREDOR, $vals[1], Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -811,40 +826,17 @@ abstract class BaseCuentaCorrientePeer {
 	}
 
 	
-	public static function retrieveByPK($pk, $con = null)
-	{
+	public static function retrieveByPK( $id, $id_corredor, $con = null) {
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
-
-		$criteria = new Criteria(CuentaCorrientePeer::DATABASE_NAME);
-
-		$criteria->add(CuentaCorrientePeer::ID, $pk);
-
-
+		$criteria = new Criteria();
+		$criteria->add(CuentaCorrientePeer::ID, $id);
+		$criteria->add(CuentaCorrientePeer::ID_CORREDOR, $id_corredor);
 		$v = CuentaCorrientePeer::doSelect($criteria, $con);
 
-		return !empty($v) > 0 ? $v[0] : null;
+		return !empty($v) ? $v[0] : null;
 	}
-
-	
-	public static function retrieveByPKs($pks, $con = null)
-	{
-		if ($con === null) {
-			$con = Propel::getConnection(self::DATABASE_NAME);
-		}
-
-		$objs = null;
-		if (empty($pks)) {
-			$objs = array();
-		} else {
-			$criteria = new Criteria();
-			$criteria->add(CuentaCorrientePeer::ID, $pks, Criteria::IN);
-			$objs = CuentaCorrientePeer::doSelect($criteria, $con);
-		}
-		return $objs;
-	}
-
 } 
 if (Propel::isInit()) {
 			try {

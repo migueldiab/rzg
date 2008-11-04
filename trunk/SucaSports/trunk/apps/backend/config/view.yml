@@ -9,15 +9,15 @@ default:
     #language:     en
     robots:       index, follow
 
-  stylesheets:    [main, soria/soria, dijit, dojo]
+  stylesheets:    [main, dojo, dijit, soria/soria]
 
   javascripts:
     dojo:
       dojo/dojo/dojo:  { djConfig: 'parseOnLoad: false', isDebug: 'true' }
-    dijit:		  dojo/dijit/dijit.js.uncompressed.js
-    dijit-all:		  
-      dojo/dijit/dijit-all.js.uncompressed.js: { charset: utf-8 }
-    main:		  main
+    dijit:      dojo/dijit/dijit.js.js
+    dijit-all:  
+      dojo/dijit/dijit-all.js.js: { charset: utf-8 }
+    main:       main
 
 
   has_layout:     on

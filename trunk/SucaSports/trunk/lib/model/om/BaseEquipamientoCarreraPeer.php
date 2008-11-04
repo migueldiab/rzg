@@ -13,17 +13,23 @@ abstract class BaseEquipamientoCarreraPeer {
 	const CLASS_DEFAULT = 'lib.model.EquipamientoCarrera';
 
 	
-	const NUM_COLUMNS = 6;
+	const NUM_COLUMNS = 8;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 
 	
-	const ID_FECHA_ETAPA_CARRERA = 'equipamiento_carrera.ID_FECHA_ETAPA_CARRERA';
+	const ID_TIPO_EQUIPAMIENTO = 'equipamiento_carrera.ID_TIPO_EQUIPAMIENTO';
 
 	
-	const ID_TIPO_EQUIPAMIENTO = 'equipamiento_carrera.ID_TIPO_EQUIPAMIENTO';
+	const FECHA_INICIO = 'equipamiento_carrera.FECHA_INICIO';
+
+	
+	const ID_ETAPA = 'equipamiento_carrera.ID_ETAPA';
+
+	
+	const ID_CARRERA = 'equipamiento_carrera.ID_CARRERA';
 
 	
 	const CREATED_AT = 'equipamiento_carrera.CREATED_AT';
@@ -43,18 +49,18 @@ abstract class BaseEquipamientoCarreraPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('IdFechaEtapaCarrera', 'IdTipoEquipamiento', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
-		BasePeer::TYPE_COLNAME => array (EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, EquipamientoCarreraPeer::CREATED_AT, EquipamientoCarreraPeer::CREATED_BY, EquipamientoCarreraPeer::UPDATED_AT, EquipamientoCarreraPeer::UPDATED_BY, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_fecha_etapa_carrera', 'id_tipo_equipamiento', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('IdTipoEquipamiento', 'FechaInicio', 'IdEtapa', 'IdCarrera', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, EquipamientoCarreraPeer::FECHA_INICIO, EquipamientoCarreraPeer::ID_ETAPA, EquipamientoCarreraPeer::ID_CARRERA, EquipamientoCarreraPeer::CREATED_AT, EquipamientoCarreraPeer::CREATED_BY, EquipamientoCarreraPeer::UPDATED_AT, EquipamientoCarreraPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_tipo_equipamiento', 'fecha_inicio', 'id_etapa', 'id_carrera', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('IdFechaEtapaCarrera' => 0, 'IdTipoEquipamiento' => 1, 'CreatedAt' => 2, 'CreatedBy' => 3, 'UpdatedAt' => 4, 'UpdatedBy' => 5, ),
-		BasePeer::TYPE_COLNAME => array (EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA => 0, EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO => 1, EquipamientoCarreraPeer::CREATED_AT => 2, EquipamientoCarreraPeer::CREATED_BY => 3, EquipamientoCarreraPeer::UPDATED_AT => 4, EquipamientoCarreraPeer::UPDATED_BY => 5, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_fecha_etapa_carrera' => 0, 'id_tipo_equipamiento' => 1, 'created_at' => 2, 'created_by' => 3, 'updated_at' => 4, 'updated_by' => 5, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('IdTipoEquipamiento' => 0, 'FechaInicio' => 1, 'IdEtapa' => 2, 'IdCarrera' => 3, 'CreatedAt' => 4, 'CreatedBy' => 5, 'UpdatedAt' => 6, 'UpdatedBy' => 7, ),
+		BasePeer::TYPE_COLNAME => array (EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO => 0, EquipamientoCarreraPeer::FECHA_INICIO => 1, EquipamientoCarreraPeer::ID_ETAPA => 2, EquipamientoCarreraPeer::ID_CARRERA => 3, EquipamientoCarreraPeer::CREATED_AT => 4, EquipamientoCarreraPeer::CREATED_BY => 5, EquipamientoCarreraPeer::UPDATED_AT => 6, EquipamientoCarreraPeer::UPDATED_BY => 7, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_tipo_equipamiento' => 0, 'fecha_inicio' => 1, 'id_etapa' => 2, 'id_carrera' => 3, 'created_at' => 4, 'created_by' => 5, 'updated_at' => 6, 'updated_by' => 7, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
 	);
 
 	
@@ -107,9 +113,13 @@ abstract class BaseEquipamientoCarreraPeer {
 	public static function addSelectColumns(Criteria $criteria)
 	{
 
-		$criteria->addSelectColumn(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA);
-
 		$criteria->addSelectColumn(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO);
+
+		$criteria->addSelectColumn(EquipamientoCarreraPeer::FECHA_INICIO);
+
+		$criteria->addSelectColumn(EquipamientoCarreraPeer::ID_ETAPA);
+
+		$criteria->addSelectColumn(EquipamientoCarreraPeer::ID_CARRERA);
 
 		$criteria->addSelectColumn(EquipamientoCarreraPeer::CREATED_AT);
 
@@ -121,8 +131,8 @@ abstract class BaseEquipamientoCarreraPeer {
 
 	}
 
-	const COUNT = 'COUNT(equipamiento_carrera.ID_FECHA_ETAPA_CARRERA)';
-	const COUNT_DISTINCT = 'COUNT(DISTINCT equipamiento_carrera.ID_FECHA_ETAPA_CARRERA)';
+	const COUNT = 'COUNT(equipamiento_carrera.ID_TIPO_EQUIPAMIENTO)';
+	const COUNT_DISTINCT = 'COUNT(DISTINCT equipamiento_carrera.ID_TIPO_EQUIPAMIENTO)';
 
 	
 	public static function doCount(Criteria $criteria, $distinct = false, $con = null)
@@ -198,34 +208,6 @@ abstract class BaseEquipamientoCarreraPeer {
 	}
 
 	
-	public static function doCountJoinFechaEtapaCarrera(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(EquipamientoCarreraPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(EquipamientoCarreraPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$rs = EquipamientoCarreraPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
 	public static function doCountJoinTipoEquipamiento(Criteria $criteria, $distinct = false, $con = null)
 	{
 				$criteria = clone $criteria;
@@ -250,53 +232,6 @@ abstract class BaseEquipamientoCarreraPeer {
 		} else {
 						return 0;
 		}
-	}
-
-
-	
-	public static function doSelectJoinFechaEtapaCarrera(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		EquipamientoCarreraPeer::addSelectColumns($c);
-		$startcol = (EquipamientoCarreraPeer::NUM_COLUMNS - EquipamientoCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-
-		$c->addJoin(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = EquipamientoCarreraPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol);
-
-			$newObject = true;
-			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getFechaEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-										$temp_obj2->addEquipamientoCarrera($obj1); 					break;
-				}
-			}
-			if ($newObject) {
-				$obj2->initEquipamientoCarreras();
-				$obj2->addEquipamientoCarrera($obj1); 			}
-			$results[] = $obj1;
-		}
-		return $results;
 	}
 
 
@@ -364,8 +299,6 @@ abstract class BaseEquipamientoCarreraPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
 		$criteria->addJoin(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, TipoEquipamientoPeer::ID);
 
 		$rs = EquipamientoCarreraPeer::doSelectRS($criteria, $con);
@@ -389,13 +322,8 @@ abstract class BaseEquipamientoCarreraPeer {
 		EquipamientoCarreraPeer::addSelectColumns($c);
 		$startcol2 = (EquipamientoCarreraPeer::NUM_COLUMNS - EquipamientoCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + FechaEtapaCarreraPeer::NUM_COLUMNS;
-
 		TipoEquipamientoPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + TipoEquipamientoPeer::NUM_COLUMNS;
-
-		$c->addJoin(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
+		$startcol3 = $startcol2 + TipoEquipamientoPeer::NUM_COLUMNS;
 
 		$c->addJoin(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, TipoEquipamientoPeer::ID);
 
@@ -413,7 +341,7 @@ abstract class BaseEquipamientoCarreraPeer {
 
 
 					
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
+			$omClass = TipoEquipamientoPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -423,202 +351,9 @@ abstract class BaseEquipamientoCarreraPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getFechaEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addEquipamientoCarrera($obj1); 					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initEquipamientoCarreras();
-				$obj2->addEquipamientoCarrera($obj1);
-			}
-
-
-					
-			$omClass = TipoEquipamientoPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj3 = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getTipoEquipamiento(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addEquipamientoCarrera($obj1); 					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initEquipamientoCarreras();
-				$obj3->addEquipamientoCarrera($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doCountJoinAllExceptFechaEtapaCarrera(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(EquipamientoCarreraPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(EquipamientoCarreraPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, TipoEquipamientoPeer::ID);
-
-		$rs = EquipamientoCarreraPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinAllExceptTipoEquipamiento(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(EquipamientoCarreraPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(EquipamientoCarreraPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-		$rs = EquipamientoCarreraPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doSelectJoinAllExceptFechaEtapaCarrera(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		EquipamientoCarreraPeer::addSelectColumns($c);
-		$startcol2 = (EquipamientoCarreraPeer::NUM_COLUMNS - EquipamientoCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		TipoEquipamientoPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + TipoEquipamientoPeer::NUM_COLUMNS;
-
-		$c->addJoin(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, TipoEquipamientoPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = EquipamientoCarreraPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = TipoEquipamientoPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
 				$temp_obj2 = $temp_obj1->getTipoEquipamiento(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-					$temp_obj2->addEquipamientoCarrera($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initEquipamientoCarreras();
-				$obj2->addEquipamientoCarrera($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinAllExceptTipoEquipamiento(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		EquipamientoCarreraPeer::addSelectColumns($c);
-		$startcol2 = (EquipamientoCarreraPeer::NUM_COLUMNS - EquipamientoCarreraPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		FechaEtapaCarreraPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + FechaEtapaCarreraPeer::NUM_COLUMNS;
-
-		$c->addJoin(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, FechaEtapaCarreraPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = EquipamientoCarreraPeer::getOMClass();
-
-			$cls = sfPropel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = FechaEtapaCarreraPeer::getOMClass();
-
-
-			$cls = sfPropel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getFechaEtapaCarrera(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addEquipamientoCarrera($obj1);
-					break;
+					$temp_obj2->addEquipamientoCarrera($obj1); 					break;
 				}
 			}
 
@@ -686,11 +421,17 @@ abstract class BaseEquipamientoCarreraPeer {
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; 
-			$comparison = $criteria->getComparison(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA);
-			$selectCriteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $criteria->remove(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA), $comparison);
-
 			$comparison = $criteria->getComparison(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO);
 			$selectCriteria->add(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, $criteria->remove(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO), $comparison);
+
+			$comparison = $criteria->getComparison(EquipamientoCarreraPeer::FECHA_INICIO);
+			$selectCriteria->add(EquipamientoCarreraPeer::FECHA_INICIO, $criteria->remove(EquipamientoCarreraPeer::FECHA_INICIO), $comparison);
+
+			$comparison = $criteria->getComparison(EquipamientoCarreraPeer::ID_ETAPA);
+			$selectCriteria->add(EquipamientoCarreraPeer::ID_ETAPA, $criteria->remove(EquipamientoCarreraPeer::ID_ETAPA), $comparison);
+
+			$comparison = $criteria->getComparison(EquipamientoCarreraPeer::ID_CARRERA);
+			$selectCriteria->add(EquipamientoCarreraPeer::ID_CARRERA, $criteria->remove(EquipamientoCarreraPeer::ID_CARRERA), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -739,10 +480,14 @@ abstract class BaseEquipamientoCarreraPeer {
 
 				$vals[0][] = $value[0];
 				$vals[1][] = $value[1];
+				$vals[2][] = $value[2];
+				$vals[3][] = $value[3];
 			}
 
-			$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $vals[0], Criteria::IN);
-			$criteria->add(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, $vals[1], Criteria::IN);
+			$criteria->add(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, $vals[0], Criteria::IN);
+			$criteria->add(EquipamientoCarreraPeer::FECHA_INICIO, $vals[1], Criteria::IN);
+			$criteria->add(EquipamientoCarreraPeer::ID_ETAPA, $vals[2], Criteria::IN);
+			$criteria->add(EquipamientoCarreraPeer::ID_CARRERA, $vals[3], Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -796,13 +541,15 @@ abstract class BaseEquipamientoCarreraPeer {
 	}
 
 	
-	public static function retrieveByPK( $id_fecha_etapa_carrera, $id_tipo_equipamiento, $con = null) {
+	public static function retrieveByPK( $id_tipo_equipamiento, $fecha_inicio, $id_etapa, $id_carrera, $con = null) {
 		if ($con === null) {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
 		$criteria = new Criteria();
-		$criteria->add(EquipamientoCarreraPeer::ID_FECHA_ETAPA_CARRERA, $id_fecha_etapa_carrera);
 		$criteria->add(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, $id_tipo_equipamiento);
+		$criteria->add(EquipamientoCarreraPeer::FECHA_INICIO, $fecha_inicio);
+		$criteria->add(EquipamientoCarreraPeer::ID_ETAPA, $id_etapa);
+		$criteria->add(EquipamientoCarreraPeer::ID_CARRERA, $id_carrera);
 		$v = EquipamientoCarreraPeer::doSelect($criteria, $con);
 
 		return !empty($v) ? $v[0] : null;
