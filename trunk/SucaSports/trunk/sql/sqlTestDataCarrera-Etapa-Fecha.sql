@@ -19,11 +19,11 @@ INSERT INTO carrera(nombre) VALUES("La Carrera de Markster");
 
 INSERT INTO etapa_carrera(id_carrera,nombre,numero_etapa) value((select max(id) from carrera),'Primera etapa',1);
 
-INSERT INTO fecha_etapa_carrera(max_corredores,fecha_inicio,fecha_fin,id_etapa,id_carrera) VALUES(10,current_date,current_date,(select max(id) from etapa_carrera),(select max(id) from carrera));
+INSERT INTO fecha_etapa_carrera(max_corredores,fecha_inicio,fecha_fin,id_etapa,id_carrera) VALUES(10,current_date,current_date,(select max(id_etapa) from etapa_carrera),(select max(id) from carrera));
 
 INSERT INTO etapa_carrera(id_carrera,nombre,numero_etapa) value((select max(id) from carrera),'Segunda etapa',1);
 
-INSERT INTO fecha_etapa_carrera(max_corredores,fecha_inicio,fecha_fin,id_etapa,id_carrera) VALUES(5,current_date + 1,current_date + 1,(select max(id) from etapa_carrera),(select max(id) from carrera));
+INSERT INTO fecha_etapa_carrera(max_corredores,fecha_inicio,fecha_fin,id_etapa,id_carrera) VALUES(5,current_date + 1,current_date + 1,(select max(id_etapa) from etapa_carrera),(select max(id) from carrera));
 
 INSERT INTO `categoria` (`id`,`nombre`,`updated_at`,`updated_by`,`regla`) VALUES (0,'Damas','2008-10-13 00:00:00',NULL,NULL), (1,'Caballeros',NULL,NULL,NULL);
 
