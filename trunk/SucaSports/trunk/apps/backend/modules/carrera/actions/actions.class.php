@@ -10,5 +10,14 @@
  */
 class CarreraActions extends autoCarreraActions
 {
+    public function executeEtapa0() {
+        return $this->redirect('etapacarrera/create');
+    }
 
+    public function executeEtapa(){
+        $prueba = $this->getRequestParameter('id');
+        echo $prueba;
+        echo "antes del for";
+        return $this->redirect('etapacarrera/edit');
+    }    
 }
