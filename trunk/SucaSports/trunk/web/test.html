@@ -1,14 +1,40 @@
-<script type="text/javascript">
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<script type="text/javascript" src="/js/dojo/dojo/dojo.js" djConfig="parseOnLoad: true" isDebug="true"></script>
+<script type="text/javascript" src="/js/dojo/dijit/dijit.js"></script>
+<script type="text/javascript" src="/js/dojo/dijit/dijit-all.js" charset="utf-8"></script>
+<script type="text/javascript" src="/sf/prototype/js/prototype.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="/css/dojo.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/css/dijit.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/css/soria/soria.css" />
+
+      <script type="text/javascript" src="/sf/sf_web_debug/js/main.js"></script>
+
+      <link rel="stylesheet" type="text/css" media="screen" href="/sf/sf_web_debug/css/main.css" /></head>
+
+  </head>
+  <body class="soria">
+
+
+
+<script type="text/javascript">
   dojo.require("dijit.Dialog");
   dojo.require("dijit.form.TextBox");
   dojo.require("dijit.form.TimeTextBox");
   dojo.require("dijit.form.Button");
   dojo.require("dijit.form.DateTextBox");
   dojo.require("dojo.parser");
-  dojo.addOnLoad(function parsePerfil() {dojo.parser.parse(dojo.byId('dialog1'))});
-  dojo.addOnLoad(function test() {dijit.byId('dialog1').show();})
 </script>
+
+<button dojoType="dijit.form.Button" onclick="dijit.byId('dialog1').show()">Show Dialog</button>
 
 <div dojoType="dijit.Dialog" id="dialog1" title="First Dialog"
     execute="alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));">
@@ -39,3 +65,10 @@
     </tr>
   </table>
 </div>
+
+
+
+
+
+  </body>
+</html>

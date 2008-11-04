@@ -11,7 +11,53 @@
 </head>
 <body class="soria">
 
-  <?php echo $sf_content ?>
-					
+  <style type="text/css">
+    .box {
+        position: relative;
+        background-color: #99CC33;
+        border: 2px solid green;
+        padding: 8px;
+        margin: 4px;
+    }
+    .title {
+        position: relative;
+        background-color: #99CC33;
+        border: 0px;
+        padding: 0px;
+        margin: 0px;
+        left: -4px;
+    }
+    .ads {
+        position: relative;
+        background-color: white;
+        border: 2px solid green;
+        padding: 8px;
+        margin: 4px;
+        width: 930px;
+    }
+    .content {
+        position: relative;
+        background-color: white;
+        border: 2px solid green;
+        padding: 8px;
+        margin: 4px;
+        min-height: 350px;
+        width: 930px;
+    }
+  </style>
+
+  <div dojoType="dijit.layout.ContentPane" class="box">
+    <center>
+      <div dojoType="dijit.layout.ContentPane" class="title">
+        <?php echo image_tag('logosuca.png') ?>
+      </div>
+      <div dojoType="dijit.layout.ContentPane" class="ads"  hasShadow="true">
+        <?php include_partial('home/gads'); ?>
+      </div>
+      <div dojoType="dijit.layout.ContentPane" class="content">
+        <?php echo $sf_content ?>
+      </div>
+    </center>
+  </div>
 </body>
 </html>
