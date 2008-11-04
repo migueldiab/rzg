@@ -1,0 +1,5 @@
+<?php
+
+?>
+
+Google Ads Here

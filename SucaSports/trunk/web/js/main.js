@@ -62,7 +62,7 @@ dojo.addOnLoad(function() {
   dojo.parser.parse(dojo.byId('container')); 
   console.info("Total parse time: " + (new Date().getTime() - start) + "ms");
 
-  dojo.byId('loaderInner').innerHTML += " done.";
+  dojo.byId('loaderInner').innerHTML += " listo.";
   setTimeout(function hideLoader(){
     var loader = dojo.byId('loader'); 
     dojo.fadeOut({ node: loader, duration:500,

@@ -14,10 +14,10 @@ default:
   javascripts:
     dojo:
       dojo/dojo/dojo:  { djConfig: 'parseOnLoad: false', isDebug: 'true' }
-    dijit:      dojo/dijit/dijit.js
-    dijit-all:  
-      dojo/dijit/dijit-all.js: { charset: utf-8 }
-    main:       main
+    dijit:		  dojo/dijit/dijit.js.uncompressed.js
+    dijit-all:
+      dojo/dijit/dijit-all.js.uncompressed.js: { charset: utf-8 }
+    prototype: prototype
 
   has_layout:     on
   layout:         layout
