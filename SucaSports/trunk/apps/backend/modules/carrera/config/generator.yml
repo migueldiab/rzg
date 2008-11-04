@@ -5,6 +5,13 @@ generator:
     theme:            default
     edit :
       title: Editor de carreras
+      actions:
+        _list:
+        _save:
+        _delete:
+        add_etapa:
+          name: Agregar Etapa
+          action: etapa
       display: [nombre,url,descripcion,categoria_carrera]
       fields:
         categoria_carrera: { type: admin_double_list, params: through_class=CategoriaCarrera }
