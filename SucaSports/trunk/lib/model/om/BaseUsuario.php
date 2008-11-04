@@ -46,12 +46,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 	protected $aCorredor;
 
 	
-	protected $collAlquilers;
-
-	
-	protected $lastAlquilerCriteria = null;
-
-	
 	protected $collPostsRelatedByCreatedBy;
 
 	
@@ -400,14 +394,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 				}
 				$this->resetModified(); 			}
 
-			if ($this->collAlquilers !== null) {
-				foreach($this->collAlquilers as $referrerFK) {
-					if (!$referrerFK->isDeleted()) {
-						$affectedRows += $referrerFK->save($con);
-					}
-				}
-			}
-
 			if ($this->collPostsRelatedByCreatedBy !== null) {
 				foreach($this->collPostsRelatedByCreatedBy as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
@@ -478,14 +464,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
-
-				if ($this->collAlquilers !== null) {
-					foreach($this->collAlquilers as $referrerFK) {
-						if (!$referrerFK->validate($columns)) {
-							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-						}
-					}
-				}
 
 				if ($this->collPostsRelatedByCreatedBy !== null) {
 					foreach($this->collPostsRelatedByCreatedBy as $referrerFK) {
@@ -680,10 +658,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 		if ($deepCopy) {
 									$copyObj->setNew(false);
 
-			foreach($this->getAlquilers() as $relObj) {
-				$copyObj->addAlquiler($relObj->copy($deepCopy));
-			}
-
 			foreach($this->getPostsRelatedByCreatedBy() as $relObj) {
 				$copyObj->addPostRelatedByCreatedBy($relObj->copy($deepCopy));
 			}
@@ -769,142 +743,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 			
 		}
 		return $this->aCorredor;
-	}
-
-	
-	public function initAlquilers()
-	{
-		if ($this->collAlquilers === null) {
-			$this->collAlquilers = array();
-		}
-	}
-
-	
-	public function getAlquilers($criteria = null, $con = null)
-	{
-				if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collAlquilers === null) {
-			if ($this->isNew()) {
-			   $this->collAlquilers = array();
-			} else {
-
-				$criteria->add(AlquilerPeer::ID_USUARIO, $this->getId());
-
-				AlquilerPeer::addSelectColumns($criteria);
-				$this->collAlquilers = AlquilerPeer::doSelect($criteria, $con);
-			}
-		} else {
-						if (!$this->isNew()) {
-												
-
-				$criteria->add(AlquilerPeer::ID_USUARIO, $this->getId());
-
-				AlquilerPeer::addSelectColumns($criteria);
-				if (!isset($this->lastAlquilerCriteria) || !$this->lastAlquilerCriteria->equals($criteria)) {
-					$this->collAlquilers = AlquilerPeer::doSelect($criteria, $con);
-				}
-			}
-		}
-		$this->lastAlquilerCriteria = $criteria;
-		return $this->collAlquilers;
-	}
-
-	
-	public function countAlquilers($criteria = null, $distinct = false, $con = null)
-	{
-				if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		$criteria->add(AlquilerPeer::ID_USUARIO, $this->getId());
-
-		return AlquilerPeer::doCount($criteria, $distinct, $con);
-	}
-
-	
-	public function addAlquiler(Alquiler $l)
-	{
-		$this->collAlquilers[] = $l;
-		$l->setUsuario($this);
-	}
-
-
-	
-	public function getAlquilersJoinInventario($criteria = null, $con = null)
-	{
-				if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collAlquilers === null) {
-			if ($this->isNew()) {
-				$this->collAlquilers = array();
-			} else {
-
-				$criteria->add(AlquilerPeer::ID_USUARIO, $this->getId());
-
-				$this->collAlquilers = AlquilerPeer::doSelectJoinInventario($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(AlquilerPeer::ID_USUARIO, $this->getId());
-
-			if (!isset($this->lastAlquilerCriteria) || !$this->lastAlquilerCriteria->equals($criteria)) {
-				$this->collAlquilers = AlquilerPeer::doSelectJoinInventario($criteria, $con);
-			}
-		}
-		$this->lastAlquilerCriteria = $criteria;
-
-		return $this->collAlquilers;
-	}
-
-
-	
-	public function getAlquilersJoinFechaEtapaCarrera($criteria = null, $con = null)
-	{
-				if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collAlquilers === null) {
-			if ($this->isNew()) {
-				$this->collAlquilers = array();
-			} else {
-
-				$criteria->add(AlquilerPeer::ID_USUARIO, $this->getId());
-
-				$this->collAlquilers = AlquilerPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(AlquilerPeer::ID_USUARIO, $this->getId());
-
-			if (!isset($this->lastAlquilerCriteria) || !$this->lastAlquilerCriteria->equals($criteria)) {
-				$this->collAlquilers = AlquilerPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
-			}
-		}
-		$this->lastAlquilerCriteria = $criteria;
-
-		return $this->collAlquilers;
 	}
 
 	

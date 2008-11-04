@@ -62,12 +62,6 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 	protected $aFormaPago;
 
 	
-	protected $collInscripcions;
-
-	
-	protected $lastInscripcionCriteria = null;
-
-	
 	protected $alreadyInSave = false;
 
 	
@@ -503,20 +497,11 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 				if ($this->isNew()) {
 					$pk = CuentaCorrientePeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
-					$this->setId($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += CuentaCorrientePeer::doUpdate($this, $con);
 				}
 				$this->resetModified(); 			}
-
-			if ($this->collInscripcions !== null) {
-				foreach($this->collInscripcions as $referrerFK) {
-					if (!$referrerFK->isDeleted()) {
-						$affectedRows += $referrerFK->save($con);
-					}
-				}
-			}
 
 			$this->alreadyInSave = false;
 		}
@@ -572,14 +557,6 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
-
-				if ($this->collInscripcions !== null) {
-					foreach($this->collInscripcions as $referrerFK) {
-						if (!$referrerFK->validate($columns)) {
-							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-						}
-					}
-				}
 
 
 			$this->alreadyInValidation = false;
@@ -756,6 +733,7 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 		$criteria = new Criteria(CuentaCorrientePeer::DATABASE_NAME);
 
 		$criteria->add(CuentaCorrientePeer::ID, $this->id);
+		$criteria->add(CuentaCorrientePeer::ID_CORREDOR, $this->id_corredor);
 
 		return $criteria;
 	}
@@ -763,20 +741,28 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 	
 	public function getPrimaryKey()
 	{
-		return $this->getId();
+		$pks = array();
+
+		$pks[0] = $this->getId();
+
+		$pks[1] = $this->getIdCorredor();
+
+		return $pks;
 	}
 
 	
-	public function setPrimaryKey($key)
+	public function setPrimaryKey($keys)
 	{
-		$this->setId($key);
+
+		$this->setId($keys[0]);
+
+		$this->setIdCorredor($keys[1]);
+
 	}
 
 	
 	public function copyInto($copyObj, $deepCopy = false)
 	{
-
-		$copyObj->setIdCorredor($this->id_corredor);
 
 		$copyObj->setIdFormaPago($this->id_forma_pago);
 
@@ -799,18 +785,10 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 		$copyObj->setUpdatedBy($this->updated_by);
 
 
-		if ($deepCopy) {
-									$copyObj->setNew(false);
-
-			foreach($this->getInscripcions() as $relObj) {
-				$copyObj->addInscripcion($relObj->copy($deepCopy));
-			}
-
-		} 
-
 		$copyObj->setNew(true);
 
 		$copyObj->setId(NULL); 
+		$copyObj->setIdCorredor(NULL); 
 	}
 
 	
@@ -883,142 +861,6 @@ abstract class BaseCuentaCorriente extends BaseObject  implements Persistent {
 			
 		}
 		return $this->aFormaPago;
-	}
-
-	
-	public function initInscripcions()
-	{
-		if ($this->collInscripcions === null) {
-			$this->collInscripcions = array();
-		}
-	}
-
-	
-	public function getInscripcions($criteria = null, $con = null)
-	{
-				if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collInscripcions === null) {
-			if ($this->isNew()) {
-			   $this->collInscripcions = array();
-			} else {
-
-				$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
-
-				InscripcionPeer::addSelectColumns($criteria);
-				$this->collInscripcions = InscripcionPeer::doSelect($criteria, $con);
-			}
-		} else {
-						if (!$this->isNew()) {
-												
-
-				$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
-
-				InscripcionPeer::addSelectColumns($criteria);
-				if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
-					$this->collInscripcions = InscripcionPeer::doSelect($criteria, $con);
-				}
-			}
-		}
-		$this->lastInscripcionCriteria = $criteria;
-		return $this->collInscripcions;
-	}
-
-	
-	public function countInscripcions($criteria = null, $distinct = false, $con = null)
-	{
-				if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
-
-		return InscripcionPeer::doCount($criteria, $distinct, $con);
-	}
-
-	
-	public function addInscripcion(Inscripcion $l)
-	{
-		$this->collInscripcions[] = $l;
-		$l->setCuentaCorriente($this);
-	}
-
-
-	
-	public function getInscripcionsJoinFechaEtapaCarrera($criteria = null, $con = null)
-	{
-				if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collInscripcions === null) {
-			if ($this->isNew()) {
-				$this->collInscripcions = array();
-			} else {
-
-				$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
-
-				$this->collInscripcions = InscripcionPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
-
-			if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
-				$this->collInscripcions = InscripcionPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
-			}
-		}
-		$this->lastInscripcionCriteria = $criteria;
-
-		return $this->collInscripcions;
-	}
-
-
-	
-	public function getInscripcionsJoinCorredor($criteria = null, $con = null)
-	{
-				if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collInscripcions === null) {
-			if ($this->isNew()) {
-				$this->collInscripcions = array();
-			} else {
-
-				$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
-
-				$this->collInscripcions = InscripcionPeer::doSelectJoinCorredor($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(InscripcionPeer::CUENTA_CORRIENTE_ID, $this->getId());
-
-			if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
-				$this->collInscripcions = InscripcionPeer::doSelectJoinCorredor($criteria, $con);
-			}
-		}
-		$this->lastInscripcionCriteria = $criteria;
-
-		return $this->collInscripcions;
 	}
 
 } 

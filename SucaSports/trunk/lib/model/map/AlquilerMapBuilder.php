@@ -30,15 +30,19 @@ class AlquilerMapBuilder {
 		$tMap = $this->dbMap->addTable('alquiler');
 		$tMap->setPhpName('Alquiler');
 
-		$tMap->setUseIdGenerator(true);
+		$tMap->setUseIdGenerator(false);
 
-		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
+		$tMap->addForeignPrimaryKey('ID_INVENTARIO', 'IdInventario', 'int' , CreoleTypes::INTEGER, 'inventario', 'ID', true, null);
 
-		$tMap->addForeignKey('ID_EQUIPAMIENTO', 'IdEquipamiento', 'int', CreoleTypes::INTEGER, 'inventario', 'ID', true, null);
+		$tMap->addPrimaryKey('FECHA_INICIO', 'FechaInicio', 'int', CreoleTypes::DATE, true, null);
 
-		$tMap->addForeignKey('ID_FECHA_ETAPA_CARRERA', 'IdFechaEtapaCarrera', 'int', CreoleTypes::INTEGER, 'fecha_etapa_carrera', 'ID', true, null);
+		$tMap->addPrimaryKey('ID_ETAPA', 'IdEtapa', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addForeignKey('ID_USUARIO', 'IdUsuario', 'int', CreoleTypes::INTEGER, 'usuario', 'ID', true, null);
+		$tMap->addPrimaryKey('ID_CARRERA', 'IdCarrera', 'int', CreoleTypes::INTEGER, true, null);
+
+		$tMap->addPrimaryKey('ID_CUENTA_CORRIENTE', 'IdCuentaCorriente', 'int', CreoleTypes::INTEGER, true, null);
+
+		$tMap->addPrimaryKey('ID_CORREDOR', 'IdCorredor', 'int', CreoleTypes::INTEGER, true, null);
 
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 

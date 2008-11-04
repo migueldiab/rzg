@@ -608,38 +608,4 @@ abstract class BaseTipoEquipamiento extends BaseObject  implements Persistent {
 		$l->setTipoEquipamiento($this);
 	}
 
-
-	
-	public function getEquipamientoCarrerasJoinFechaEtapaCarrera($criteria = null, $con = null)
-	{
-				if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collEquipamientoCarreras === null) {
-			if ($this->isNew()) {
-				$this->collEquipamientoCarreras = array();
-			} else {
-
-				$criteria->add(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, $this->getId());
-
-				$this->collEquipamientoCarreras = EquipamientoCarreraPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(EquipamientoCarreraPeer::ID_TIPO_EQUIPAMIENTO, $this->getId());
-
-			if (!isset($this->lastEquipamientoCarreraCriteria) || !$this->lastEquipamientoCarreraCriteria->equals($criteria)) {
-				$this->collEquipamientoCarreras = EquipamientoCarreraPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
-			}
-		}
-		$this->lastEquipamientoCarreraCriteria = $criteria;
-
-		return $this->collEquipamientoCarreras;
-	}
-
 } 

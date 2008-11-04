@@ -1914,74 +1914,6 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 		$l->setCorredor($this);
 	}
 
-
-	
-	public function getInscripcionsJoinFechaEtapaCarrera($criteria = null, $con = null)
-	{
-				if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collInscripcions === null) {
-			if ($this->isNew()) {
-				$this->collInscripcions = array();
-			} else {
-
-				$criteria->add(InscripcionPeer::ID_CORREDOR, $this->getId());
-
-				$this->collInscripcions = InscripcionPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(InscripcionPeer::ID_CORREDOR, $this->getId());
-
-			if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
-				$this->collInscripcions = InscripcionPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
-			}
-		}
-		$this->lastInscripcionCriteria = $criteria;
-
-		return $this->collInscripcions;
-	}
-
-
-	
-	public function getInscripcionsJoinCuentaCorriente($criteria = null, $con = null)
-	{
-				if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collInscripcions === null) {
-			if ($this->isNew()) {
-				$this->collInscripcions = array();
-			} else {
-
-				$criteria->add(InscripcionPeer::ID_CORREDOR, $this->getId());
-
-				$this->collInscripcions = InscripcionPeer::doSelectJoinCuentaCorriente($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(InscripcionPeer::ID_CORREDOR, $this->getId());
-
-			if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
-				$this->collInscripcions = InscripcionPeer::doSelectJoinCuentaCorriente($criteria, $con);
-			}
-		}
-		$this->lastInscripcionCriteria = $criteria;
-
-		return $this->collInscripcions;
-	}
-
 	
 	public function initResultados()
 	{
@@ -2048,40 +1980,6 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 	{
 		$this->collResultados[] = $l;
 		$l->setCorredor($this);
-	}
-
-
-	
-	public function getResultadosJoinFechaEtapaCarrera($criteria = null, $con = null)
-	{
-				if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collResultados === null) {
-			if ($this->isNew()) {
-				$this->collResultados = array();
-			} else {
-
-				$criteria->add(ResultadoPeer::ID_CORREDOR, $this->getId());
-
-				$this->collResultados = ResultadoPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(ResultadoPeer::ID_CORREDOR, $this->getId());
-
-			if (!isset($this->lastResultadoCriteria) || !$this->lastResultadoCriteria->equals($criteria)) {
-				$this->collResultados = ResultadoPeer::doSelectJoinFechaEtapaCarrera($criteria, $con);
-			}
-		}
-		$this->lastResultadoCriteria = $criteria;
-
-		return $this->collResultados;
 	}
 
 	

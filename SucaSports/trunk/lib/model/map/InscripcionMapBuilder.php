@@ -32,9 +32,13 @@ class InscripcionMapBuilder {
 
 		$tMap->setUseIdGenerator(false);
 
-		$tMap->addForeignPrimaryKey('ID_FECHA_ETAPA_CARRERA', 'IdFechaEtapaCarrera', 'int' , CreoleTypes::INTEGER, 'fecha_etapa_carrera', 'ID', true, null);
-
 		$tMap->addForeignPrimaryKey('ID_CORREDOR', 'IdCorredor', 'int' , CreoleTypes::INTEGER, 'corredor', 'ID', true, null);
+
+		$tMap->addPrimaryKey('FECHA_INICIO', 'FechaInicio', 'int', CreoleTypes::DATE, true, null);
+
+		$tMap->addPrimaryKey('ID_ETAPA', 'IdEtapa', 'int', CreoleTypes::INTEGER, true, null);
+
+		$tMap->addPrimaryKey('ID_CARRERA', 'IdCarrera', 'int', CreoleTypes::INTEGER, true, null);
 
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 
@@ -47,8 +51,6 @@ class InscripcionMapBuilder {
 		$tMap->addColumn('FECHA_INSCRIPCION', 'FechaInscripcion', 'int', CreoleTypes::DATE, false, null);
 
 		$tMap->addColumn('FIRMA_DIGITAL', 'FirmaDigital', 'string', CreoleTypes::VARCHAR, false, 255);
-
-		$tMap->addForeignKey('CUENTA_CORRIENTE_ID', 'CuentaCorrienteId', 'int', CreoleTypes::INTEGER, 'cuenta_corriente', 'ID', false, null);
 
 	} 
 } 

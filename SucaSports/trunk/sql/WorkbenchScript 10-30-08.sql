@@ -1,4 +1,4 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+﻿SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
@@ -301,7 +301,7 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`etapa_carrera` (
   `created_by` INT(11) NULL DEFAULT NULL ,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ,
   `updated_by` INT(11) NULL DEFAULT NULL ,
-  PRIMARY KEY (`id`) ,
+  PRIMARY KEY (`id`, `id_carrera`) ,
   INDEX `fk_etapa_carrera_etapa` (`id_carrera` ASC) ,
   CONSTRAINT `fk_etapa_carrera_etapa`
     FOREIGN KEY (`id_carrera` )
@@ -366,13 +366,13 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`alquiler` (
     REFERENCES `suca_sports`.`usuario` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_alquileres_fechaetapacarrera`
-    FOREIGN KEY (`id_carrera` , `fecha_inicio_etapa` , `id_etapa_carrera` )
-    REFERENCES `suca_sports`.`fecha_etapa_carrera` (`id_carrera` , `fecha_inicio` , `id_etapa_carrera` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+  CONSTRAINT `fk_alquileres_fechaetapacarrera2`
+    FOREIGN KEY (`fecha_inicio_etapa`, `id_etapa_carrera`, `id_carrera`)
+    REFERENCES `suca_sports`.`fecha_etapa_carrera` (`fecha_inicio`, `id_etapa_carrera`, `id_carrera`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ ENGINE = InnoDB
+ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
@@ -543,8 +543,8 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`equipamiento_carrera` (
   `updated_at` TIMESTAMP NULL DEFAULT NULL ,
   `updated_by` INT(11) NULL DEFAULT NULL ,
   PRIMARY KEY USING BTREE (`id_fecha_etapa_carrera`, `id_tipo_equipamiento`) ,
-  INDEX `fk_equipamiento_carrera_id_carrera` (`id_fecha_etapa_carrera` ASC) ,
-  INDEX `fk_equipamiento_carrera_tipo_equipamiento` (`id_tipo_equipamiento` ASC) ,
+  INDEX `ix_equipamiento_carrera_id_carrera` (`id_fecha_etapa_carrera` ASC) ,
+  INDEX `ix_equipamiento_carrera_tipo_equipamiento` (`id_tipo_equipamiento` ASC) ,
   CONSTRAINT `fk_equipamiento_carrera_id_carrera`
     FOREIGN KEY (`id_fecha_etapa_carrera` )
     REFERENCES `suca_sports`.`fecha_etapa_carrera` (`id` )
@@ -553,8 +553,8 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`equipamiento_carrera` (
   CONSTRAINT `fk_equipamiento_carrera_tipo_equipamiento`
     FOREIGN KEY (`id_tipo_equipamiento` )
     REFERENCES `suca_sports`.`tipo_equipamiento` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 

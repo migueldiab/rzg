@@ -1,0 +1,7 @@
+default:
+  has_layout:     on
+
+# Esto quita el marco a todas las llamadas dentro de carrera, 
+# de manera que queda solo el contenido.
+# Sirve para hacer llamadas AJAX y actualizar un DIV de una página o similar...
+    

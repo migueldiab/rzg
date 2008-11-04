@@ -9,19 +9,27 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 
 
 	
-	protected $id;
+	protected $id_inventario;
 
 
 	
-	protected $id_equipamiento;
+	protected $fecha_inicio;
 
 
 	
-	protected $id_fecha_etapa_carrera;
+	protected $id_etapa;
 
 
 	
-	protected $id_usuario;
+	protected $id_carrera;
+
+
+	
+	protected $id_cuenta_corriente;
+
+
+	
+	protected $id_corredor;
 
 
 	
@@ -43,43 +51,66 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	protected $aInventario;
 
 	
-	protected $aFechaEtapaCarrera;
-
-	
-	protected $aUsuario;
-
-	
 	protected $alreadyInSave = false;
 
 	
 	protected $alreadyInValidation = false;
 
 	
-	public function getId()
+	public function getIdInventario()
 	{
 
-		return $this->id;
+		return $this->id_inventario;
 	}
 
 	
-	public function getIdEquipamiento()
+	public function getFechaInicio($format = 'Y-m-d')
 	{
 
-		return $this->id_equipamiento;
+		if ($this->fecha_inicio === null || $this->fecha_inicio === '') {
+			return null;
+		} elseif (!is_int($this->fecha_inicio)) {
+						$ts = strtotime($this->fecha_inicio);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [fecha_inicio] as date/time value: " . var_export($this->fecha_inicio, true));
+			}
+		} else {
+			$ts = $this->fecha_inicio;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
 	}
 
 	
-	public function getIdFechaEtapaCarrera()
+	public function getIdEtapa()
 	{
 
-		return $this->id_fecha_etapa_carrera;
+		return $this->id_etapa;
 	}
 
 	
-	public function getIdUsuario()
+	public function getIdCarrera()
 	{
 
-		return $this->id_usuario;
+		return $this->id_carrera;
+	}
+
+	
+	public function getIdCuentaCorriente()
+	{
+
+		return $this->id_cuenta_corriente;
+	}
+
+	
+	public function getIdCorredor()
+	{
+
+		return $this->id_corredor;
 	}
 
 	
@@ -141,30 +172,16 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	}
 
 	
-	public function setId($v)
+	public function setIdInventario($v)
 	{
 
 						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
-		if ($this->id !== $v) {
-			$this->id = $v;
-			$this->modifiedColumns[] = AlquilerPeer::ID;
-		}
-
-	} 
-	
-	public function setIdEquipamiento($v)
-	{
-
-						if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->id_equipamiento !== $v) {
-			$this->id_equipamiento = $v;
-			$this->modifiedColumns[] = AlquilerPeer::ID_EQUIPAMIENTO;
+		if ($this->id_inventario !== $v) {
+			$this->id_inventario = $v;
+			$this->modifiedColumns[] = AlquilerPeer::ID_INVENTARIO;
 		}
 
 		if ($this->aInventario !== null && $this->aInventario->getId() !== $v) {
@@ -173,38 +190,75 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 
 	} 
 	
-	public function setIdFechaEtapaCarrera($v)
+	public function setFechaInicio($v)
 	{
 
-						if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [fecha_inicio] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
 		}
-
-		if ($this->id_fecha_etapa_carrera !== $v) {
-			$this->id_fecha_etapa_carrera = $v;
-			$this->modifiedColumns[] = AlquilerPeer::ID_FECHA_ETAPA_CARRERA;
-		}
-
-		if ($this->aFechaEtapaCarrera !== null && $this->aFechaEtapaCarrera->getId() !== $v) {
-			$this->aFechaEtapaCarrera = null;
+		if ($this->fecha_inicio !== $ts) {
+			$this->fecha_inicio = $ts;
+			$this->modifiedColumns[] = AlquilerPeer::FECHA_INICIO;
 		}
 
 	} 
 	
-	public function setIdUsuario($v)
+	public function setIdEtapa($v)
 	{
 
 						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
-		if ($this->id_usuario !== $v) {
-			$this->id_usuario = $v;
-			$this->modifiedColumns[] = AlquilerPeer::ID_USUARIO;
+		if ($this->id_etapa !== $v) {
+			$this->id_etapa = $v;
+			$this->modifiedColumns[] = AlquilerPeer::ID_ETAPA;
 		}
 
-		if ($this->aUsuario !== null && $this->aUsuario->getId() !== $v) {
-			$this->aUsuario = null;
+	} 
+	
+	public function setIdCarrera($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->id_carrera !== $v) {
+			$this->id_carrera = $v;
+			$this->modifiedColumns[] = AlquilerPeer::ID_CARRERA;
+		}
+
+	} 
+	
+	public function setIdCuentaCorriente($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->id_cuenta_corriente !== $v) {
+			$this->id_cuenta_corriente = $v;
+			$this->modifiedColumns[] = AlquilerPeer::ID_CUENTA_CORRIENTE;
+		}
+
+	} 
+	
+	public function setIdCorredor($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->id_corredor !== $v) {
+			$this->id_corredor = $v;
+			$this->modifiedColumns[] = AlquilerPeer::ID_CORREDOR;
 		}
 
 	} 
@@ -275,27 +329,31 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	{
 		try {
 
-			$this->id = $rs->getInt($startcol + 0);
+			$this->id_inventario = $rs->getInt($startcol + 0);
 
-			$this->id_equipamiento = $rs->getInt($startcol + 1);
+			$this->fecha_inicio = $rs->getDate($startcol + 1, null);
 
-			$this->id_fecha_etapa_carrera = $rs->getInt($startcol + 2);
+			$this->id_etapa = $rs->getInt($startcol + 2);
 
-			$this->id_usuario = $rs->getInt($startcol + 3);
+			$this->id_carrera = $rs->getInt($startcol + 3);
 
-			$this->created_at = $rs->getTimestamp($startcol + 4, null);
+			$this->id_cuenta_corriente = $rs->getInt($startcol + 4);
 
-			$this->created_by = $rs->getInt($startcol + 5);
+			$this->id_corredor = $rs->getInt($startcol + 5);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 6, null);
+			$this->created_at = $rs->getTimestamp($startcol + 6, null);
 
-			$this->updated_by = $rs->getInt($startcol + 7);
+			$this->created_by = $rs->getInt($startcol + 7);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 8, null);
+
+			$this->updated_by = $rs->getInt($startcol + 9);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 8; 
+						return $startcol + 10; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Alquiler object", $e);
 		}
@@ -370,26 +428,11 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 				$this->setInventario($this->aInventario);
 			}
 
-			if ($this->aFechaEtapaCarrera !== null) {
-				if ($this->aFechaEtapaCarrera->isModified()) {
-					$affectedRows += $this->aFechaEtapaCarrera->save($con);
-				}
-				$this->setFechaEtapaCarrera($this->aFechaEtapaCarrera);
-			}
-
-			if ($this->aUsuario !== null) {
-				if ($this->aUsuario->isModified()) {
-					$affectedRows += $this->aUsuario->save($con);
-				}
-				$this->setUsuario($this->aUsuario);
-			}
-
 
 						if ($this->isModified()) {
 				if ($this->isNew()) {
 					$pk = AlquilerPeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
-					$this->setId($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += AlquilerPeer::doUpdate($this, $con);
@@ -439,18 +482,6 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 				}
 			}
 
-			if ($this->aFechaEtapaCarrera !== null) {
-				if (!$this->aFechaEtapaCarrera->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aFechaEtapaCarrera->getValidationFailures());
-				}
-			}
-
-			if ($this->aUsuario !== null) {
-				if (!$this->aUsuario->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aUsuario->getValidationFailures());
-				}
-			}
-
 
 			if (($retval = AlquilerPeer::doValidate($this, $columns)) !== true) {
 				$failureMap = array_merge($failureMap, $retval);
@@ -476,27 +507,33 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	{
 		switch($pos) {
 			case 0:
-				return $this->getId();
+				return $this->getIdInventario();
 				break;
 			case 1:
-				return $this->getIdEquipamiento();
+				return $this->getFechaInicio();
 				break;
 			case 2:
-				return $this->getIdFechaEtapaCarrera();
+				return $this->getIdEtapa();
 				break;
 			case 3:
-				return $this->getIdUsuario();
+				return $this->getIdCarrera();
 				break;
 			case 4:
-				return $this->getCreatedAt();
+				return $this->getIdCuentaCorriente();
 				break;
 			case 5:
-				return $this->getCreatedBy();
+				return $this->getIdCorredor();
 				break;
 			case 6:
-				return $this->getUpdatedAt();
+				return $this->getCreatedAt();
 				break;
 			case 7:
+				return $this->getCreatedBy();
+				break;
+			case 8:
+				return $this->getUpdatedAt();
+				break;
+			case 9:
 				return $this->getUpdatedBy();
 				break;
 			default:
@@ -509,14 +546,16 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	{
 		$keys = AlquilerPeer::getFieldNames($keyType);
 		$result = array(
-			$keys[0] => $this->getId(),
-			$keys[1] => $this->getIdEquipamiento(),
-			$keys[2] => $this->getIdFechaEtapaCarrera(),
-			$keys[3] => $this->getIdUsuario(),
-			$keys[4] => $this->getCreatedAt(),
-			$keys[5] => $this->getCreatedBy(),
-			$keys[6] => $this->getUpdatedAt(),
-			$keys[7] => $this->getUpdatedBy(),
+			$keys[0] => $this->getIdInventario(),
+			$keys[1] => $this->getFechaInicio(),
+			$keys[2] => $this->getIdEtapa(),
+			$keys[3] => $this->getIdCarrera(),
+			$keys[4] => $this->getIdCuentaCorriente(),
+			$keys[5] => $this->getIdCorredor(),
+			$keys[6] => $this->getCreatedAt(),
+			$keys[7] => $this->getCreatedBy(),
+			$keys[8] => $this->getUpdatedAt(),
+			$keys[9] => $this->getUpdatedBy(),
 		);
 		return $result;
 	}
@@ -533,27 +572,33 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	{
 		switch($pos) {
 			case 0:
-				$this->setId($value);
+				$this->setIdInventario($value);
 				break;
 			case 1:
-				$this->setIdEquipamiento($value);
+				$this->setFechaInicio($value);
 				break;
 			case 2:
-				$this->setIdFechaEtapaCarrera($value);
+				$this->setIdEtapa($value);
 				break;
 			case 3:
-				$this->setIdUsuario($value);
+				$this->setIdCarrera($value);
 				break;
 			case 4:
-				$this->setCreatedAt($value);
+				$this->setIdCuentaCorriente($value);
 				break;
 			case 5:
-				$this->setCreatedBy($value);
+				$this->setIdCorredor($value);
 				break;
 			case 6:
-				$this->setUpdatedAt($value);
+				$this->setCreatedAt($value);
 				break;
 			case 7:
+				$this->setCreatedBy($value);
+				break;
+			case 8:
+				$this->setUpdatedAt($value);
+				break;
+			case 9:
 				$this->setUpdatedBy($value);
 				break;
 		} 	}
@@ -563,14 +608,16 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	{
 		$keys = AlquilerPeer::getFieldNames($keyType);
 
-		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setIdEquipamiento($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setIdFechaEtapaCarrera($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setIdUsuario($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setCreatedAt($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setCreatedBy($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setUpdatedAt($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setUpdatedBy($arr[$keys[7]]);
+		if (array_key_exists($keys[0], $arr)) $this->setIdInventario($arr[$keys[0]]);
+		if (array_key_exists($keys[1], $arr)) $this->setFechaInicio($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setIdEtapa($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setIdCarrera($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setIdCuentaCorriente($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setIdCorredor($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setCreatedAt($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setCreatedBy($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setUpdatedAt($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setUpdatedBy($arr[$keys[9]]);
 	}
 
 	
@@ -578,10 +625,12 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	{
 		$criteria = new Criteria(AlquilerPeer::DATABASE_NAME);
 
-		if ($this->isColumnModified(AlquilerPeer::ID)) $criteria->add(AlquilerPeer::ID, $this->id);
-		if ($this->isColumnModified(AlquilerPeer::ID_EQUIPAMIENTO)) $criteria->add(AlquilerPeer::ID_EQUIPAMIENTO, $this->id_equipamiento);
-		if ($this->isColumnModified(AlquilerPeer::ID_FECHA_ETAPA_CARRERA)) $criteria->add(AlquilerPeer::ID_FECHA_ETAPA_CARRERA, $this->id_fecha_etapa_carrera);
-		if ($this->isColumnModified(AlquilerPeer::ID_USUARIO)) $criteria->add(AlquilerPeer::ID_USUARIO, $this->id_usuario);
+		if ($this->isColumnModified(AlquilerPeer::ID_INVENTARIO)) $criteria->add(AlquilerPeer::ID_INVENTARIO, $this->id_inventario);
+		if ($this->isColumnModified(AlquilerPeer::FECHA_INICIO)) $criteria->add(AlquilerPeer::FECHA_INICIO, $this->fecha_inicio);
+		if ($this->isColumnModified(AlquilerPeer::ID_ETAPA)) $criteria->add(AlquilerPeer::ID_ETAPA, $this->id_etapa);
+		if ($this->isColumnModified(AlquilerPeer::ID_CARRERA)) $criteria->add(AlquilerPeer::ID_CARRERA, $this->id_carrera);
+		if ($this->isColumnModified(AlquilerPeer::ID_CUENTA_CORRIENTE)) $criteria->add(AlquilerPeer::ID_CUENTA_CORRIENTE, $this->id_cuenta_corriente);
+		if ($this->isColumnModified(AlquilerPeer::ID_CORREDOR)) $criteria->add(AlquilerPeer::ID_CORREDOR, $this->id_corredor);
 		if ($this->isColumnModified(AlquilerPeer::CREATED_AT)) $criteria->add(AlquilerPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(AlquilerPeer::CREATED_BY)) $criteria->add(AlquilerPeer::CREATED_BY, $this->created_by);
 		if ($this->isColumnModified(AlquilerPeer::UPDATED_AT)) $criteria->add(AlquilerPeer::UPDATED_AT, $this->updated_at);
@@ -595,7 +644,12 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	{
 		$criteria = new Criteria(AlquilerPeer::DATABASE_NAME);
 
-		$criteria->add(AlquilerPeer::ID, $this->id);
+		$criteria->add(AlquilerPeer::ID_INVENTARIO, $this->id_inventario);
+		$criteria->add(AlquilerPeer::FECHA_INICIO, $this->fecha_inicio);
+		$criteria->add(AlquilerPeer::ID_ETAPA, $this->id_etapa);
+		$criteria->add(AlquilerPeer::ID_CARRERA, $this->id_carrera);
+		$criteria->add(AlquilerPeer::ID_CUENTA_CORRIENTE, $this->id_cuenta_corriente);
+		$criteria->add(AlquilerPeer::ID_CORREDOR, $this->id_corredor);
 
 		return $criteria;
 	}
@@ -603,24 +657,44 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	
 	public function getPrimaryKey()
 	{
-		return $this->getId();
+		$pks = array();
+
+		$pks[0] = $this->getIdInventario();
+
+		$pks[1] = $this->getFechaInicio();
+
+		$pks[2] = $this->getIdEtapa();
+
+		$pks[3] = $this->getIdCarrera();
+
+		$pks[4] = $this->getIdCuentaCorriente();
+
+		$pks[5] = $this->getIdCorredor();
+
+		return $pks;
 	}
 
 	
-	public function setPrimaryKey($key)
+	public function setPrimaryKey($keys)
 	{
-		$this->setId($key);
+
+		$this->setIdInventario($keys[0]);
+
+		$this->setFechaInicio($keys[1]);
+
+		$this->setIdEtapa($keys[2]);
+
+		$this->setIdCarrera($keys[3]);
+
+		$this->setIdCuentaCorriente($keys[4]);
+
+		$this->setIdCorredor($keys[5]);
+
 	}
 
 	
 	public function copyInto($copyObj, $deepCopy = false)
 	{
-
-		$copyObj->setIdEquipamiento($this->id_equipamiento);
-
-		$copyObj->setIdFechaEtapaCarrera($this->id_fecha_etapa_carrera);
-
-		$copyObj->setIdUsuario($this->id_usuario);
 
 		$copyObj->setCreatedAt($this->created_at);
 
@@ -633,7 +707,12 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 
 		$copyObj->setNew(true);
 
-		$copyObj->setId(NULL); 
+		$copyObj->setIdInventario(NULL); 
+		$copyObj->setFechaInicio(NULL); 
+		$copyObj->setIdEtapa(NULL); 
+		$copyObj->setIdCarrera(NULL); 
+		$copyObj->setIdCuentaCorriente(NULL); 
+		$copyObj->setIdCorredor(NULL); 
 	}
 
 	
@@ -660,9 +739,9 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 
 
 		if ($v === null) {
-			$this->setIdEquipamiento(NULL);
+			$this->setIdInventario(NULL);
 		} else {
-			$this->setIdEquipamiento($v->getId());
+			$this->setIdInventario($v->getId());
 		}
 
 
@@ -673,66 +752,12 @@ abstract class BaseAlquiler extends BaseObject  implements Persistent {
 	
 	public function getInventario($con = null)
 	{
-		if ($this->aInventario === null && ($this->id_equipamiento !== null)) {
-						$this->aInventario = InventarioPeer::retrieveByPK($this->id_equipamiento, $con);
+		if ($this->aInventario === null && ($this->id_inventario !== null)) {
+						$this->aInventario = InventarioPeer::retrieveByPK($this->id_inventario, $con);
 
 			
 		}
 		return $this->aInventario;
-	}
-
-	
-	public function setFechaEtapaCarrera($v)
-	{
-
-
-		if ($v === null) {
-			$this->setIdFechaEtapaCarrera(NULL);
-		} else {
-			$this->setIdFechaEtapaCarrera($v->getId());
-		}
-
-
-		$this->aFechaEtapaCarrera = $v;
-	}
-
-
-	
-	public function getFechaEtapaCarrera($con = null)
-	{
-		if ($this->aFechaEtapaCarrera === null && ($this->id_fecha_etapa_carrera !== null)) {
-						$this->aFechaEtapaCarrera = FechaEtapaCarreraPeer::retrieveByPK($this->id_fecha_etapa_carrera, $con);
-
-			
-		}
-		return $this->aFechaEtapaCarrera;
-	}
-
-	
-	public function setUsuario($v)
-	{
-
-
-		if ($v === null) {
-			$this->setIdUsuario(NULL);
-		} else {
-			$this->setIdUsuario($v->getId());
-		}
-
-
-		$this->aUsuario = $v;
-	}
-
-
-	
-	public function getUsuario($con = null)
-	{
-		if ($this->aUsuario === null && ($this->id_usuario !== null)) {
-						$this->aUsuario = UsuarioPeer::retrieveByPK($this->id_usuario, $con);
-
-			
-		}
-		return $this->aUsuario;
 	}
 
 } 

@@ -30,11 +30,11 @@ class CuentaCorrienteMapBuilder {
 		$tMap = $this->dbMap->addTable('cuenta_corriente');
 		$tMap->setPhpName('CuentaCorriente');
 
-		$tMap->setUseIdGenerator(true);
+		$tMap->setUseIdGenerator(false);
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addForeignKey('ID_CORREDOR', 'IdCorredor', 'int', CreoleTypes::INTEGER, 'corredor', 'ID', true, null);
+		$tMap->addForeignPrimaryKey('ID_CORREDOR', 'IdCorredor', 'int' , CreoleTypes::INTEGER, 'corredor', 'ID', true, null);
 
 		$tMap->addForeignKey('ID_FORMA_PAGO', 'IdFormaPago', 'int', CreoleTypes::INTEGER, 'forma_pago', 'ID', true, null);
 
