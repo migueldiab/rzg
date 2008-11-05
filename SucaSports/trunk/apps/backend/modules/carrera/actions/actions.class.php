@@ -23,7 +23,5 @@ class CarreraActions extends autoCarreraActions
     
 //        print_r($param);
 //        print_r($this->getRequestParameter('id'));
-        exit;
-        return $this->redirect('etapacarrera/edit/$param');
     }    
 }

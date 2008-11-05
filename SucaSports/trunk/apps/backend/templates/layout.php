@@ -8,28 +8,20 @@
   <?php include_title() ?>
 
 </head>
-<body class="soria">
-  <!-- basic preloader: -->
-  <div id="loader"><div id="loaderInner">Cargando Suca Sports... <br>por favor, espere...</div></div>
+<body>
+<table>
+  <tr>
+    <td width="200px">
+    <?php include_component_slot('sidebar') ?>
+    </td>
+    <td valign="top">
+    <?php echo $sf_content ?>    
+    
+    </td>
+    
+    </tr>
+    
 
-  <!-- contentMenu popup -->
-  <div dojoType="dijit.Menu" id="submenu1" contextMenuForWindow="true" style="display: none;">
-    <?php include_component_slot('context') ?>
-  </div>
-  <!-- end contextMenu -->
-
-  <div id="main" dojoType="dijit.layout.BorderContainer" liveSplitters="false" design="sidebar">
-    <h1 id="header" dojoType="dijit.layout.ContentPane" region="top">Suca Sports</h1>
-    <div dojoType="dijit.layout.AccordionContainer" minSize="20" style="width: 200px;" id="leftAccordion" region="leading" splitter="true">
-        <?php include_component_slot('sidebar') ?>
-    </div>
-    <div dojoType="dijit.layout.TabContainer" region="center" id="topTabs">
-      <div id="basicFormTab" dojoType="dijit.layout.ContentPane" title="Ventana Principal" style="padding:10px;display:none;">
-        <?php echo $sf_content ?>
-      </div>
-    </div>
-  </div>
-  <div id="dialog1" dojoType="dijit.Dialog" title="Cuadro de Dialogo" style="display:none;"></div>
-
+</table>
 </body>
 </html>
