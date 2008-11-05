@@ -9,55 +9,24 @@
 
 	<link rel="shortcut icon" href="/favicon.ico" />
 </head>
-<body class="soria">
-
-  <style type="text/css">
-    .box {
-        position: relative;
-        background-color: #99CC33;
-        border: 2px solid green;
-        padding: 8px;
-        margin: 4px;
-    }
-    .title {
-        position: relative;
-        background-color: #99CC33;
-        border: 0px;
-        padding: 0px;
-        margin: 0px;
-        left: -4px;
-    }
-    .ads {
-        position: relative;
-        background-color: white;
-        border: 2px solid green;
-        padding: 8px;
-        margin: 4px;
-        width: 930px;
-    }
-    .content {
-        position: relative;
-        background-color: white;
-        border: 2px solid green;
-        padding: 8px;
-        margin: 4px;
-        min-height: 350px;
-        width: 930px;
-    }
-  </style>
-
-  <div dojoType="dijit.layout.ContentPane" class="box">
-    <center>
-      <div dojoType="dijit.layout.ContentPane" class="title">
-        <?php echo image_tag('logosuca.png') ?>
-      </div>
-      <div dojoType="dijit.layout.ContentPane" class="ads"  hasShadow="true">
+<body>
+<table>
+<tr>
+<td>
+<?php echo image_tag('logosuca.png') ?>
+</td>
+</tr>
+<tr>
+<td>
         <?php include_partial('home/gads'); ?>
-      </div>
-      <div dojoType="dijit.layout.ContentPane" class="content">
+</td>
+</tr>        
+<tr>
+<td>
         <?php echo $sf_content ?>
-      </div>
-    </center>
-  </div>
+</td>
+</tr>
+</table>
+
 </body>
 </html>
