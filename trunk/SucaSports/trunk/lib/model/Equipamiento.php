@@ -9,4 +9,7 @@
  */ 
 class Equipamiento extends BaseEquipamiento
 {
+     public function __toString() {
+         return $this->getIdTipoEquipamiento();
+    }
 }
