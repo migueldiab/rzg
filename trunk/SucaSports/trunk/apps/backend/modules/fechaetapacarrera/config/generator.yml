@@ -3,5 +3,11 @@ generator:
   param:
     model_class:      FechaEtapaCarrera
     theme:            default
-    list:
-      filters:  [id_carrera,id_etapa_carrera]
+    edit :
+      title: Agregar Fecha de carrera
+      actions:
+        _list:
+        _save:
+      display: [ _fecha_inicio_id, max_corredores, fecha_fin, costo ]
+      fields:
+        fecha_inicio_id: { name: fecha_inicio }
