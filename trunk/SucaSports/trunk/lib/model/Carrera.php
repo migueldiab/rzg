@@ -8,24 +8,7 @@
  * @package lib.model
  */ 
 class Carrera extends BaseCarrera
-{
-    public function makelist($arrayname,$tab="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$indent=0) {
-        $curtab ="";
-         $returnvalues = "";
-         while(list($key, $value) = each($arrayname)) {
-          for($i=0; $i<$indent; $i++) {
-           $curtab .= $tab;
-           }
-          if (is_array($value)) {
-           $returnvalues .= "$curtab$key : Array: <br />$curtab{<br />\n";
-           $returnvalues .= makelist($value,$tab,$indent+1)."$curtab}<br />\n";
-           }
-          else $returnvalues .= "$curtab$key => $value<br />\n";
-          $curtab = NULL;
-          }
-         return $returnvalues;
-    }
-    
+{    
     public function __toString() {
       return $this->getNombre();
     }
@@ -97,11 +80,14 @@ class Carrera extends BaseCarrera
 			}
 		}
 		$this->lastEtapaCarreraCriteria = $criteria;
-        //this->makelist($this->collEtapaCarreras);
-        //foreach ($this->collEtapaCarreras) as $etapa{
-        //    print_r($etapa);
-        //}
-        print_r($this->collEtapaCarreras);
+        foreach ($this->collEtapaCarreras as $etapa){
+            echo $etapa->GetNumeroEtapa();
+            echo '&nbsp&nbsp&nbsp&';
+            echo $etapa->GetNombre();
+            echo '<br />';
+            //print_r($etapa);
+        }
+        //print_r($this->collEtapaCarreras);
 		return $this->collEtapaCarreras;
         
 	}
