@@ -16,21 +16,13 @@ class CarreraActions extends autoCarreraActions
     $c = new Criteria();
     $c->add(EtapaCarreraPeer::ID_CARRERA, $this->getRequestParameter('id'));
     $etapa = EtapaCarreraPeer::doSelectOne($c);
-    echo "<br>".$etapa->getNumeroEtapa();
-    echo "<br> ".$etapa->getUpdatedBy();
-    echo "<br> ".$etapa->getNombre();
+    $etapa->setIdCarrera($this->getRequestParameter('id'));
+    
+    //echo "<br>".$etapa->getNumeroEtapa();
+    //echo "<br> ".$etapa->getUpdatedBy();
+    //echo "<br> ".$etapa->getNombre();
+    $this->redirect('etapacarrera/edit/id_etapa'.$etapa->getIdEtapa().'/id_carrera'.$this->getRequestParameter('id'));
 //        print_r($this->getRequestParameter('id'));
     }
   
-  public function executeAlist()
-  {
-    // pager
-    echo " estoe es una prueba";
-    $this->pager = new sfPropelPager('Carrera', 20);
-    $c = new Criteria();
-    
-    $this->pager->setCriteria($c);
-    $this->pager->setPage($this->getRequestParameter('page', $this->getUser()->getAttribute('page', 1, 'sf_admin/carrera')));
-    $this->pager->init();
-  }
 }

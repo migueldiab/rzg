@@ -1,0 +1,1 @@
+<?php echo include_partial('global/etcar', array('carrera' => $carrera )) ?>
