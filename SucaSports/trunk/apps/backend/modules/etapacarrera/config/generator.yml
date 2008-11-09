@@ -3,3 +3,7 @@ generator:
   param:
     model_class:      EtapaCarrera
     theme:            default
+    edit:
+      display: [carrera,nombre,numero_etapa]
+    list:
+      filters: [id_carrera]
