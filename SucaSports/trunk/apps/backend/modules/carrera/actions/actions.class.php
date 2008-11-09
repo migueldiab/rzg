@@ -21,7 +21,7 @@ class CarreraActions extends autoCarreraActions
     //echo "<br>".$etapa->getNumeroEtapa();
     //echo "<br> ".$etapa->getUpdatedBy();
     //echo "<br> ".$etapa->getNombre();
-    $this->redirect('etapacarrera/edit/id_etapa'.$etapa->getIdEtapa().'/id_carrera'.$this->getRequestParameter('id'));
+    $this->redirect('etapacarrera/edit?id_etapa='.$etapa->getIdEtapa().'&id_carrera='.$this->getRequestParameter('id'));
 //        print_r($this->getRequestParameter('id'));
     }
   
