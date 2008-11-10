@@ -80,13 +80,19 @@ class Carrera extends BaseCarrera
 			}
 		}
 		$this->lastEtapaCarreraCriteria = $criteria;
+        echo "<table border=\"0.5\" align=\"center\">";
+        echo "<tr><th>Etapa Numero</th>";
+        echo "<th>Nombre</th></tr>";
+
         foreach ($this->collEtapaCarreras as $etapa){
+            echo "<tr><td>";
             echo $etapa->GetNumeroEtapa();
-            echo '&nbsp&nbsp&nbsp&';
+            echo "</td><td>";
             echo $etapa->GetNombre();
-            echo '<br />';
+            echo "</td></tr>";
             //print_r($etapa);
         }
+        echo "</table>";
         //print_r($this->collEtapaCarreras);
 		return $this->collEtapaCarreras;
         
