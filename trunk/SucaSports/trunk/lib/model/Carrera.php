@@ -80,9 +80,10 @@ class Carrera extends BaseCarrera
 			}
 		}
 		$this->lastEtapaCarreraCriteria = $criteria;
-        echo "<table border=\"0.5\" align=\"center\">";
+        echo "<table class=\"sf_admin_list\">";
         echo "<tr><th>Etapa Numero</th>";
         echo "<th>Nombre</th></tr>";
+        $netapas = 0;
 
         foreach ($this->collEtapaCarreras as $etapa){
             echo "<tr><td>";
@@ -90,11 +91,11 @@ class Carrera extends BaseCarrera
             echo "</td><td>";
             echo $etapa->GetNombre();
             echo "</td></tr>";
-            //print_r($etapa);
+            $netapas = $netapas+1;
         }
         echo "</table>";
         //print_r($this->collEtapaCarreras);
-		return $this->collEtapaCarreras;
+	return $netapas;
         
 	}
 }
