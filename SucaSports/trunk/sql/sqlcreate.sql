@@ -3,7 +3,6 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
 CREATE SCHEMA IF NOT EXISTS `suca_sports` ;
-SHOW WARNINGS;
 USE `suca_sports`;
 
 -- -----------------------------------------------------
@@ -11,7 +10,6 @@ USE `suca_sports`;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`estado` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`estado` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL DEFAULT NULL ,
@@ -22,14 +20,12 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`tipo_equipamiento`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`tipo_equipamiento` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`tipo_equipamiento` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `tipo` VARCHAR(45) NULL DEFAULT NULL ,
@@ -40,14 +36,12 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`equipamiento`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`equipamiento` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`equipamiento` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `marca` VARCHAR(45) NULL DEFAULT NULL ,
@@ -65,17 +59,14 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`equipamiento` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_equipamiento_tipo_equipamiento` ON `suca_sports`.`equipamiento` (`id_tipo_equipamiento` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`inventario`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`inventario` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`inventario` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL DEFAULT NULL ,
@@ -98,20 +89,16 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_inventario_tipo_equipamiento` ON `suca_sports`.`inventario` (`id_tipo_equipamiento` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_inventario_estado` ON `suca_sports`.`inventario` (`id_estado` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`chip`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`chip` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`chip` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `codigo_chip` VARCHAR(45) NULL DEFAULT NULL ,
@@ -129,17 +116,14 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`chip` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_chip_estado` ON `suca_sports`.`chip` (`id_estado` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`pais`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`pais` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`pais` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL DEFAULT NULL ,
@@ -150,14 +134,12 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`localidad`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`localidad` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`localidad` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `id_pais` INT(11) NULL DEFAULT NULL ,
@@ -174,17 +156,14 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_localidad_id_pais` ON `suca_sports`.`localidad` (`id_pais` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`sociedad_medica`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`sociedad_medica` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`sociedad_medica` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL DEFAULT NULL ,
@@ -195,14 +174,12 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`tipo_documento`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`tipo_documento` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`tipo_documento` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL DEFAULT NULL ,
@@ -211,14 +188,12 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`corredor`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`corredor` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`corredor` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `documento` VARCHAR(45) NULL DEFAULT NULL ,
@@ -271,29 +246,22 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`corredor` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_corredor_id_sociedad_medida` ON `suca_sports`.`corredor` (`id_sociedad_medica` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_corredor_id_pais` ON `suca_sports`.`corredor` (`id_pais` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_corredor_id_localidad` ON `suca_sports`.`corredor` (`id_localidad` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_corredor_chips` ON `suca_sports`.`corredor` (`id_chips` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_corredor_tipo_documento` ON `suca_sports`.`corredor` (`id_tipo_documento` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`grupo`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`grupo` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`grupo` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL DEFAULT NULL ,
@@ -305,23 +273,21 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`grupo` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`usuario`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`usuario` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`usuario` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL DEFAULT NULL ,
+  `password` VARCHAR(45) NULL ,
   `id_grupo` INT(11) NULL DEFAULT NULL ,
   `id_corredor` INT(11) NULL DEFAULT NULL ,
   `created_at` TIMESTAMP NULL DEFAULT NULL ,
   `created_by` INT(11) NULL DEFAULT NULL ,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ,
-  `updated_by` INT(11) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_usuarios_corredor`
     FOREIGN KEY (`id_corredor` )
@@ -336,20 +302,16 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`usuario` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_usuarios_grupos` ON `suca_sports`.`usuario` (`id_grupo` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_usuarios_corredor` ON `suca_sports`.`usuario` (`id_corredor` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`carrera`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`carrera` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`carrera` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL DEFAULT NULL ,
@@ -364,19 +326,18 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 36
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`etapa_carrera`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`etapa_carrera` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`etapa_carrera` (
   `id_etapa` INT(11) NOT NULL AUTO_INCREMENT ,
   `id_carrera` INT(11) NOT NULL ,
   `nombre` VARCHAR(45) NULL DEFAULT NULL ,
   `numero_etapa` INT(11) NULL DEFAULT NULL ,
+  `estado` CHAR(1) NULL ,
   `created_at` TIMESTAMP NULL DEFAULT NULL ,
   `created_by` INT(11) NULL DEFAULT NULL ,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ,
@@ -391,17 +352,14 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_etapa_carrera_etapa` ON `suca_sports`.`etapa_carrera` (`id_carrera` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`fecha_etapa_carrera`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`fecha_etapa_carrera` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`fecha_etapa_carrera` (
   `fecha_inicio` DATE NOT NULL ,
   `id_etapa` INT(11) NOT NULL ,
@@ -423,17 +381,14 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_fecha_etapa_carrera_etapa_carrera` ON `suca_sports`.`fecha_etapa_carrera` (`id_etapa` ASC, `id_carrera` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`forma_pago`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`forma_pago` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`forma_pago` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL DEFAULT NULL ,
@@ -445,14 +400,12 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`forma_pago` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`cuenta_corriente`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`cuenta_corriente` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`cuenta_corriente` (
   `id` INT(11) NOT NULL ,
   `id_corredor` INT(11) NOT NULL ,
@@ -481,23 +434,18 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1
 COMMENT = 'Transacciones Corredor';
 
-SHOW WARNINGS;
 CREATE INDEX `fk_cuenta_corriente_id_forma_pago` ON `suca_sports`.`cuenta_corriente` (`id_forma_pago` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `ix_cuenta_corriente_fecha_de_pago_desc` ON `suca_sports`.`cuenta_corriente` (`fecha_de_pago` DESC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_cuenta_corriente_corredor` ON `suca_sports`.`cuenta_corriente` (`id_corredor` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`alquiler`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`alquiler` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`alquiler` (
   `id_inventario` INT(11) NOT NULL ,
   `fecha_inicio` DATE NOT NULL ,
@@ -528,23 +476,18 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`alquiler` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_alquiler_inventario` ON `suca_sports`.`alquiler` (`id_inventario` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_alquiler_fecha_etapa_carrera` ON `suca_sports`.`alquiler` (`fecha_inicio` ASC, `id_etapa` ASC, `id_carrera` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_alquiler_cuenta_corriente` ON `suca_sports`.`alquiler` (`id_cuenta_corriente` ASC, `id_corredor` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`asociacion`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`asociacion` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`asociacion` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL DEFAULT NULL ,
@@ -559,14 +502,12 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`asociacion` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`asociacion_corredor`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`asociacion_corredor` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`asociacion_corredor` (
   `id_corredor` INT(11) NOT NULL ,
   `id_asociacion` INT(11) NOT NULL ,
@@ -586,20 +527,16 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`asociacion_corredor` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_asociacion_has_corredor_asociacion` ON `suca_sports`.`asociacion_corredor` (`id_asociacion` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_asociacion_has_corredor_corredor` ON `suca_sports`.`asociacion_corredor` (`id_corredor` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`categoria`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`categoria` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`categoria` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL DEFAULT NULL ,
@@ -611,14 +548,12 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`categoria_carrera`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`categoria_carrera` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`categoria_carrera` (
   `id_categoria` INT(11) NOT NULL DEFAULT '0' ,
   `id_carrera` INT(11) NOT NULL DEFAULT '0' ,
@@ -638,20 +573,16 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`categoria_carrera` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_categoria_carrera_id_categoria` ON `suca_sports`.`categoria_carrera` (`id_categoria` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_categoria_carrera_carrera` ON `suca_sports`.`categoria_carrera` (`id_carrera` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`corredor_equipamiento`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`corredor_equipamiento` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`corredor_equipamiento` (
   `id_corredor` INT(11) NOT NULL ,
   `id_equipamiento` INT(11) NOT NULL ,
@@ -671,20 +602,16 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`corredor_equipamiento` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_corredor_has_equipamiento_corredor` ON `suca_sports`.`corredor_equipamiento` (`id_corredor` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_corredor_has_equipamiento_equipamiento` ON `suca_sports`.`corredor_equipamiento` (`id_equipamiento` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`equipamiento_carrera`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`equipamiento_carrera` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`equipamiento_carrera` (
   `id_tipo_equipamiento` INT(11) NOT NULL ,
   `fecha_inicio` DATE NOT NULL ,
@@ -709,20 +636,16 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1
 COMMENT = 'Tipo de Equipamiento para una Fecha de Etapa de Carrera';
 
-SHOW WARNINGS;
 CREATE INDEX `fk_equipamiento_carrera_id_carrera` ON `suca_sports`.`equipamiento_carrera` (`fecha_inicio` ASC, `id_etapa` ASC, `id_carrera` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_equipamiento_carrera_tipo_equipamiento` ON `suca_sports`.`equipamiento_carrera` (`id_tipo_equipamiento` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`inscripcion`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`inscripcion` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`inscripcion` (
   `id_corredor` INT(11) NOT NULL ,
   `fecha_inicio` DATE NOT NULL ,
@@ -748,20 +671,16 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`inscripcion` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_inscripcion_id_corredor` ON `suca_sports`.`inscripcion` (`id_corredor` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_inscripcion_fechaetapacarrera` ON `suca_sports`.`inscripcion` (`fecha_inicio` ASC, `id_etapa` ASC, `id_carrera` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`permiso`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`permiso` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`permiso` (
   `permiso` VARCHAR(15) NOT NULL ,
   `grupos_id` INT(11) NOT NULL ,
@@ -776,17 +695,14 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`permiso` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_permiso_grupos` ON `suca_sports`.`permiso` (`grupos_id` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`post`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`post` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`post` (
   `id` INT(11) NOT NULL ,
   `texto` TEXT NULL DEFAULT NULL ,
@@ -808,20 +724,16 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`post` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_post_usuarios` ON `suca_sports`.`post` (`created_by` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_post_usuarios1` ON `suca_sports`.`post` (`updated_by` ASC) ;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`resultado`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `suca_sports`.`resultado` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`resultado` (
   `id_corredor` INT(11) NOT NULL ,
   `fecha_inicio` DATE NOT NULL ,
@@ -844,16 +756,12 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`resultado` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-SHOW WARNINGS;
 CREATE INDEX `ix_resultado_corredor` ON `suca_sports`.`resultado` (`id_corredor` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `ix_resultado_fechaetapacarrera` ON `suca_sports`.`resultado` (`id_carrera` ASC, `id_etapa` ASC, `fecha_inicio` ASC) ;
 
-SHOW WARNINGS;
 CREATE INDEX `fk_resultado_fechaetapacarrera` ON `suca_sports`.`resultado` (`fecha_inicio` ASC, `id_etapa` ASC, `id_carrera` ASC) ;
 
-SHOW WARNINGS;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

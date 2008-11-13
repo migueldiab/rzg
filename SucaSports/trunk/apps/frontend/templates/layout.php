@@ -10,23 +10,33 @@
 	<link rel="shortcut icon" href="/favicon.ico" />
 </head>
 <body>
+<center>
 <table>
-<tr>
-<td>
-<?php echo image_tag('logosuca.png') ?>
-</td>
-</tr>
-<tr>
-<td>
-        <?php include_partial('home/gads'); ?>
-</td>
-</tr>        
-<tr>
-<td>
-        <?php echo $sf_content ?>
-</td>
-</tr>
+	<tr>
+		<td>
+		  <?php echo image_tag('logosuca.png') ?>
+		</td>
+	</tr>
+	<tr>
+	 <td>
+	   <ul>
+			<?php if ($sf_user->isAuthenticated()): ?>
+			  <li><?php echo link_to('log out', 'usuario/logout') ?></li>
+			  <li><?php echo link_to($sf_user->getAttribute('usuario', '', 'sesion'), 'corredor/perfil') ?></li>
+			<?php else: ?>
+			  <li><?php echo link_to('log in/registrate', 'usuario/login') ?></li>
+			<?php endif ?>
+	   </ul>
+	 
+	    <?php include_partial('home/gads'); ?>
+	 </td>
+	</tr>        
+	<tr>
+		<td>
+      <?php echo $sf_content ?>
+		</td>
+	</tr>
 </table>
-
+</center>
 </body>
 </html>

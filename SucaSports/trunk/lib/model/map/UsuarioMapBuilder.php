@@ -48,5 +48,7 @@ class UsuarioMapBuilder {
 
 		$tMap->addColumn('UPDATED_BY', 'UpdatedBy', 'int', CreoleTypes::INTEGER, false, null);
 
+		$tMap->addColumn('PASSWORD', 'Password', 'string', CreoleTypes::VARCHAR, true, 45);
+
 	} 
 } 

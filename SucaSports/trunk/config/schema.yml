@@ -257,4 +257,5 @@ propel:
     created_by: { type: INTEGER }
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
+    password: { type: VARCHAR, size: '45', required: true }
     _indexes: { fk_usuarios_grupos: [id_grupo], fk_usuarios_corredor: [id_corredor] }
