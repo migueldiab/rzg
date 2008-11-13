@@ -39,6 +39,10 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 	
 	protected $updated_by;
 
+
+	
+	protected $password;
+
 	
 	protected $aGrupo;
 
@@ -147,6 +151,13 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 	{
 
 		return $this->updated_by;
+	}
+
+	
+	public function getPassword()
+	{
+
+		return $this->password;
 	}
 
 	
@@ -276,6 +287,20 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 
 	} 
 	
+	public function setPassword($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->password !== $v) {
+			$this->password = $v;
+			$this->modifiedColumns[] = UsuarioPeer::PASSWORD;
+		}
+
+	} 
+	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
@@ -296,11 +321,13 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 
 			$this->updated_by = $rs->getInt($startcol + 7);
 
+			$this->password = $rs->getString($startcol + 8);
+
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 8; 
+						return $startcol + 9; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Usuario object", $e);
 		}
@@ -523,6 +550,9 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 			case 7:
 				return $this->getUpdatedBy();
 				break;
+			case 8:
+				return $this->getPassword();
+				break;
 			default:
 				return null;
 				break;
@@ -541,6 +571,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 			$keys[5] => $this->getCreatedBy(),
 			$keys[6] => $this->getUpdatedAt(),
 			$keys[7] => $this->getUpdatedBy(),
+			$keys[8] => $this->getPassword(),
 		);
 		return $result;
 	}
@@ -580,6 +611,9 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 			case 7:
 				$this->setUpdatedBy($value);
 				break;
+			case 8:
+				$this->setPassword($value);
+				break;
 		} 	}
 
 	
@@ -595,6 +629,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[5], $arr)) $this->setCreatedBy($arr[$keys[5]]);
 		if (array_key_exists($keys[6], $arr)) $this->setUpdatedAt($arr[$keys[6]]);
 		if (array_key_exists($keys[7], $arr)) $this->setUpdatedBy($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setPassword($arr[$keys[8]]);
 	}
 
 	
@@ -610,6 +645,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(UsuarioPeer::CREATED_BY)) $criteria->add(UsuarioPeer::CREATED_BY, $this->created_by);
 		if ($this->isColumnModified(UsuarioPeer::UPDATED_AT)) $criteria->add(UsuarioPeer::UPDATED_AT, $this->updated_at);
 		if ($this->isColumnModified(UsuarioPeer::UPDATED_BY)) $criteria->add(UsuarioPeer::UPDATED_BY, $this->updated_by);
+		if ($this->isColumnModified(UsuarioPeer::PASSWORD)) $criteria->add(UsuarioPeer::PASSWORD, $this->password);
 
 		return $criteria;
 	}
@@ -653,6 +689,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 		$copyObj->setUpdatedAt($this->updated_at);
 
 		$copyObj->setUpdatedBy($this->updated_by);
+
+		$copyObj->setPassword($this->password);
 
 
 		if ($deepCopy) {

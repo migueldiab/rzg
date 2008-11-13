@@ -12,4 +12,10 @@ class Usuario extends BaseUsuario
     public function __toString() {
         return $this->getNombre();
     }
+    
+	public function setPasswordEncryptar($password)
+	{
+	  $this->setPassword(sha1($password));
+	}
+	    
 }

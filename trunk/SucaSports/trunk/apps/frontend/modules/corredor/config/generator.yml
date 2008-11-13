@@ -5,7 +5,7 @@ generator:
     theme:            default
 
     fields:
-      documento:       		{ name: Numero de Documento}
+      documento:            { name: Numero de Documento}
       id_sociedad_medica:   { name: Cobertura Medica}
       
 #     historia_medica: { params: rich=true tinymce_options=height:150 }
