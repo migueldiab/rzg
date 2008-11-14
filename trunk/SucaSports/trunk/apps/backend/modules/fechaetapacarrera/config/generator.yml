@@ -3,8 +3,8 @@ generator:
   param:
     model_class:      FechaEtapaCarrera
     theme:            default
-    edit :
-      title: Agregar Fecha de carrera
+    edit:
+      title: Agregar Fecha para esta carrera
       actions:
         _list:
         _save:

@@ -164,5 +164,9 @@ public function executeEditar()
       $this->fecha_etapa_carrera->setUpdatedBy($fecha_etapa_carrera['updated_by']);
     }
   }
+ public function executeCrearEtapa()
+ {
+     
+ }
 
 }
