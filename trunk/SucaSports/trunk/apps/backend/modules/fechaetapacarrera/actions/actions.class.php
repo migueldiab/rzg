@@ -59,6 +59,11 @@ public function executeEditar()
       $this->fecha_etapa_carrera->setFechaInicio($fecha_etapa_carrera['id_etapa']);
     }
 
+    if (isset($fecha_etapa_carrera['id_carrera']))
+    {
+      $this->fecha_etapa_carrera->setFechaInicio($fecha_etapa_carrera['id_carrera']);
+    }
+
     if (isset($fecha_etapa_carrera['fecha_inicio']))
     {
       $this->fecha_etapa_carrera->setFechaInicio($fecha_etapa_carrera['fecha_inicio']);
