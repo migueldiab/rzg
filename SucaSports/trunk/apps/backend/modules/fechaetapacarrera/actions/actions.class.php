@@ -56,12 +56,13 @@ public function executeEditar()
 
     if (isset($fecha_etapa_carrera['id_etapa']))
     {
-      $this->fecha_etapa_carrera->setFechaInicio($fecha_etapa_carrera['id_etapa']);
+      $this->fecha_etapa_carrera->setIdEtapa($fecha_etapa_carrera['id_etapa']);
+      print_r($this->fecha_etapa_carrera->getFechaInicio());
     }
 
     if (isset($fecha_etapa_carrera['id_carrera']))
     {
-      $this->fecha_etapa_carrera->setFechaInicio($fecha_etapa_carrera['id_carrera']);
+      $this->fecha_etapa_carrera->setIdCarrera($fecha_etapa_carrera['id_carrera']);
     }
 
     if (isset($fecha_etapa_carrera['fecha_inicio']))
