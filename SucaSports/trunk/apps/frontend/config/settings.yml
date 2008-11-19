@@ -101,4 +101,4 @@ all:
 #    default_culture:        en        # Default user culture
 #
 #    # enable 1.0 compatibility
-#    compat_10:              off
+    compat_10:              true

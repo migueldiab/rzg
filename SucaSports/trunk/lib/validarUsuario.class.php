@@ -1,13 +1,13 @@
 <?php
  
-class validaorUsuario extends sfValidator
+class validarUsuario extends sfValidator
 {    
   public function initialize($context, $parameters = null)
   {
     parent::initialize($context);
  
     $this->setParameter('login_error', 'Entrada inválida');
- 
+     
     $this->getParameterHolder()->add($parameters);
  
     return true;
@@ -25,22 +25,24 @@ class validaorUsuario extends sfValidator
       $error = $this->getParameter('login_error');
       return false;
     }
- 
     $c = new Criteria();
-    $c->add(UserPeer::NOMBRE, $login);
-    $user = UserPeer::doSelectOne($c);
- 
-    if ($user)
+    $c->add(UsuarioPeer::NOMBRE, $login);
+    $usuario = UsuarioPeer::doSelectOne($c);
+    if ($usuario)
     {
-      if (sha1($password) == $user->getPassword())
+      if (sha1($password) == $usuario->getPassword())
       {
-          $this->getUser()->setAuthenticated(true);
+      	   echo "son iguales"; 
+      	  //sfContext::getInstance()
+      	  
+          $this->context->getUser()->setAuthenticated(true);
           // FIXME : Agregar credenciales
-          $this->getUser()->addCredential('temp');
-   
-          $this->getUser()->setAttribute('usuario', $usuario, 'sesion');
-           
-        return true;
+          $this->context->getUser()->addCredential('root');
+          $this->context->getUser()->setAttribute('usuario', $usuario, 'sesion');
+          return true;
+      }
+      else {
+      	
       }
     }
  

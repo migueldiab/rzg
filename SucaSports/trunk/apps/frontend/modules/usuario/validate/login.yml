@@ -5,14 +5,19 @@ names:
   usuario:
     required:     true
     required_msg: El nombre de usuario es requerido
-    validators:   usuarioValida
-
+    validators:   [usuario1Validator, usuario2Validator]
   password:
     required:     true
     required_msg: El password es requerido
 
-usuarioValida:
-    class:        validaorUsuario
+usuario1Validator:
+    class:        sfStringValidator
+    param:
+      min:        5
+      min_error:  El usuario debe tener al menos 5 caracteres
+
+usuario2Validator:
+    class:        validarUsuario
     param:
       password:   password
       login_error:  El usuario o la contraseña no son correctos.
