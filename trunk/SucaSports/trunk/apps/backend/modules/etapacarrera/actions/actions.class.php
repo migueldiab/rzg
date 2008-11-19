@@ -1,5 +1,4 @@
 <?php
-
 /**
  * etapacarrera actions.
  *
@@ -10,7 +9,17 @@
  */
 class etapacarreraActions extends autoetapacarreraActions
 {
-public function executeIndex()
+public function executeFecha(){
+        
+    $fecha = new FechaEtapaCarrera();
+    $fecha->setIdCarrera($this->getRequestParameter('id_carrera'));
+    $fecha->setIdEtapa($this->getRequestParameter('id_etapa'));
+    $fecha->setFechaInicio(date("Y-m-d"));
+    $fecha->save();
+    $this->redirect('fechaetapacarrera/edit?fecha_inicio='.$fecha->getFechaInicio().'&id_etapa='.$fecha->getIdEtapa().'&id_carrera='.$fecha->getIdCarrera());
+    }
+    
+    public function executeIndex()
   {
     return $this->forward('etapacarrera', 'list');
   }
