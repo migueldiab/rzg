@@ -10,16 +10,18 @@
  */
 class fechaetapacarreraActions extends autofechaetapacarreraActions
 {
-
-
-
    protected function updateFechaEtapaCarreraFromRequest()
   {
-    echo "HOLA !";
-    $this->fecha_etapa_carrera->setIdCarrera($this->getRequestParameter('id_carrera'));
-    $this->fecha_etapa_carrera->setIdEtapa($this->getRequestParameter('id_etapa'));
-    $this->fecha_etapa_carrera->setFechaInicio($this->getRequestParameter('fecha_inicio'));
-
+    $fecha_etapa_carrera = $this->getRequestParameter('fecha_etapa_carrera');
+    //$this->fecha_etapa_carrera->setIdCarrera($this->getRequestParameter('id_carrera'));
+    //$this->fecha_etapa_carrera->setIdEtapa($this->getRequestParameter('id_etapa'));
+    //$this->fecha_etapa_carrera->setFechaInicio($this->getRequestParameter('fecha_inicio'));
+    
+    if (isset($fecha_etapa_carrera['fecha_inicio']))
+    {
+      echo "test";
+      $this->fecha_etapa_carrera->setFechaInicio($fecha_etapa_carrera['fecha_inicio']);
+    }
     if (isset($fecha_etapa_carrera['max_corredores']))
     {
       $this->fecha_etapa_carrera->setMaxCorredores($fecha_etapa_carrera['max_corredores']);
@@ -125,5 +127,13 @@ class fechaetapacarreraActions extends autofechaetapacarreraActions
  {
      
  }
-
+protected function getFechaEtapaCarreraOrCreate($fecha_inicio = 'fecha_inicio', $id_etapa = 'id_etapa', $id_carrera = 'id_carrera')
+  {
+    $fecha_etapa_carrera = new FechaEtapaCarrera();
+    //$fecha_etapa_carrera->setFechaInicio($this->getRequestParameter($fecha_inicio));
+    $fecha_etapa_carrera->setIdEtapa($this->getRequestParameter($id_etapa));
+    $fecha_etapa_carrera->setIdCarrera($this->getRequestParameter($id_carrera));
+    $this->forward404Unless($fecha_etapa_carrera);
+    return $fecha_etapa_carrera;
+  }
 }

@@ -15,7 +15,7 @@ public function executeFecha(){
     $fecha->setIdCarrera($this->getRequestParameter('id_carrera'));
     $fecha->setIdEtapa($this->getRequestParameter('id_etapa'));
     $fecha->setFechaInicio(date("Y-m-d"));
-    $fecha->save();
+    //$fecha->save();
     $this->redirect('fechaetapacarrera/edit?fecha_inicio='.$fecha->getFechaInicio().'&id_etapa='.$fecha->getIdEtapa().'&id_carrera='.$fecha->getIdCarrera());
     }
     
