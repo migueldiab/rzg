@@ -10,44 +10,7 @@
  */
 class fechaetapacarreraActions extends autofechaetapacarreraActions
 {
-public function executeEditar()
-  {
-    $this->fecha_etapa_carrera = $this->getFechaEtapaCarreraOrCreate();
 
-    if ($this->getRequest()->isMethod('post'))
-    {
-      $this->updateFechaEtapaCarreraFromRequest();
-
-      try
-      {
-        $this->saveFechaEtapaCarrera($this->fecha_etapa_carrera);
-      }
-      catch (PropelException $e)
-      {
-        $this->getRequest()->setError('edit', 'Could not save the edited Fecha etapa carreras.');
-        return $this->forward('fechaetapacarrera', 'list');
-      }
-
-      $this->getUser()->setFlash('notice', 'Your modifications have been saved');
-
-      if ($this->getRequestParameter('save_and_add'))
-      {
-        return $this->redirect('fechaetapacarrera/create');
-      }
-      else if ($this->getRequestParameter('save_and_list'))
-      {
-        return $this->redirect('fechaetapacarrera/list');
-      }
-      else
-      {
-        return $this->redirect('fechaetapacarrera/edit?fecha_inicio='.$this->fecha_etapa_carrera->getFechaInicio().'&id_etapa='.$this->fecha_etapa_carrera->getIdEtapa().'&id_carrera='.$this->fecha_etapa_carrera->getIdCarrera());
-      }
-    }
-    else
-    {
-      $this->labels = $this->getLabels();
-    }
-  }
 
 
    protected function updateFechaEtapaCarreraFromRequest()
