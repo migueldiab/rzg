@@ -4,4 +4,11 @@ generator:
     model_class:      EtapaCarrera
     theme:            default
     edit:
+      actions:
+        _list:
+        _save:
+        _delete:
+        add_etapa:
+          name: Agregar Fecha de Etapa
+          action: fecha
       display: [carrera,nombre,numero_etapa]
