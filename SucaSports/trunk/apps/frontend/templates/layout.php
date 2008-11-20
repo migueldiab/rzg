@@ -19,16 +19,17 @@
 	</tr>
 	<tr>
 	 <td>
-	   <ul>
-			<?php if ($sf_user->isAuthenticated()): ?>
-			  <li><?php echo link_to('log out', 'usuario/logout') ?></li>
-			  <li><?php echo link_to($sf_user->getAttribute('usuario', '', 'sesion'), 'corredor/perfil') ?></li>
-			<?php else: ?>
-			  <li><?php echo link_to('log in/registrate', 'usuario/login') ?></li>
-			<?php endif ?>
-	   </ul>
-	 
-	    <?php include_partial('home/gads'); ?>
+	   <div id="sf_admin_container">
+		   <ul class="sf_admin_actions">
+				<?php if ($sf_user->isAuthenticated()): ?>
+				  <li class="float-right"><?php echo button_to(' log out ', 'usuario/logout') ?></li>
+				  <li class="float-right"><?php echo button_to($sf_user->getAttribute('usuario', '', 'sesion'), 'corredor/perfil') ?></li>
+				<?php else: ?>
+				  <li class="float-right"><?php echo link_to('log in/registrate', 'usuario/login') ?></li>
+				<?php endif ?>
+		   </ul>
+	   </div>
+	   <?php include_partial('home/gads'); ?>
 	 </td>
 	</tr>        
 	<tr>

@@ -9,4 +9,7 @@
  */ 
 class Grupo extends BaseGrupo
 {
+    public function __toString() {
+      return $this->getNombre();
+    }
 }

@@ -1,0 +1,19 @@
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:        SucaSports CMS
+    #description:  symfony project
+    #keywords:     symfony, project
+    #language:     en
+    robots:       index, follow
+
+  stylesheets:    [main, sucasports, /sf/sf_admin/css/main]
+
+  javascripts:
+    main:       main
+
+
+  has_layout:     off
+
