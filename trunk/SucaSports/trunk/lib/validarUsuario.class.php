@@ -32,8 +32,6 @@ class validarUsuario extends sfValidator
     {
       if (sha1($password) == $usuario->getPassword())
       {
-      	   echo "son iguales"; 
-      	  //sfContext::getInstance()
       	  
           $this->context->getUser()->setAuthenticated(true);
           // FIXME : Agregar credenciales

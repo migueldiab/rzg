@@ -9,7 +9,7 @@ default:
     #language:     en
     robots:       index, follow
 
-  stylesheets:    [main, sucasports]
+  stylesheets:    [main, sucasports, /sf/sf_admin/css/main]
 
   javascripts:    [prototype]
 
