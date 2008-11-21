@@ -1,4 +1,4 @@
-default:
+loginSuccess:
   http_metas:
     content-type: text/html
 
@@ -14,6 +14,7 @@ default:
   javascripts:
     main:       main
 
-
-  has_layout:     on
+  has_layout:     off
   
+all:
+  has_layout:     on

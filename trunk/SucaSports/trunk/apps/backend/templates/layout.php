@@ -10,7 +10,7 @@
 </head>
 <body class="soria">
   <!-- basic preloader: -->
-  <div id="loader"><div id="loaderInner">Loading themeTester ... </div></div>
+  <div id="loader"><div id="loaderInner">Cargando manejador RZG... </div></div>
 
   <!-- contentMenu popup 
   <div dojoType="dijit.Menu" id="submenu1" contextMenuForWindow="true" style="display: none;">

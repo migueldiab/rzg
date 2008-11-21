@@ -288,6 +288,7 @@ CREATE  TABLE IF NOT EXISTS `suca_sports`.`usuario` (
   `created_at` TIMESTAMP NULL DEFAULT NULL ,
   `created_by` INT(11) NULL DEFAULT NULL ,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ,
+  `updated_by` INT(11) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_usuarios_corredor`
     FOREIGN KEY (`id_corredor` )
