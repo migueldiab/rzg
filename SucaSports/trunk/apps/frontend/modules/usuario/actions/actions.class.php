@@ -19,7 +19,10 @@ class usuarioActions extends autousuarioActions
 	  }
 	  else
 	  {
-      $this->redirect($this->getRequestParameter('url_original', '@homepage'));
+	  	if ($this->getRequestParameter('url_original'))
+        $this->redirect($this->getRequestParameter('url_original'));
+      else
+        $this->redirect('@homepage');
 	  }
 	}
 	public function handleErrorLogin()
