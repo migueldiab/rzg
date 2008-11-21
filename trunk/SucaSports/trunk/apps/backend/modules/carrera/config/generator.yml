@@ -12,7 +12,7 @@ generator:
         add_etapa:
           name: Agregar Etapa
           action: etapa
-      display: [nombre,url,descripcion,categoria_carrera,_etapas,etapa_carrera]
+      display: [nombre,url,descripcion,categoria_carrera,etapa_carrera]
       fields:
         categoria_carrera: { type: admin_double_list, params: through_class=CategoriaCarrera }
         etapa_carrera: { params: hidden="true" }
