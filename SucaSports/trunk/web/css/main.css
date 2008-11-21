@@ -1,6 +1,6 @@
 
  html, body { height: 100%; width: 100%; padding: 0; border: 0; }
- #main { height: 98%; width: 99%; border: 0; left: 1px; top: 1px;}
+ #main { height: 99.9%; width: 99.9%; border: 0; left: 1px; top: 1px;}
  #header { margin: 0px; }
  #leftAccordion { width: 25%; }
  #bottomTabs { height: 40%; }

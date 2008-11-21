@@ -15,5 +15,5 @@ default:
     main:       main
 
 
-  has_layout:     off
-
+  has_layout:     on
+  
