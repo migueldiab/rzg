@@ -3,6 +3,9 @@ generator:
   param:
     model_class:      FechaEtapaCarrera
     theme:            default
+    list:
+      title: Fechas para etapas de carrera
+      display: [carrera_nombre,etap_nombre,fecha_inicio,fecha_fin,costo,max_corredores]
     edit:
       title: Agregar Fecha para esta carrera
       actions:

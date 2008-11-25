@@ -12,4 +12,17 @@ class FechaEtapaCarrera extends BaseFechaEtapaCarrera
     public function __toString() {
       return $this->getNombre();
     }
+    
+    public function getCarreraNombre(){
+        $carrera = CarreraPeer::retrieveByPK($this->getIdCarrera());
+        return $carrera->getNombre();
+    }
+
+    Public function getEtapNombre(){
+        $etapa = new EtapaCarrera;
+        $etapa = EtapaCarreraPeer::retrieveByPK(1,2);
+        return "PUTO";
+    }
+ 
+    
 }
