@@ -5,7 +5,7 @@ generator:
     theme:            default
     list:
       title: Fechas para etapas de carrera
-      display: [carrera_nombre,etap_nombre,fecha_inicio,fecha_fin,costo,max_corredores]
+      display: [etapa_numero,etapa_nombre,carrera_nombre,fecha_inicio,fecha_fin,costo,max_corredores]
     edit:
       title: Agregar Fecha para esta carrera
       actions:
