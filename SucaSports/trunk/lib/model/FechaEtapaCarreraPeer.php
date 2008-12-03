@@ -32,7 +32,7 @@ class FechaEtapaCarreraPeer extends BaseFechaEtapaCarreraPeer
 		}
 
 		$criteria = new Criteria(FechaEtapaCarreraPeer::DATABASE_NAME);
-        $criteria->add(FechaEtapaCarreraPeer::ID_CARRERA, $id_carrera);
+    $criteria->add(FechaEtapaCarreraPeer::ID_CARRERA, $id_carrera);
 		$criteria->add(FechaEtapaCarreraPeer::ID_ETAPA_CARRERA, $id_etapa);
 
 

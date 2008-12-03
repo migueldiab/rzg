@@ -13,7 +13,15 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 
 
 	
-	protected $nombre;
+	protected $documento;
+
+
+	
+	protected $email;
+
+
+	
+	protected $password;
 
 
 	
@@ -22,6 +30,22 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 
 	
 	protected $id_corredor;
+
+
+	
+	protected $estado;
+
+
+	
+	protected $verificador;
+
+
+	
+	protected $pregunta_secreta;
+
+
+	
+	protected $respuesta_secreta;
 
 
 	
@@ -38,10 +62,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 
 	
 	protected $updated_by;
-
-
-	
-	protected $password;
 
 	
 	protected $aGrupo;
@@ -75,10 +95,24 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 	}
 
 	
-	public function getNombre()
+	public function getDocumento()
 	{
 
-		return $this->nombre;
+		return $this->documento;
+	}
+
+	
+	public function getEmail()
+	{
+
+		return $this->email;
+	}
+
+	
+	public function getPassword()
+	{
+
+		return $this->password;
 	}
 
 	
@@ -93,6 +127,34 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 	{
 
 		return $this->id_corredor;
+	}
+
+	
+	public function getEstado()
+	{
+
+		return $this->estado;
+	}
+
+	
+	public function getVerificador()
+	{
+
+		return $this->verificador;
+	}
+
+	
+	public function getPreguntaSecreta()
+	{
+
+		return $this->pregunta_secreta;
+	}
+
+	
+	public function getRespuestaSecreta()
+	{
+
+		return $this->respuesta_secreta;
 	}
 
 	
@@ -154,13 +216,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 	}
 
 	
-	public function getPassword()
-	{
-
-		return $this->password;
-	}
-
-	
 	public function setId($v)
 	{
 
@@ -175,16 +230,44 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 
 	} 
 	
-	public function setNombre($v)
+	public function setDocumento($v)
 	{
 
 						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
-		if ($this->nombre !== $v) {
-			$this->nombre = $v;
-			$this->modifiedColumns[] = UsuarioPeer::NOMBRE;
+		if ($this->documento !== $v) {
+			$this->documento = $v;
+			$this->modifiedColumns[] = UsuarioPeer::DOCUMENTO;
+		}
+
+	} 
+	
+	public function setEmail($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->email !== $v) {
+			$this->email = $v;
+			$this->modifiedColumns[] = UsuarioPeer::EMAIL;
+		}
+
+	} 
+	
+	public function setPassword($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->password !== $v) {
+			$this->password = $v;
+			$this->modifiedColumns[] = UsuarioPeer::PASSWORD;
 		}
 
 	} 
@@ -221,6 +304,62 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 
 		if ($this->aCorredor !== null && $this->aCorredor->getId() !== $v) {
 			$this->aCorredor = null;
+		}
+
+	} 
+	
+	public function setEstado($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->estado !== $v) {
+			$this->estado = $v;
+			$this->modifiedColumns[] = UsuarioPeer::ESTADO;
+		}
+
+	} 
+	
+	public function setVerificador($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->verificador !== $v) {
+			$this->verificador = $v;
+			$this->modifiedColumns[] = UsuarioPeer::VERIFICADOR;
+		}
+
+	} 
+	
+	public function setPreguntaSecreta($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->pregunta_secreta !== $v) {
+			$this->pregunta_secreta = $v;
+			$this->modifiedColumns[] = UsuarioPeer::PREGUNTA_SECRETA;
+		}
+
+	} 
+	
+	public function setRespuestaSecreta($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->respuesta_secreta !== $v) {
+			$this->respuesta_secreta = $v;
+			$this->modifiedColumns[] = UsuarioPeer::RESPUESTA_SECRETA;
 		}
 
 	} 
@@ -287,47 +426,43 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 
 	} 
 	
-	public function setPassword($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->password !== $v) {
-			$this->password = $v;
-			$this->modifiedColumns[] = UsuarioPeer::PASSWORD;
-		}
-
-	} 
-	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
 
 			$this->id = $rs->getInt($startcol + 0);
 
-			$this->nombre = $rs->getString($startcol + 1);
+			$this->documento = $rs->getString($startcol + 1);
 
-			$this->id_grupo = $rs->getInt($startcol + 2);
+			$this->email = $rs->getString($startcol + 2);
 
-			$this->id_corredor = $rs->getInt($startcol + 3);
+			$this->password = $rs->getString($startcol + 3);
 
-			$this->created_at = $rs->getTimestamp($startcol + 4, null);
+			$this->id_grupo = $rs->getInt($startcol + 4);
 
-			$this->created_by = $rs->getInt($startcol + 5);
+			$this->id_corredor = $rs->getInt($startcol + 5);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 6, null);
+			$this->estado = $rs->getString($startcol + 6);
 
-			$this->updated_by = $rs->getInt($startcol + 7);
+			$this->verificador = $rs->getString($startcol + 7);
 
-			$this->password = $rs->getString($startcol + 8);
+			$this->pregunta_secreta = $rs->getString($startcol + 8);
+
+			$this->respuesta_secreta = $rs->getString($startcol + 9);
+
+			$this->created_at = $rs->getTimestamp($startcol + 10, null);
+
+			$this->created_by = $rs->getInt($startcol + 11);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 12, null);
+
+			$this->updated_by = $rs->getInt($startcol + 13);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 9; 
+						return $startcol + 14; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Usuario object", $e);
 		}
@@ -530,28 +665,43 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getNombre();
+				return $this->getDocumento();
 				break;
 			case 2:
-				return $this->getIdGrupo();
+				return $this->getEmail();
 				break;
 			case 3:
-				return $this->getIdCorredor();
+				return $this->getPassword();
 				break;
 			case 4:
-				return $this->getCreatedAt();
+				return $this->getIdGrupo();
 				break;
 			case 5:
-				return $this->getCreatedBy();
+				return $this->getIdCorredor();
 				break;
 			case 6:
-				return $this->getUpdatedAt();
+				return $this->getEstado();
 				break;
 			case 7:
-				return $this->getUpdatedBy();
+				return $this->getVerificador();
 				break;
 			case 8:
-				return $this->getPassword();
+				return $this->getPreguntaSecreta();
+				break;
+			case 9:
+				return $this->getRespuestaSecreta();
+				break;
+			case 10:
+				return $this->getCreatedAt();
+				break;
+			case 11:
+				return $this->getCreatedBy();
+				break;
+			case 12:
+				return $this->getUpdatedAt();
+				break;
+			case 13:
+				return $this->getUpdatedBy();
 				break;
 			default:
 				return null;
@@ -564,14 +714,19 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 		$keys = UsuarioPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getNombre(),
-			$keys[2] => $this->getIdGrupo(),
-			$keys[3] => $this->getIdCorredor(),
-			$keys[4] => $this->getCreatedAt(),
-			$keys[5] => $this->getCreatedBy(),
-			$keys[6] => $this->getUpdatedAt(),
-			$keys[7] => $this->getUpdatedBy(),
-			$keys[8] => $this->getPassword(),
+			$keys[1] => $this->getDocumento(),
+			$keys[2] => $this->getEmail(),
+			$keys[3] => $this->getPassword(),
+			$keys[4] => $this->getIdGrupo(),
+			$keys[5] => $this->getIdCorredor(),
+			$keys[6] => $this->getEstado(),
+			$keys[7] => $this->getVerificador(),
+			$keys[8] => $this->getPreguntaSecreta(),
+			$keys[9] => $this->getRespuestaSecreta(),
+			$keys[10] => $this->getCreatedAt(),
+			$keys[11] => $this->getCreatedBy(),
+			$keys[12] => $this->getUpdatedAt(),
+			$keys[13] => $this->getUpdatedBy(),
 		);
 		return $result;
 	}
@@ -591,28 +746,43 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setNombre($value);
+				$this->setDocumento($value);
 				break;
 			case 2:
-				$this->setIdGrupo($value);
+				$this->setEmail($value);
 				break;
 			case 3:
-				$this->setIdCorredor($value);
+				$this->setPassword($value);
 				break;
 			case 4:
-				$this->setCreatedAt($value);
+				$this->setIdGrupo($value);
 				break;
 			case 5:
-				$this->setCreatedBy($value);
+				$this->setIdCorredor($value);
 				break;
 			case 6:
-				$this->setUpdatedAt($value);
+				$this->setEstado($value);
 				break;
 			case 7:
-				$this->setUpdatedBy($value);
+				$this->setVerificador($value);
 				break;
 			case 8:
-				$this->setPassword($value);
+				$this->setPreguntaSecreta($value);
+				break;
+			case 9:
+				$this->setRespuestaSecreta($value);
+				break;
+			case 10:
+				$this->setCreatedAt($value);
+				break;
+			case 11:
+				$this->setCreatedBy($value);
+				break;
+			case 12:
+				$this->setUpdatedAt($value);
+				break;
+			case 13:
+				$this->setUpdatedBy($value);
 				break;
 		} 	}
 
@@ -622,14 +792,19 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 		$keys = UsuarioPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setNombre($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setIdGrupo($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setIdCorredor($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setCreatedAt($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setCreatedBy($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setUpdatedAt($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setUpdatedBy($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setPassword($arr[$keys[8]]);
+		if (array_key_exists($keys[1], $arr)) $this->setDocumento($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setEmail($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setPassword($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setIdGrupo($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setIdCorredor($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setEstado($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setVerificador($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setPreguntaSecreta($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setRespuestaSecreta($arr[$keys[9]]);
+		if (array_key_exists($keys[10], $arr)) $this->setCreatedAt($arr[$keys[10]]);
+		if (array_key_exists($keys[11], $arr)) $this->setCreatedBy($arr[$keys[11]]);
+		if (array_key_exists($keys[12], $arr)) $this->setUpdatedAt($arr[$keys[12]]);
+		if (array_key_exists($keys[13], $arr)) $this->setUpdatedBy($arr[$keys[13]]);
 	}
 
 	
@@ -638,14 +813,19 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 		$criteria = new Criteria(UsuarioPeer::DATABASE_NAME);
 
 		if ($this->isColumnModified(UsuarioPeer::ID)) $criteria->add(UsuarioPeer::ID, $this->id);
-		if ($this->isColumnModified(UsuarioPeer::NOMBRE)) $criteria->add(UsuarioPeer::NOMBRE, $this->nombre);
+		if ($this->isColumnModified(UsuarioPeer::DOCUMENTO)) $criteria->add(UsuarioPeer::DOCUMENTO, $this->documento);
+		if ($this->isColumnModified(UsuarioPeer::EMAIL)) $criteria->add(UsuarioPeer::EMAIL, $this->email);
+		if ($this->isColumnModified(UsuarioPeer::PASSWORD)) $criteria->add(UsuarioPeer::PASSWORD, $this->password);
 		if ($this->isColumnModified(UsuarioPeer::ID_GRUPO)) $criteria->add(UsuarioPeer::ID_GRUPO, $this->id_grupo);
 		if ($this->isColumnModified(UsuarioPeer::ID_CORREDOR)) $criteria->add(UsuarioPeer::ID_CORREDOR, $this->id_corredor);
+		if ($this->isColumnModified(UsuarioPeer::ESTADO)) $criteria->add(UsuarioPeer::ESTADO, $this->estado);
+		if ($this->isColumnModified(UsuarioPeer::VERIFICADOR)) $criteria->add(UsuarioPeer::VERIFICADOR, $this->verificador);
+		if ($this->isColumnModified(UsuarioPeer::PREGUNTA_SECRETA)) $criteria->add(UsuarioPeer::PREGUNTA_SECRETA, $this->pregunta_secreta);
+		if ($this->isColumnModified(UsuarioPeer::RESPUESTA_SECRETA)) $criteria->add(UsuarioPeer::RESPUESTA_SECRETA, $this->respuesta_secreta);
 		if ($this->isColumnModified(UsuarioPeer::CREATED_AT)) $criteria->add(UsuarioPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(UsuarioPeer::CREATED_BY)) $criteria->add(UsuarioPeer::CREATED_BY, $this->created_by);
 		if ($this->isColumnModified(UsuarioPeer::UPDATED_AT)) $criteria->add(UsuarioPeer::UPDATED_AT, $this->updated_at);
 		if ($this->isColumnModified(UsuarioPeer::UPDATED_BY)) $criteria->add(UsuarioPeer::UPDATED_BY, $this->updated_by);
-		if ($this->isColumnModified(UsuarioPeer::PASSWORD)) $criteria->add(UsuarioPeer::PASSWORD, $this->password);
 
 		return $criteria;
 	}
@@ -676,11 +856,23 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 	public function copyInto($copyObj, $deepCopy = false)
 	{
 
-		$copyObj->setNombre($this->nombre);
+		$copyObj->setDocumento($this->documento);
+
+		$copyObj->setEmail($this->email);
+
+		$copyObj->setPassword($this->password);
 
 		$copyObj->setIdGrupo($this->id_grupo);
 
 		$copyObj->setIdCorredor($this->id_corredor);
+
+		$copyObj->setEstado($this->estado);
+
+		$copyObj->setVerificador($this->verificador);
+
+		$copyObj->setPreguntaSecreta($this->pregunta_secreta);
+
+		$copyObj->setRespuestaSecreta($this->respuesta_secreta);
 
 		$copyObj->setCreatedAt($this->created_at);
 
@@ -689,8 +881,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent {
 		$copyObj->setUpdatedAt($this->updated_at);
 
 		$copyObj->setUpdatedBy($this->updated_by);
-
-		$copyObj->setPassword($this->password);
 
 
 		if ($deepCopy) {

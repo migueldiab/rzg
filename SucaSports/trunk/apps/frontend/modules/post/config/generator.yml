@@ -1,0 +1,9 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Post
+    theme:            default
+    edit:
+      title: Nueva entrada
+      display: [texto]
+      

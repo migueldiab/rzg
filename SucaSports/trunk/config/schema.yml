@@ -140,6 +140,7 @@ propel:
     id_carrera: { type: INTEGER, required: true, primaryKey: true, foreignTable: carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     nombre: { type: VARCHAR, size: '45' }
     numero_etapa: { type: INTEGER }
+    estado: { type: CHAR, size: '1' }
     created_at: { type: TIMESTAMP }
     created_by: { type: INTEGER }
     updated_at: { type: TIMESTAMP }
@@ -250,12 +251,17 @@ propel:
   usuario:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    nombre: { type: VARCHAR, size: '45' }
+    documento: { type: VARCHAR, size: '45' }
+    email: { type: VARCHAR, size: '45' }
+    password: { type: VARCHAR, size: '45' }
     id_grupo: { type: INTEGER, foreignTable: grupo, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     id_corredor: { type: INTEGER, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    estado: { type: CHAR, size: '1' }
+    verificador: { type: VARCHAR, size: '255' }
+    pregunta_secreta: { type: VARCHAR, size: '45' }
+    respuesta_secreta: { type: VARCHAR, size: '45' }
     created_at: { type: TIMESTAMP }
     created_by: { type: INTEGER }
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
-    password: { type: VARCHAR, size: '45', required: true }
     _indexes: { fk_usuarios_grupos: [id_grupo], fk_usuarios_corredor: [id_corredor] }

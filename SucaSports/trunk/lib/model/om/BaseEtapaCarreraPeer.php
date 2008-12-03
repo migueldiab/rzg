@@ -13,7 +13,7 @@ abstract class BaseEtapaCarreraPeer {
 	const CLASS_DEFAULT = 'lib.model.EtapaCarrera';
 
 	
-	const NUM_COLUMNS = 8;
+	const NUM_COLUMNS = 9;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -30,6 +30,9 @@ abstract class BaseEtapaCarreraPeer {
 
 	
 	const NUMERO_ETAPA = 'etapa_carrera.NUMERO_ETAPA';
+
+	
+	const ESTADO = 'etapa_carrera.ESTADO';
 
 	
 	const CREATED_AT = 'etapa_carrera.CREATED_AT';
@@ -49,18 +52,18 @@ abstract class BaseEtapaCarreraPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('IdEtapa', 'IdCarrera', 'Nombre', 'NumeroEtapa', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
-		BasePeer::TYPE_COLNAME => array (EtapaCarreraPeer::ID_ETAPA, EtapaCarreraPeer::ID_CARRERA, EtapaCarreraPeer::NOMBRE, EtapaCarreraPeer::NUMERO_ETAPA, EtapaCarreraPeer::CREATED_AT, EtapaCarreraPeer::CREATED_BY, EtapaCarreraPeer::UPDATED_AT, EtapaCarreraPeer::UPDATED_BY, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_etapa', 'id_carrera', 'nombre', 'numero_etapa', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+		BasePeer::TYPE_PHPNAME => array ('IdEtapa', 'IdCarrera', 'Nombre', 'NumeroEtapa', 'Estado', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (EtapaCarreraPeer::ID_ETAPA, EtapaCarreraPeer::ID_CARRERA, EtapaCarreraPeer::NOMBRE, EtapaCarreraPeer::NUMERO_ETAPA, EtapaCarreraPeer::ESTADO, EtapaCarreraPeer::CREATED_AT, EtapaCarreraPeer::CREATED_BY, EtapaCarreraPeer::UPDATED_AT, EtapaCarreraPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_etapa', 'id_carrera', 'nombre', 'numero_etapa', 'estado', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('IdEtapa' => 0, 'IdCarrera' => 1, 'Nombre' => 2, 'NumeroEtapa' => 3, 'CreatedAt' => 4, 'CreatedBy' => 5, 'UpdatedAt' => 6, 'UpdatedBy' => 7, ),
-		BasePeer::TYPE_COLNAME => array (EtapaCarreraPeer::ID_ETAPA => 0, EtapaCarreraPeer::ID_CARRERA => 1, EtapaCarreraPeer::NOMBRE => 2, EtapaCarreraPeer::NUMERO_ETAPA => 3, EtapaCarreraPeer::CREATED_AT => 4, EtapaCarreraPeer::CREATED_BY => 5, EtapaCarreraPeer::UPDATED_AT => 6, EtapaCarreraPeer::UPDATED_BY => 7, ),
-		BasePeer::TYPE_FIELDNAME => array ('id_etapa' => 0, 'id_carrera' => 1, 'nombre' => 2, 'numero_etapa' => 3, 'created_at' => 4, 'created_by' => 5, 'updated_at' => 6, 'updated_by' => 7, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+		BasePeer::TYPE_PHPNAME => array ('IdEtapa' => 0, 'IdCarrera' => 1, 'Nombre' => 2, 'NumeroEtapa' => 3, 'Estado' => 4, 'CreatedAt' => 5, 'CreatedBy' => 6, 'UpdatedAt' => 7, 'UpdatedBy' => 8, ),
+		BasePeer::TYPE_COLNAME => array (EtapaCarreraPeer::ID_ETAPA => 0, EtapaCarreraPeer::ID_CARRERA => 1, EtapaCarreraPeer::NOMBRE => 2, EtapaCarreraPeer::NUMERO_ETAPA => 3, EtapaCarreraPeer::ESTADO => 4, EtapaCarreraPeer::CREATED_AT => 5, EtapaCarreraPeer::CREATED_BY => 6, EtapaCarreraPeer::UPDATED_AT => 7, EtapaCarreraPeer::UPDATED_BY => 8, ),
+		BasePeer::TYPE_FIELDNAME => array ('id_etapa' => 0, 'id_carrera' => 1, 'nombre' => 2, 'numero_etapa' => 3, 'estado' => 4, 'created_at' => 5, 'created_by' => 6, 'updated_at' => 7, 'updated_by' => 8, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	
@@ -120,6 +123,8 @@ abstract class BaseEtapaCarreraPeer {
 		$criteria->addSelectColumn(EtapaCarreraPeer::NOMBRE);
 
 		$criteria->addSelectColumn(EtapaCarreraPeer::NUMERO_ETAPA);
+
+		$criteria->addSelectColumn(EtapaCarreraPeer::ESTADO);
 
 		$criteria->addSelectColumn(EtapaCarreraPeer::CREATED_AT);
 
