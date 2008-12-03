@@ -26,7 +26,7 @@ class validarUsuario extends sfValidator
       return false;
     }
     $c = new Criteria();
-    $c->add(UsuarioPeer::NOMBRE, $login);
+    $c->add(UsuarioPeer::DOCUMENTO, $login);
     $usuario = UsuarioPeer::doSelectOne($c);
     if ($usuario)
     {

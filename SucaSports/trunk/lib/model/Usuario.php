@@ -10,7 +10,7 @@
 class Usuario extends BaseUsuario
 {
     public function __toString() {
-        return $this->getNombre();
+        return $this->getDocumento();
     }
     
 	public function setPasswordEncryptar($password)
