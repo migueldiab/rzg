@@ -13,7 +13,7 @@ abstract class BaseUsuarioPeer {
 	const CLASS_DEFAULT = 'lib.model.Usuario';
 
 	
-	const NUM_COLUMNS = 9;
+	const NUM_COLUMNS = 14;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -23,13 +23,31 @@ abstract class BaseUsuarioPeer {
 	const ID = 'usuario.ID';
 
 	
-	const NOMBRE = 'usuario.NOMBRE';
+	const DOCUMENTO = 'usuario.DOCUMENTO';
+
+	
+	const EMAIL = 'usuario.EMAIL';
+
+	
+	const PASSWORD = 'usuario.PASSWORD';
 
 	
 	const ID_GRUPO = 'usuario.ID_GRUPO';
 
 	
 	const ID_CORREDOR = 'usuario.ID_CORREDOR';
+
+	
+	const ESTADO = 'usuario.ESTADO';
+
+	
+	const VERIFICADOR = 'usuario.VERIFICADOR';
+
+	
+	const PREGUNTA_SECRETA = 'usuario.PREGUNTA_SECRETA';
+
+	
+	const RESPUESTA_SECRETA = 'usuario.RESPUESTA_SECRETA';
 
 	
 	const CREATED_AT = 'usuario.CREATED_AT';
@@ -44,26 +62,23 @@ abstract class BaseUsuarioPeer {
 	const UPDATED_BY = 'usuario.UPDATED_BY';
 
 	
-	const PASSWORD = 'usuario.PASSWORD';
-
-	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Nombre', 'IdGrupo', 'IdCorredor', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', 'Password', ),
-		BasePeer::TYPE_COLNAME => array (UsuarioPeer::ID, UsuarioPeer::NOMBRE, UsuarioPeer::ID_GRUPO, UsuarioPeer::ID_CORREDOR, UsuarioPeer::CREATED_AT, UsuarioPeer::CREATED_BY, UsuarioPeer::UPDATED_AT, UsuarioPeer::UPDATED_BY, UsuarioPeer::PASSWORD, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'nombre', 'id_grupo', 'id_corredor', 'created_at', 'created_by', 'updated_at', 'updated_by', 'password', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Documento', 'Email', 'Password', 'IdGrupo', 'IdCorredor', 'Estado', 'Verificador', 'PreguntaSecreta', 'RespuestaSecreta', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
+		BasePeer::TYPE_COLNAME => array (UsuarioPeer::ID, UsuarioPeer::DOCUMENTO, UsuarioPeer::EMAIL, UsuarioPeer::PASSWORD, UsuarioPeer::ID_GRUPO, UsuarioPeer::ID_CORREDOR, UsuarioPeer::ESTADO, UsuarioPeer::VERIFICADOR, UsuarioPeer::PREGUNTA_SECRETA, UsuarioPeer::RESPUESTA_SECRETA, UsuarioPeer::CREATED_AT, UsuarioPeer::CREATED_BY, UsuarioPeer::UPDATED_AT, UsuarioPeer::UPDATED_BY, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'documento', 'email', 'password', 'id_grupo', 'id_corredor', 'estado', 'verificador', 'pregunta_secreta', 'respuesta_secreta', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nombre' => 1, 'IdGrupo' => 2, 'IdCorredor' => 3, 'CreatedAt' => 4, 'CreatedBy' => 5, 'UpdatedAt' => 6, 'UpdatedBy' => 7, 'Password' => 8, ),
-		BasePeer::TYPE_COLNAME => array (UsuarioPeer::ID => 0, UsuarioPeer::NOMBRE => 1, UsuarioPeer::ID_GRUPO => 2, UsuarioPeer::ID_CORREDOR => 3, UsuarioPeer::CREATED_AT => 4, UsuarioPeer::CREATED_BY => 5, UsuarioPeer::UPDATED_AT => 6, UsuarioPeer::UPDATED_BY => 7, UsuarioPeer::PASSWORD => 8, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nombre' => 1, 'id_grupo' => 2, 'id_corredor' => 3, 'created_at' => 4, 'created_by' => 5, 'updated_at' => 6, 'updated_by' => 7, 'password' => 8, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Documento' => 1, 'Email' => 2, 'Password' => 3, 'IdGrupo' => 4, 'IdCorredor' => 5, 'Estado' => 6, 'Verificador' => 7, 'PreguntaSecreta' => 8, 'RespuestaSecreta' => 9, 'CreatedAt' => 10, 'CreatedBy' => 11, 'UpdatedAt' => 12, 'UpdatedBy' => 13, ),
+		BasePeer::TYPE_COLNAME => array (UsuarioPeer::ID => 0, UsuarioPeer::DOCUMENTO => 1, UsuarioPeer::EMAIL => 2, UsuarioPeer::PASSWORD => 3, UsuarioPeer::ID_GRUPO => 4, UsuarioPeer::ID_CORREDOR => 5, UsuarioPeer::ESTADO => 6, UsuarioPeer::VERIFICADOR => 7, UsuarioPeer::PREGUNTA_SECRETA => 8, UsuarioPeer::RESPUESTA_SECRETA => 9, UsuarioPeer::CREATED_AT => 10, UsuarioPeer::CREATED_BY => 11, UsuarioPeer::UPDATED_AT => 12, UsuarioPeer::UPDATED_BY => 13, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'documento' => 1, 'email' => 2, 'password' => 3, 'id_grupo' => 4, 'id_corredor' => 5, 'estado' => 6, 'verificador' => 7, 'pregunta_secreta' => 8, 'respuesta_secreta' => 9, 'created_at' => 10, 'created_by' => 11, 'updated_at' => 12, 'updated_by' => 13, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, )
 	);
 
 	
@@ -118,11 +133,23 @@ abstract class BaseUsuarioPeer {
 
 		$criteria->addSelectColumn(UsuarioPeer::ID);
 
-		$criteria->addSelectColumn(UsuarioPeer::NOMBRE);
+		$criteria->addSelectColumn(UsuarioPeer::DOCUMENTO);
+
+		$criteria->addSelectColumn(UsuarioPeer::EMAIL);
+
+		$criteria->addSelectColumn(UsuarioPeer::PASSWORD);
 
 		$criteria->addSelectColumn(UsuarioPeer::ID_GRUPO);
 
 		$criteria->addSelectColumn(UsuarioPeer::ID_CORREDOR);
+
+		$criteria->addSelectColumn(UsuarioPeer::ESTADO);
+
+		$criteria->addSelectColumn(UsuarioPeer::VERIFICADOR);
+
+		$criteria->addSelectColumn(UsuarioPeer::PREGUNTA_SECRETA);
+
+		$criteria->addSelectColumn(UsuarioPeer::RESPUESTA_SECRETA);
 
 		$criteria->addSelectColumn(UsuarioPeer::CREATED_AT);
 
@@ -131,8 +158,6 @@ abstract class BaseUsuarioPeer {
 		$criteria->addSelectColumn(UsuarioPeer::UPDATED_AT);
 
 		$criteria->addSelectColumn(UsuarioPeer::UPDATED_BY);
-
-		$criteria->addSelectColumn(UsuarioPeer::PASSWORD);
 
 	}
 

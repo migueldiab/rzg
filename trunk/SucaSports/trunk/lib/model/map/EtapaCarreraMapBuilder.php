@@ -40,6 +40,8 @@ class EtapaCarreraMapBuilder {
 
 		$tMap->addColumn('NUMERO_ETAPA', 'NumeroEtapa', 'int', CreoleTypes::INTEGER, false, null);
 
+		$tMap->addColumn('ESTADO', 'Estado', 'string', CreoleTypes::CHAR, false, 1);
+
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 
 		$tMap->addColumn('CREATED_BY', 'CreatedBy', 'int', CreoleTypes::INTEGER, false, null);
