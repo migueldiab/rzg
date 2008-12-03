@@ -71,21 +71,22 @@
   <?php if ($sf_request->hasError('carrera{etapa_carrera}')): ?>
     <?php echo form_error('carrera{etapa_carrera}', array('class' => 'form-error-msg')) ?>
   <?php endif; ?>
-
-  <?php $value = object_input_hidden_tag($carrera, 'getEtapaCarrera', array (
-  'disabled' => true,
-  'control_name' => 'carrera[etapa_carrera]',
-  'hidden' => true,
-)); echo $value ? $value : '&nbsp;' ?>
     </div>
+  <table class="sf_admin_list">
+  <tr><th>Etapa Numero</th>
+  <th>Nombre</th></tr>
+  <?php foreach ($carrera->getEtapaCarrera() as $etapa){
+            echo "<tr><td>";
+            echo $etapa->GetNumeroEtapa();
+            echo "</td><td>";
+            echo $etapa->GetNombre();
+            echo "</td></tr>";
+        } ?>
+   </table>
 </div>
-
 </fieldset>
 
 <?php include_partial('edit_actions', array('carrera' => $carrera)) ?>
-
-</form>
-
 <ul class="sf_admin_actions">
       <li class="float-left"><?php if ($carrera->getId()): ?>
 <?php echo button_to(__('delete'), 'carrera/delete?id='.$carrera->getId(), array (
