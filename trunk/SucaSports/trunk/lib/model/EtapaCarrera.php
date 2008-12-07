@@ -14,7 +14,7 @@ class EtapaCarrera extends BaseEtapaCarrera
     public function getFechaEtapa($etapa){
      
                 $criteria = new Criteria();
-		     $criteria->add(FechaEtapaCarreraPeer::ID_CARRERA, $etapa->getIdCarrera());
+                $criteria->add(FechaEtapaCarreraPeer::ID_CARRERA, $etapa->getIdCarrera());
                 $criteria->add(FechaEtapaCarreraPeer::ID_ETAPA, $etapa->getIdEtapa());
 
                 FechaEtapaCarreraPeer::addSelectColumns($criteria);
