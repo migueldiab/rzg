@@ -39,6 +39,34 @@ class usuarioActions extends autousuarioActions
 	 
 	  $this->redirect('@homepage');
 	}
-		
-			
+    public function executeRegistrar()    
+    {
+        
+    }
+    protected function updateUsuarioFromRequest()
+  {
+    $usuario = $this->getRequestParameter('usuario');
+
+    if (isset($usuario['documento']))
+    {
+      $this->usuario->setDocumento($usuario['documento']);
+    }
+    if (isset($usuario['email']))
+    {
+      $this->usuario->setEmail($usuario['email']);
+    }
+    if (isset($usuario['password']))
+    {
+      $this->usuario->setPassword($usuario['password']);
+    }
+    if (isset($usuario['verify_password']))
+    {
+      If ($this->usuario->VerifyPassword($usuario['verify_password'],$usuario['password']) != 1)
+      {
+        echo ('error - passwords do not match');
+        die();
+      }
+    }
+    
+  }
 }

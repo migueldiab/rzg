@@ -3,3 +3,12 @@ generator:
   param:
     model_class:      Usuario
     theme:            default
+    edit:
+      title: Registro de Usuario
+      actions:
+        _list:
+        _save:
+        _delete:
+      display: [Documento,Email,Password,VerifyPassword]
+      fields:
+        VerifyPassword: { type: input_tag, params: disabled=false }
