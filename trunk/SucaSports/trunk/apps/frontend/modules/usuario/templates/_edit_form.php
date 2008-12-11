@@ -54,7 +54,7 @@
     <?php echo form_error('usuario{verify_password}', array('class' => 'form-error-msg')) ?>
   <?php endif; ?>
 
-  <?php echo input_password_tag('usuario[veryfy_password]');?>
+  <?php echo input_password_tag('usuario[verify_password]');?>
     </div>
 </div>
 
