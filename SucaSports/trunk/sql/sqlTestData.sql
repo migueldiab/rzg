@@ -1,4 +1,4 @@
--- MySQL Administrator dump 1.4
+﻿-- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
 -- Server version	5.0.67-community-nt
@@ -21,9 +21,10 @@ INSERT INTO `pais` (`id`,`nombre`,`updated_by`,`updated_at`) VALUES
  (1,'Uruguay',NULL,NULL);
 INSERT INTO `sociedad_medica` (`id`,`nombre`,`updated_at`,`updated_by`) VALUES 
  (1,'Asistencial Medica de Maldonado',NULL,NULL);
-INSERT INTO `tipo_documento` (`id`,`nombre`) VALUES 
+INSERT INTO `tipo_documento` (`id`,`nombre`) VALUES
  (1,'CI'),
  (2,'Pasaporte');
+ (3,'DNI');
 
 
 

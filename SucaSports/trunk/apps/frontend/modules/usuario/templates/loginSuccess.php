@@ -13,7 +13,7 @@
 		  <h2>Ingresa al sitio...</h2>
 		  <div class="form-row">
 		    <?php echo form_error('usuario') ?>
-		    <label for="usuario">Usuario :</label>
+		    <label for="usuario">Documento :</label>
 		    <?php echo input_tag('usuario', $sf_params->get('usuario')) ?>
 		  </div>
 		 

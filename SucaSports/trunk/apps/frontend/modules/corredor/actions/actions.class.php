@@ -10,37 +10,35 @@
  */
 class CorredorActions extends autoCorredorActions
 {
+	public function executeGuardarPerfil() {
+	    $usuario = $this->getUser()->getAttribute('usuario', '', 'sesion');
+	    
+	    $this->corredor = $usuario->getCorredor();
+	    if (!$this->corredor) {
+	      $this->corredor = new Corredor();
+	      $this->corredor->setDocumento($usuario->getDocumento());
+	    }
+		  $this->updateCorredorFromRequest();
+      $this->saveCorredor($this->corredor);
+      $this->asociarCorredorUsuario($this->corredor->getId());
+      $this->forward('corredor','perfil');
+		
+	}
   public function executePerfil() {
-//    $this->corredor = $this->getCorredorOrCreate();
-//    if ($this->getRequest()->isMethod('post'))
-//    {
-//      $this->updateCorredorFromRequest();
-//      try
-//      {
-//        $this->saveCorredor($this->corredor);
-//      }
-//      catch (PropelException $e)
-//      {
-//        $this->getRequest()->setError('edit', 'Could not save the edited Corredors.');
-//        return $this->forward('corredor', 'list');
-//      }
-//      $this->getUser()->setFlash('notice', 'Your modifications have been saved');
-//      if ($this->getRequestParameter('save_and_add'))
-//      {
-//        return $this->redirect('corredor/create');
-//      }
-//      else if ($this->getRequestParameter('save_and_list'))
-//      {
-//        return $this->redirect('corredor/list');
-//      }
-//      else
-//      {
-//        return $this->redirect('corredor/edit?id='.$this->corredor->getId());
-//      }
-//    }
-//    else
-//    {
-//      $this->labels = $this->getLabels();
-//    }
+  	$usuario = $this->getUser()->getAttribute('usuario', '', 'sesion');
+    $this->corredor = $usuario->getCorredor();
+    if (!$this->corredor) {
+      $this->corredor = new Corredor();
+      $this->corredor->setDocumento($usuario->getDocumento());
+    }  	
+    $this->labels = $this->getLabels();    
+  }
+  public function asociarCorredorUsuario($idCorredor) {
+  	$elUsuario = $this->getUser()->getAttribute('usuario', '', 'sesion');
+  	$usuario = UsuarioPeer::retrieveByPk($elUsuario->getId());
+  	$usuario->setIdCorredor($idCorredor);
+  	$usuario->save();
+  	$this->context->getUser()->setAttribute('usuario', $usuario, 'sesion');
+  	
   }
 }
