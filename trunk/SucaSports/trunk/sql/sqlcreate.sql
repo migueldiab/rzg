@@ -1,4 +1,4 @@
-﻿SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
@@ -282,21 +282,18 @@ DROP TABLE IF EXISTS `suca_sports`.`usuario` ;
 CREATE  TABLE IF NOT EXISTS `suca_sports`.`usuario` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `documento` VARCHAR(45) NULL DEFAULT NULL ,
+  `email` VARCHAR(45) NULL ,
   `password` VARCHAR(45) NULL ,
-  `email` VARCHAR(45) NULL DEFAULT NULL,
-  `pregunta_secreta` VARCHAR(45) NULL DEFAULT NULL,
-  `respuesta_secreta` VARCHAR(45) NULL DEFAULT NULL,
-  `estado` CHAR(1) NULL DEFAULT NULL,
-  `verificador` VARCHAR(255) NULL DEFAULT NULL,
   `id_grupo` INT(11) NULL DEFAULT NULL ,
   `id_corredor` INT(11) NULL DEFAULT NULL ,
+  `pregunta_secreta` VARCHAR(45) NULL ,
+  `respuesta_secreta` VARCHAR(45) NULL ,
+  `estado` CHAR(1) NULL ,
+  `verificador` VARCHAR(255) NULL ,
   `created_at` TIMESTAMP NULL DEFAULT NULL ,
   `created_by` INT(11) NULL DEFAULT NULL ,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ,
-  `updated_by` INT(11) NULL DEFAULT NULL ,
-
-
-
+  `created_by` INT NULL ,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_usuarios_corredor`
     FOREIGN KEY (`id_corredor` )
@@ -770,6 +767,22 @@ CREATE INDEX `ix_resultado_corredor` ON `suca_sports`.`resultado` (`id_corredor`
 CREATE INDEX `ix_resultado_fechaetapacarrera` ON `suca_sports`.`resultado` (`id_carrera` ASC, `id_etapa` ASC, `fecha_inicio` ASC) ;
 
 CREATE INDEX `fk_resultado_fechaetapacarrera` ON `suca_sports`.`resultado` (`fecha_inicio` ASC, `id_etapa` ASC, `id_carrera` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `suca_sports`.`configuracion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `suca_sports`.`configuracion` ;
+
+CREATE  TABLE IF NOT EXISTS `suca_sports`.`configuracion` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `parametro` VARCHAR(45) NULL ,
+  `valor` VARCHAR(45) NULL ,
+  `descripcion` VARCHAR(255) NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  `updated_by` INT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
 
 
 

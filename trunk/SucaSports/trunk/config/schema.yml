@@ -63,6 +63,14 @@ propel:
     updated_by: { type: INTEGER }
     id_estado: { type: INTEGER, foreignTable: estado, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     _indexes: { fk_chip_estado: [id_estado] }
+  configuracion:
+    _attributes: { idMethod: native }
+    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
+    parametro: { type: VARCHAR, size: '45' }
+    valor: { type: VARCHAR, size: '45' }
+    descripcion: { type: VARCHAR, size: '255' }
+    updated_at: { type: TIMESTAMP }
+    updated_by: { type: INTEGER }
   corredor:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }

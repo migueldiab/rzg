@@ -6,4 +6,6 @@ generator:
     edit:
       title: Nueva entrada
       display: [texto]
-      
+      layout:  stacked      
+      max_per_page: 4
+      filters: [post]

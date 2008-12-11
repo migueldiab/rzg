@@ -30,5 +30,17 @@ class homeActions extends sfActions
      $tipo_documento->save();
 
     }
+    
+    $this->pager = new sfPropelPager('Post', 4);
+    $c = new Criteria();
+    $c->addDescendingOrderByColumn('created_at');
+    $this->pager->setCriteria($c);
+    $this->pager->setPage($this->getRequestParameter('page', $this->getUser()->getAttribute('page', 1, 'sf_admin/post')));
+    $this->pager->init();
+    // save page
+    if ($this->getRequestParameter('page')) {
+        $this->getUser()->setAttribute('page', $this->getRequestParameter('page'), 'sf_admin/post');
+    }
+    
   }
 }

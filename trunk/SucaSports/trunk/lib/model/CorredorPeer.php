@@ -9,4 +9,5 @@
  */ 
 class CorredorPeer extends BaseCorredorPeer
 {
+
 }
