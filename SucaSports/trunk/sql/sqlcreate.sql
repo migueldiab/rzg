@@ -312,6 +312,7 @@ CREATE INDEX `fk_usuarios_grupos` ON `suca_sports`.`usuario` (`id_grupo` ASC) ;
 
 CREATE INDEX `fk_usuarios_corredor` ON `suca_sports`.`usuario` (`id_corredor` ASC) ;
 
+ALTER TABLE `suca_sports`.`usuario` ADD UNIQUE INDEX `idx_usuarios_documentos`(`documento`);
 
 -- -----------------------------------------------------
 -- Table `suca_sports`.`carrera`
