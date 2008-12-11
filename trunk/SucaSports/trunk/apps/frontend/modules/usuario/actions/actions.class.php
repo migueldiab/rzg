@@ -57,7 +57,7 @@ class usuarioActions extends autousuarioActions
     }
     if (isset($usuario['password']))
     {
-      $this->usuario->setPassword($usuario['password']);
+      $this->usuario->setPasswordEncryptar($usuario['password']);
     }
     if (isset($usuario['verify_password']))
     {

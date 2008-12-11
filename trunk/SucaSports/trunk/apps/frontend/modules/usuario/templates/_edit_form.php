@@ -43,10 +43,7 @@
     <?php echo form_error('usuario{password}', array('class' => 'form-error-msg')) ?>
   <?php endif; ?>
 
-  <?php $value = object_input_tag($usuario, 'getPassword', array (
-  'size' => 45,
-  'control_name' => 'usuario[password]',
-)); echo $value ? $value : '&nbsp;' ?>
+  <?php echo input_password_tag('usuario[password]');?>
     </div>
 </div>
 
@@ -57,11 +54,7 @@
     <?php echo form_error('usuario{verify_password}', array('class' => 'form-error-msg')) ?>
   <?php endif; ?>
 
-  <?php $value = object_input_tag($usuario, 'getVerifyPassword', array (
-  'size' => 45,
-  'disabled' => false,
-  'control_name' => 'usuario[verify_password]',
-)); echo $value ? $value : '&nbsp;' ?>
+  <?php echo input_password_tag('usuario[veryfy_password]');?>
     </div>
 </div>
 
