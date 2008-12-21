@@ -44,5 +44,11 @@ class PostMapBuilder {
 
 		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 
+		$tMap->addColumn('FECHA_ETAPA_CARRERA_FECHA_INICIO', 'FechaEtapaCarreraFechaInicio', 'int', CreoleTypes::DATE, false, null);
+
+		$tMap->addColumn('FECHA_ETAPA_CARRERA_ID_ETAPA', 'FechaEtapaCarreraIdEtapa', 'int', CreoleTypes::INTEGER, false, null);
+
+		$tMap->addColumn('FECHA_ETAPA_CARRERA_ID_CARRERA', 'FechaEtapaCarreraIdCarrera', 'int', CreoleTypes::INTEGER, false, null);
+
 	} 
 } 

@@ -11,29 +11,28 @@
 </head>
 <body>
 <center>
-<table>
+<table width="95%">
 	<tr>
-		<td>
-		  <?php echo image_tag('logosuca.png') ?>
-		</td>
+    <td>
+      <?php echo link_to(image_tag('logo_suca.jpg'),'@homepage') ?>
+    </td>
+    <td valign="top" align="right">
+     <?php include_partial('home/gads'); ?>
+     <br>
+     <div id="sf_admin_container">
+       <ul class="sf_admin_actions">
+        <?php if ($sf_user->isAuthenticated()): ?>
+          <li class="float-right"><?php echo button_to(' log out ', 'usuario/logout') ?></li>
+          <li class="float-right"><?php echo button_to(' mi perfil ', 'corredor/perfil') ?></li>
+        <?php else: ?>
+          <li class="float-right"><?php echo link_to('log in/registrate', 'usuario/login') ?></li>
+        <?php endif ?>
+       </ul>
+     </div>
+    </td>
 	</tr>
 	<tr>
-	 <td>
-	   <div id="sf_admin_container">
-		   <ul class="sf_admin_actions">
-				<?php if ($sf_user->isAuthenticated()): ?>
-				  <li class="float-right"><?php echo button_to(' log out ', 'usuario/logout') ?></li>
-				  <li class="float-right"><?php echo button_to(' mi perfil ', 'corredor/perfil') ?></li>
-				<?php else: ?>
-				  <li class="float-right"><?php echo link_to('log in/registrate', 'usuario/login') ?></li>
-				<?php endif ?>
-		   </ul>
-	   </div>
-	   <?php include_partial('home/gads'); ?>
-	 </td>
-	</tr>        
-	<tr>
-		<td>
+		<td colspan="2">
       <?php echo $sf_content ?>
 		</td>
 	</tr>

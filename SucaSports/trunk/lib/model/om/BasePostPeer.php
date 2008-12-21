@@ -13,7 +13,7 @@ abstract class BasePostPeer {
 	const CLASS_DEFAULT = 'lib.model.Post';
 
 	
-	const NUM_COLUMNS = 6;
+	const NUM_COLUMNS = 9;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -38,23 +38,32 @@ abstract class BasePostPeer {
 	const UPDATED_AT = 'post.UPDATED_AT';
 
 	
+	const FECHA_ETAPA_CARRERA_FECHA_INICIO = 'post.FECHA_ETAPA_CARRERA_FECHA_INICIO';
+
+	
+	const FECHA_ETAPA_CARRERA_ID_ETAPA = 'post.FECHA_ETAPA_CARRERA_ID_ETAPA';
+
+	
+	const FECHA_ETAPA_CARRERA_ID_CARRERA = 'post.FECHA_ETAPA_CARRERA_ID_CARRERA';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Texto', 'CreatedBy', 'CreatedAt', 'UpdatedBy', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (PostPeer::ID, PostPeer::TEXTO, PostPeer::CREATED_BY, PostPeer::CREATED_AT, PostPeer::UPDATED_BY, PostPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'texto', 'created_by', 'created_at', 'updated_by', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Texto', 'CreatedBy', 'CreatedAt', 'UpdatedBy', 'UpdatedAt', 'FechaEtapaCarreraFechaInicio', 'FechaEtapaCarreraIdEtapa', 'FechaEtapaCarreraIdCarrera', ),
+		BasePeer::TYPE_COLNAME => array (PostPeer::ID, PostPeer::TEXTO, PostPeer::CREATED_BY, PostPeer::CREATED_AT, PostPeer::UPDATED_BY, PostPeer::UPDATED_AT, PostPeer::FECHA_ETAPA_CARRERA_FECHA_INICIO, PostPeer::FECHA_ETAPA_CARRERA_ID_ETAPA, PostPeer::FECHA_ETAPA_CARRERA_ID_CARRERA, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'texto', 'created_by', 'created_at', 'updated_by', 'updated_at', 'fecha_etapa_carrera_fecha_inicio', 'fecha_etapa_carrera_id_etapa', 'fecha_etapa_carrera_id_carrera', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Texto' => 1, 'CreatedBy' => 2, 'CreatedAt' => 3, 'UpdatedBy' => 4, 'UpdatedAt' => 5, ),
-		BasePeer::TYPE_COLNAME => array (PostPeer::ID => 0, PostPeer::TEXTO => 1, PostPeer::CREATED_BY => 2, PostPeer::CREATED_AT => 3, PostPeer::UPDATED_BY => 4, PostPeer::UPDATED_AT => 5, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'texto' => 1, 'created_by' => 2, 'created_at' => 3, 'updated_by' => 4, 'updated_at' => 5, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Texto' => 1, 'CreatedBy' => 2, 'CreatedAt' => 3, 'UpdatedBy' => 4, 'UpdatedAt' => 5, 'FechaEtapaCarreraFechaInicio' => 6, 'FechaEtapaCarreraIdEtapa' => 7, 'FechaEtapaCarreraIdCarrera' => 8, ),
+		BasePeer::TYPE_COLNAME => array (PostPeer::ID => 0, PostPeer::TEXTO => 1, PostPeer::CREATED_BY => 2, PostPeer::CREATED_AT => 3, PostPeer::UPDATED_BY => 4, PostPeer::UPDATED_AT => 5, PostPeer::FECHA_ETAPA_CARRERA_FECHA_INICIO => 6, PostPeer::FECHA_ETAPA_CARRERA_ID_ETAPA => 7, PostPeer::FECHA_ETAPA_CARRERA_ID_CARRERA => 8, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'texto' => 1, 'created_by' => 2, 'created_at' => 3, 'updated_by' => 4, 'updated_at' => 5, 'fecha_etapa_carrera_fecha_inicio' => 6, 'fecha_etapa_carrera_id_etapa' => 7, 'fecha_etapa_carrera_id_carrera' => 8, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	
@@ -118,6 +127,12 @@ abstract class BasePostPeer {
 		$criteria->addSelectColumn(PostPeer::UPDATED_BY);
 
 		$criteria->addSelectColumn(PostPeer::UPDATED_AT);
+
+		$criteria->addSelectColumn(PostPeer::FECHA_ETAPA_CARRERA_FECHA_INICIO);
+
+		$criteria->addSelectColumn(PostPeer::FECHA_ETAPA_CARRERA_ID_ETAPA);
+
+		$criteria->addSelectColumn(PostPeer::FECHA_ETAPA_CARRERA_ID_CARRERA);
 
 	}
 
