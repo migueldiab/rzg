@@ -54,22 +54,34 @@ class usuarioActions extends autousuarioActions
         !isset($usuario['documento']) ||
         !isset($usuario['email']) ||
         !isset($usuario['password'])) {
-        echo "Error...";
+        $this->getUser()->setFlash('error', 'Error, Some of the data is missing');
         $this->forward('usuario', 'edit');
       
     }
-        
-    
-    if ($this->usuario->VerifyPassword($usuario['verify_password'],$usuario['password']) != 1)
+    if ($this->usuario->ValidateID($usuario['documento']))
     {
-      echo ('error - passwords do not match');
-        die();
+        if ($this->usuario->VerifyPassword($usuario['verify_password'],$usuario['password']) != 1)
+        {
+            $this->getUser()->setFlash('error', 'Passwords Do not match');
+            return $this->forward('usuario', 'edit');
+        }
+        if ($this->usuario->check_email_address($usuario['email']))
+        {
+            $this->usuario->setDocumento($usuario['documento']);
+            $this->usuario->setEmail($usuario['email']);
+            $this->usuario->setPasswordEncryptar($usuario['password']);
+        }
+        else
+        {
+            $this->getUser()->setFlash('error', 'Email Address is not valid');
+            return $this->forward('usuario', 'edit');
+        }
     }
-    
-      $this->usuario->setDocumento($usuario['documento']);
-      $this->usuario->setEmail($usuario['email']);
-      $this->usuario->setPasswordEncryptar($usuario['password']);
-    
+    else
+    {
+        $this->getUser()->setFlash('error', 'User already exists');
+        return $this->forward('usuario', 'edit');
+    }
   }
   public function executeIndex()
   {
