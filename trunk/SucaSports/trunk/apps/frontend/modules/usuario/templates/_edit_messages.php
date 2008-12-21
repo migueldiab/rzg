@@ -12,4 +12,8 @@
 <div class="save-ok">
 <h2><?php echo __($sf_user->getFlash('notice')) ?></h2>
 </div>
+<?php elseif ($sf_user->hasFlash('error')): ?>
+<div class="form-errors">
+<h2><?php echo __($sf_user->getFlash('error')) ?></h2>
+</div>
 <?php endif; ?>

@@ -62,8 +62,6 @@
 
 <?php include_partial('edit_actions', array('usuario' => $usuario)) ?>
 
-</form>
-
 <ul class="sf_admin_actions">
       <li class="float-left"><?php if ($usuario->getId()): ?>
 <?php echo button_to(__('delete'), 'usuario/delete?id='.$usuario->getId(), array (
