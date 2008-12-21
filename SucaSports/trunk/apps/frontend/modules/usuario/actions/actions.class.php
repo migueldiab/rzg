@@ -70,10 +70,11 @@ class usuarioActions extends autousuarioActions
             $this->usuario->setDocumento($usuario['documento']);
             $this->usuario->setEmail($usuario['email']);
             $this->usuario->setPasswordEncryptar($usuario['password']);
+            $this->usuario->setEstado('i');
         }
         else
         {
-            $this->getUser()->setFlash('error', 'Email Address is not valid');
+            $this->getUser()->setFlash('error', 'Email Address is not valid or already exists');
             return $this->forward('usuario', 'edit');
         }
     }
@@ -125,6 +126,7 @@ class usuarioActions extends autousuarioActions
         return $this->forward('usuario', 'list');
       }
       $this->getUser()->setFlash('notice', 'Your modifications have been saved');
+      $this->usuario->EmailRegistration($this->usuario->getEmail());
       if ($this->getRequestParameter('save_and_add'))
       {
         return $this->redirect('usuario/create');
@@ -166,4 +168,5 @@ class usuarioActions extends autousuarioActions
       'usuario{verify_password}' => 'Verify password:',
     );
   }
+
 }
