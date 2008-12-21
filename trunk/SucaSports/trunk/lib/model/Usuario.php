@@ -69,6 +69,16 @@ public function check_email_address($strEmailAddress) {
             }
 
             // If we're still here, all checks above passed. Email is valid.
+            $usuario = new usuario;
+            $c = new Criteria();
+            $c->add(UsuarioPeer::EMAIL,$strEmailAddress);
+            $usuario = UsuarioPeer::doSelectOne($c);
+            if (isset($usuario)){
+                if ($usuario->getEmail()== $strEmailAddress)
+                    {
+                     return false;
+                    }
+            }
             return true;
 
         }
@@ -78,7 +88,7 @@ public function check_email_address($strEmailAddress) {
          * @param   strLocalPortion     Text to be checked
          * @return  True if local portion is valid, false if not
          */
-        protected function check_local_portion($strLocalPortion) {
+ protected function check_local_portion($strLocalPortion) {
             // Local portion can only be from 1 to 64 characters, inclusive.
             // Please note that servers are encouraged to accept longer local
             // parts than 64 characters.
@@ -139,7 +149,7 @@ public function check_email_address($strEmailAddress) {
                 }
             }
             return true;
-        }
+ }
 
         /**
          * Check given text length is between defined bounds
@@ -157,20 +167,43 @@ public function check_email_address($strEmailAddress) {
                 return true;
             }
         }
-  public function ValidateID($strID) {
+ public function ValidateID($strID) {
    
    $usuario = new usuario;
    $c = new Criteria();
    $c->add(UsuarioPeer::DOCUMENTO,$strID);
    $usuario = UsuarioPeer::doSelectOne($c);
-   if (isset($usuario))
-   {
-   if ($usuario->getDocumento()== $strID)
-   {
-      return false; 
+   if (isset($usuario)){
+    if ($usuario->getDocumento()== $strID)
+      {
+        return false;
+      }
+    return true;
    }
    return true;
-  }
-  return true;
-  }
+ }
+ public function EmailRegistration($emailTo)
+{
+  // class initialization
+  $mail = new sfMail();
+  $mail->initialize();
+  $mail->setMailer('sendmail');
+  $mail->setCharset('utf-8');
+
+  // definition of the required parameters
+  $mail->setSender('webmaster@sucasports.com', 'Suca Sports Webmaster');
+  $mail->setFrom('info@Sucasports.com', 'Suca Sports');
+  $mail->addReplyTo('do_not_reply@sucasports.com');
+
+  $mail->addAddress($emailTo);
+
+  $mail->setSubject('Registration Confirmation');
+  $mail->setBody('
+  Querido Usuario,
+
+  Clickee en el siguiente link para activar su cuenta: ');
+
+  // send the email
+  $mail->send();
+}
 }
