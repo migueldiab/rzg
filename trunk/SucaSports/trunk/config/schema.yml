@@ -230,7 +230,10 @@ propel:
     created_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER, foreignTable: usuario, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     updated_at: { type: TIMESTAMP }
-    _indexes: { fk_post_usuarios: [created_by], fk_post_usuarios1: [updated_by] }
+    fecha_etapa_carrera_fecha_inicio: { type: DATE }
+    fecha_etapa_carrera_id_etapa: { type: INTEGER }
+    fecha_etapa_carrera_id_carrera: { type: INTEGER }
+    _indexes: { fk_post_usuarios: [created_by], fk_post_usuarios1: [updated_by], fk_post_fecha_etapa_carrera: [fecha_etapa_carrera_fecha_inicio, fecha_etapa_carrera_id_etapa, fecha_etapa_carrera_id_carrera] }
   resultado:
     id_corredor: { type: INTEGER, required: true, primaryKey: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     fecha_inicio: { type: DATE, required: true, primaryKey: true }
@@ -264,10 +267,10 @@ propel:
     password: { type: VARCHAR, size: '45' }
     id_grupo: { type: INTEGER, foreignTable: grupo, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     id_corredor: { type: INTEGER, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    estado: { type: CHAR, size: '1' }
-    verificador: { type: VARCHAR, size: '255' }
     pregunta_secreta: { type: VARCHAR, size: '45' }
     respuesta_secreta: { type: VARCHAR, size: '45' }
+    estado: { type: CHAR, size: '1' }
+    verificador: { type: VARCHAR, size: '255' }
     created_at: { type: TIMESTAMP }
     created_by: { type: INTEGER }
     updated_at: { type: TIMESTAMP }

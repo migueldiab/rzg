@@ -44,13 +44,13 @@ class UsuarioMapBuilder {
 
 		$tMap->addForeignKey('ID_CORREDOR', 'IdCorredor', 'int', CreoleTypes::INTEGER, 'corredor', 'ID', false, null);
 
-		$tMap->addColumn('ESTADO', 'Estado', 'string', CreoleTypes::CHAR, false, 1);
-
-		$tMap->addColumn('VERIFICADOR', 'Verificador', 'string', CreoleTypes::VARCHAR, false, 255);
-
 		$tMap->addColumn('PREGUNTA_SECRETA', 'PreguntaSecreta', 'string', CreoleTypes::VARCHAR, false, 45);
 
 		$tMap->addColumn('RESPUESTA_SECRETA', 'RespuestaSecreta', 'string', CreoleTypes::VARCHAR, false, 45);
+
+		$tMap->addColumn('ESTADO', 'Estado', 'string', CreoleTypes::CHAR, false, 1);
+
+		$tMap->addColumn('VERIFICADOR', 'Verificador', 'string', CreoleTypes::VARCHAR, false, 255);
 
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 

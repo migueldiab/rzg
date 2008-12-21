@@ -21,9 +21,7 @@ class homeActions extends sfActions
     {
      $datos = $this->getRequestParameter('datos');
 
-     echo 'El Dato es : '.$datos['primer'];
      $tipo_documento = TipoDocumentoPeer::retrieveByPk($datos['primer']);
-     echo 'El tipo es : '.$tipo_documento->getNombre();
 
      $tipo_documento = new TipoDocumento();
      $tipo_documento->setNombre($datos['segundo']);

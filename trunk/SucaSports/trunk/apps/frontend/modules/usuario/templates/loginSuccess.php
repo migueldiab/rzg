@@ -30,7 +30,6 @@
 		  
 		  <?php echo input_hidden_tag('url_original', $sf_request->getAttribute('url_original')) ?>
     </fieldset>
-  <?php echo "</form>" ?>
   </div>  
   <ul class="sf_admin_actions">
     <li class="float-right">
@@ -40,6 +39,7 @@
 		)) ?>
     </li>
   </ul>
+  <?php echo "</form>" ?>
 </div>
   
 
