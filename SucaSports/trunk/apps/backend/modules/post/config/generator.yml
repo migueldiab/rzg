@@ -4,7 +4,9 @@ generator:
     model_class:      Post
     theme:            default
     fields:
-     texto: { params: rich=true tinymce_options=height:150 }    
+     texto: { params: rich=true tinymce_options=height:350 }
+     fecha_etapa_carrera_fecha_inicio: { name: Fecha de Inicio, parms: date_format='dd/MM/YYYY' }
+         
     edit:
       title: Nueva entrada
-      display: [texto]
+      display: [texto, fecha_etapa_carrera_fecha_inicio ]
