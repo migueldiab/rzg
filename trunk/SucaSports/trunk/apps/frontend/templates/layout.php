@@ -18,7 +18,7 @@
     </td>
     <td valign="top" align="right">
      <?php include_partial('home/gads'); ?>
-     <br>
+     <br/>
      <div id="sf_admin_container">
        <ul class="sf_admin_actions">
         <?php if ($sf_user->isAuthenticated()): ?>
