@@ -223,8 +223,16 @@ propel:
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
     _indexes: { fk_permiso_grupos: [grupos_id] }
+  portal:
+    _attributes: { idMethod: native }
+    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
+    nombrePagina: { type: VARCHAR, size: '45' }
+    texto: { type: LONGVARCHAR }
+    updated_by: { type: INTEGER }
+    updated_at: { type: TIMESTAMP }
   post:
-    id: { type: INTEGER, required: true, primaryKey: true }
+    _attributes: { idMethod: native }
+    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
     texto: { type: LONGVARCHAR }
     created_by: { type: INTEGER, foreignTable: usuario, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     created_at: { type: TIMESTAMP }

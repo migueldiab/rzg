@@ -420,6 +420,7 @@ abstract class BasePost extends BaseObject  implements Persistent {
 				if ($this->isNew()) {
 					$pk = PostPeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
+					$this->setId($pk);  
 					$this->setNew(false);
 				} else {
 					$affectedRows += PostPeer::doUpdate($this, $con);

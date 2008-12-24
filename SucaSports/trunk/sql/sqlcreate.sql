@@ -793,6 +793,21 @@ CREATE  TABLE IF NOT EXISTS `configuracion` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `portal`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `portal` ;
+
+CREATE  TABLE IF NOT EXISTS `portal` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `nombrePagina` VARCHAR(45) NULL ,
+  `texto` TEXT NULL ,
+  `updated_by` INT NULL ,
+  `updated_at` TIMESTAMP NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

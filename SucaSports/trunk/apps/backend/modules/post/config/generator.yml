@@ -3,10 +3,10 @@ generator:
   param:
     model_class:      Post
     theme:            default
-    fields:
-     texto: { params: rich=true tinymce_options=height:350 }
-     fecha_etapa_carrera_fecha_inicio: { name: Fecha de Inicio, parms: date_format='dd/MM/YYYY' }
-         
+    list:
+      title: Entradas Carreras
+      display: [=texto, updated_at, updated_by]
+      filters: [texto, updated_at, updated_by]         
     edit:
-      title: Nueva entrada
+      title: Editar entrada
       display: [texto, fecha_etapa_carrera_fecha_inicio ]

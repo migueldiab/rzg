@@ -25,8 +25,14 @@
           <li class="float-right"><?php echo button_to(' log out ', 'usuario/logout') ?></li>
           <li class="float-right"><?php echo button_to(' mi perfil ', 'corredor/perfil') ?></li>
         <?php else: ?>
-          <li class="float-right"><?php echo link_to('log in/registrate', 'usuario/login') ?></li>
+          <li class="float-right"><?php echo button_to('log in/registrate', 'usuario/login') ?></li>
         <?php endif ?>
+        <li class="float-right"><?php echo button_to(' links ', 'home/links') ?></li>
+        <li class="float-right"><?php echo button_to(' team building ', 'home/team') ?></li>
+        <li class="float-right"><?php echo button_to(' entrevistas ', 'home/entrevistas') ?></li>
+        <li class="float-right"><?php echo button_to(' calendario ', 'home/calendario') ?></li>
+        <li class="float-right"><?php echo button_to(' quienes somos? ', 'home/quienes') ?></li>
+        <li class="float-right"><?php echo button_to(' carreras ', 'home/index') ?></li>
        </ul>
      </div>
     </td>

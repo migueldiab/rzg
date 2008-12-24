@@ -41,4 +41,110 @@ class homeActions extends sfActions
     }
     
   }
+  public function executeQuienes()
+  {
+    $c = new Criteria();
+    $c->add(PortalPeer::NOMBREPAGINA,'QUIENES');
+    $this->portal = PortalPeer::doSelectOne($c);
+    if (!$this->portal) {
+      $portal = new Portal();
+      $portal->setNombrepagina('QUIENES');
+      $portal->save();
+
+      $c = new Criteria();
+      $c->add(PortalPeer::NOMBREPAGINA,'QUIENES');
+      $this->portal = PortalPeer::doSelectOne($c);
+      $this->forward404Unless($this->portal);
+    }
+
+    if ($this->getRequest()->isMethod('post'))
+    {
+      
+    }
+  }
+  public function executeCalendario()
+  {
+    $c = new Criteria();
+    $c->add(PortalPeer::NOMBREPAGINA,'CALENDARIO');
+    $this->portal = PortalPeer::doSelectOne($c);
+    if (!$this->portal) {
+      $portal = new Portal();
+      $portal->setNombrepagina('CALENDARIO');
+      $portal->save();
+
+      $c = new Criteria();
+      $c->add(PortalPeer::NOMBREPAGINA,'CALENDARIO');
+      $this->portal = PortalPeer::doSelectOne($c);
+      $this->forward404Unless($this->portal);
+    }
+
+    if ($this->getRequest()->isMethod('post'))
+    {
+      
+    }
+  }
+  public function executeEntrevistas()
+  {
+  $c = new Criteria();
+    $c->add(PortalPeer::NOMBREPAGINA,'ENTREVISTAS');
+    $this->portal = PortalPeer::doSelectOne($c);
+    if (!$this->portal) {
+      $portal = new Portal();
+      $portal->setNombrepagina('ENTREVISTAS');
+      $portal->save();
+
+      $c = new Criteria();
+      $c->add(PortalPeer::NOMBREPAGINA,'ENTREVISTAS');
+      $this->portal = PortalPeer::doSelectOne($c);
+      $this->forward404Unless($this->portal);
+    }
+
+    if ($this->getRequest()->isMethod('post'))
+    {
+      
+    }
+  }
+  public function executeTeam()
+  {
+  $c = new Criteria();
+    $c->add(PortalPeer::NOMBREPAGINA,'TEAM');
+    $this->portal = PortalPeer::doSelectOne($c);
+    if (!$this->portal) {
+      $portal = new Portal();
+      $portal->setNombrepagina('TEAM');
+      $portal->save();
+
+      $c = new Criteria();
+      $c->add(PortalPeer::NOMBREPAGINA,'TEAM');
+      $this->portal = PortalPeer::doSelectOne($c);
+      $this->forward404Unless($this->portal);
+    }
+
+    if ($this->getRequest()->isMethod('post'))
+    {
+      
+    }
+  }
+  public function executeLinks()
+  {
+  $c = new Criteria();
+    $c->add(PortalPeer::NOMBREPAGINA,'LINKS');
+    $this->portal = PortalPeer::doSelectOne($c);
+    if (!$this->portal) {
+      $portal = new Portal();
+      $portal->setNombrepagina('LINKS');
+      $portal->save();
+
+      $c = new Criteria();
+      $c->add(PortalPeer::NOMBREPAGINA,'LINKS');
+      $this->portal = PortalPeer::doSelectOne($c);
+      $this->forward404Unless($this->portal);
+    }
+
+    if ($this->getRequest()->isMethod('post'))
+    {
+      
+    }
+  }
+  
 }
