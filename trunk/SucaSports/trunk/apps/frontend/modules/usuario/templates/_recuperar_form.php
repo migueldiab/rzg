@@ -1,4 +1,4 @@
-<?php echo form_tag('usuario/save', array(
+<?php echo form_tag('usuario/enviarCorreoRecuperar', array(
   'id'        => 'sf_admin_edit_form',
   'name'      => 'sf_admin_edit_form',
   'multipart' => true,
@@ -9,36 +9,21 @@
 <fieldset id="sf_fieldset_none" class="">
 
 <div class="form-row">
-  <?php echo label_for('usuario[documento]', __($labels['usuario{documento}']), '') ?>
-  <div class="content<?php if ($sf_request->hasError('usuario{documento}')): ?> form-error<?php endif; ?>">
-  <?php if ($sf_request->hasError('usuario{documento}')): ?>
-    <?php echo form_error('usuario{documento}', array('class' => 'form-error-msg')) ?>
-  <?php endif; ?>
-
-  <?php $value = object_input_tag($usuario, 'getDocumento', array (
-  'size' => 45,
-  'control_name' => 'usuario[documento]',
-)); echo $value ? $value : '&nbsp;' ?>
-    </div>
-</div>
-
-<div class="form-row">
-  <?php echo label_for('usuario[email]', __($labels['usuario{email}']), '') ?>
+  <?php echo label_for('usuario[email]', 'Ingrese su correo electronico') ?>
   <div class="content<?php if ($sf_request->hasError('usuario{email}')): ?> form-error<?php endif; ?>">
   <?php if ($sf_request->hasError('usuario{email}')): ?>
     <?php echo form_error('usuario{email}', array('class' => 'form-error-msg')) ?>
   <?php endif; ?>
 
-  <?php $value = object_input_tag($usuario, 'getEmail', array (
-  'size' => 45,
-  'control_name' => 'usuario[email]',
+  <?php $value = input_tag('email','', array (
+  'size' => 45
 )); echo $value ? $value : '&nbsp;' ?>
     </div>
 </div>
 
 </fieldset>
 
-<?php include_partial('edit_actions', array('usuario' => $usuario)) ?>
+    <?php include_partial('recuperar_actions', array('usuario' => $usuario)) ?>
 
 </form>
 

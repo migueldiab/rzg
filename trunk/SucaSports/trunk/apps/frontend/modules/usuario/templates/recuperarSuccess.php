@@ -4,7 +4,7 @@
 
 <div id="sf_admin_container">
 
-<h1><?php echo __('Recuperar contraseña',
+<h1><?php echo __('Recuperar Contraseña',
 array()) ?></h1>
 
 <div id="sf_admin_header">
