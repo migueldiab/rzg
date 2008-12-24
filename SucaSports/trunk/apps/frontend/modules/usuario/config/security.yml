@@ -8,7 +8,10 @@ save:
   is_secure: off
 
 recuperar:
-   is_secure: off
+  is_secure: off
+
+enviarCorreoRecuperar:
+  is_secure: off
    
 all:
   is_secure: on

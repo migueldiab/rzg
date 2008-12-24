@@ -150,6 +150,48 @@ class usuarioActions extends autousuarioActions
   }
 
 
+   public function executeRecuperar()
+  {
+
+    $this->usuario = new Usuario();
+    $this->labels = $this->getLabels(); 
+  }
+
+
+public function executeEnviarCorreoRecuperar()
+  {
+    if ($this->getRequestParameter('email')) {
+    $email = $this->getRequestParameter('email');
+    $usuario = new Usuario();
+    $usuario = UsuarioPeer::retrieveByEmail($email);
+    $hashString = md5(date('U'));
+    $usuario->setVerificador($hashString);
+    $usuario->save();
+    $this->labels = $this->getLabels();
+
+    $mail = new sfMail();
+    $mail->initialize();
+    $mail->setMailer('phpmailer');
+    $mail->setCharset('utf-8');
+
+    $mail->setSender('marcos@jarlaxle.com.uy', 'Suca Sports Admin');
+    $mail->setFrom('info@my-company.com', 'My Company');
+    $mail->addReplyTo('webmaster_copy@my-company.com');
+    $mail->addAddress($usuario->getEmail());
+    $mail->setSubject('Password reset confirmation');
+    $mail->setBody('
+    Dear '.$usuario->getName.'
+
+    Regards,
+    The My Company webmaster');
+
+    // send the email
+    $mail->send();
+    }
+    //return $this->forward('home', 'index');
+  }
+
+
   public function handleErrorEdit()
   {
     $this->preExecute();
