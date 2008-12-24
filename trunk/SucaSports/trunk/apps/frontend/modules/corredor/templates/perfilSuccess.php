@@ -231,6 +231,9 @@
 	  <?php $value = object_textarea_tag($corredor, 'getHistoriaMedica', array (
 	  'size' => '30x3',
 	  'control_name' => 'corredor[historia_medica]',
+    'rich' => true,
+	  'tinymce_options' => sfConfig::get('app_tinymce_options'),
+	  
 	)); echo $value ? $value : '&nbsp;' ?>
 	    </div>
 	</div>

@@ -30,7 +30,7 @@ class PostMapBuilder {
 		$tMap = $this->dbMap->addTable('post');
 		$tMap->setPhpName('Post');
 
-		$tMap->setUseIdGenerator(false);
+		$tMap->setUseIdGenerator(true);
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 

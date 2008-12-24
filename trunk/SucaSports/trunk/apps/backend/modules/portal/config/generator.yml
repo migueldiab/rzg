@@ -1,0 +1,12 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Portal
+    theme:            default
+    fields:
+      texto:
+        params: rich=true tinymce_options=height:350,width:650
+    edit:
+      title: Editar whatever
+      display: [texto]
+    

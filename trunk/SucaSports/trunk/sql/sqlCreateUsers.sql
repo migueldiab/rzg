@@ -2,8 +2,9 @@
 --
 -- Desc: script de creacion de usuarios
 -- Author: Marcos Lucas
--- Fecha: 2008109
+-- Modificado: 20081222 @ Miguel Diab
+-- Fecha: 20081009
 --
 ----------------------------------------
 
-CREATE USER sucasports@'%' IDENTIFIED BY '9E63XUNu5';
+CREATE USER rasengan_sucas@'%' IDENTIFIED BY 'SSspJ6Jm';
