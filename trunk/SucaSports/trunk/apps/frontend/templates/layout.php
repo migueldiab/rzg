@@ -3,7 +3,7 @@
 <html>
 <head>
 
-	<?php include_http_metas() ?>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<?php include_metas() ?>
 
 	<?php include_title() ?>
