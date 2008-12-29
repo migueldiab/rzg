@@ -33,9 +33,7 @@
 	        <?php echo input_password_tag('password') ?>
 	      </div>
 	      <div class="form-row">
-	        <?php echo link_to('Olvidaste tu clave?','usuario/recuperar') ?> / 
-	        <?php echo link_to('Registrate ya!','usuario/registrar') ?>
-	        
+	        <?php echo link_to('Olvidaste tu clave?','usuario/recuperar') ?>	        
 	      </div>
 	      
 	      <?php echo input_hidden_tag('url_original', $sf_request->getAttribute('url_original')) ?>
