@@ -4,6 +4,6 @@
     </div>
     <?php $carrera = CarreraPeer::retrieveByPK($post->getFechaEtapaCarreraIdCarrera()); ?>
     <?php if ($carrera) echo link_to('Sitio de la carrera...', $carrera->getUrl())?>
-    <?php if ($carrera) echo link_to('Inscribite a '.$carrera->__toString().'...', '@homepage')?>
+    <?php if ($carrera) echo link_to('Inscribite a '.$carrera->__toString().'...', 'inscripcion/nueva?id='.$post->getFechaEtapaCarreraIdCarrera())?>
     <hr/>
   <?php endforeach; ?>

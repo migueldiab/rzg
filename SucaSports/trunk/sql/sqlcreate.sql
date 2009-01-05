@@ -662,6 +662,7 @@ CREATE  TABLE IF NOT EXISTS `inscripcion` (
   `updated_by` INT(11) NULL DEFAULT NULL ,
   `fecha_inscripcion` DATE NULL DEFAULT NULL ,
   `firma_digital` VARCHAR(255) NULL DEFAULT NULL ,
+  `id_categoria` INT(11) NOT NULL ,
   PRIMARY KEY USING BTREE (`id_corredor`, `fecha_inicio`, `id_carrera`, `id_etapa`) ,
   CONSTRAINT `fk_inscripcion_id_corredor`
     FOREIGN KEY (`id_corredor` )
@@ -672,6 +673,11 @@ CREATE  TABLE IF NOT EXISTS `inscripcion` (
     FOREIGN KEY (`fecha_inicio` , `id_etapa` , `id_carrera` )
     REFERENCES `rasengan_sucasports`.`fecha_etapa_carrera` (`fecha_inicio` , `id_etapa` , `id_carrera` )
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inscripcion_categoria`
+    FOREIGN KEY (`id_categoria` )
+    REFERENCES `rasengan_sucasports`.`categoria` (`id` )
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
@@ -679,6 +685,8 @@ DEFAULT CHARACTER SET = latin1;
 CREATE INDEX `fk_inscripcion_id_corredor` ON `inscripcion` (`id_corredor` ASC) ;
 
 CREATE INDEX `fk_inscripcion_fechaetapacarrera` ON `inscripcion` (`fecha_inicio` ASC, `id_etapa` ASC, `id_carrera` ASC) ;
+
+CREATE INDEX `fk_inscripcion_categoria` ON `inscripcion` (`id_categoria` ASC) ;
 
 
 -- -----------------------------------------------------

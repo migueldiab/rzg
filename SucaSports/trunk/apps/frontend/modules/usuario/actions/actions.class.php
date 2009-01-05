@@ -44,7 +44,10 @@ class usuarioActions extends autousuarioActions
 	
     public function executeRegistrar()    
     {
-      $this->forward('usuario', 'edit');
+	    if ($this->getUser()->isAuthenticated()) {
+	      return $this->redirect('corredor/perfil');      
+	    }
+    	$this->forward('usuario', 'edit');
     }
     
   protected function updateUsuarioFromRequest()
@@ -152,8 +155,10 @@ class usuarioActions extends autousuarioActions
 
    public function executeRecuperar()
   {
-
-    $this->usuario = new Usuario();
+    if ($this->getUser()->isAuthenticated()) {
+      return $this->redirect('corredor/perfil');      
+    }
+  	$this->usuario = new Usuario();
     $this->labels = $this->getLabels(); 
   }
 
@@ -162,25 +167,25 @@ public function executeEnviarCorreoRecuperar()
   {
     if ($this->getRequestParameter('email')) {
     $email = $this->getRequestParameter('email');
-    $usuario = new Usuario();
-    $usuario = UsuarioPeer::retrieveByEmail($email);
+    $this->usuario = new Usuario();
+    $this->usuario = UsuarioPeer::retrieveByEmail($email);
     $hashString = md5(date('U'));
-    $usuario->setVerificador($hashString);
-    $usuario->save();
+    $this->usuario->setVerificador($hashString);
+    $this->usuario->save();
     $this->labels = $this->getLabels();
 
     $mail = new sfMail();
     $mail->initialize();
-   // $mail->setMailer('sendmail');
+    $mail->setMailer('sendmail');
     $mail->setCharset('utf-8');
 
     $mail->setSender('www-data@jarlaxle', 'Suca Sports Admin');
     $mail->setFrom('www-data@jarlaxle', 'My Company');
     $mail->addReplyTo('www-data@jarlaxle');
-    $mail->addAddress($usuario->getEmail());
+    $mail->addAddress($this->usuario->getEmail());
     $mail->setSubject('Password reset confirmation');
     $mail->setBody('
-Dear '.$usuario->getDocumento().'
+Dear '.$this->usuario->getDocumento().'
 
     Regards,
     The My Company webmaster');
