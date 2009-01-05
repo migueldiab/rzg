@@ -171,16 +171,16 @@ public function executeEnviarCorreoRecuperar()
 
     $mail = new sfMail();
     $mail->initialize();
-    $mail->setMailer('phpmailer');
+   // $mail->setMailer('sendmail');
     $mail->setCharset('utf-8');
 
-    $mail->setSender('marcos@jarlaxle.com.uy', 'Suca Sports Admin');
-    $mail->setFrom('info@my-company.com', 'My Company');
-    $mail->addReplyTo('webmaster_copy@my-company.com');
+    $mail->setSender('www-data@jarlaxle', 'Suca Sports Admin');
+    $mail->setFrom('www-data@jarlaxle', 'My Company');
+    $mail->addReplyTo('www-data@jarlaxle');
     $mail->addAddress($usuario->getEmail());
     $mail->setSubject('Password reset confirmation');
     $mail->setBody('
-    Dear '.$usuario->getName.'
+Dear '.$usuario->getDocumento().'
 
     Regards,
     The My Company webmaster');
