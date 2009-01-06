@@ -13,9 +13,6 @@ class fechaetapacarreraActions extends autofechaetapacarreraActions
    protected function updateFechaEtapaCarreraFromRequest()
   {
     $fecha_etapa_carrera = $this->getRequestParameter('fecha_etapa_carrera');
-    //$this->fecha_etapa_carrera->setIdCarrera($this->getRequestParameter('id_carrera'));
-    //$this->fecha_etapa_carrera->setIdEtapa($this->getRequestParameter('id_etapa'));
-    //$this->fecha_etapa_carrera->setFechaInicio($this->getRequestParameter('fecha_inicio'));
     
     if (isset($fecha_etapa_carrera['fecha_inicio']))
     {
