@@ -185,20 +185,19 @@ public function executeEnviarCorreoRecuperar()
     $mail->addAddress($this->usuario->getEmail());
     $mail->setSubject('Password reset confirmation');
     $mail->setBody('
-Dear '.$this->usuario->getDocumento().'
+    Estimado usuario'.$this->usuario->getDocumento().'
 
-    Regards,
-    The My Company webmaster');
+    Para poder cambiar su contraseña debe hacer click en el siguiente link
 
-    // send the email
-    $mail->send();
+    http://sucasports/frontend_dev.php/usuario/UnblockUser?email='.$email.'?val='.$hashString);
+
     }
     //return $this->forward('home', 'index');
   }
 
     public function executeUnblockUser()
   {
-      if (($this->getRequestParameter('id')) && ($this->getRequestParameter('val'))){
+    if (($this->getRequestParameter('id')) && ($this->getRequestParameter('val'))){
         $idUsuario = $this->getRequestParameter('id');
         $val = $this->getRequestParameter('val');
         $usuario = new Usuario();
@@ -206,9 +205,12 @@ Dear '.$this->usuario->getDocumento().'
         if ($val == $usuario->getVerificador()){
             $usuario->setVerificador($hashString);
             $usuario->save();
+            $this->forward('usuario', 'cambiarContrasena');
             }
+            else 
+             $this->forward('usuario', 'login');
       }
-      $this->forward('usuario', 'login');
+      
   }
 
 
