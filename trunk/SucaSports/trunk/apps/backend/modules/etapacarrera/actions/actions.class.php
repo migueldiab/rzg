@@ -79,7 +79,8 @@ public function executeFecha(){
 
   public function executeEdit()
   {
-    $this->etapa_carrera = $this->getEtapaCarreraOrCreate();
+    $this->etapa_carrera = new EtapaCarrera();
+    $this->etapa_carrera->setIdCarrera($this->getRequestParameter('id_carrera'));
 
     if ($this->getRequest()->isMethod('post'))
     {
