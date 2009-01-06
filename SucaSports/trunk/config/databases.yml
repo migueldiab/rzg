@@ -2,4 +2,4 @@ all:
   propel:
     class:          sfPropelDatabase
     param:
-      dsn:          mysql://rasengan_sucas:SSspJ6Jm@localhost/rasengan_sucasports
+      dsn:          mysql://root:ncc1701@localhost/rasengan_sucasports
