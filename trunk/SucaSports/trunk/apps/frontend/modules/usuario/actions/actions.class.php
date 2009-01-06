@@ -196,6 +196,21 @@ Dear '.$this->usuario->getDocumento().'
     //return $this->forward('home', 'index');
   }
 
+    public function executeUnblockUser()
+  {
+      if (($this->getRequestParameter('id')) && ($this->getRequestParameter('val'))){
+        $idUsuario = $this->getRequestParameter('id');
+        $val = $this->getRequestParameter('val');
+        $usuario = new Usuario();
+        $usuario = UsuarioPeer::retrieveByPK($idUsuario);
+        if ($val == $usuario->getVerificador()){
+            $usuario->setVerificador($hashString);
+            $usuario->save();
+            }
+      }
+      $this->forward('usuario', 'login');
+  }
+
 
   public function handleErrorEdit()
   {
