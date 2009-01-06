@@ -74,6 +74,8 @@ class usuarioActions extends autousuarioActions
             $this->usuario->setEmail($usuario['email']);
             $this->usuario->setPasswordEncryptar($usuario['password']);
             $this->usuario->setEstado('i');
+            $hashString = md5(date('U'));
+            $this->usuario->setVerificador($hashString);
         }
         else
         {
@@ -129,7 +131,7 @@ class usuarioActions extends autousuarioActions
         return $this->forward('usuario', 'list');
       }
       $this->getUser()->setFlash('notice', 'Your modifications have been saved');
-      $this->usuario->EmailRegistration($this->usuario->getEmail());
+      $this->usuario->EmailRegistration($this->usuario->getEmail(),$this->usuario->getVerificador());
       if ($this->getRequestParameter('save_and_add'))
       {
         return $this->redirect('usuario/create');

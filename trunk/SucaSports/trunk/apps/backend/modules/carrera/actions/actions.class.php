@@ -11,7 +11,6 @@
 class CarreraActions extends autoCarreraActions
 {
     public function executeEtapa(){
-        
     
     $this->redirect('etapacarrera/edit?id_carrera='.$this->getRequestParameter('id'));
 

@@ -182,15 +182,13 @@ public function check_email_address($strEmailAddress) {
    }
    return true;
  }
- public function EmailRegistration($emailTo)
+ public function EmailRegistration($emailTo,$verificador)
 {
-  // class initialization
   $mail = new sfMail();
   $mail->initialize();
   $mail->setMailer('sendmail');
   $mail->setCharset('utf-8');
 
-  // definition of the required parameters
   $mail->setSender('webmaster@sucasports.com', 'Suca Sports Webmaster');
   $mail->setFrom('info@Sucasports.com', 'Suca Sports');
   $mail->addReplyTo('do_not_reply@sucasports.com');
@@ -201,9 +199,10 @@ public function check_email_address($strEmailAddress) {
   $mail->setBody('
   Querido Usuario,
 
-  Clickee en el siguiente link para activar su cuenta: ');
+  Clickee en el siguiente link para activar su cuenta:
 
-  // send the email
+  http://sucasports/frontend_dev.php/usuario/ActivateUser?email='.$emailTo.'?val='.$verificador);
+
   $mail->send();
 }
 }
