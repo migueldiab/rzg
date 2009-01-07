@@ -214,6 +214,24 @@ public function executeEnviarCorreoRecuperar()
       }
       
   }
+  public function executeActivateUser(){
+
+    if (($this->getRequestParameter('id')) && ($this->getRequestParameter('val'))){
+        $idUsuario = $this->getRequestParameter('id');
+        $val = $this->getRequestParameter('val');
+        $usuario = new Usuario();
+        $usuario = UsuarioPeer::retrieveByPK($idUsuario);
+        if ($val == $usuario->getVerificador()){
+            $usuario->setEstado('A');
+            $usuario->save();
+            $this->getUser()->setFlash('save', 'Usuario activado correctamente');
+            $this->forward('usuario', 'login');
+            }
+            else
+             $this->getUser()->setFlash('error', 'El link de activacion es invalido o ha expirado');
+             $this->forward('usuario', 'login');
+      }
+  }
 
 
   public function handleErrorEdit()
