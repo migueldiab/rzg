@@ -230,7 +230,10 @@ public function executeEnviarCorreoRecuperar()
             else
              $this->getUser()->setFlash('error', 'El link de activacion es invalido o ha expirado');
              $this->forward('usuario', 'login');
-      }
+    }
+    else
+     $this->getUser()->setFlash('error', 'El link de activacion es invalido o ha expirado');
+     $this->forward('usuario', 'login');
   }
 
 
