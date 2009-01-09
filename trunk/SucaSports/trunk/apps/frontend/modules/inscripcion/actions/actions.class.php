@@ -10,9 +10,14 @@
  */
 class inscripcionActions extends autoinscripcionActions
 {
-	 public function executeNueva() {
-    $this->inscripcion = new Inscripcion();
+	 public function executeGuardar() {
 
+	 }
+	 public function executeNueva() {	 	
+	 	$inscripcion = new Inscripcion();
+	 	$inscripcion->setFechaInicio($this->getRequestParameter('fecha_etapa'));
+	 	$this->inscripcion = $inscripcion;
+	 	
     if ($this->getRequest()->isMethod('post'))
     {
       $this->updateInscripcionFromRequest();
