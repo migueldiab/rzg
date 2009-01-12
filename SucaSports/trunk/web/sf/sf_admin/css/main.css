@@ -212,15 +212,15 @@
 
 #sf_admin_container ul.sf_admin_actions input
 {
-  padding: 3px 3px 3px 20px;
-  color: #333;
-  font-size: 11px;
-  font-family: Arial, sans-serif;
-  border: 0px;
-  border-right: 4px solid #999;
-  background-color: #ffc;
-  cursor: hand;
-  cursor: pointer;
+	padding: 3px 3px 3px 20px;
+	color: #CCCCCC;
+	font-size: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	border: 0px;
+	border-right: 2px solid #999;
+	background-color: #0000FF;
+	cursor: hand;
+	cursor: default;
 }
 
 #sf_admin_container .sf_admin_action_create
@@ -350,4 +350,7 @@
 {
   display: inline;
   float: none;
+}
+body {
+	background-color: #000033;
 }

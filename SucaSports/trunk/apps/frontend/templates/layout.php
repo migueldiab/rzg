@@ -6,7 +6,13 @@
 	<?php include_title() ?>
 <!--<link href="padrao.css" rel="stylesheet" type="text/css">-->
 <link rel="shortcut icon" href="/favicon.ico" />
-</head>
+<style type="text/css">
+<!--
+body {
+	background-color: #000033;
+}
+-->
+</style></head>
 <body>
 <div id="principal" align="center">
 		<div id="conteudo">
