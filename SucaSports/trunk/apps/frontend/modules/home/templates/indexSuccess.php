@@ -9,6 +9,8 @@
       $post->getFechaEtapaCarreraIdCarrera()) ?>
     <?php if ($carrera) echo link_to('Sitio de la carrera...', $carrera->getUrl())?>
     <?php if ($carrera) echo link_to('Inscribite a '.$carrera->__toString().'...', 
-      'inscripcion/nueva?fecha_etapa='.$post->getFechaEtapaCarreraFechaInicio()) ?>
+      'inscripcion/nueva?fecha_etapa='.$post->getFechaEtapaCarreraFechaInicio().
+      '&id_etapa='.$post->getFechaEtapaCarreraIdEtapa().
+      '&id_carrera='.$post->getFechaEtapaCarreraIdCarrera()) ?>
     <hr/>
   <?php endforeach; ?>

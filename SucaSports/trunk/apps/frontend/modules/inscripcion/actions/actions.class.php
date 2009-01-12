@@ -11,12 +11,27 @@
 class inscripcionActions extends autoinscripcionActions
 {
 	 public function executeGuardar() {
-
+    
 	 }
-	 public function executeNueva() {	 	
+	 public function executeNueva() {
+    $usuario = $this->getUser()->getAttribute('usuario', '', 'sesion');
+    
+    if (!$usuario->getIdCorredor()) {
+    	$this->getUser()->setFlash('notice', 'Por favor complete su perfil antes de inscribirse a una carrera');
+      return $this->redirect('corredor/perfil');      	 
+    }
+    
+	 	$carrera = CarreraPeer::retrieveByPK($this->getRequestParameter('id_carrera'));
+	 	$this->carrera = $carrera;
+	 	
 	 	$inscripcion = new Inscripcion();
-	 	$inscripcion->setFechaInicio($this->getRequestParameter('fecha_etapa'));
-	 	$this->inscripcion = $inscripcion;
+    $inscripcion->setFechaInicio($this->getRequestParameter('fecha_etapa'));
+    $inscripcion->setIdCarrera($this->getRequestParameter('id_carrera'));
+    $inscripcion->setIdEtapa($this->getRequestParameter('id_etapa'));
+		$corredor = CorredorPeer::retrieveByPK($usuario->getIdCorredor());
+
+    $inscripcion->setIdCorredor($corredor->getId());
+    $this->inscripcion = $inscripcion;
 	 	
     if ($this->getRequest()->isMethod('post'))
     {
