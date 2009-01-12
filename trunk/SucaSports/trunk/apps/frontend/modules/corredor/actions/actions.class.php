@@ -24,6 +24,7 @@ class CorredorActions extends autoCorredorActions
       $this->forward('corredor','perfil');
 		
 	}
+	
   public function executePerfil() {
   	$usuario = $this->getUser()->getAttribute('usuario', '', 'sesion');
     $this->corredor = $usuario->getCorredor();
