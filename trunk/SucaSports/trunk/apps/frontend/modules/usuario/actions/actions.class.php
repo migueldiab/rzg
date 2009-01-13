@@ -74,6 +74,7 @@ class usuarioActions extends autousuarioActions
             $this->usuario->setEmail($usuario['email']);
             $this->usuario->setPasswordEncryptar($usuario['password']);
             $this->usuario->setEstado('i');
+            $this->usuario->setIdGrupo(2);
             $hashString = md5(date('U'));
             $this->usuario->setVerificador($hashString);
         }
