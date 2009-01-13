@@ -216,11 +216,13 @@ public function executeEnviarCorreoRecuperar()
   }
   public function executeActivateUser(){
 
-    if (($this->getRequestParameter('id')) && ($this->getRequestParameter('val'))){
-        $idUsuario = $this->getRequestParameter('id');
+    if (($this->getRequestParameter('email')) && ($this->getRequestParameter('val'))){
+        $idUsuario = $this->getRequestParameter('email');
         $val = $this->getRequestParameter('val');
         $usuario = new Usuario();
-        $usuario = UsuarioPeer::retrieveByPK($idUsuario);
+        $this->usuario = UsuarioPeer::retrieveByEmail($email);
+        IF (isset($this->usuario)) {
+        //$usuario = UsuarioPeer::retrieveByPK($idUsuario);
         if ($val == $usuario->getVerificador()){
             $usuario->setEstado('A');
             $usuario->save();
@@ -230,6 +232,7 @@ public function executeEnviarCorreoRecuperar()
             else
              $this->getUser()->setFlash('error', 'El link de activacion es invalido o ha expirado');
              $this->forward('usuario', 'login');
+    }
     }
     else
      $this->getUser()->setFlash('error', 'El link de activacion es invalido o ha expirado');
