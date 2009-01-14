@@ -227,7 +227,7 @@ public function executeEnviarCorreoRecuperar()
         IF (isset($this->usuario)) {
         //$usuario = UsuarioPeer::retrieveByPK($idUsuario);
         if ($val == $usuario->getVerificador()){
-            $usuario->setEstado('A');
+            $usuario->setEstado('a');
             $usuario->save();
             $this->getUser()->setFlash('save', 'Usuario activado correctamente');
             $this->forward('usuario', 'login');
