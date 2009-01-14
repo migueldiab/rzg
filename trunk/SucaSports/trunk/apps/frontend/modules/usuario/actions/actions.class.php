@@ -187,23 +187,33 @@ public function executeEnviarCorreoRecuperar()
     }
 }
 
-    public function executeUnblockUser()
+  public function executeUnblockUser()
   {
     if (($this->getRequestParameter('email')) && ($this->getRequestParameter('val'))){
         $email = $this->getRequestParameter('email');
         $val = $this->getRequestParameter('val');
-        $usuario = new Usuario();
         $usuario = UsuarioPeer::retrieveByEmail($email);
         if ($val == $usuario->getVerificador()){
             $usuario->setVerificador($hashString);
             $usuario->save();
-            $this->forward('usuario', 'cambiarContrasena');
+            $this->forward('usuario', 'cambiarContrasena?id='.$usuario->getIdusuario);
             }
             else 
              $this->forward('usuario', 'login');
-      }
-      
+      }    
   }
+
+
+  public function executeCambiarContrasena()
+  {
+      if ($this->getRequestParameter('id')){
+       $usuario = UsuarioPeer::retrieveByPk('id');
+      }
+      $this->labels = $this->getLabels(); 
+   //TO BE CONTINUED
+     }
+
+
   public function executeActivateUser(){
 
     if (($this->getRequestParameter('email')) && ($this->getRequestParameter('val'))){
