@@ -203,10 +203,10 @@ public function executeEnviarCorreoRecuperar()
     public function executeUnblockUser()
   {
     if (($this->getRequestParameter('email')) && ($this->getRequestParameter('val'))){
-        $idUsuario = $this->getRequestParameter('email');
+        $email = $this->getRequestParameter('email');
         $val = $this->getRequestParameter('val');
         $usuario = new Usuario();
-        $usuario = UsuarioPeer::retrieveByEmail($idUsuario);
+        $usuario = UsuarioPeer::retrieveByEmail($email);
         if ($val == $usuario->getVerificador()){
             $usuario->setVerificador($hashString);
             $usuario->save();
