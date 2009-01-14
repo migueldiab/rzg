@@ -6,7 +6,7 @@ class validarUsuario extends sfValidator
   {
     parent::initialize($context);
  
-    $this->setParameter('login_error', 'Entrada inválida');
+    $this->setParameter('login_error', 'Entrada invï¿½lida');
      
     $this->getParameterHolder()->add($parameters);
  
@@ -32,12 +32,13 @@ class validarUsuario extends sfValidator
     {
       if (sha1($password) == $usuario->getPassword())
       {
-      	  
+      	  if ($usuario->getEstado() == 'a') {
           $this->context->getUser()->setAuthenticated(true);
           // FIXME : Agregar credenciales
           $this->context->getUser()->addCredential('root');
           $this->context->getUser()->setAttribute('usuario', $usuario, 'sesion');
           return true;
+          }
       }
       else {
       	
