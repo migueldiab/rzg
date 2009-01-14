@@ -172,39 +172,41 @@ public function executeEnviarCorreoRecuperar()
     $email = $this->getRequestParameter('email');
     $this->usuario = new Usuario();
     $this->usuario = UsuarioPeer::retrieveByEmail($email);
-    $hashString = md5(date('U'));
-    $this->usuario->setVerificador($hashString);
-    $this->usuario->save();
-    $this->labels = $this->getLabels();
+    $this->usuario = UsuarioPeer::retrieveByEmail($email);
+    if (isset($this->usuario)) {
+        $hashString = md5(date('U'));
+        $this->usuario->setVerificador($hashString);
+        $this->usuario->save();
+        $this->labels = $this->getLabels();
 
-    $mail = new sfMail();
-    $mail->initialize();
-    $mail->setMailer('sendmail');
-    $mail->setCharset('utf-8');
+        $mail = new sfMail();
+        $mail->initialize();
+        $mail->setMailer('sendmail');
+        $mail->setCharset('utf-8');
 
-    $mail->setSender('www-data@jarlaxle', 'Suca Sports Admin');
-    $mail->setFrom('www-data@jarlaxle', 'My Company');
-    $mail->addReplyTo('www-data@jarlaxle');
-    $mail->addAddress($this->usuario->getEmail());
-    $mail->setSubject('Password reset confirmation');
-    $mail->setBody('
-    Estimado usuario'.$this->usuario->getDocumento().'
+        $mail->setSender('webmaster@sucasports.com', 'Suca Sports Webmaster');
+        $mail->setFrom('info@Sucasports.com', 'Suca Sports');
+        $mail->addReplyTo('do_not_reply@sucasports.com');
+        $mail->addAddress($this->usuario->getEmail());
+        $mail->setSubject('Password reset confirmation');
+        $mail->setBody('
+        Estimado usuario'.$this->usuario->getDocumento().'
 
-    Para poder cambiar su contraseña debe hacer click en el siguiente link
+        Para poder cambiar su contraseña debe hacer click en el siguiente link
 
-    http://sucasports/frontend_dev.php/usuario/UnblockUser?email='.$email.'?val='.$hashString);
-
+        http://sucasports/frontend_dev.php/usuario/UnblockUser?email='.$email.'?val='.$hashString);
+        $mail->send();
     }
-    //return $this->forward('home', 'index');
-  }
+    }
+}
 
     public function executeUnblockUser()
   {
-    if (($this->getRequestParameter('id')) && ($this->getRequestParameter('val'))){
-        $idUsuario = $this->getRequestParameter('id');
+    if (($this->getRequestParameter('email')) && ($this->getRequestParameter('val'))){
+        $idUsuario = $this->getRequestParameter('email');
         $val = $this->getRequestParameter('val');
         $usuario = new Usuario();
-        $usuario = UsuarioPeer::retrieveByPK($idUsuario);
+        $usuario = UsuarioPeer::retrieveByEmail($idUsuario);
         if ($val == $usuario->getVerificador()){
             $usuario->setVerificador($hashString);
             $usuario->save();
