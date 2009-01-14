@@ -134,20 +134,45 @@ class usuarioActions extends autousuarioActions
       $this->getUser()->setFlash('notice', 'Your modifications have been saved');
       
       
-      $mailBody = $this->getComponent('usuario', 'enviarConfirmacion', array('usuario' => $this->usuario));
+      $mailBody = $this->getComponent('usuario', 'enviarConfirmacion', array(
+        'usuario' => $this->usuario
+      ));
       try
 			{
-			  // Create the mailer and message objects
-			  $mailer = new Swift(new Swift_Connection_NativeMail());
-			  $message = new Swift_Message('Confirmación SucaSports', $mailBody, 'text/html');
+          /*
+           * En la tabla configuración se necesita un campo con parametro SMTP_SERVER y valor
+           * igual al servidor de SMTP desde dónde se envían los mails...
+           */
+				$crit = new Criteria();
+        $crit->add(ConfiguracionPeer::PARAMETRO, 'SMTP_SERVER');
+        $config = ConfiguracionPeer::doSelectOne($crit);
+				$connection = new Swift_Connection_SMTP($config->getValor(), 25);
+			  $connection->setUsername('basura@adinet.com.uy');
+        $connection->setPassword('recon4');
+        $mailer = new Swift($connection);
+			  $message = new Swift_Message('SucaSports : Confirmación de registro', $mailBody, 'text/html');
 			 
+        $crit = new Criteria();
+        $crit->add(ConfiguracionPeer::PARAMETRO, 'EMAIL_FROM');
+        $config = ConfiguracionPeer::doSelectOne($crit);
+        if (!$config) {
+          /*
+           * En la tabla configuración se necesita un campo con parametro EMAIL_FROM y valor
+           * igual a la dirección desde dónde se envían los mails...
+           */
+          echo "Error 105721 : Configuracion del EMAIL_FROM";
+          exit;
+        }
 			  // Send
-			  $mailer->send($message, $this->usuario->getEmail(), 'info@sucasports.com');
+			  $mailer->send($message, $this->usuario->getEmail(), $config->getValor());
+			  
 			  $mailer->disconnect();
 			}
 			catch (Exception $e)
 			{
 			  $mailer->disconnect();
+			  echo "mail error";
+			  exit;
 			  // handle errors here
 			}
 			      
