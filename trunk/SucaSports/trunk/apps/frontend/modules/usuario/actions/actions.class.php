@@ -133,19 +133,6 @@ class usuarioActions extends autousuarioActions
       }
       $this->getUser()->setFlash('notice', 'Your modifications have been saved');
       $this->usuario->EmailRegistration($this->usuario->getEmail(),$this->usuario->getVerificador());
-      if ($this->getRequestParameter('save_and_add'))
-      {
-        return $this->redirect('usuario/create');
-      }
-      else if ($this->getRequestParameter('save_and_list'))
-      {
-        return $this->redirect('usuario/list');
-      }
-      else
-      {
-        return $this->redirect('usuario/edit?id='.$this->usuario->getId());
-      }
-  	  return $this->forward('home', 'index');
   }
 
 
