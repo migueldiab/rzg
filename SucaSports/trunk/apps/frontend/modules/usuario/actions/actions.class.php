@@ -134,6 +134,10 @@ class usuarioActions extends autousuarioActions
       $this->getUser()->setFlash('notice', 'Your modifications have been saved');
       
       
+      /*
+       * Crea el cuerpo del mensaje con el Component enviarConfirmacion
+       * usando components.class.php y _enviarConfirmacion.php en templates
+       */
       $mailBody = $this->getComponent('usuario', 'enviarConfirmacion', array(
         'usuario' => $this->usuario
       ));
@@ -143,35 +147,27 @@ class usuarioActions extends autousuarioActions
            * En la tabla configuración se necesita un campo con parametro SMTP_SERVER y valor
            * igual al servidor de SMTP desde dónde se envían los mails...
            */
-				$crit = new Criteria();
-        $crit->add(ConfiguracionPeer::PARAMETRO, 'SMTP_SERVER');
-        $config = ConfiguracionPeer::doSelectOne($crit);
-				$connection = new Swift_Connection_SMTP($config->getValor(), 25);
-			  $connection->setUsername('basura@adinet.com.uy');
-        $connection->setPassword('recon4');
+        $smtp = ConfiguracionPeer::getParametro('SMTP_SERVER'); 
+        $from = ConfiguracionPeer::getParametro('EMAIL_FROM'); 
+        $pass = ConfiguracionPeer::getParametro('SMTP_PASSWORD'); 
+        
+        $connection = new Swift_Connection_SMTP($smtp, 25);
+        $connection->setUsername($from);
+        $connection->setPassword($pass);
         $mailer = new Swift($connection);
 			  $message = new Swift_Message('SucaSports : Confirmación de registro', $mailBody, 'text/html');
-			 
-        $crit = new Criteria();
-        $crit->add(ConfiguracionPeer::PARAMETRO, 'EMAIL_FROM');
-        $config = ConfiguracionPeer::doSelectOne($crit);
-        if (!$config) {
-          /*
-           * En la tabla configuración se necesita un campo con parametro EMAIL_FROM y valor
-           * igual a la dirección desde dónde se envían los mails...
-           */
-          echo "Error 105721 : Configuracion del EMAIL_FROM";
-          exit;
-        }
 			  // Send
-			  $mailer->send($message, $this->usuario->getEmail(), $config->getValor());
-			  
+			  $mailer->send($message, $this->usuario->getEmail(), $from);
 			  $mailer->disconnect();
 			}
 			catch (Exception $e)
 			{
 			  $mailer->disconnect();
 			  echo "mail error";
+			  /*
+			   * habria que avisar que no anda el mail o algo
+			   * no se bien como todavía
+			   */
 			  exit;
 			  // handle errors here
 			}
