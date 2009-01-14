@@ -88,7 +88,7 @@ public function check_email_address($strEmailAddress) {
          * @param   strLocalPortion     Text to be checked
          * @return  True if local portion is valid, false if not
          */
- protected function check_local_portion($strLocalPortion) {
+  protected function check_local_portion($strLocalPortion) {
             // Local portion can only be from 1 to 64 characters, inclusive.
             // Please note that servers are encouraged to accept longer local
             // parts than 64 characters.
@@ -167,42 +167,19 @@ public function check_email_address($strEmailAddress) {
                 return true;
             }
         }
- public function ValidateID($strID) {
-   
-   $usuario = new usuario;
-   $c = new Criteria();
-   $c->add(UsuarioPeer::DOCUMENTO,$strID);
-   $usuario = UsuarioPeer::doSelectOne($c);
-   if (isset($usuario)){
-    if ($usuario->getDocumento()== $strID)
-      {
-        return false;
-      }
-    return true;
-   }
-   return true;
- }
- public function EmailRegistration($emailTo,$verificador)
-{
-  $mail = new sfMail();
-  $mail->initialize();
-  $mail->setMailer('sendmail');
-  $mail->setCharset('utf-8');
-
-  $mail->setSender('webmaster@sucasports.com', 'Suca Sports Webmaster');
-  $mail->setFrom('info@Sucasports.com', 'Suca Sports');
-  $mail->addReplyTo('do_not_reply@sucasports.com');
-
-  $mail->addAddress($emailTo);
-
-  $mail->setSubject('Registration Confirmation');
-  $mail->setBody('
-  Querido Usuario,
-
-  Clickee en el siguiente link para activar su cuenta:
-
-  http://sucasports/frontend_dev.php/usuario/ActivateUser?email='.$emailTo.'?val='.$verificador);
-
-  $mail->send();
-}
+	 public function ValidateID($strID) {
+	   
+	   $usuario = new usuario;
+	   $c = new Criteria();
+	   $c->add(UsuarioPeer::DOCUMENTO,$strID);
+	   $usuario = UsuarioPeer::doSelectOne($c);
+	   if (isset($usuario)){
+	    if ($usuario->getDocumento()== $strID)
+	      {
+	        return false;
+	      }
+	    return true;
+	   }
+	   return true;
+	 }
 }

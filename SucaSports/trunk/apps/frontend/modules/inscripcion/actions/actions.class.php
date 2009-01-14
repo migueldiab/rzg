@@ -25,9 +25,9 @@ class inscripcionActions extends autoinscripcionActions
 	 	$this->carrera = $carrera;
 	 	
 	 	$inscripcion = new Inscripcion();
-    $inscripcion->setFechaInicio($this->getRequestParameter('fecha_etapa'));
-    $inscripcion->setIdCarrera($this->getRequestParameter('id_carrera'));
-    $inscripcion->setIdEtapa($this->getRequestParameter('id_etapa'));
+    	$inscripcion->setFechaInicio($this->getRequestParameter('fecha_etapa'));
+    	$inscripcion->setIdCarrera($this->getRequestParameter('id_carrera'));
+    	$inscripcion->setIdEtapa($this->getRequestParameter('id_etapa'));
 		$corredor = CorredorPeer::retrieveByPK($usuario->getIdCorredor());
 
     $inscripcion->setIdCorredor($corredor->getId());

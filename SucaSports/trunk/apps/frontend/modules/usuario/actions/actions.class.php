@@ -132,9 +132,26 @@ class usuarioActions extends autousuarioActions
         return $this->forward('usuario', 'list');
       }
       $this->getUser()->setFlash('notice', 'Your modifications have been saved');
-      $this->usuario->EmailRegistration($this->usuario->getEmail(),$this->usuario->getVerificador());
+      
+      
+      $mailBody = $this->getComponent('usuario', 'enviarConfirmacion', array('usuario' => $this->usuario));
+      try
+			{
+			  // Create the mailer and message objects
+			  $mailer = new Swift(new Swift_Connection_NativeMail());
+			  $message = new Swift_Message('Confirmación SucaSports', $mailBody, 'text/html');
+			 
+			  // Send
+			  $mailer->send($message, $this->usuario->getEmail(), 'info@sucasports.com');
+			  $mailer->disconnect();
+			}
+			catch (Exception $e)
+			{
+			  $mailer->disconnect();
+			  // handle errors here
+			}
+			      
   }
-
 
   public function executeEdit()
   {
