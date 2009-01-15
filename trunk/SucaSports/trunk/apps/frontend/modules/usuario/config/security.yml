@@ -13,5 +13,11 @@ recuperar:
 enviarCorreoRecuperar:
   is_secure: off
    
+enviarActivacion:
+  is_secure: off
+   
+activateUser:
+  is_secure: off
+   
 all:
   is_secure: on

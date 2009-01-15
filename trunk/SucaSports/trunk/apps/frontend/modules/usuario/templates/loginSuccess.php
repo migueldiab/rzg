@@ -1,14 +1,24 @@
-<?php use_helper('Validation') ?>
-
+<?php use_helper('Object', 'Validation', 'ObjectAdmin', 'I18N', 'Date') ?>
 <?php use_stylesheet('/sf/sf_admin/css/main') ?>
 
 <div id="sf_admin_container">
+  <h1><?php echo __('Registro de Usuario', array()) ?></h1>
 	<?php echo form_tag('usuario/login', array(
 	  'id'        => 'sf_admin_edit_form',
 	  'name'      => 'sf_admin_edit_form',
 	  'multipart' => true,
 	)) ?>
+
   <div id="sf_admin_content">
+    <?php if ($sf_user->hasFlash('notice')): ?>
+    <div class="save-ok">
+    <h2><?php echo __($sf_user->getFlash('notice')) ?></h2>
+    </div>
+    <?php elseif ($sf_user->hasFlash('error')): ?>
+    <div class="form-errors">
+    <h2><?php echo __($sf_user->getFlash('error')) ?></h2>
+    </div>
+    <?php endif; ?>
 	  <fieldset>
 		  <h2>Ingresa al sitio...</h2>
 		  <div class="form-row">
