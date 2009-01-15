@@ -252,29 +252,44 @@ public function executeEnviarCorreoRecuperar()
      }
 
 
-  public function executeActivateUser(){
-
-    if (($this->getRequestParameter('email')) && ($this->getRequestParameter('val'))){
-        $idUsuario = $this->getRequestParameter('email');
-        $val = $this->getRequestParameter('val');
-        $usuario = new Usuario();
-        $this->usuario = UsuarioPeer::retrieveByEmail($email);
-        IF (isset($this->usuario)) {
-        //$usuario = UsuarioPeer::retrieveByPK($idUsuario);
-        if ($val == $usuario->getVerificador()){
-            $usuario->setEstado('a');
-            $usuario->save();
-            $this->getUser()->setFlash('save', 'Usuario activado correctamente');
-            $this->forward('usuario', 'login');
-            }
-            else
-             $this->getUser()->setFlash('error', 'El link de activacion es invalido o ha expirado');
-             $this->forward('usuario', 'login');
-    }
+  public function executeActivateUser()
+  {
+    if (($this->getRequestParameter('email')) && ($this->getRequestParameter('val')))
+    {
+      $email = $this->getRequestParameter('email');
+      $val = $this->getRequestParameter('val');
+      $usuario = UsuarioPeer::retrieveByEmail($email);
+      
+      if (isset($usuario)) 
+      {
+	      //$usuario = UsuarioPeer::retrieveByPK($idUsuario);
+	      if ($val == $usuario->getVerificador()) 
+	      {
+	          $usuario->setEstado('a');
+	          $usuario->save();
+	          $this->getUser()->setFlash('notice', 'Usuario activado correctamente, ingrese al sistema');
+	          $this->forward('usuario', 'login');
+	      }
+	      else 
+	      {
+	        $this->getUser()->setFlash('error', 'El link de activacion es invalido');
+          $this->forward('usuario', 'enviarActivacion');
+	      }
+      }
+      else 
+      {
+        $this->getUser()->setFlash('error', 'El usuario con correo '.$email.' no existe en nuestra base de datos');
+        $this->forward('usuario', 'enviarActivacion');
+      }
     }
     else
-     $this->getUser()->setFlash('error', 'El link de activacion es invalido o ha expirado');
-     $this->forward('usuario', 'login');
+    {
+      $this->getUser()->setFlash('error', 'El link de activacion es invalido o ha expirado');
+      $this->forward('usuario', 'enviarActivacion');
+    }
+  }
+  public function executeEnviarActivacion() {
+  	
   }
 
 
