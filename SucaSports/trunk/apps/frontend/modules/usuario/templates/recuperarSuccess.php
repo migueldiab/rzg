@@ -8,7 +8,7 @@
 array()) ?></h1>
 
 <div id="sf_admin_header">
-<?php include_partial('usuario/recuperar_header', array('usuario' => $usuario)) ?>
+
 </div>
 
 <div id="sf_admin_content">
@@ -17,7 +17,7 @@ array()) ?></h1>
 </div>
 
 <div id="sf_admin_footer">
-<?php include_partial('usuario/recuperar_footer', array('usuario' => $usuario)) ?>
+
 </div>
 
 </div>
