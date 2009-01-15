@@ -39,7 +39,7 @@ body {
                         <ul class="sf_admin_actions">
                             <?php if ($sf_user->isAuthenticated()): ?>
                               <li class="float-right"><?php echo button_to(' log out ', 'usuario/logout') ?></li>
-                              <li class="float-right"><?php echo button_to(' mi perfil ', 'corredor/perfil') ?></li>
+                              <li class="float-right"><?php echo button_to(' mi perfil ', 'corredor/menuPerfil') ?></li>
                             <?php else: ?>
                               <li class="float-right"><?php echo button_to('log in/registrate', 'usuario/login') ?></li>
                             <?php endif ?>
