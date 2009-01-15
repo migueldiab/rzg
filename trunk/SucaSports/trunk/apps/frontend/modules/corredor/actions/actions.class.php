@@ -24,15 +24,52 @@ class CorredorActions extends autoCorredorActions
       $this->forward('corredor','perfil');
 		
 	}
-	
-  public function executePerfil() {
-  	$usuario = $this->getUser()->getAttribute('usuario', '', 'sesion');
-    $this->corredor = $usuario->getCorredor();
-    if (!$this->corredor) {
-      $this->corredor = new Corredor();
-      $this->corredor->setDocumento($usuario->getDocumento());
-    }  	
+  public function executeCarreras() {
+    $this->corredor = $this->getCorredor();
     $this->labels = $this->getLabels();    
+  	
+  }
+  public function executeContacto() {
+    $this->corredor = $this->getCorredor();
+    $this->labels = $this->getLabels();    
+  	
+  }
+  public function executeCuentas() {
+    $this->corredor = $this->getCorredor();
+    $this->labels = $this->getLabels();    
+  	
+  }
+  public function executeEquipamiento() {
+    $this->corredor = $this->getCorredor();
+    $this->labels = $this->getLabels();    
+  	
+  }
+  public function executeHistoriaMedica() {
+    $this->corredor = $this->getCorredor();
+    $this->labels = $this->getLabels();    
+    
+  }
+  public function executeCuenta() {
+    $this->corredor = $this->getCorredor();
+    $this->labels = $this->getLabels();    
+    
+  }
+  public function executePerfil() {
+    
+  }
+  
+  public function executeDatosPersonales() {
+  	$this->corredor = $this->getCorredor();
+    $this->labels = $this->getLabels();    
+  }
+  protected function getCorredor() {
+    $usuario = $this->getUser()->getAttribute('usuario', '', 'sesion');
+    $corredor = $usuario->getCorredor();
+    if (!$corredor) {
+      $corredor = new Corredor();
+      $corredor->setDocumento($usuario->getDocumento());
+    }
+    return $corredor;
   }
   public function asociarCorredorUsuario($idCorredor) {
   	$elUsuario = $this->getUser()->getAttribute('usuario', '', 'sesion');
