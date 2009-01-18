@@ -61,6 +61,8 @@
   <?php $value = object_admin_double_list($carrera, 'getCategoriaCarrera', array (
   'control_name' => 'carrera[categoria_carrera]',
   'through_class' => 'CategoriaCarrera',
+  'associated_label' => 'Categorias Seleccionadas',
+  'unassociated_label'=> 'Categorias Disponibles',
 )); echo $value ? $value : '&nbsp;' ?>
     </div>
 </div>
@@ -91,7 +93,7 @@
       <li class="float-left"><?php if ($carrera->getId()): ?>
 <?php echo button_to(__('delete'), 'carrera/delete?id='.$carrera->getId(), array (
   'post' => true,
-  'confirm' => __('Are you sure?'),
+  'confirm' => __('Esta seguro?'),
   'class' => 'sf_admin_action_delete',
 )) ?><?php endif; ?>
 </li>

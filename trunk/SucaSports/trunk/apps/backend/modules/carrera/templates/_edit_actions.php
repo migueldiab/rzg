@@ -7,6 +7,6 @@
   'class' => 'sf_admin_action_save',
 )) ?></li>
       <li><?php echo button_to(__('Agregar Etapa'), 'carrera/etapa?id='.$carrera->getId(), array (
-  'style' => 'background: #ffc url(/sf/sf_admin/images/default_icon.png) no-repeat 3px 2px',
+  'class' => 'sf_admin_action_save',
 )) ?></li>
 </ul>
