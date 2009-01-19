@@ -4,20 +4,20 @@
 
 <div id="sf_admin_container">
 
-<h1><?php echo __('Recuperar Contraseña',
+<h1><?php echo __('Cambiar Contraseña',
 array()) ?></h1>
 
 <div id="sf_admin_header">
-<?php include_partial('usuario/recuperar_header', array('usuario' => $usuario)) ?>
+<?php include_partial('usuario/cambiarContrasena_header', array('usuario' => $usuario)) ?>
 </div>
 
 <div id="sf_admin_content">
-<?php include_partial('usuario/recuperar_messages', array('usuario' => $usuario, 'labels' => $labels)) ?>
-<?php include_partial('usuario/recuperar_form', array('usuario' => $usuario, 'labels' => $labels)) ?>
+<?php include_partial('usuario/cambiarContrasena_messages', array('usuario' => $usuario, 'labels' => $labels)) ?>
+<?php include_partial('usuario/cambiarContrasena_form', array('usuario' => $usuario, 'labels' => $labels)) ?>
 </div>
 
 <div id="sf_admin_footer">
-<?php include_partial('usuario/recuperar_footer', array('usuario' => $usuario)) ?>
+<?php include_partial('usuario/cambiarContrasena_footer', array('usuario' => $usuario)) ?>
 </div>
 
 </div>

@@ -1,4 +1,4 @@
-<?php echo form_tag('usuario/enviarCorreoRecuperar', array(
+<?php echo form_tag('usuario/inWork', array(
   'id'        => 'sf_admin_edit_form',
   'name'      => 'sf_admin_edit_form',
   'multipart' => true,
@@ -9,30 +9,30 @@
 <fieldset id="sf_fieldset_none" class="">
 
 <div class="form-row">
-  <?php echo label_for('usuario[email]', 'Ingrese su correo electronico') ?>
-  <div class="content<?php if ($sf_request->hasError('usuario{email}')): ?> form-error<?php endif; ?>">
-  <?php if ($sf_request->hasError('usuario{email}')): ?>
-    <?php echo form_error('usuario{email}', array('class' => 'form-error-msg')) ?>
+  <?php echo label_for('usuario[password]', __($labels['usuario{password}']), '') ?>
+  <div class="content<?php if ($sf_request->hasError('usuario{password}')): ?> form-error<?php endif; ?>">
+  <?php if ($sf_request->hasError('usuario{password}')): ?>
+    <?php echo form_error('usuario{password}', array('class' => 'form-error-msg')) ?>
   <?php endif; ?>
 
-  <?php $value = input_tag('email','', array (
-  'size' => 45
-)); echo $value ? $value : '&nbsp;' ?>
+  <?php echo input_password_tag('usuario[password]');?>
+    </div>
+</div>
+
+<div class="form-row">
+  <?php echo label_for('usuario[verify_password]', __($labels['usuario{verify_password}']), '') ?>
+  <div class="content<?php if ($sf_request->hasError('usuario{verify_password}')): ?> form-error<?php endif; ?>">
+  <?php if ($sf_request->hasError('usuario{verify_password}')): ?>
+    <?php echo form_error('usuario{verify_password}', array('class' => 'form-error-msg')) ?>
+  <?php endif; ?>
+
+  <?php echo input_password_tag('usuario[verify_password]');?>
     </div>
 </div>
 
 </fieldset>
 
-    <?php include_partial('recuperar_actions', array('usuario' => $usuario)) ?>
+    <?php include_partial('cambiarContrasena_actions', array('usuario' => $usuario)) ?>
 
 </form>
 
-<ul class="sf_admin_actions">
-      <li class="float-left"><?php if ($usuario->getId()): ?>
-<?php echo button_to(__('delete'), 'usuario/delete?id='.$usuario->getId(), array (
-  'post' => true,
-  'confirm' => __('Are you sure?'),
-  'class' => 'sf_admin_action_delete',
-)) ?><?php endif; ?>
-</li>
-  </ul>
