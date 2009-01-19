@@ -52,5 +52,7 @@ class InscripcionMapBuilder {
 
 		$tMap->addColumn('FIRMA_DIGITAL', 'FirmaDigital', 'string', CreoleTypes::VARCHAR, false, 255);
 
+		$tMap->addForeignKey('ID_CATEGORIA', 'IdCategoria', 'int', CreoleTypes::INTEGER, 'categoria', 'ID', true, null);
+
 	} 
 } 

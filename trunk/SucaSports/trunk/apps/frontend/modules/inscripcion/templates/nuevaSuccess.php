@@ -36,6 +36,14 @@
   <?php echo label_for('inscripcion[fecha_inicio]', __('Fecha de Inicio')) ?> 
   <?php echo object_input_tag($inscripcion, 'getFechaInicio', array('disabled'=>'true')) ?>
   </div>
+  <div class="form-row">
+  <?php echo label_for('inscripcion[id_categoria]', __('Categoria')) ?> 
+  <?php echo object_select_tag($inscripcion, 'getIdCategoria', array (
+    'control_name' => 'inscripcion[id_categoria]',
+    'related_class' => 'Categoria'
+  ), '') ?>
+  
+  </div>
 	
 	
 	</fieldset>
@@ -51,7 +59,7 @@
     )) ?></li>		
 		</ul>
 	
-	</form>
+	<?php echo "</form>" ?>
 	
 
 

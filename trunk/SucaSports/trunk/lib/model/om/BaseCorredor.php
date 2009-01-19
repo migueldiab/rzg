@@ -1914,6 +1914,40 @@ abstract class BaseCorredor extends BaseObject  implements Persistent {
 		$l->setCorredor($this);
 	}
 
+
+	
+	public function getInscripcionsJoinCategoria($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collInscripcions === null) {
+			if ($this->isNew()) {
+				$this->collInscripcions = array();
+			} else {
+
+				$criteria->add(InscripcionPeer::ID_CORREDOR, $this->getId());
+
+				$this->collInscripcions = InscripcionPeer::doSelectJoinCategoria($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(InscripcionPeer::ID_CORREDOR, $this->getId());
+
+			if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
+				$this->collInscripcions = InscripcionPeer::doSelectJoinCategoria($criteria, $con);
+			}
+		}
+		$this->lastInscripcionCriteria = $criteria;
+
+		return $this->collInscripcions;
+	}
+
 	
 	public function initResultados()
 	{

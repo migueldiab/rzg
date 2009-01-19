@@ -47,8 +47,15 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	
 	protected $firma_digital;
 
+
+	
+	protected $id_categoria;
+
 	
 	protected $aCorredor;
+
+	
+	protected $aCategoria;
 
 	
 	protected $alreadyInSave = false;
@@ -184,6 +191,13 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 	{
 
 		return $this->firma_digital;
+	}
+
+	
+	public function getIdCategoria()
+	{
+
+		return $this->id_categoria;
 	}
 
 	
@@ -343,6 +357,24 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 	} 
 	
+	public function setIdCategoria($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->id_categoria !== $v) {
+			$this->id_categoria = $v;
+			$this->modifiedColumns[] = InscripcionPeer::ID_CATEGORIA;
+		}
+
+		if ($this->aCategoria !== null && $this->aCategoria->getId() !== $v) {
+			$this->aCategoria = null;
+		}
+
+	} 
+	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
@@ -367,11 +399,13 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 			$this->firma_digital = $rs->getString($startcol + 9);
 
+			$this->id_categoria = $rs->getInt($startcol + 10);
+
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 10; 
+						return $startcol + 11; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Inscripcion object", $e);
 		}
@@ -446,6 +480,13 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 				$this->setCorredor($this->aCorredor);
 			}
 
+			if ($this->aCategoria !== null) {
+				if ($this->aCategoria->isModified()) {
+					$affectedRows += $this->aCategoria->save($con);
+				}
+				$this->setCategoria($this->aCategoria);
+			}
+
 
 						if ($this->isModified()) {
 				if ($this->isNew()) {
@@ -497,6 +538,12 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 			if ($this->aCorredor !== null) {
 				if (!$this->aCorredor->validate($columns)) {
 					$failureMap = array_merge($failureMap, $this->aCorredor->getValidationFailures());
+				}
+			}
+
+			if ($this->aCategoria !== null) {
+				if (!$this->aCategoria->validate($columns)) {
+					$failureMap = array_merge($failureMap, $this->aCategoria->getValidationFailures());
 				}
 			}
 
@@ -554,6 +601,9 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 			case 9:
 				return $this->getFirmaDigital();
 				break;
+			case 10:
+				return $this->getIdCategoria();
+				break;
 			default:
 				return null;
 				break;
@@ -574,6 +624,7 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 			$keys[7] => $this->getUpdatedBy(),
 			$keys[8] => $this->getFechaInscripcion(),
 			$keys[9] => $this->getFirmaDigital(),
+			$keys[10] => $this->getIdCategoria(),
 		);
 		return $result;
 	}
@@ -619,6 +670,9 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 			case 9:
 				$this->setFirmaDigital($value);
 				break;
+			case 10:
+				$this->setIdCategoria($value);
+				break;
 		} 	}
 
 	
@@ -636,6 +690,7 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[7], $arr)) $this->setUpdatedBy($arr[$keys[7]]);
 		if (array_key_exists($keys[8], $arr)) $this->setFechaInscripcion($arr[$keys[8]]);
 		if (array_key_exists($keys[9], $arr)) $this->setFirmaDigital($arr[$keys[9]]);
+		if (array_key_exists($keys[10], $arr)) $this->setIdCategoria($arr[$keys[10]]);
 	}
 
 	
@@ -653,6 +708,7 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(InscripcionPeer::UPDATED_BY)) $criteria->add(InscripcionPeer::UPDATED_BY, $this->updated_by);
 		if ($this->isColumnModified(InscripcionPeer::FECHA_INSCRIPCION)) $criteria->add(InscripcionPeer::FECHA_INSCRIPCION, $this->fecha_inscripcion);
 		if ($this->isColumnModified(InscripcionPeer::FIRMA_DIGITAL)) $criteria->add(InscripcionPeer::FIRMA_DIGITAL, $this->firma_digital);
+		if ($this->isColumnModified(InscripcionPeer::ID_CATEGORIA)) $criteria->add(InscripcionPeer::ID_CATEGORIA, $this->id_categoria);
 
 		return $criteria;
 	}
@@ -716,6 +772,8 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 		$copyObj->setFirmaDigital($this->firma_digital);
 
+		$copyObj->setIdCategoria($this->id_categoria);
+
 
 		$copyObj->setNew(true);
 
@@ -768,6 +826,33 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 			
 		}
 		return $this->aCorredor;
+	}
+
+	
+	public function setCategoria($v)
+	{
+
+
+		if ($v === null) {
+			$this->setIdCategoria(NULL);
+		} else {
+			$this->setIdCategoria($v->getId());
+		}
+
+
+		$this->aCategoria = $v;
+	}
+
+
+	
+	public function getCategoria($con = null)
+	{
+		if ($this->aCategoria === null && ($this->id_categoria !== null)) {
+						$this->aCategoria = CategoriaPeer::retrieveByPK($this->id_categoria, $con);
+
+			
+		}
+		return $this->aCategoria;
 	}
 
 } 
