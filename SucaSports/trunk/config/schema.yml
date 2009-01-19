@@ -193,7 +193,8 @@ propel:
     updated_by: { type: INTEGER }
     fecha_inscripcion: { type: DATE }
     firma_digital: { type: VARCHAR, size: '255' }
-    _indexes: { fk_inscripcion_id_corredor: [id_corredor], fk_inscripcion_fechaetapacarrera: [fecha_inicio, id_etapa, id_carrera] }
+    id_categoria: { type: INTEGER, required: true, foreignTable: categoria, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _indexes: { fk_inscripcion_id_corredor: [id_corredor], fk_inscripcion_fechaetapacarrera: [fecha_inicio, id_etapa, id_carrera], fk_inscripcion_categoria: [id_categoria] }
   inventario:
     _attributes: { idMethod: native }
     id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }

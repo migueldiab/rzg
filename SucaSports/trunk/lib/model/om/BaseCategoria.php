@@ -34,6 +34,12 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 	protected $lastCategoriaCarreraCriteria = null;
 
 	
+	protected $collInscripcions;
+
+	
+	protected $lastInscripcionCriteria = null;
+
+	
 	protected $alreadyInSave = false;
 
 	
@@ -262,6 +268,14 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 				}
 			}
 
+			if ($this->collInscripcions !== null) {
+				foreach($this->collInscripcions as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			$this->alreadyInSave = false;
 		}
 		return $affectedRows;
@@ -305,6 +319,14 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 
 				if ($this->collCategoriaCarreras !== null) {
 					foreach($this->collCategoriaCarreras as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collInscripcions !== null) {
+					foreach($this->collInscripcions as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -459,6 +481,10 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 				$copyObj->addCategoriaCarrera($relObj->copy($deepCopy));
 			}
 
+			foreach($this->getInscripcions() as $relObj) {
+				$copyObj->addInscripcion($relObj->copy($deepCopy));
+			}
+
 		} 
 
 		$copyObj->setNew(true);
@@ -584,6 +610,108 @@ abstract class BaseCategoria extends BaseObject  implements Persistent {
 		$this->lastCategoriaCarreraCriteria = $criteria;
 
 		return $this->collCategoriaCarreras;
+	}
+
+	
+	public function initInscripcions()
+	{
+		if ($this->collInscripcions === null) {
+			$this->collInscripcions = array();
+		}
+	}
+
+	
+	public function getInscripcions($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collInscripcions === null) {
+			if ($this->isNew()) {
+			   $this->collInscripcions = array();
+			} else {
+
+				$criteria->add(InscripcionPeer::ID_CATEGORIA, $this->getId());
+
+				InscripcionPeer::addSelectColumns($criteria);
+				$this->collInscripcions = InscripcionPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(InscripcionPeer::ID_CATEGORIA, $this->getId());
+
+				InscripcionPeer::addSelectColumns($criteria);
+				if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
+					$this->collInscripcions = InscripcionPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastInscripcionCriteria = $criteria;
+		return $this->collInscripcions;
+	}
+
+	
+	public function countInscripcions($criteria = null, $distinct = false, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(InscripcionPeer::ID_CATEGORIA, $this->getId());
+
+		return InscripcionPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addInscripcion(Inscripcion $l)
+	{
+		$this->collInscripcions[] = $l;
+		$l->setCategoria($this);
+	}
+
+
+	
+	public function getInscripcionsJoinCorredor($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collInscripcions === null) {
+			if ($this->isNew()) {
+				$this->collInscripcions = array();
+			} else {
+
+				$criteria->add(InscripcionPeer::ID_CATEGORIA, $this->getId());
+
+				$this->collInscripcions = InscripcionPeer::doSelectJoinCorredor($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(InscripcionPeer::ID_CATEGORIA, $this->getId());
+
+			if (!isset($this->lastInscripcionCriteria) || !$this->lastInscripcionCriteria->equals($criteria)) {
+				$this->collInscripcions = InscripcionPeer::doSelectJoinCorredor($criteria, $con);
+			}
+		}
+		$this->lastInscripcionCriteria = $criteria;
+
+		return $this->collInscripcions;
 	}
 
 } 
