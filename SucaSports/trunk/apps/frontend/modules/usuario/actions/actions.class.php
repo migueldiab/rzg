@@ -144,8 +144,8 @@ class usuarioActions extends autousuarioActions
       try
 			{
           /*
-           * En la tabla configuración se necesita un campo con parametro SMTP_SERVER y valor
-           * igual al servidor de SMTP desde dónde se envían los mails...
+           * En la tabla configuraciï¿½n se necesita un campo con parametro SMTP_SERVER y valor
+           * igual al servidor de SMTP desde dï¿½nde se envï¿½an los mails...
            */
         $smtp = ConfiguracionPeer::getParametro('SMTP_SERVER'); 
         $from = ConfiguracionPeer::getParametro('EMAIL_FROM'); 
@@ -155,7 +155,7 @@ class usuarioActions extends autousuarioActions
         $connection->setUsername($from);
         $connection->setPassword($pass);
         $mailer = new Swift($connection);
-			  $message = new Swift_Message('SucaSports : Confirmación de registro', $mailBody, 'text/html');
+			  $message = new Swift_Message('SucaSports : Confirmaciï¿½n de registro', $mailBody, 'text/html');
 			  // Send
 			  $mailer->send($message, $this->usuario->getEmail(), $from);
 			  $mailer->disconnect();
@@ -166,7 +166,7 @@ class usuarioActions extends autousuarioActions
 			  echo "mail error";
 			  /*
 			   * habria que avisar que no anda el mail o algo
-			   * no se bien como todavía
+			   * no se bien como todavï¿½a
 			   */
 			  exit;
 			  // handle errors here
@@ -244,13 +244,12 @@ public function executeEnviarCorreoRecuperar()
 
   public function executeCambiarContrasena()
   {
+    
       if ($this->getRequestParameter('id')){
-       $usuario = UsuarioPeer::retrieveByPk('id');
+       $this->usuario = UsuarioPeer::retrieveByPk($this->getRequestParameter('id'));
       }
       $this->labels = $this->getLabels(); 
-   //TO BE CONTINUED
      }
-
 
   public function executeActivateUser()
   {
