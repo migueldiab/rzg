@@ -1,6 +1,6 @@
 <?php if ($sf_request->hasErrors()): ?>
 <div class="form-errors">
-<h2><?php echo __('The form is not valid because it contains some errors.') ?></h2>
+<h2><?php echo __('Error en el formulario. Verfique los siguientes datos :') ?></h2>
 <dl>
 <?php foreach ($sf_request->getErrorNames() as $name): ?>
   <dt><?php echo __($labels[$name]) ?></dt>

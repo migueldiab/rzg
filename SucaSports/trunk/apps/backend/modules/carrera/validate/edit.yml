@@ -1,0 +1,25 @@
+fields:
+  carrera[nombre]:
+    required:
+      msg:       Debe ingresar un nombre para la carrera
+    sfStringValidator:
+      min:       2
+      min_error: El nombre es muy corto (minimo 2)
+      max:       100
+      max_error: El nombre es muy largo. (si somos rompehuevos)
+  carrera[url]:
+    required:
+      msg:       La url no esta en el formato correcto
+    sfUrlValidator:
+      url_error:    This URL is invalid
+  carrera[descripcion]:
+    required:
+      msg:       Debe igresar una descripcion para la carrera
+    sfstringvalidator:
+      min:       2
+      min_error: El nombre es muy corto (minimo 2)
+      max:       100
+      max_error: El nombre es muy largo. (si somos rompehuevos)
+  associated_categoria_carrera:
+    required:
+      msg:            Debe elegir al menos una categoria
