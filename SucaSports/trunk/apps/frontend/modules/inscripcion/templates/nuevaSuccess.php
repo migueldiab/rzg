@@ -21,20 +21,24 @@
 	<fieldset id="sf_fieldset_none" class="">
 	
 	<div class="form-row">
-  <?php echo label_for('inscripcion[id_corredor]', __('Documento')) ?>	
-  <?php echo object_input_tag($inscripcion, 'getIdCorredor', array('disabled'=>'true')) ?>
+  <?php echo label_for('inscripcion[id_corredor]', __('Corredor')) ?>	
+  <?php echo input_hidden_tag($inscripcion->getIdCorredor()) ?>
+  <?php echo $inscripcion->getCorredor() ?>
   </div>
   <div class="form-row">
   <?php echo label_for('inscripcion[id_carrera]', __('Carrera')) ?> 
-  <?php echo object_input_tag($inscripcion, 'getIdCarrera', array('disabled'=>'true')) ?>
+  <?php echo input_hidden_tag($inscripcion->getIdCarrera()) ?>
+  <?php echo $inscripcion->getCarrera() ?>
   </div>
   <div class="form-row">
-  <?php echo label_for('inscripcion[id_etapa]', __('Etapa')) ?> 
-  <?php echo object_input_tag($inscripcion, 'getIdEtapa', array('disabled'=>'true')) ?>
+  <?php echo label_for('inscripcion[id_etapa]', __('Etapa')) ?>
+  <?php echo input_hidden_tag($inscripcion->getIdEtapa()) ?>
+  <?php echo $inscripcion->getEtapa() ?> 
   </div>
   <div class="form-row">
-  <?php echo label_for('inscripcion[fecha_inicio]', __('Fecha de Inicio')) ?> 
-  <?php echo object_input_tag($inscripcion, 'getFechaInicio', array('disabled'=>'true')) ?>
+  <?php echo label_for('inscripcion[fecha_inicio]', __('Fecha de Inicio')) ?>
+  <?php echo input_hidden_tag($inscripcion->getFechaInicio()) ?>
+  <?php echo $inscripcion->getFechaInicio() ?>
   </div>
   <div class="form-row">
   <?php echo label_for('inscripcion[id_categoria]', __('Categoria')) ?> 
@@ -42,6 +46,7 @@
     'control_name' => 'inscripcion[id_categoria]',
     'related_class' => 'Categoria'
   ), '') ?>
+  </div>
   <div class="form-row">
   <?php echo label_for('cuenta_corriente[id_forma_pago]', __('Forma de Pago')) ?> 
   <?php echo object_select_tag($cuenta_corriente, 'getIdFormaPago', array (
