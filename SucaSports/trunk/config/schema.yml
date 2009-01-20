@@ -165,6 +165,7 @@ propel:
     created_by: { type: INTEGER }
     updated_at: { type: TIMESTAMP }
     updated_by: { type: INTEGER }
+    estado: { type: VARCHAR, size: '1', default: I }
     _indexes: { fk_fecha_etapa_carrera_etapa_carrera: [id_etapa, id_carrera] }
   forma_pago:
     _attributes: { idMethod: native }
