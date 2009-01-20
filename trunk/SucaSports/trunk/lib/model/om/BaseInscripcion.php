@@ -6,61 +6,22 @@ abstract class BaseInscripcion extends BaseObject  implements Persistent {
 
 	
 	protected static $peer;
-
-
-	
 	protected $id_corredor;
-
-
-	
 	protected $fecha_inicio;
-
-
-	
 	protected $id_etapa;
-
-
-	
 	protected $id_carrera;
-
-
-	
 	protected $created_at;
-
-
-	
 	protected $created_by;
-
-
-	
 	protected $updated_at;
-
-
-	
 	protected $updated_by;
-
-
-	
 	protected $fecha_inscripcion;
-
-
-	
 	protected $firma_digital;
-
-
-	
 	protected $id_categoria;
-
-	
 	protected $aCorredor;
-
-	
-	protected $aCategoria;
-
-	
-	protected $alreadyInSave = false;
-
-	
+  protected $aCategoria;
+  protected $aCarrera;
+  protected $aEtapa;
+  protected $alreadyInSave = false;
 	protected $alreadyInValidation = false;
 
 	

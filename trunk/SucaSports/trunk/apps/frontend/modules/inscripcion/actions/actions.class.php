@@ -30,6 +30,7 @@ class inscripcionActions extends autoinscripcionActions
     $inscripcion->setIdEtapa($this->getRequestParameter('id_etapa'));
     
     $cuenta_corriente = new CuentaCorriente();
+    $cuenta_corriente->setIdCorredor($usuario->getIdCorredor());
     
 		$corredor = CorredorPeer::retrieveByPK($usuario->getIdCorredor());
 		
