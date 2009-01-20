@@ -42,6 +42,12 @@
     'control_name' => 'inscripcion[id_categoria]',
     'related_class' => 'Categoria'
   ), '') ?>
+  <div class="form-row">
+  <?php echo label_for('cuenta_corriente[id_forma_pago]', __('Forma de Pago')) ?> 
+  <?php echo object_select_tag($cuenta_corriente, 'getIdFormaPago', array (
+    'control_name' => 'cuenta_corriente[id_forma_pago]',
+    'related_class' => 'FormaPago'
+  ), '') ?>
   
   </div>
 	

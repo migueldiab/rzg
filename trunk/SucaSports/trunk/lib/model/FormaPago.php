@@ -9,4 +9,7 @@
  */ 
 class FormaPago extends BaseFormaPago
 {
+    public function __toString() {
+      return $this->getNombre();
+    }
 }
