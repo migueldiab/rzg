@@ -13,19 +13,14 @@ class CarreraActions extends autoCarreraActions
 	
   public function executeSave()
   {
-    if ($this->getRequestParameter('agregar_etapa')) {
-      return $this->forward('carrera', 'etapa');
-    }
-    else {
       return $this->forward('carrera', 'edit');
-    }
   }
   
   public function executeEtapa()
-  {    
-    $this->carrera = $this->getCarreraOrCreate();
-    if ($this->getRequest()->isMethod('post'))
-    {
+  {
+     $this->carrera = $this->getCarreraOrCreate();
+     if ($this->getRequest()->isMethod('post'))
+     {
       $this->updateCarreraFromRequest();
       try
       {
@@ -36,8 +31,77 @@ class CarreraActions extends autoCarreraActions
         $this->getRequest()->setError('edit', 'Could not save the edited Carreras.');
         return $this->forward('carrera', 'edit');
       }
-    }
-    $this->redirect('etapacarrera/edit?id_carrera='.$this->carrera->getId());
+     }
+     $this->redirect('etapacarrera/edit?id_carrera='.$this->carrera->getId());
   }
+  public function executeEdit()
+  {
+    $this->carrera = $this->getCarreraOrCreate();
+
+    if ($this->getRequest()->isMethod('post'))
+    {
+      $this->updateCarreraFromRequest();
+
+      try
+      {
+        $this->saveCarrera($this->carrera);
+      }
+      catch (PropelException $e)
+      {
+        $this->getRequest()->setError('edit', 'Could not save the edited Carreras.');
+        return $this->forward('carrera', 'list');
+      }
+
+      if ($this->getRequestParameter('agregar_etapa')) {
+        return $this->forward('carrera', 'etapa');
+      }
+    
+      $this->getUser()->setFlash('notice', 'Your modifications have been saved');
+
+      if ($this->getRequestParameter('save_and_add'))
+      {
+        return $this->redirect('carrera/create');
+      }
+      else if ($this->getRequestParameter('save_and_list'))
+      {
+        return $this->redirect('carrera/list');
+      }
+      else
+      {
+        return $this->redirect('carrera/edit?id='.$this->carrera->getId());
+      }
+    }
+    else
+    {
+      $this->labels = $this->getLabels();
+    }
+  }
+  public function validateEdit() {
+      return true;
+  }
+  protected function saveCarrera($carrera)
+  {
+      $carrera->save();
+
+      // Update many-to-many for "categoria_carrera"
+      $c = new Criteria();
+      $c->add(CategoriaCarreraPeer::ID_CARRERA, $carrera->getPrimaryKey());
+      CategoriaCarreraPeer::doDelete($c);
+
+      $ids = $this->getRequestParameter('associated_categoria_carrera');
+      if (is_array($ids))
+      {
+        foreach ($ids as $id)
+        {
+          $CategoriaCarrera = new CategoriaCarrera();
+          $CategoriaCarrera->setIdCarrera($carrera->getPrimaryKey());
+          $CategoriaCarrera->setIdCategoria($id);
+          $CategoriaCarrera->save();
+        }
+      }
+  }
+
+  
+  
 
 }
