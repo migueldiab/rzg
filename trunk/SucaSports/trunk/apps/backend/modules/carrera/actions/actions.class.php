@@ -10,15 +10,34 @@
  */
 class CarreraActions extends autoCarreraActions
 {
-    public function executeEtapa(){
-//    $carrera = new Carrera;
-//    $carrera->setNombre($this->getRequestParameter('nombre'));
-//    $carrera->setDescripcion($this->getRequestParameter('descripcion'));
-//    $carrera->setUrl($this->getRequestParameter('url'));
-//    $carrera->save();
-    
-    $this->redirect('etapacarrera/edit?id_carrera='.$this->getRequestParameter('id'));
-
+	
+  public function executeSave()
+  {
+    if ($this->getRequestParameter('agregar_etapa')) {
+      return $this->forward('carrera', 'etapa');
     }
+    else {
+      return $this->forward('carrera', 'edit');
+    }
+  }
   
+  public function executeEtapa()
+  {    
+    $this->carrera = $this->getCarreraOrCreate();
+    if ($this->getRequest()->isMethod('post'))
+    {
+      $this->updateCarreraFromRequest();
+      try
+      {
+        $this->saveCarrera($this->carrera);
+      }
+      catch (PropelException $e)
+      {
+        $this->getRequest()->setError('edit', 'Could not save the edited Carreras.');
+        return $this->forward('carrera', 'edit');
+      }
+    }
+    $this->redirect('etapacarrera/edit?id_carrera='.$this->carrera->getId());
+  }
+
 }
