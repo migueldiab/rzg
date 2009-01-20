@@ -52,5 +52,7 @@ class FechaEtapaCarreraMapBuilder {
 
 		$tMap->addColumn('UPDATED_BY', 'UpdatedBy', 'int', CreoleTypes::INTEGER, false, null);
 
+		$tMap->addColumn('ESTADO', 'Estado', 'string', CreoleTypes::VARCHAR, false, 1);
+
 	} 
 } 

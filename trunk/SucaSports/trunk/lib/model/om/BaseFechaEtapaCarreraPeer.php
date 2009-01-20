@@ -13,7 +13,7 @@ abstract class BaseFechaEtapaCarreraPeer {
 	const CLASS_DEFAULT = 'lib.model.FechaEtapaCarrera';
 
 	
-	const NUM_COLUMNS = 10;
+	const NUM_COLUMNS = 11;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -50,23 +50,26 @@ abstract class BaseFechaEtapaCarreraPeer {
 	const UPDATED_BY = 'fecha_etapa_carrera.UPDATED_BY';
 
 	
+	const ESTADO = 'fecha_etapa_carrera.ESTADO';
+
+	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('FechaInicio', 'IdEtapa', 'IdCarrera', 'MaxCorredores', 'FechaFin', 'Costo', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', ),
-		BasePeer::TYPE_COLNAME => array (FechaEtapaCarreraPeer::FECHA_INICIO, FechaEtapaCarreraPeer::ID_ETAPA, FechaEtapaCarreraPeer::ID_CARRERA, FechaEtapaCarreraPeer::MAX_CORREDORES, FechaEtapaCarreraPeer::FECHA_FIN, FechaEtapaCarreraPeer::COSTO, FechaEtapaCarreraPeer::CREATED_AT, FechaEtapaCarreraPeer::CREATED_BY, FechaEtapaCarreraPeer::UPDATED_AT, FechaEtapaCarreraPeer::UPDATED_BY, ),
-		BasePeer::TYPE_FIELDNAME => array ('fecha_inicio', 'id_etapa', 'id_carrera', 'max_corredores', 'fecha_fin', 'costo', 'created_at', 'created_by', 'updated_at', 'updated_by', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+		BasePeer::TYPE_PHPNAME => array ('FechaInicio', 'IdEtapa', 'IdCarrera', 'MaxCorredores', 'FechaFin', 'Costo', 'CreatedAt', 'CreatedBy', 'UpdatedAt', 'UpdatedBy', 'Estado', ),
+		BasePeer::TYPE_COLNAME => array (FechaEtapaCarreraPeer::FECHA_INICIO, FechaEtapaCarreraPeer::ID_ETAPA, FechaEtapaCarreraPeer::ID_CARRERA, FechaEtapaCarreraPeer::MAX_CORREDORES, FechaEtapaCarreraPeer::FECHA_FIN, FechaEtapaCarreraPeer::COSTO, FechaEtapaCarreraPeer::CREATED_AT, FechaEtapaCarreraPeer::CREATED_BY, FechaEtapaCarreraPeer::UPDATED_AT, FechaEtapaCarreraPeer::UPDATED_BY, FechaEtapaCarreraPeer::ESTADO, ),
+		BasePeer::TYPE_FIELDNAME => array ('fecha_inicio', 'id_etapa', 'id_carrera', 'max_corredores', 'fecha_fin', 'costo', 'created_at', 'created_by', 'updated_at', 'updated_by', 'estado', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('FechaInicio' => 0, 'IdEtapa' => 1, 'IdCarrera' => 2, 'MaxCorredores' => 3, 'FechaFin' => 4, 'Costo' => 5, 'CreatedAt' => 6, 'CreatedBy' => 7, 'UpdatedAt' => 8, 'UpdatedBy' => 9, ),
-		BasePeer::TYPE_COLNAME => array (FechaEtapaCarreraPeer::FECHA_INICIO => 0, FechaEtapaCarreraPeer::ID_ETAPA => 1, FechaEtapaCarreraPeer::ID_CARRERA => 2, FechaEtapaCarreraPeer::MAX_CORREDORES => 3, FechaEtapaCarreraPeer::FECHA_FIN => 4, FechaEtapaCarreraPeer::COSTO => 5, FechaEtapaCarreraPeer::CREATED_AT => 6, FechaEtapaCarreraPeer::CREATED_BY => 7, FechaEtapaCarreraPeer::UPDATED_AT => 8, FechaEtapaCarreraPeer::UPDATED_BY => 9, ),
-		BasePeer::TYPE_FIELDNAME => array ('fecha_inicio' => 0, 'id_etapa' => 1, 'id_carrera' => 2, 'max_corredores' => 3, 'fecha_fin' => 4, 'costo' => 5, 'created_at' => 6, 'created_by' => 7, 'updated_at' => 8, 'updated_by' => 9, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+		BasePeer::TYPE_PHPNAME => array ('FechaInicio' => 0, 'IdEtapa' => 1, 'IdCarrera' => 2, 'MaxCorredores' => 3, 'FechaFin' => 4, 'Costo' => 5, 'CreatedAt' => 6, 'CreatedBy' => 7, 'UpdatedAt' => 8, 'UpdatedBy' => 9, 'Estado' => 10, ),
+		BasePeer::TYPE_COLNAME => array (FechaEtapaCarreraPeer::FECHA_INICIO => 0, FechaEtapaCarreraPeer::ID_ETAPA => 1, FechaEtapaCarreraPeer::ID_CARRERA => 2, FechaEtapaCarreraPeer::MAX_CORREDORES => 3, FechaEtapaCarreraPeer::FECHA_FIN => 4, FechaEtapaCarreraPeer::COSTO => 5, FechaEtapaCarreraPeer::CREATED_AT => 6, FechaEtapaCarreraPeer::CREATED_BY => 7, FechaEtapaCarreraPeer::UPDATED_AT => 8, FechaEtapaCarreraPeer::UPDATED_BY => 9, FechaEtapaCarreraPeer::ESTADO => 10, ),
+		BasePeer::TYPE_FIELDNAME => array ('fecha_inicio' => 0, 'id_etapa' => 1, 'id_carrera' => 2, 'max_corredores' => 3, 'fecha_fin' => 4, 'costo' => 5, 'created_at' => 6, 'created_by' => 7, 'updated_at' => 8, 'updated_by' => 9, 'estado' => 10, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
 	);
 
 	
@@ -138,6 +141,8 @@ abstract class BaseFechaEtapaCarreraPeer {
 		$criteria->addSelectColumn(FechaEtapaCarreraPeer::UPDATED_AT);
 
 		$criteria->addSelectColumn(FechaEtapaCarreraPeer::UPDATED_BY);
+
+		$criteria->addSelectColumn(FechaEtapaCarreraPeer::ESTADO);
 
 	}
 

@@ -310,7 +310,6 @@ CREATE INDEX `fk_usuarios_grupos` ON `usuario` (`id_grupo` ASC) ;
 
 CREATE INDEX `fk_usuarios_corredor` ON `usuario` (`id_corredor` ASC) ;
 
-ALTER TABLE `suca_sports`.`usuario` ADD UNIQUE INDEX `idx_usuarios_email`(`email`);
 
 -- -----------------------------------------------------
 -- Table `carrera`
@@ -376,6 +375,7 @@ CREATE  TABLE IF NOT EXISTS `fecha_etapa_carrera` (
   `created_by` INT(11) NULL DEFAULT NULL ,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ,
   `updated_by` INT(11) NULL DEFAULT NULL ,
+  `estado` VARCHAR(1) NULL DEFAULT 'I' ,
   PRIMARY KEY (`fecha_inicio`, `id_etapa`, `id_carrera`) ,
   CONSTRAINT `fk_fecha_etapa_carrera_etapa_carrera`
     FOREIGN KEY (`id_etapa` , `id_carrera` )
