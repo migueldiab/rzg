@@ -52,11 +52,6 @@ class postActions extends autopostActions
   protected function updatePostFromRequest()
   {
     $post = $this->getRequestParameter('post');
-  $aKey = split('/',$post['fecha_etapa_carrera']);
-  foreach ($aKey as $value) {
-  	echo $value;
-  }
-  exit;
     if (isset($post['texto']))
     {
       $this->post->setTexto($post['texto']);

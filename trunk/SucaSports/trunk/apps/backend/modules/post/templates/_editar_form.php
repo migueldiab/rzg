@@ -1,4 +1,4 @@
-<?php echo form_tag('post/save', array(
+<?php echo form_tag('post/editar', array(
   'id'        => 'sf_admin_editar_form',
   'name'      => 'sf_admin_editar_form',
   'multipart' => true,
