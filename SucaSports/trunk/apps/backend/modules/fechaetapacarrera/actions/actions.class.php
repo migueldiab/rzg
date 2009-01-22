@@ -16,7 +16,6 @@ class fechaetapacarreraActions extends autofechaetapacarreraActions
     
     if (isset($fecha_etapa_carrera['fecha_inicio']))
     {
-      echo "test";
       $this->fecha_etapa_carrera->setFechaInicio($fecha_etapa_carrera['fecha_inicio']);
     }
     if (isset($fecha_etapa_carrera['max_corredores']))

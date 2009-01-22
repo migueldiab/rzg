@@ -32,7 +32,7 @@ class CarreraActions extends autoCarreraActions
         return $this->forward('carrera', 'edit');
       }
      }
-     $this->redirect('etapacarrera/edit?id_carrera='.$this->carrera->getId());
+     $this->redirect('etapacarrera/create?id_carrera='.$this->carrera->getId());
   }
   public function executeEdit()
   {

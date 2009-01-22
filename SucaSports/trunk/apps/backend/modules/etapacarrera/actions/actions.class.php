@@ -10,7 +10,20 @@
 class etapacarreraActions extends autoetapacarreraActions
 {
 public function executeFecha(){
-        
+    $this->etapa_carrera = $this->getEtapaCarreraOrCreate();
+     if ($this->getRequest()->isMethod('post'))
+     {
+      $this->updateEtapaCarreraFromRequest();
+      try
+      {
+        $this->saveEtapaCarrera($this->etapa_carrera);
+      }
+      catch (PropelException $e)
+      {
+        $this->getRequest()->setError('edit', 'Could not save the edited Etapa.');
+        return $this->forward('etapa_carrera', 'edit');
+      }
+     }
     $fecha = new FechaEtapaCarrera();
     $fecha->setIdCarrera($this->getRequestParameter('id_carrera'));
     $fecha->setIdEtapa($this->getRequestParameter('id_etapa'));
@@ -48,12 +61,12 @@ public function executeFecha(){
 
   public function executeCreate()
   {
-    return $this->forward('etapacarrera', 'edit');
+    return $this->forward('etapacarrera', 'crear');
   }
 
   public function executeSave()
   {
-    return $this->forward('etapacarrera', 'edit');
+    return $this->forward('etapacarrera', 'crear');
   }
 
 
@@ -77,7 +90,7 @@ public function executeFecha(){
     return $this->redirect('etapacarrera/list');
   }
 
-  public function executeEdit()
+  public function executeCrear()
   {
     $this->etapa_carrera = new EtapaCarrera();
     $this->etapa_carrera->setIdCarrera($this->getRequestParameter('id_carrera'));
