@@ -1,4 +1,4 @@
-﻿INSERT INTO `pais` (`id`,`nombre`,`updated_by`,`updated_at`) VALUES 
+﻿INSERT INTO `pais` (`id`,`nombre`,`updated_by`,`updated_at`) VALUES
  (1,'Uruguay',NULL,NULL);
 
 INSERT INTO `localidad` (`id`,`id_pais`,`nombre`,`updated_by`,`updated_at`) VALUES
@@ -20,10 +20,6 @@ INSERT INTO `tipo_documento` (`id`,`nombre`) VALUES
  (3,'DNI');
 
 INSERT INTO `grupo` (`id`, `nombre`) VALUES
-(1, 'Admin');
+(1, 'Admin'),
+(2, 'Corredor');
 
-INSERT INTO `usuario` (`id`,`documento`,`email`,`password`,`id_grupo`,`id_corredor`,`estado`,`verificador`,`pregunta_secreta`,`respuesta_secreta`,`created_at`,`created_by`,`updated_at`,`updated_by`) VALUES 
- (1,'28597576','migueldiab@gmail.com','b7d8e8e641c8c0b0f6b9e4009da0bedc398927b6',1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2008-12-11 01:07:37',NULL),
- (2,'alberto',NULL,'b7d8e8e641c8c0b0f6b9e4009da0bedc398927b6',1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2008-12-03 12:58:08',NULL),
- (3,'12345','mike@mike.com','cae758978da31fa3b0b19edb1177738d4f57f8dd',NULL,NULL,NULL,NULL,NULL,NULL,'2008-12-11 02:29:54',NULL,'2008-12-11 02:29:54',NULL),
- (4,'1234','mike@mike.com','e58bfdbc83a1c1fb607efb00c9256d146137b4f1',NULL,NULL,NULL,NULL,NULL,NULL,'2008-12-11 02:42:01',NULL,'2008-12-11 02:43:04',NULL);

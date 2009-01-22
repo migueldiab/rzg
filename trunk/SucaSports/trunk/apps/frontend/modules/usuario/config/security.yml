@@ -19,7 +19,7 @@ enviarActivacion:
 activateUser:
   is_secure: off
 
-CambiarContrasena:
+cambiarContrasena:
   is_secure: off
    
 all:

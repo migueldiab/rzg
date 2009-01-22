@@ -57,7 +57,7 @@ class usuarioActions extends autousuarioActions
         !isset($usuario['documento']) ||
         !isset($usuario['email']) ||
         !isset($usuario['password'])) {
-        $this->getUser()->setFlash('error', 'Error, Some of the data is missing');
+        $this->getUser()->setFlash('error', 'Por favor, complete todos los datos');
         $this->forward('usuario', 'edit');
       
     }
@@ -65,7 +65,7 @@ class usuarioActions extends autousuarioActions
     {
         if ($this->usuario->VerifyPassword($usuario['verify_password'],$usuario['password']) != 1)
         {
-            $this->getUser()->setFlash('error', 'Passwords Do not match');
+            $this->getUser()->setFlash('error', 'La contraseña y su verificacion deben ser iguales');
             return $this->forward('usuario', 'edit');
         }
         if ($this->usuario->check_email_address($usuario['email']))
@@ -80,13 +80,13 @@ class usuarioActions extends autousuarioActions
         }
         else
         {
-            $this->getUser()->setFlash('error', 'Email Address is not valid or already exists');
+            $this->getUser()->setFlash('error', 'La dirección de correo no es válida, verifique');
             return $this->forward('usuario', 'edit');
         }
     }
     else
     {
-        $this->getUser()->setFlash('error', 'User already exists');
+        $this->getUser()->setFlash('error', 'El usuario ya existe en nuestra base de datos');
         return $this->forward('usuario', 'edit');
     }
   }
@@ -120,58 +120,43 @@ class usuarioActions extends autousuarioActions
 
   public function executeSave()
   {
-  	  $this->usuario = new Usuario();
-      $this->updateUsuarioFromRequest();
-      try
-      {
-        $this->usuario->save();
-      }
-      catch (PropelException $e)
-      {
-        $this->getRequest()->setError('edit', 'Could not save the edited Usuarios.');
-        return $this->forward('usuario', 'list');
-      }
-      $this->getUser()->setFlash('notice', 'Your modifications have been saved');
-      
-      
-      /*
-       * Crea el cuerpo del mensaje con el Component enviarConfirmacion
-       * usando components.class.php y _enviarConfirmacion.php en templates
-       */
-      $mailBody = $this->getComponent('usuario', 'enviarConfirmacion', array(
-        'usuario' => $this->usuario
-      ));
-      try
-			{
-          /*
-           * En la tabla configuraci�n se necesita un campo con parametro SMTP_SERVER y valor
-           * igual al servidor de SMTP desde d�nde se env�an los mails...
-           */
-        $smtp = ConfiguracionPeer::getParametro('SMTP_SERVER'); 
-        $from = ConfiguracionPeer::getParametro('EMAIL_FROM'); 
-        $pass = ConfiguracionPeer::getParametro('SMTP_PASSWORD'); 
-        
-        $connection = new Swift_Connection_SMTP($smtp, 25);
-        $connection->setUsername($from);
-        $connection->setPassword($pass);
-        $mailer = new Swift($connection);
-			  $message = new Swift_Message('SucaSports : Confirmaci�n de registro', $mailBody, 'text/html');
-			  // Send
-			  $mailer->send($message, $this->usuario->getEmail(), $from);
-			  $mailer->disconnect();
-			}
-			catch (Exception $e)
-			{
-			  $mailer->disconnect();
-			  echo "mail error";
-			  /*
-			   * habria que avisar que no anda el mail o algo
-			   * no se bien como todav�a
-			   */
-			  exit;
-			  // handle errors here
-			}
-			      
+    $this->usuario = new Usuario();
+    $this->updateUsuarioFromRequest();
+    /*
+     * Crea el cuerpo del mensaje con el Component enviarConfirmacion
+     * usando components.class.php y _enviarConfirmacion.php en templates
+     */
+    $mailBody = $this->getComponent('usuario', 'enviarConfirmacion', array(
+      'usuario' => $this->usuario
+    ));
+    try
+    {
+        /*
+         * En la tabla configuraci�n se necesita un campo con parametro SMTP_SERVER y valor
+         * igual al servidor de SMTP desde d�nde se env�an los mails...
+         */
+      $smtp = ConfiguracionPeer::getParametro('SMTP_SERVER');
+      $from = ConfiguracionPeer::getParametro('EMAIL_FROM');
+      $pass = ConfiguracionPeer::getParametro('SMTP_PASSWORD');
+
+      $connection = new Swift_Connection_SMTP($smtp, 25);
+      $connection->setUsername($from);
+      $connection->setPassword($pass);
+      $mailer = new Swift($connection);
+      $message = new Swift_Message('SucaSports : Confirmación de registro', $mailBody, 'text/html');
+      // Send
+      $mailer->send($message, $this->usuario->getEmail(), $from);
+      $mailer->disconnect();
+      $this->usuario->save();
+    }
+    catch (Exception $e)
+    {
+      $mailer->disconnect();
+      $this->getRequest()->setError('edit', 'Error al crear el usuario, disculpe las molestias.');
+      return $this->forward('usuario', 'edit');
+    }
+    $this->getUser()->setFlash('notice', 'Usuario creado exitosamente, verifique su correo para acivar su cuenta');
+    return $this->forward('usuario', 'login');
   }
 
   public function executeEdit()
@@ -227,18 +212,22 @@ public function executeEnviarCorreoRecuperar()
 
   public function executeUnblockUser()
   {
-    if (($this->getRequestParameter('email')) && ($this->getRequestParameter('val'))){
-        $email = $this->getRequestParameter('email');
-        $val = $this->getRequestParameter('val');
-        $usuario = UsuarioPeer::retrieveByEmail($email);
-        if ($val == $usuario->getVerificador()){
-            $usuario->setVerificador($hashString);
-            $usuario->save();
-            $this->forward('usuario', 'cambiarContrasena?id='.$usuario->getIdusuario);
-            }
-            else 
-             $this->forward('usuario', 'login');
-      }    
+    if (($this->getRequestParameter('email')) && ($this->getRequestParameter('val')))
+    {
+      $email = $this->getRequestParameter('email');
+      $val = $this->getRequestParameter('val');
+      $usuario = UsuarioPeer::retrieveByEmail($email);
+      if ($val == $usuario->getVerificador())
+      {
+        $usuario->setVerificador($hashString);
+        $usuario->save();
+        $this->forward('usuario', 'cambiarContrasena?id='.$usuario->getIdusuario);
+      }
+      else
+      {
+        $this->forward('usuario', 'login');
+      }
+    }    
   }
 
 
