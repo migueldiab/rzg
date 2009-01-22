@@ -20,16 +20,16 @@ class usuarioActions extends autousuarioActions
 	  else
 	  {
 	  	if ($this->getRequestParameter('url_original'))
-        $this->redirect($this->getRequestParameter('url_original'));
-      else
-        $this->redirect('@homepage');
+          $this->redirect($this->getRequestParameter('url_original'));
+        else
+          $this->redirect('@homepage');
 	  }
 	}
 	
 	public function handleErrorLogin()
 	{
-    $this->getRequest()->setAttribute('url_original', $this->getRequestParameter('url_original', '@homepage'));
-		return sfView::SUCCESS;
+      $this->getRequest()->setAttribute('url_original', $this->getRequestParameter('url_original', '@homepage'));
+      return sfView::SUCCESS;
 	}
 			
 	public function executeLogout()
@@ -126,9 +126,15 @@ class usuarioActions extends autousuarioActions
      * Crea el cuerpo del mensaje con el Component enviarConfirmacion
      * usando components.class.php y _enviarConfirmacion.php en templates
      */
-    $mailBody = $this->getComponent('usuario', 'enviarConfirmacion', array(
-      'usuario' => $this->usuario
-    ));
+    $mailBody = $this->getComponent('usuario', 'enviarConfirmacion', array('usuario' => $this->usuario));
+    try {
+      $this->usuario->save();
+    }
+    catch (PropelException $e)
+    {
+      $this->getRequest()->setError('edit', 'Error al crear el usuario, disculpe las molestias.');
+      return $this->forward('usuario', 'edit');
+    }
     try
     {
         /*
@@ -140,23 +146,22 @@ class usuarioActions extends autousuarioActions
       $pass = ConfiguracionPeer::getParametro('SMTP_PASSWORD');
 
       $connection = new Swift_Connection_SMTP($smtp, 25);
+      $mailer = new Swift($connection);
       $connection->setUsername($from);
       $connection->setPassword($pass);
-      $mailer = new Swift($connection);
       $message = new Swift_Message('SucaSports : Confirmación de registro', $mailBody, 'text/html');
       // Send
       $mailer->send($message, $this->usuario->getEmail(), $from);
       $mailer->disconnect();
-      $this->usuario->save();
     }
     catch (Exception $e)
     {
       $mailer->disconnect();
-      $this->getRequest()->setError('edit', 'Error al crear el usuario, disculpe las molestias.');
+      $this->getRequest()->setError('edit', 'Error al enviar el correo de confirmación, disculpe las molestias.');
       return $this->forward('usuario', 'edit');
     }
     $this->getUser()->setFlash('notice', 'Usuario creado exitosamente, verifique su correo para acivar su cuenta');
-    return $this->forward('usuario', 'login');
+    $this->redirect('@homepage');
   }
 
   public function executeEdit()
