@@ -55,7 +55,7 @@
 
 <?php include_partial('edit_actions', array('etapa_carrera' => $etapa_carrera)) ?>
 
-</form>
+<?php echo "</form>" ?>
 
 <ul class="sf_admin_actions">
       <li class="float-left"><?php if ($etapa_carrera->getIdEtapa() && $etapa_carrera->getIdCarrera()): ?>
