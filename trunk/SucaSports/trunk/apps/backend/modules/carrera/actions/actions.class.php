@@ -100,19 +100,4 @@ class CarreraActions extends autoCarreraActions
         }
       }
   }
-
-  public function executeActivarInscripcion() {
-    // pager
-    $this->pager = new sfPropelPager('Carrera', 20);
-    $c = new Criteria();
-    $this->addSortCriteria($c);
-    $this->addFiltersCriteria($c);
-    $this->pager->setCriteria($c);
-    $this->pager->setPage($this->getRequestParameter('page', $this->getUser()->getAttribute('page', 1, 'sf_admin/post')));
-    $this->pager->init();
-    // save page
-    if ($this->getRequestParameter('page')) {
-        $this->getUser()->setAttribute('page', $this->getRequestParameter('page'), 'sf_admin/post');
-    }  	
-  }
 }
