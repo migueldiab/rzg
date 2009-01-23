@@ -12,7 +12,7 @@
         </span>
       </li>
       <li>
-        <span id="ttRich"><?php echo link_to('Activar Inscripción','carrera/activarInscripcion') ?></span>
+        <span id="ttRich"><?php echo link_to('Activar InscripciÃ³n','fechaetapacarrera/activarInscripcion') ?></span>
       </li>
 
     </ul>
