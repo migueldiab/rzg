@@ -11,6 +11,6 @@ generator:
       actions:
         _list:
         _save:
-      display: [ _fecha_inicio_id, max_corredores, fecha_fin, costo ]
+      display: [ _fecha_inicio_id, max_corredores, fecha_fin, costo, estado ]
       fields:
         fecha_inicio_id: { name: fecha_inicio }
