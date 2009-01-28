@@ -300,8 +300,8 @@ public function executeEnviarCorreoRecuperar()
     return array(
       'usuario{documento}' => 'Documento:',
       'usuario{email}' => 'Email:',
-      'usuario{password}' => 'Password:',
-      'usuario{verify_password}' => 'Verify password:',
+      'usuario{password}' => 'Contraseña:',
+      'usuario{verify_password}' => 'Confirmar Contraseña:',
     );
   }
 
