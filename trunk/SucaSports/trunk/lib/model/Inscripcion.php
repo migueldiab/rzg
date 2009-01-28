@@ -9,6 +9,12 @@
  */ 
 class Inscripcion extends BaseInscripcion
 {
+
+  protected $aCarrera;
+  protected $aEtapa;
+
+
+
   public function getCarrera($con = null)
   {
     if ($this->aCarrera === null && ($this->id_carrera !== null)) {

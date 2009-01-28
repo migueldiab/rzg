@@ -4,7 +4,7 @@
 
 <div id="sf_admin_container">
 
-  <h1><?php echo __('Confirmar inscripcion?', array()) ?></h1>
+  <h1><?php echo __('Su inscripción se ha realizado correctamente', array()) ?></h1>
 
   <div id="sf_admin_header">
   </div>
@@ -33,11 +33,12 @@
         </div>
         <div class="form-row">
         <?php echo label_for('fecha_etapa[costo]', __('Costo')) ?>
-        $U <?php echo $fecha_etapa->getCosto() ?>
+        <?php echo '$U '.$fecha_etapa->getCosto() ?>
         </div>
         <div class="form-row">
         <?php echo label_for('cuenta_corriente[id_forma_pago]', __('Forma de Pago')) ?>
         <?php echo $cuenta_corriente->getFormaPago() ?>
+        </div>
     </fieldset>
   </div>
 

@@ -49,7 +49,7 @@
   </div>
   <div class="form-row">
   <?php echo label_for('fecha_etapa[costo]', __('Costo')) ?> 
-  $U <?php echo $fecha_etapa->getCosto() ?>  
+  <?php echo '$U '.$fecha_etapa->getCosto() ?>
   </div>
   <div class="form-row">
   <?php echo label_for('cuenta_corriente[id_forma_pago]', __('Forma de Pago')) ?> 
