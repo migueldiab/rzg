@@ -14,3 +14,4 @@ generator:
       display: [ _fecha_inicio_id, max_corredores, fecha_fin, costo, estado ]
       fields:
         fecha_inicio_id: { name: fecha_inicio }
+        estado: { type: input_hidden_tag }
