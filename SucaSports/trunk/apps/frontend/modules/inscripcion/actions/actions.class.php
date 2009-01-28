@@ -12,6 +12,7 @@ class inscripcionActions extends autoinscripcionActions
 {
   public function executeGuardar() {
     $this->usuario = $this->getUser()->getAttribute('usuario', '', 'sesion');
+    $this->corredor = CorredorPeer::retrieveByPK($this->usuario->getIdCorredor());
 
     $inscripcion = $this->getRequestParameter('inscripcion');
     $cuenta_corriente = $this->getRequestParameter('cuenta_corriente');
@@ -29,10 +30,12 @@ class inscripcionActions extends autoinscripcionActions
     $this->inscripcion->setIdCarrera($inscripcion['id_carrera']);
     $this->inscripcion->setIdEtapa($inscripcion['id_etapa']);
     $this->inscripcion->setIdCategoria($inscripcion['id_categoria']);
+    $this->inscripcion->setIdCorredor($this->corredor->getId());
+    $netUtils = new netUtils();
 
     
-
-    
+    $this->inscripcion->setFirmaDigital(time().'-'.netUtils::getIpAddress().'-'.$this->usuario->getId());
+    $this->inscripcion->save();
   }
   public function executeNueva() {
     $usuario = $this->getUser()->getAttribute('usuario', '', 'sesion');
