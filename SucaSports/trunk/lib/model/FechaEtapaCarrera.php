@@ -28,6 +28,5 @@ class FechaEtapaCarrera extends BaseFechaEtapaCarrera
         $etapa = EtapaCarreraPeer::retrieveByPK($this->getIdEtapa(),$this->getIdCarrera());
         return $etapa->getNumeroEtapa();
     }
- 
     
 }

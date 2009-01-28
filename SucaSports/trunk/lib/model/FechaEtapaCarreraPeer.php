@@ -40,4 +40,14 @@ class FechaEtapaCarreraPeer extends BaseFechaEtapaCarreraPeer
 
 		return !empty($v) > 0 ? $v[0] : null;
 	}
+    public static function doSelectEstado()
+	{
+        $fechaetapa = new FechaEtapaCarrera;
+        $fechaetpa1 = new FechaEtapaCarrera;
+
+        $estados = array();
+        $estados[1] = $fechaetapa->setEstado('Activo');
+        $estados[2] = $fechaetapa->setEstado('Inactivo');
+        return $estados;
+	}
 }
