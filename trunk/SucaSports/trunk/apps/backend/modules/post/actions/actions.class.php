@@ -58,31 +58,30 @@ class postActions extends autopostActions
     }
     if (isset($post['fecha_etapa_carrera']))
     {
-      if ($post['fecha_etapa_carrera_fecha_inicio'])
+      $datos = split('/', $post['fecha_etapa_carrera']);
+      $fecha_etapa = $datos[0];
+      $etapa = $datos[1];
+      $carrera = $datos[2];
+      try
       {
-        try
+        $dateFormat = new sfDateFormat($this->getUser()->getCulture());
+        if (!is_array($fecha_etapa))
         {
-          $dateFormat = new sfDateFormat($this->getUser()->getCulture());
-                              if (!is_array($post['fecha_etapa_carrera_fecha_inicio']))
-          {
-            $value = $dateFormat->format($post['fecha_etapa_carrera_fecha_inicio'], 'i', $dateFormat->getInputPattern('d'));
-          }
-          else
-          {
-            $value_array = $post['fecha_etapa_carrera_fecha_inicio'];
-            $value = $value_array['year'].'-'.$value_array['month'].'-'.$value_array['day'].(isset($value_array['hour']) ? ' '.$value_array['hour'].':'.$value_array['minute'].(isset($value_array['second']) ? ':'.$value_array['second'] : '') : '');
-          }
-          $this->post->setFechaEtapaCarreraFechaInicio($value);
+          $value = $dateFormat->format($fecha_etapa, 'i', $dateFormat->getInputPattern('d'));
         }
-        catch (sfException $e)
+        else
         {
-          // not a date
+          $value_array = $fecha_etapa;
+          $value = $value_array['year'].'-'.$value_array['month'].'-'.$value_array['day'].(isset($value_array['hour']) ? ' '.$value_array['hour'].':'.$value_array['minute'].(isset($value_array['second']) ? ':'.$value_array['second'] : '') : '');
         }
+        $this->post->setFechaEtapaCarreraFechaInicio($value);
       }
-      else
+      catch (sfException $e)
       {
-        $this->post->setFechaEtapaCarreraFechaInicio(null);
+        // not a date
       }
+      $this->post->setFechaEtapaCarreraIdEtapa($etapa);
+      $this->post->setFechaEtapaCarreraIdCarrera($carrera);
     }
-  }  	 
+  }
 }
