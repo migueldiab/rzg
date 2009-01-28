@@ -34,5 +34,5 @@
 
     <?php include_partial('cambiarContrasena_actions', array('usuario' => $usuario)) ?>
 
-</form>
+<?php echo "</form>" ?>
 

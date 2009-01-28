@@ -10,7 +10,11 @@
 class Corredor extends BaseCorredor
 {
     public function __toString() {
-      return $this->getApellido().", ".$this->getNombre();
-    }
-    
+    	if (!$this->getApellido() || !$this->getNombre()) {
+        return false;
+      }
+      else {
+        return $this->getApellido().", ".$this->getNombre();
+      }
+    }    
 }
