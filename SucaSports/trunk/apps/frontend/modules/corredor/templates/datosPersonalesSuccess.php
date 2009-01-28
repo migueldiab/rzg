@@ -56,6 +56,7 @@
     <?php $value = object_input_tag($corredor, 'getDocumento', array (
     'size' => 45,
     'control_name' => 'corredor[documento]',
+    'disabled' => 'true',
   )); echo $value ? $value : '&nbsp;' ?>
       </div>
   </div>
@@ -95,10 +96,9 @@
       <?php echo form_error('corredor{sexo}', array('class' => 'form-error-msg')) ?>
     <?php endif; ?>
   
-    <?php $value = object_input_tag($corredor, 'getSexo', array (
-    'size' => 20,
-    'control_name' => 'corredor[sexo]',
-  )); echo $value ? $value : '&nbsp;' ?>
+    <?php $value = select_tag('corredor[sexo]', 
+      options_for_select(array('M'=>'Masculino', 'F'=>'Femenino'), $corredor->getSexo())
+    ); echo $value ? $value : '&nbsp;' ?>
       </div>
   </div>
   
