@@ -10,20 +10,7 @@
 class etapacarreraActions extends autoetapacarreraActions
 {
 public function executeFecha(){
-    $this->etapa_carrera = $this->getEtapaCarreraOrCreate();
-     if ($this->getRequest()->isMethod('post'))
-     {
-      $this->updateEtapaCarreraFromRequest();
-      try
-      {
-        $this->saveEtapaCarrera($this->etapa_carrera);
-      }
-      catch (PropelException $e)
-      {
-        $this->getRequest()->setError('edit', 'Could not save the edited Etapa.');
-        return $this->forward('etapa_carrera', 'edit');
-      }
-     }
+
     $fecha = new FechaEtapaCarrera();
     $fecha->setIdCarrera($this->getRequestParameter('id_carrera'));
     $fecha->setIdEtapa($this->getRequestParameter('id_etapa'));
@@ -92,9 +79,16 @@ public function executeFecha(){
 
   public function executeCrear()
   {
-    $this->etapa_carrera = new EtapaCarrera();
-    $this->etapa_carrera->setIdCarrera($this->getRequestParameter('id_carrera'));
-
+    if ($this->getRequestParameter('id_etapa') === ''
+     || $this->getRequestParameter('id_etapa') === null)
+     {
+        $this->etapa_carrera = new EtapaCarrera();
+        $this->etapa_carrera->setIdCarrera($this->getRequestParameter('id_carrera'));
+     }
+     else
+     {
+       $this->etapa_carrera = $this->getEtapaCarreraOrCreate();
+     }
     if ($this->getRequest()->isMethod('post'))
     {
       $this->updateEtapaCarreraFromRequest();
@@ -109,20 +103,26 @@ public function executeFecha(){
         return $this->forward('etapacarrera', 'list');
       }
 
-      $this->getUser()->setFlash('notice', 'Your modifications have been saved');
+      $this->getUser()->setFlash('notice', 'Se ha creado una nueva etapa para la carrera '.$this->getRequestParameter('id_carrera'));
+      $fecha = new FechaEtapaCarrera();
+      $fecha->setIdCarrera($this->getRequestParameter('id_carrera'));
+      $fecha->setIdEtapa($this->getRequestParameter('id_etapa'));
+      $fecha->setFechaInicio(date("Y-m-d"));
+      //$fecha->save();
+      $this->redirect('fechaetapacarrera/edit?fecha_inicio='.$fecha->getFechaInicio().'&id_etapa='.$fecha->getIdEtapa().'&id_carrera='.$fecha->getIdCarrera());
 
-      if ($this->getRequestParameter('save_and_add'))
-      {
-        return $this->redirect('etapacarrera/create');
-      }
-      else if ($this->getRequestParameter('save_and_list'))
-      {
-        return $this->redirect('etapacarrera/list');
-      }
-      else
-      {
-        return $this->redirect('etapacarrera/edit?id_etapa='.$this->etapa_carrera->getIdEtapa().'&id_carrera='.$this->etapa_carrera->getIdCarrera());
-      }
+//      if ($this->getRequestParameter('save_and_add'))
+//      {
+//        return $this->redirect('etapacarrera/create');
+//      }
+//      else if ($this->getRequestParameter('save_and_list'))
+//      {
+//        return $this->redirect('etapacarrera/list');
+//      }
+//      else
+//      {
+//        return $this->redirect('etapacarrera/edit?id_etapa='.$this->etapa_carrera->getIdEtapa().'&id_carrera='.$this->etapa_carrera->getIdCarrera());
+//      }
     }
     else
     {
