@@ -21,21 +21,39 @@
      <li>
       <?php echo link_to('Datos Personales', 'corredor/datosPersonales') ?>
       </li>
-      <li>
-      <?php echo link_to('Informaci�n de Contacto', 'corredor/contacto') ?>
-      </li>
-      <li>
-      <?php echo link_to('Historia M�dica', 'corredor/historiaMedica') ?>
-      </li>
-      <li>
-      <?php echo link_to('Mi Equipamiento', 'corredor/equipamiento') ?>
-      </li>
-      <li>
-      <?php echo link_to('Mis Carreras', 'corredor/carreras') ?>
-      </li>
-      <li>
-      <?php echo link_to('Mi Cuenta', 'corredor/cuenta') ?>      
-      </li>
+      <?php if (isset($corredor)): ?>
+        <li>
+          <?php echo link_to('Información de Contacto', 'corredor/contacto') ?>
+	</li>
+	<li>
+          <?php echo link_to('Historia Médica', 'corredor/historiaMedica') ?>
+	</li>
+        <li>
+          <?php echo link_to('Mi Equipamiento', 'corredor/equipamiento') ?>
+        </li>
+        <li>
+          <?php echo link_to('Mis Carreras', 'corredor/carreras') ?>
+        </li>
+        <li>
+          <?php echo link_to('Mi Cuenta', 'corredor/cuenta') ?>
+        </li>
+      <?php else: ?>
+        <li>
+        <?php echo 'Información de Contacto' ?>
+        </li>
+        <li>
+        <?php echo 'Historia Médica' ?>
+        </li>
+        <li>
+        <?php echo 'Mi Equipamiento' ?>
+        </li>
+        <li>
+        <?php echo 'Mis Carreras' ?>
+        </li>
+        <li>
+        <?php echo 'Mi Cuenta' ?>      
+        </li>
+      <?php endif; ?>
     </ul>
   </div>
   
