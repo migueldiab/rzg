@@ -33,7 +33,7 @@
         </div>
         <div class="form-row">
         <?php echo label_for('fecha_etapa[costo]', __('Costo')) ?>
-        <?php echo '$U '.$fecha_etapa->getCosto() ?>
+        <?php echo '$U '.$fecha_etapa_carrera->getCosto() ?>
         </div>
         <div class="form-row">
         <?php echo label_for('cuenta_corriente[id_forma_pago]', __('Forma de Pago')) ?>
@@ -43,6 +43,7 @@
   </div>
 
   <div id="sf_admin_footer">
+    Puede imprimir esta página como registro de su inscripción
   </div>
 
 </div>

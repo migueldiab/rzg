@@ -19,11 +19,15 @@ class inscripcionActions extends autoinscripcionActions
 
     $this->carrera = CarreraPeer::retrieveByPK($inscripcion['id_carrera']);
 
-    $this->fecha_etapa = FechaEtapaCarreraPeer::retrieveByPK($inscripcion['fecha_inicio'], $inscripcion['id_etapa'], $inscripcion['id_carrera']);
+    $this->fecha_etapa_carrera = FechaEtapaCarreraPeer::retrieveByPK($inscripcion['fecha_inicio'], $inscripcion['id_etapa'], $inscripcion['id_carrera']);
 
     $this->cuenta_corriente = new CuentaCorriente();
     $this->cuenta_corriente->setIdCorredor($this->usuario->getIdCorredor());
     $this->cuenta_corriente->setIdFormaPago($cuenta_corriente['id_forma_pago']);
+    
+    $this->cuenta_corriente->setMonto($this->fecha_etapa_carrera->getCosto());
+    $this->cuenta_corriente->save();
+
 
     $this->inscripcion = new Inscripcion();
     $this->inscripcion->setFechaInicio($inscripcion['fecha_inicio']);
