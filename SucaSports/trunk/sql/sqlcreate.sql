@@ -412,7 +412,7 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `cuenta_corriente` ;
 
 CREATE  TABLE IF NOT EXISTS `cuenta_corriente` (
-  `id` INT(11) NOT NULL ,
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `id_corredor` INT(11) NOT NULL ,
   `id_forma_pago` INT(11) NOT NULL ,
   `monto` DOUBLE NOT NULL ,
