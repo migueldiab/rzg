@@ -34,8 +34,16 @@ class validarUsuario extends sfValidator
       {
       	  if ($usuario->getEstado() == 'a') {
           $this->context->getUser()->setAuthenticated(true);
-          // FIXME : Agregar credenciales
-          $this->context->getUser()->addCredential('root');
+          
+          //$this->context->getUser()->addCredential('root');
+          $grupo = GrupoPeer::retrieveByPK($usuario->getIdGrupo());
+          if (!isset($grupo)) {
+            return false;
+          }
+          else {
+            $this->context->getUser()->addCredential($grupo->getNombre());
+          }
+          
           $this->context->getUser()->setAttribute('usuario', $usuario, 'sesion');
           return true;
           }
