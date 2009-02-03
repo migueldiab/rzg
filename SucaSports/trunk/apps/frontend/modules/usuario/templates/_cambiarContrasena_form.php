@@ -1,4 +1,7 @@
-<?php echo form_tag('usuario/inWork', array(
+<?php use_helper('Object', 'Validation', 'ObjectAdmin', 'I18N', 'Date') ?>
+<?php use_stylesheet('/sf/sf_admin/css/main') ?>
+
+<?php echo form_tag('usuario/login', array(
   'id'        => 'sf_admin_edit_form',
   'name'      => 'sf_admin_edit_form',
   'multipart' => true,

@@ -185,10 +185,8 @@ public function executeEnviarCorreoRecuperar()
   {
     if ($this->getRequestParameter('email')) {
     $email = $this->getRequestParameter('email');
-    $this->usuario = new Usuario();
     $this->usuario = UsuarioPeer::retrieveByEmail($email);
-    $this->usuario = UsuarioPeer::retrieveByEmail($email);
-    if (isset($this->usuario)) {
+    if  ($this->usuario) {        
         $hashString = md5(date('U'));
         $this->usuario->setVerificador($hashString);
         $this->usuario->save();
@@ -198,7 +196,6 @@ public function executeEnviarCorreoRecuperar()
         $mail->initialize();
         $mail->setMailer('sendmail');
         $mail->setCharset('utf-8');
-
         $mail->setSender('webmaster@sucasports.com', 'Suca Sports Webmaster');
         $mail->setFrom('info@Sucasports.com', 'Suca Sports');
         $mail->addReplyTo('do_not_reply@sucasports.com');
@@ -212,6 +209,11 @@ public function executeEnviarCorreoRecuperar()
         http://sucasports/frontend_dev.php/usuario/UnblockUser?email='.$email.'?val='.$hashString);
         $mail->send();
     }
+    else
+        {
+            $this->forward('usuario', 'login');
+        }
+
     }
 }
 
@@ -284,7 +286,6 @@ public function executeEnviarCorreoRecuperar()
   public function executeEnviarActivacion() {
   	
   }
-
 
   public function handleErrorEdit()
   {
