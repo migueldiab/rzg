@@ -3,9 +3,10 @@
 /**
  * Equipamiento form base class.
  *
- * @package    form
- * @subpackage equipamiento
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 8807 2008-05-06 14:12:28Z fabien $
+ * @package    sucasports
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseEquipamientoForm extends BaseFormPropel
 {
@@ -14,12 +15,12 @@ class BaseEquipamientoForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'                         => new sfWidgetFormInputHidden(),
       'marca'                      => new sfWidgetFormInput(),
-      'id_tipo_equipamiento'       => new sfWidgetFormPropelSelect(array('model' => 'TipoEquipamiento', 'add_empty' => false)),
+      'id_tipo_equipamiento'       => new sfWidgetFormPropelChoice(array('model' => 'TipoEquipamiento', 'add_empty' => false)),
       'created_at'                 => new sfWidgetFormDateTime(),
       'created_by'                 => new sfWidgetFormInput(),
       'updated_at'                 => new sfWidgetFormDateTime(),
       'updated_by'                 => new sfWidgetFormInput(),
-      'corredor_equipamiento_list' => new sfWidgetFormPropelSelectMany(array('model' => 'Corredor')),
+      'corredor_equipamiento_list' => new sfWidgetFormPropelChoiceMany(array('model' => 'Corredor')),
     ));
 
     $this->setValidators(array(

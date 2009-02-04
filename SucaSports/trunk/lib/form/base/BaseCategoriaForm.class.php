@@ -3,9 +3,10 @@
 /**
  * Categoria form base class.
  *
- * @package    form
- * @subpackage categoria
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 8807 2008-05-06 14:12:28Z fabien $
+ * @package    sucasports
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseCategoriaForm extends BaseFormPropel
 {
@@ -17,7 +18,7 @@ class BaseCategoriaForm extends BaseFormPropel
       'updated_at'             => new sfWidgetFormDateTime(),
       'updated_by'             => new sfWidgetFormInput(),
       'regla'                  => new sfWidgetFormInput(),
-      'categoria_carrera_list' => new sfWidgetFormPropelSelectMany(array('model' => 'Carrera')),
+      'categoria_carrera_list' => new sfWidgetFormPropelChoiceMany(array('model' => 'Carrera')),
     ));
 
     $this->setValidators(array(

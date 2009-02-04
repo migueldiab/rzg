@@ -41,13 +41,13 @@ class CategoriaCarreraPeer extends BaseCategoriaCarreraPeer
 
 		$affectedRows = 0;
 		try {
-									$con->begin();
+									$con->beginTransaction();
 
 			$affectedRows += BasePeer::doDelete($criteria, $con);
 			$con->commit();
 			return $affectedRows;
 		} catch (PropelException $e) {
-			$con->rollback();
+			$con->rollBack();
 			throw $e;
 		}
 	}

@@ -35,7 +35,9 @@
 		  <div class="form-row">
 		    <?php echo link_to('Olvidaste tu clave?','usuario/recuperar') ?> / 
 		    <?php echo link_to('Registrate ya!','usuario/registrar') ?>
-		    
+		    <?php if ($sf_user->getAttribute('estado_usuario')=='inactivo'): ?>
+                      <?php echo link_to('Reenviar Activacion','usuario/enviarActivacion') ?>
+                    <?php endif; ?>
 		  </div>
 		  
 		  <?php echo input_hidden_tag('url_original', $sf_request->getAttribute('url_original')) ?>

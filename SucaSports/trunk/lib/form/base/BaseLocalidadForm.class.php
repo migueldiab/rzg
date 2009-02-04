@@ -3,9 +3,10 @@
 /**
  * Localidad form base class.
  *
- * @package    form
- * @subpackage localidad
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 8807 2008-05-06 14:12:28Z fabien $
+ * @package    sucasports
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseLocalidadForm extends BaseFormPropel
 {
@@ -13,7 +14,7 @@ class BaseLocalidadForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
-      'id_pais'    => new sfWidgetFormPropelSelect(array('model' => 'Pais', 'add_empty' => true)),
+      'id_pais'    => new sfWidgetFormPropelChoice(array('model' => 'Pais', 'add_empty' => true)),
       'nombre'     => new sfWidgetFormInput(),
       'updated_by' => new sfWidgetFormInput(),
       'updated_at' => new sfWidgetFormDateTime(),

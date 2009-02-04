@@ -3,9 +3,10 @@
 /**
  * Asociacion form base class.
  *
- * @package    form
- * @subpackage asociacion
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 8807 2008-05-06 14:12:28Z fabien $
+ * @package    sucasports
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseAsociacionForm extends BaseFormPropel
 {
@@ -21,7 +22,7 @@ class BaseAsociacionForm extends BaseFormPropel
       'created_at'               => new sfWidgetFormDateTime(),
       'updated_by'               => new sfWidgetFormInput(),
       'updated_at'               => new sfWidgetFormDateTime(),
-      'asociacion_corredor_list' => new sfWidgetFormPropelSelectMany(array('model' => 'Corredor')),
+      'asociacion_corredor_list' => new sfWidgetFormPropelChoiceMany(array('model' => 'Corredor')),
     ));
 
     $this->setValidators(array(

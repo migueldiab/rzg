@@ -3,9 +3,10 @@
 /**
  * Carrera form base class.
  *
- * @package    form
- * @subpackage carrera
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 8807 2008-05-06 14:12:28Z fabien $
+ * @package    sucasports
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseCarreraForm extends BaseFormPropel
 {
@@ -20,7 +21,7 @@ class BaseCarreraForm extends BaseFormPropel
       'created_by'             => new sfWidgetFormInput(),
       'updated_at'             => new sfWidgetFormDateTime(),
       'updated_by'             => new sfWidgetFormInput(),
-      'categoria_carrera_list' => new sfWidgetFormPropelSelectMany(array('model' => 'Categoria')),
+      'categoria_carrera_list' => new sfWidgetFormPropelChoiceMany(array('model' => 'Categoria')),
     ));
 
     $this->setValidators(array(

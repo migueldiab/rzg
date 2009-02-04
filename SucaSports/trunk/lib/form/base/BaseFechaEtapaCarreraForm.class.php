@@ -3,9 +3,10 @@
 /**
  * FechaEtapaCarrera form base class.
  *
- * @package    form
- * @subpackage fecha_etapa_carrera
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 8807 2008-05-06 14:12:28Z fabien $
+ * @package    sucasports
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseFechaEtapaCarreraForm extends BaseFormPropel
 {
@@ -22,6 +23,7 @@ class BaseFechaEtapaCarreraForm extends BaseFormPropel
       'created_by'     => new sfWidgetFormInput(),
       'updated_at'     => new sfWidgetFormDateTime(),
       'updated_by'     => new sfWidgetFormInput(),
+      'estado'         => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -35,6 +37,7 @@ class BaseFechaEtapaCarreraForm extends BaseFormPropel
       'created_by'     => new sfValidatorInteger(array('required' => false)),
       'updated_at'     => new sfValidatorDateTime(array('required' => false)),
       'updated_by'     => new sfValidatorInteger(array('required' => false)),
+      'estado'         => new sfValidatorString(array('max_length' => 1, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('fecha_etapa_carrera[%s]');
