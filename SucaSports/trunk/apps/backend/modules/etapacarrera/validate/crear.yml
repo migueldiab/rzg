@@ -1,7 +1,7 @@
 fields:
   etapa_carrera[nombre]:
     required:
-      msg:       Debe ingresar un nombre para la carrera
+      msg:       Debe ingresar un nombre para la etapa
     sfStringValidator:
       min:       2
       min_error: El nombre es muy corto (minimo 2)
@@ -15,6 +15,3 @@ fields:
       min_error: El numero de etapa debe ser mayor que cero
       max:       100
       max_error: Ninguna carrera puede tener tantas etapas
-    sfPropelUniqueValidator:
-      class:     etapacarrera
-      column:    numero_etapa

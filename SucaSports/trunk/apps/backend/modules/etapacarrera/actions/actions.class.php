@@ -48,13 +48,13 @@ public function executeFecha(){
 
   public function executeCreate()
   {
-    return $this->forward('etapacarrera', 'crear');
+      return $this->forward('etapacarrera', 'crear');
   }
 
-  public function executeSave()
-  {
-    return $this->forward('etapacarrera', 'crear');
-  }
+//  public function executeSave()
+//  {
+//    return $this->forward('etapacarrera', 'crear');
+//  }
 
 
   public function executeDeleteSelected()
@@ -77,18 +77,14 @@ public function executeFecha(){
     return $this->redirect('etapacarrera/list');
   }
 
+  public function handleErrorCrear() {
+      $this->getLabels();
+      $this->crearCarrera();
+      return sfView::SUCCESS;
+  }
   public function executeCrear()
   {
-    if ($this->getRequestParameter('id_etapa') === ''
-     || $this->getRequestParameter('id_etapa') === null)
-     {
-        $this->etapa_carrera = new EtapaCarrera();
-        $this->etapa_carrera->setIdCarrera($this->getRequestParameter('id_carrera'));
-     }
-     else
-     {
-       $this->etapa_carrera = $this->getEtapaCarreraOrCreate();
-     }
+      $this->crearCarrera();
     if ($this->getRequest()->isMethod('post'))
     {
       $this->updateEtapaCarreraFromRequest();
@@ -99,35 +95,37 @@ public function executeFecha(){
       }
       catch (PropelException $e)
       {
-        $this->getRequest()->setError('edit', 'Could not save the edited Etapa carreras.');
+        $this->getRequest()->setError('edit', 'No se pudo grabar la  Etapa.');
         return $this->forward('etapacarrera', 'list');
       }
 
       $this->getUser()->setFlash('notice', 'Se ha creado una nueva etapa para la carrera '.$this->getRequestParameter('id_carrera'));
       $fecha = new FechaEtapaCarrera();
       $fecha->setIdCarrera($this->getRequestParameter('id_carrera'));
-      $fecha->setIdEtapa($this->getRequestParameter('id_etapa'));
+      $fecha->setIdEtapa($this->etapa_carrera->getIdEtapa());
       $fecha->setFechaInicio(date("Y-m-d"));
       //$fecha->save();
       $this->redirect('fechaetapacarrera/edit?fecha_inicio='.$fecha->getFechaInicio().'&id_etapa='.$fecha->getIdEtapa().'&id_carrera='.$fecha->getIdCarrera());
 
-//      if ($this->getRequestParameter('save_and_add'))
-//      {
-//        return $this->redirect('etapacarrera/create');
-//      }
-//      else if ($this->getRequestParameter('save_and_list'))
-//      {
-//        return $this->redirect('etapacarrera/list');
-//      }
-//      else
-//      {
-//        return $this->redirect('etapacarrera/edit?id_etapa='.$this->etapa_carrera->getIdEtapa().'&id_carrera='.$this->etapa_carrera->getIdCarrera());
-//      }
     }
     else
     {
       $this->labels = $this->getLabels();
     }
+  }
+  protected function crearCarrera() {
+
+    if ($this->getRequestParameter('id_etapa') === ''
+     || $this->getRequestParameter('id_etapa') === null)
+     {
+        $this->etapa_carrera = new EtapaCarrera();
+        $this->etapa_carrera->setIdCarrera($this->getRequestParameter('id_carrera'));
+     }
+     else
+     {
+       $this->etapa_carrera = $this->getEtapaCarreraOrCreate();
+     }
+
   }
 
   public function executeDelete()
@@ -264,7 +262,20 @@ public function executeFecha(){
       }
     }
   }
-
+  protected function validateNroEtapa($idcarrera,$nroetapa){
+      $etapa = new EtapaCarrera;
+	   $c = new Criteria();
+       $c->add(EtapaCarreraPeer::ID_CARRERA,$idcarrera);
+	   $etapa = EtapaCarreraPeer::doSelectOne($c);
+	   if (isset($etapa)){
+	    if ($etapa->getNumeroEtapa() == $nroetapa)
+	      {
+	        return false;
+	      }
+	    return true;
+	   }
+	   return true;
+  }
   protected function getLabels()
   {
     return array(
