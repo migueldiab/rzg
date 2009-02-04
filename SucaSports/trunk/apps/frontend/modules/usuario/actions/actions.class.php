@@ -186,13 +186,13 @@ public function executeEnviarCorreoRecuperar()
     if ($this->getRequestParameter('email')) {
     $email = $this->getRequestParameter('email');
     $this->usuario = UsuarioPeer::retrieveByEmail($email);
-    if  ($this->usuario) {        
-        $hashString = md5(date('U'));
+    if  ($this->usuario) {
+        $mailBody = $this->getComponent('usuario', 'enviarConfirmacionRecuperar', array('usuario' => $this->usuario));
+        $hashString = md5(date('U'));        
         $this->usuario->setVerificador($hashString);
         $this->usuario->save();
         $this->labels = $this->getLabels();
-
-        $mail = new sfMail();
+        /*$mail = new sfMail();
         $mail->initialize();
         $mail->setMailer('sendmail');
         $mail->setCharset('utf-8');
@@ -207,7 +207,30 @@ public function executeEnviarCorreoRecuperar()
         Para poder cambiar su contraseña debe hacer click en el siguiente link
 
         http://sucasports/frontend_dev.php/usuario/UnblockUser?email='.$email.'?val='.$hashString);
-        $mail->send();
+        $mail->send();*/
+        try
+        {
+        $smtp = ConfiguracionPeer::getParametro('SMTP_SERVER');
+        $from = ConfiguracionPeer::getParametro('EMAIL_FROM');
+        $pass = ConfiguracionPeer::getParametro('SMTP_PASSWORD');
+
+        $connection = new Swift_Connection_SMTP($smtp, 25);
+        $mailer = new Swift($connection);
+        $connection->setUsername($from);
+        $connection->setPassword($pass);
+        $message = new Swift_Message('SucaSports : Confirmación Para cambiar su contraseña', $mailBody, 'text/html');
+        // Send
+        $mailer->send($message, $this->usuario->getEmail(), $from);
+        $mailer->disconnect();
+        }
+        catch (Exception $e)
+            {
+            $mailer->disconnect();
+            $this->getRequest()->setError('enviarCorreoRecuperar', 'Error al enviar el correo de confirmación de cambio de contraseña, disculpe las molestias.');
+            return $this->forward('usuario', 'enviarCorreoRecuperar');
+            }
+        $this->getUser()->setFlash('notice', 'Usuario se ha enviado un mail a su casilla de correo para seguir el proceso de cambio de contraseña');
+        $this->redirect('@homepage'); 
     }
     else
         {
