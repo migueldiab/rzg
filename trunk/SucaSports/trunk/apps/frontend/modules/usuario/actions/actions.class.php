@@ -247,7 +247,19 @@ public function executeEnviarCorreoRecuperar()
       $this->labels = $this->getLabels(); 
      }
 
-  public function executeActivateUser()
+  public function executeGuardarNuevaContrasenia()
+  {     
+      
+      if ($this->getRequestParameter('id') && $this->getRequestParameter('nuevaContrasenia')){
+          $this->usuario = UsuarioPeer::retrieveByPk($this->getRequestParameter('id'));         
+          $this->usuario->setPasswordEncryptar($this->getRequestParameter('nuevaContrasenia'));
+          $this->usuario->save();
+          }
+      $this->forward('usuario', 'login');
+
+}
+
+public function executeActivateUser()
   {
     if (($this->getRequestParameter('email')) && ($this->getRequestParameter('val')))
     {
@@ -283,6 +295,7 @@ public function executeEnviarCorreoRecuperar()
       $this->forward('usuario', 'enviarActivacion');
     }
   }
+
   public function executeEnviarActivacion() {
   	
   }

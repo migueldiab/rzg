@@ -21,6 +21,9 @@ activateUser:
 
 cambiarContrasena:
   is_secure: off
+
+guardarNuevaContrasenia:
+  is_secure: off
    
 all:
   is_secure: on
