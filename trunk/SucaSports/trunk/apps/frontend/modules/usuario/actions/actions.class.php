@@ -10,45 +10,48 @@
  */
 class usuarioActions extends autousuarioActions
 {
-	public function executeLogin()
-	{
-		//$pepe = new validarUsuario();
-	  if ($this->getRequest()->getMethod() != sfRequest::POST)
-	  {
-	    $this->getRequest()->setAttribute('url_original', $this->getRequest()->getReferer());
-	  }
-	  else
-	  {
-	  	if ($this->getRequestParameter('url_original'))
-          $this->redirect($this->getRequestParameter('url_original'));
-        else
-          $this->redirect('@homepage');
-	  }
-	}
-	
-	public function handleErrorLogin()
-	{
-      $this->getRequest()->setAttribute('url_original', $this->getRequestParameter('url_original', '@homepage'));
-      return sfView::SUCCESS;
-	}
-			
-	public function executeLogout()
-	{
-	  $this->getUser()->setAuthenticated(false);
-	  $this->getUser()->clearCredentials();
-	 
-	  $this->getUser()->getAttributeHolder()->removeNamespace('sesion');
-	 
-	  $this->redirect('@homepage');
-	}
-	
-    public function executeRegistrar()    
+  public function executeLogin($request)
+  {
+    
+    $this->getUser()->getAttributeHolder()->removeNamespace();
+
+    if ($this->getRequest()->getMethod() != sfRequest::POST)
     {
-	    if ($this->getUser()->isAuthenticated()) {
-	      return $this->redirect('corredor/perfil');      
-	    }
-    	$this->forward('usuario', 'edit');
+      $this->getRequest()->setAttribute('url_original', $request->getUri());
     }
+    else
+    {
+      if ($this->getRequestParameter('url_original'))
+        $this->redirect($this->getRequestParameter('url_original'));
+      else
+        $this->redirect('@homepage');
+    }
+  }
+
+  public function handleErrorLogin()
+  {
+    
+    return sfView::SUCCESS;
+    
+  }
+
+  public function executeLogout()
+  {
+    $this->getUser()->setAuthenticated(false);
+    $this->getUser()->clearCredentials();
+
+    $this->getUser()->getAttributeHolder()->removeNamespace('sesion');
+
+    $this->redirect('@homepage');
+  }
+
+  public function executeRegistrar()
+  {
+    if ($this->getUser()->isAuthenticated()) {
+      return $this->redirect('corredor/perfil');
+    }
+    $this->forward('usuario', 'edit');
+  }
     
   protected function updateUsuarioFromRequest()
   {
@@ -90,12 +93,12 @@ class usuarioActions extends autousuarioActions
         return $this->forward('usuario', 'edit');
     }
   }
-  public function executeIndex()
+  public function executeIndex($request)
   {
     return $this->forward('usuario', 'list');
   }
 
-  public function executeList()
+  public function executeList($request)
   {
     $this->processSort();
     $this->processFilters();
@@ -113,33 +116,41 @@ class usuarioActions extends autousuarioActions
     }
   }
 
-  public function executeCreate()
+  public function executeCreate($request)
   {
     return $this->forward('usuario', 'edit');
   }
 
-  public function executeSave()
+  public function executeSave($request)
   {
     $this->usuario = new Usuario();
     $this->updateUsuarioFromRequest();
-    /*
-     * Crea el cuerpo del mensaje con el Component enviarConfirmacion
-     * usando components.class.php y _enviarConfirmacion.php en templates
-     */
-    $mailBody = $this->getComponent('usuario', 'enviarConfirmacion', array('usuario' => $this->usuario));
     try {
       $this->usuario->save();
     }
     catch (PropelException $e)
     {
       $this->getRequest()->setError('edit', 'Error al crear el usuario, disculpe las molestias.');
+      return false;
+    }
+    if (!$this->enviarActivacion($this->usuario)) {
       return $this->forward('usuario', 'edit');
     }
+    $this->getUser()->setFlash('notice', 'Usuario creado exitosamente, verifique su correo para acivar su cuenta');
+    $this->redirect('@homepage');
+  }
+  protected function enviarActivacion($usuario) {
+    /*
+     * Crea el cuerpo del mensaje con el Component enviarConfirmacion
+     * usando components.class.php y _enviarConfirmacion.php en templates
+     */
+    $this->usuario = $usuario;
+    $mailBody = $this->getComponent('usuario', 'enviarConfirmacion', array('usuario' => $this->usuario));
     try
     {
         /*
-         * En la tabla configuraci�n se necesita un campo con parametro SMTP_SERVER y valor
-         * igual al servidor de SMTP desde d�nde se env�an los mails...
+         * En la tabla configuracián se necesita un campo con parametro SMTP_SERVER y valor
+         * igual al servidor de SMTP desde dónde se envían los mails...
          */
       $smtp = ConfiguracionPeer::getParametro('SMTP_SERVER');
       $from = ConfiguracionPeer::getParametro('EMAIL_FROM');
@@ -158,13 +169,12 @@ class usuarioActions extends autousuarioActions
     {
       $mailer->disconnect();
       $this->getRequest()->setError('edit', 'Error al enviar el correo de confirmación, disculpe las molestias.');
-      return $this->forward('usuario', 'edit');
+      return false;
     }
-    $this->getUser()->setFlash('notice', 'Usuario creado exitosamente, verifique su correo para acivar su cuenta');
-    $this->redirect('@homepage');
+    return true;
   }
 
-  public function executeEdit()
+  public function executeEdit($request)
   {
     $this->usuario = new Usuario();
     $this->labels = $this->getLabels();
@@ -236,8 +246,7 @@ public function executeEnviarCorreoRecuperar()
         {
             $this->forward('usuario', 'login');
         }
-
-    }
+	}
 }
 
   public function executeUnblockUser()
@@ -262,13 +271,12 @@ public function executeEnviarCorreoRecuperar()
 
 
   public function executeCambiarContrasena()
-  {
-    
-      if ($this->getRequestParameter('id')){
-       $this->usuario = UsuarioPeer::retrieveByPk($this->getRequestParameter('id'));
-      }
-      $this->labels = $this->getLabels(); 
-     }
+  {    
+    if ($this->getRequestParameter('id')){
+      $this->usuario = UsuarioPeer::retrieveByPk($this->getRequestParameter('id'));
+    }
+    $this->labels = $this->getLabels();
+  }
 
   public function executeGuardarNuevaContrasenia()
   {     
@@ -320,7 +328,22 @@ public function executeActivateUser()
   }
 
   public function executeEnviarActivacion() {
-  	
+    $this->usuario = new Usuario();
+    if ($this->getRequest()->getMethod() != sfRequest::POST)
+    {
+    
+    }
+    else {
+      if ($this->getRequestParameter('email')) {
+
+
+        $this->usuario = UsuarioPeer::retrieveByEmail($this->getRequestParameter('email'));
+        if (!$this->enviarActivacion($this->usuario)) {
+
+        }
+
+      }
+    }
   }
 
   public function handleErrorEdit()

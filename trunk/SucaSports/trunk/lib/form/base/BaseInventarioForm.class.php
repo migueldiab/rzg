@@ -3,9 +3,10 @@
 /**
  * Inventario form base class.
  *
- * @package    form
- * @subpackage inventario
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 8807 2008-05-06 14:12:28Z fabien $
+ * @package    sucasports
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseInventarioForm extends BaseFormPropel
 {
@@ -14,10 +15,10 @@ class BaseInventarioForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'                   => new sfWidgetFormInputHidden(),
       'nombre'               => new sfWidgetFormInput(),
-      'id_tipo_equipamiento' => new sfWidgetFormPropelSelect(array('model' => 'Equipamiento', 'add_empty' => true)),
+      'id_tipo_equipamiento' => new sfWidgetFormPropelChoice(array('model' => 'Equipamiento', 'add_empty' => true)),
       'updated_at'           => new sfWidgetFormDateTime(),
       'updated_by'           => new sfWidgetFormInput(),
-      'id_estado'            => new sfWidgetFormPropelSelect(array('model' => 'Estado', 'add_empty' => true)),
+      'id_estado'            => new sfWidgetFormPropelChoice(array('model' => 'Estado', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(

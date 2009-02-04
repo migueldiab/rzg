@@ -1,288 +1,305 @@
 propel:
   _attributes:
     package: lib.model
+    defaultIdMethod: native
   alquiler:
-    id_inventario: { type: INTEGER, required: true, primaryKey: true, foreignTable: inventario, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    fecha_inicio: { type: DATE, required: true, primaryKey: true }
-    id_etapa: { type: INTEGER, required: true, primaryKey: true }
-    id_carrera: { type: INTEGER, required: true, primaryKey: true }
-    id_cuenta_corriente: { type: INTEGER, required: true, primaryKey: true }
-    id_corredor: { type: INTEGER, required: true, primaryKey: true }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: Alquiler }
+    id_inventario: { type: INTEGER, size: '11', primaryKey: true, required: true, foreignTable: inventario, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    fecha_inicio: { type: DATE, primaryKey: true, required: true }
+    id_etapa: { type: INTEGER, size: '11', primaryKey: true, required: true }
+    id_carrera: { type: INTEGER, size: '11', primaryKey: true, required: true }
+    id_cuenta_corriente: { type: INTEGER, size: '11', primaryKey: true, required: true }
+    id_corredor: { type: INTEGER, size: '11', primaryKey: true, required: true }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    _foreign_keys: { fk_alquiler_cuenta_corriente: { foreign_table: cuenta_corriente, on_delete: RESTRICT, on_update: RESTRICT, references: [{ local: id_cuenta_corriente, foreign: id }, { local: id_corredor, foreign: id_corredor }] }, fk_alquiler_fecha_etapa_carrera: { foreign_table: fecha_etapa_carrera, on_delete: RESTRICT, on_update: RESTRICT, references: [{ local: fecha_inicio, foreign: fecha_inicio }, { local: id_etapa, foreign: id_etapa }, { local: id_carrera, foreign: id_carrera }] } }
     _indexes: { fk_alquiler_inventario: [id_inventario], fk_alquiler_fecha_etapa_carrera: [fecha_inicio, id_etapa, id_carrera], fk_alquiler_cuenta_corriente: [id_cuenta_corriente, id_corredor] }
   asociacion:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    nombre: { type: VARCHAR, size: '45' }
-    direccion: { type: VARCHAR, size: '45' }
-    telefono: { type: VARCHAR, size: '45' }
-    contacto: { type: VARCHAR, size: '45' }
-    created_by: { type: INTEGER }
-    created_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
+    _attributes: { phpName: Asociacion }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    nombre: { type: VARCHAR, size: '45', required: false }
+    direccion: { type: VARCHAR, size: '45', required: false }
+    telefono: { type: VARCHAR, size: '45', required: false }
+    contacto: { type: VARCHAR, size: '45', required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
   asociacion_corredor:
-    id_corredor: { type: INTEGER, required: true, primaryKey: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id_asociacion: { type: INTEGER, required: true, primaryKey: true, foreignTable: asociacion, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: AsociacionCorredor }
+    id_corredor: { type: INTEGER, size: '11', primaryKey: true, required: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_asociacion: { type: INTEGER, size: '11', primaryKey: true, required: true, foreignTable: asociacion, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
     _indexes: { fk_asociacion_has_corredor_asociacion: [id_asociacion], fk_asociacion_has_corredor_corredor: [id_corredor] }
   carrera:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    nombre: { type: VARCHAR, size: '45' }
-    url: { type: VARCHAR, size: '45' }
-    descripcion: { type: LONGVARCHAR }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: VARCHAR, size: '45' }
+    _attributes: { phpName: Carrera }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    nombre: { type: VARCHAR, size: '45', required: false }
+    url: { type: VARCHAR, size: '45', required: false }
+    descripcion: { type: LONGVARCHAR, required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: VARCHAR, size: '45', required: false }
   categoria:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    nombre: { type: VARCHAR, size: '45' }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
-    regla: { type: VARCHAR, size: '255' }
+    _attributes: { phpName: Categoria }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    nombre: { type: VARCHAR, size: '45', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    regla: { type: VARCHAR, size: '255', required: false }
   categoria_carrera:
-    id_categoria: { type: INTEGER, required: true, primaryKey: true, default: '0', foreignTable: categoria, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id_carrera: { type: INTEGER, required: true, primaryKey: true, default: '0', foreignTable: carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: CategoriaCarrera }
+    id_categoria: { type: INTEGER, size: '11', primaryKey: true, required: true, defaultValue: '0', foreignTable: categoria, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_carrera: { type: INTEGER, size: '11', primaryKey: true, required: true, defaultValue: '0', foreignTable: carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
     _indexes: { fk_categoria_carrera_id_categoria: [id_categoria], fk_categoria_carrera_carrera: [id_carrera] }
   chip:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    codigo_chip: { type: VARCHAR, size: '45' }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
-    id_estado: { type: INTEGER, foreignTable: estado, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _attributes: { phpName: Chip }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    codigo_chip: { type: VARCHAR, size: '45', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    id_estado: { type: INTEGER, size: '11', required: false, foreignTable: estado, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     _indexes: { fk_chip_estado: [id_estado] }
   configuracion:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    parametro: { type: VARCHAR, size: '45' }
-    valor: { type: VARCHAR, size: '45' }
-    descripcion: { type: VARCHAR, size: '255' }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: Configuracion }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    parametro: { type: VARCHAR, size: '45', required: false }
+    valor: { type: VARCHAR, size: '45', required: false }
+    descripcion: { type: VARCHAR, size: '255', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
   corredor:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    documento: { type: VARCHAR, size: '45' }
-    id_tipo_documento: { type: INTEGER, foreignTable: tipo_documento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    nombre: { type: VARCHAR, size: '45' }
-    apellido: { type: VARCHAR, size: '45' }
-    telefono: { type: VARCHAR, size: '45' }
-    movil: { type: VARCHAR, size: '45' }
-    telefono_emergencia: { type: VARCHAR, size: '45' }
-    direccion: { type: VARCHAR, size: '45' }
-    fecha_nacimiento: { type: DATE }
-    pareja: { type: VARCHAR, size: '45' }
-    hijos: { type: VARCHAR, size: '45' }
-    id_sociedad_medica: { type: INTEGER, foreignTable: sociedad_medica, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    historia_medica: { type: LONGVARCHAR }
-    sexo: { type: VARCHAR, size: '1' }
-    id_localidad: { type: INTEGER, foreignTable: localidad, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id_pais: { type: INTEGER, foreignTable: pais, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id_chips: { type: INTEGER, foreignTable: chip, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
+    _attributes: { phpName: Corredor }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    documento: { type: VARCHAR, size: '45', required: false }
+    id_tipo_documento: { type: INTEGER, size: '11', required: false, foreignTable: tipo_documento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    nombre: { type: VARCHAR, size: '45', required: false }
+    apellido: { type: VARCHAR, size: '45', required: false }
+    telefono: { type: VARCHAR, size: '45', required: false }
+    movil: { type: VARCHAR, size: '45', required: false }
+    telefono_emergencia: { type: VARCHAR, size: '45', required: false }
+    direccion: { type: VARCHAR, size: '45', required: false }
+    fecha_nacimiento: { type: DATE, required: false }
+    pareja: { type: VARCHAR, size: '45', required: false }
+    hijos: { type: VARCHAR, size: '45', required: false }
+    id_sociedad_medica: { type: INTEGER, size: '11', required: false, foreignTable: sociedad_medica, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    historia_medica: { type: LONGVARCHAR, required: false }
+    sexo: { type: VARCHAR, size: '1', required: false }
+    id_localidad: { type: INTEGER, size: '11', required: false, foreignTable: localidad, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_pais: { type: INTEGER, size: '11', required: false, foreignTable: pais, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_chips: { type: INTEGER, size: '11', required: false, foreignTable: chip, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
     _indexes: { fk_corredor_id_sociedad_medida: [id_sociedad_medica], fk_corredor_id_pais: [id_pais], fk_corredor_id_localidad: [id_localidad], fk_corredor_chips: [id_chips], fk_corredor_tipo_documento: [id_tipo_documento] }
   corredor_equipamiento:
-    id_corredor: { type: INTEGER, required: true, primaryKey: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id_equipamiento: { type: INTEGER, required: true, primaryKey: true, foreignTable: equipamiento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: CorredorEquipamiento }
+    id_corredor: { type: INTEGER, size: '11', primaryKey: true, required: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_equipamiento: { type: INTEGER, size: '11', primaryKey: true, required: true, foreignTable: equipamiento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
     _indexes: { fk_corredor_has_equipamiento_corredor: [id_corredor], fk_corredor_has_equipamiento_equipamiento: [id_equipamiento] }
   cuenta_corriente:
-    id: { type: INTEGER, required: true, primaryKey: true }
-    id_corredor: { type: INTEGER, required: true, primaryKey: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id_forma_pago: { type: INTEGER, required: true, foreignTable: forma_pago, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _attributes: { phpName: CuentaCorriente }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    id_corredor: { type: INTEGER, size: '11', primaryKey: true, required: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_forma_pago: { type: INTEGER, size: '11', required: true, foreignTable: forma_pago, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     monto: { type: DOUBLE, required: true }
-    concepto: { type: VARCHAR, size: '45' }
-    firma_digital: { type: VARCHAR, size: '255' }
-    fecha_de_pago: { type: DATE }
-    nota: { type: LONGVARCHAR }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    concepto: { type: VARCHAR, size: '45', required: false }
+    firma_digital: { type: VARCHAR, size: '255', required: false }
+    fecha_de_pago: { type: DATE, required: false }
+    nota: { type: LONGVARCHAR, required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
     _indexes: { fk_cuenta_corriente_id_forma_pago: [id_forma_pago], ix_cuenta_corriente_fecha_de_pago_desc: [fecha_de_pago], fk_cuenta_corriente_corredor: [id_corredor] }
   equipamiento:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    marca: { type: VARCHAR, size: '45' }
-    id_tipo_equipamiento: { type: INTEGER, required: true, foreignTable: tipo_equipamiento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: Equipamiento }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    marca: { type: VARCHAR, size: '45', required: false }
+    id_tipo_equipamiento: { type: INTEGER, size: '11', required: true, foreignTable: tipo_equipamiento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
     _indexes: { fk_equipamiento_tipo_equipamiento: [id_tipo_equipamiento] }
   equipamiento_carrera:
-    id_tipo_equipamiento: { type: INTEGER, required: true, primaryKey: true, foreignTable: tipo_equipamiento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    fecha_inicio: { type: DATE, required: true, primaryKey: true }
-    id_etapa: { type: INTEGER, required: true, primaryKey: true }
-    id_carrera: { type: INTEGER, required: true, primaryKey: true }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: EquipamientoCarrera }
+    id_tipo_equipamiento: { type: INTEGER, size: '11', primaryKey: true, required: true, foreignTable: tipo_equipamiento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    fecha_inicio: { type: DATE, primaryKey: true, required: true }
+    id_etapa: { type: INTEGER, size: '11', primaryKey: true, required: true }
+    id_carrera: { type: INTEGER, size: '11', primaryKey: true, required: true }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    _foreign_keys: { fk_equipamiento_carrera_id_carrera: { foreign_table: fecha_etapa_carrera, on_delete: RESTRICT, on_update: RESTRICT, references: [{ local: fecha_inicio, foreign: fecha_inicio }, { local: id_etapa, foreign: id_etapa }, { local: id_carrera, foreign: id_carrera }] } }
     _indexes: { fk_equipamiento_carrera_id_carrera: [fecha_inicio, id_etapa, id_carrera], fk_equipamiento_carrera_tipo_equipamiento: [id_tipo_equipamiento] }
   estado:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    nombre: { type: VARCHAR, size: '45' }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: VARCHAR, size: '45' }
+    _attributes: { phpName: Estado }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    nombre: { type: VARCHAR, size: '45', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: VARCHAR, size: '45', required: false }
   etapa_carrera:
-    _attributes: { idMethod: native }
-    id_etapa: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    id_carrera: { type: INTEGER, required: true, primaryKey: true, foreignTable: carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    nombre: { type: VARCHAR, size: '45' }
-    numero_etapa: { type: INTEGER }
-    estado: { type: CHAR, size: '1' }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: EtapaCarrera }
+    id_etapa: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    id_carrera: { type: INTEGER, size: '11', primaryKey: true, required: true, foreignTable: carrera, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    nombre: { type: VARCHAR, size: '45', required: false }
+    numero_etapa: { type: INTEGER, size: '11', required: false }
+    estado: { type: CHAR, size: '1', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
     _indexes: { fk_etapa_carrera_etapa: [id_carrera] }
   fecha_etapa_carrera:
-    fecha_inicio: { type: DATE, required: true, primaryKey: true }
-    id_etapa: { type: INTEGER, required: true, primaryKey: true }
-    id_carrera: { type: INTEGER, required: true, primaryKey: true }
-    max_corredores: { type: INTEGER }
-    fecha_fin: { type: DATE }
-    costo: { type: DOUBLE }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
-    estado: { type: VARCHAR, size: '1', default: I }
+    _attributes: { phpName: FechaEtapaCarrera }
+    fecha_inicio: { type: DATE, primaryKey: true, required: true }
+    id_etapa: { type: INTEGER, size: '11', primaryKey: true, required: true }
+    id_carrera: { type: INTEGER, size: '11', primaryKey: true, required: true }
+    max_corredores: { type: INTEGER, size: '11', required: false }
+    fecha_fin: { type: DATE, required: false }
+    costo: { type: DOUBLE, required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    estado: { type: VARCHAR, size: '1', required: false, defaultValue: I }
+    _foreign_keys: { fk_fecha_etapa_carrera_etapa_carrera: { foreign_table: etapa_carrera, on_delete: RESTRICT, on_update: RESTRICT, references: [{ local: id_etapa, foreign: id_etapa }, { local: id_carrera, foreign: id_carrera }] } }
     _indexes: { fk_fecha_etapa_carrera_etapa_carrera: [id_etapa, id_carrera] }
   forma_pago:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    nombre: { type: VARCHAR, size: '45' }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: FormaPago }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    nombre: { type: VARCHAR, size: '45', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
   grupo:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    nombre: { type: VARCHAR, size: '45' }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: Grupo }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    nombre: { type: VARCHAR, size: '45', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
   inscripcion:
-    id_corredor: { type: INTEGER, required: true, primaryKey: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    fecha_inicio: { type: DATE, required: true, primaryKey: true }
-    id_etapa: { type: INTEGER, required: true, primaryKey: true }
-    id_carrera: { type: INTEGER, required: true, primaryKey: true }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
-    fecha_inscripcion: { type: DATE }
-    firma_digital: { type: VARCHAR, size: '255' }
-    id_categoria: { type: INTEGER, required: true, foreignTable: categoria, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _attributes: { phpName: Inscripcion }
+    id_corredor: { type: INTEGER, size: '11', primaryKey: true, required: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    fecha_inicio: { type: DATE, primaryKey: true, required: true }
+    id_etapa: { type: INTEGER, size: '11', primaryKey: true, required: true }
+    id_carrera: { type: INTEGER, size: '11', primaryKey: true, required: true }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    fecha_inscripcion: { type: DATE, required: false }
+    firma_digital: { type: VARCHAR, size: '255', required: false }
+    id_categoria: { type: INTEGER, size: '11', required: true, foreignTable: categoria, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _foreign_keys: { fk_inscripcion_fechaetapacarrera: { foreign_table: fecha_etapa_carrera, on_delete: RESTRICT, on_update: RESTRICT, references: [{ local: fecha_inicio, foreign: fecha_inicio }, { local: id_etapa, foreign: id_etapa }, { local: id_carrera, foreign: id_carrera }] } }
     _indexes: { fk_inscripcion_id_corredor: [id_corredor], fk_inscripcion_fechaetapacarrera: [fecha_inicio, id_etapa, id_carrera], fk_inscripcion_categoria: [id_categoria] }
   inventario:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    nombre: { type: VARCHAR, size: '45' }
-    id_tipo_equipamiento: { type: INTEGER, foreignTable: equipamiento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
-    id_estado: { type: INTEGER, foreignTable: estado, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _attributes: { phpName: Inventario }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    nombre: { type: VARCHAR, size: '45', required: false }
+    id_tipo_equipamiento: { type: INTEGER, size: '11', required: false, foreignTable: equipamiento, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    id_estado: { type: INTEGER, size: '11', required: false, foreignTable: estado, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     _indexes: { fk_inventario_tipo_equipamiento: [id_tipo_equipamiento], fk_inventario_estado: [id_estado] }
   localidad:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    id_pais: { type: INTEGER, foreignTable: pais, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    nombre: { type: VARCHAR, size: '45' }
-    updated_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
+    _attributes: { phpName: Localidad }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    id_pais: { type: INTEGER, size: '11', required: false, foreignTable: pais, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    nombre: { type: VARCHAR, size: '45', required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
     _indexes: { fk_localidad_id_pais: [id_pais] }
   pais:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    nombre: { type: VARCHAR, size: '45' }
-    updated_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
+    _attributes: { phpName: Pais }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    nombre: { type: VARCHAR, size: '45', required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
   permiso:
-    permiso: { type: VARCHAR, size: '15', required: true, primaryKey: true }
-    grupos_id: { type: INTEGER, required: true, primaryKey: true, foreignTable: grupo, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: Permiso }
+    permiso: { type: VARCHAR, size: '15', primaryKey: true, required: true }
+    grupos_id: { type: INTEGER, size: '11', primaryKey: true, required: true, foreignTable: grupo, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
     _indexes: { fk_permiso_grupos: [grupos_id] }
   portal:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    nombrePagina: { type: VARCHAR, size: '45' }
-    texto: { type: LONGVARCHAR }
-    updated_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
+    _attributes: { phpName: Portal }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    nombrePagina: { type: VARCHAR, size: '45', required: false }
+    texto: { type: LONGVARCHAR, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
   post:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    texto: { type: LONGVARCHAR }
-    created_by: { type: INTEGER, foreignTable: usuario, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    created_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER, foreignTable: usuario, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    updated_at: { type: TIMESTAMP }
-    fecha_etapa_carrera_fecha_inicio: { type: DATE }
-    fecha_etapa_carrera_id_etapa: { type: INTEGER }
-    fecha_etapa_carrera_id_carrera: { type: INTEGER }
+    _attributes: { phpName: Post }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    texto: { type: LONGVARCHAR, required: false }
+    created_by: { type: INTEGER, size: '11', required: false, foreignTable: usuario, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    created_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false, foreignTable: usuario, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    updated_at: { type: TIMESTAMP, required: false }
+    fecha_etapa_carrera_fecha_inicio: { type: DATE, required: false }
+    fecha_etapa_carrera_id_etapa: { type: INTEGER, size: '11', required: false }
+    fecha_etapa_carrera_id_carrera: { type: INTEGER, size: '11', required: false }
+    _foreign_keys: { fk_post_fecha_etapa_carrera: { foreign_table: fecha_etapa_carrera, on_delete: RESTRICT, on_update: RESTRICT, references: [{ local: fecha_etapa_carrera_fecha_inicio, foreign: fecha_inicio }, { local: fecha_etapa_carrera_id_etapa, foreign: id_etapa }, { local: fecha_etapa_carrera_id_carrera, foreign: id_carrera }] } }
     _indexes: { fk_post_usuarios: [created_by], fk_post_usuarios1: [updated_by], fk_post_fecha_etapa_carrera: [fecha_etapa_carrera_fecha_inicio, fecha_etapa_carrera_id_etapa, fecha_etapa_carrera_id_carrera] }
   resultado:
-    id_corredor: { type: INTEGER, required: true, primaryKey: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    fecha_inicio: { type: DATE, required: true, primaryKey: true }
-    id_etapa: { type: INTEGER, required: true, primaryKey: true }
-    id_carrera: { type: INTEGER, required: true, primaryKey: true }
-    tiempo: { type: TIMESTAMP }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: Resultado }
+    id_corredor: { type: INTEGER, size: '11', primaryKey: true, required: true, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    fecha_inicio: { type: DATE, primaryKey: true, required: true }
+    id_etapa: { type: INTEGER, size: '11', primaryKey: true, required: true }
+    id_carrera: { type: INTEGER, size: '11', primaryKey: true, required: true }
+    tiempo: { type: TIMESTAMP, required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
+    _foreign_keys: { fk_resultado_fechaetapacarrera: { foreign_table: fecha_etapa_carrera, on_delete: RESTRICT, on_update: RESTRICT, references: [{ local: fecha_inicio, foreign: fecha_inicio }, { local: id_etapa, foreign: id_etapa }, { local: id_carrera, foreign: id_carrera }] } }
     _indexes: { ix_resultado_corredor: [id_corredor], ix_resultado_fechaetapacarrera: [id_carrera, id_etapa, fecha_inicio], fk_resultado_fechaetapacarrera: [fecha_inicio, id_etapa, id_carrera] }
   sociedad_medica:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    nombre: { type: VARCHAR, size: '45' }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: SociedadMedica }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    nombre: { type: VARCHAR, size: '45', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
   tipo_documento:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    nombre: { type: VARCHAR, size: '45' }
+    _attributes: { phpName: TipoDocumento }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    nombre: { type: VARCHAR, size: '45', required: false }
   tipo_equipamiento:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    tipo: { type: VARCHAR, size: '45' }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: TipoEquipamiento }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    tipo: { type: VARCHAR, size: '45', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
   usuario:
-    _attributes: { idMethod: native }
-    id: { type: INTEGER, required: true, autoIncrement: true, primaryKey: true }
-    documento: { type: VARCHAR, size: '45' }
-    email: { type: VARCHAR, size: '45' }
-    password: { type: VARCHAR, size: '45' }
-    id_grupo: { type: INTEGER, foreignTable: grupo, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id_corredor: { type: INTEGER, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    pregunta_secreta: { type: VARCHAR, size: '45' }
-    respuesta_secreta: { type: VARCHAR, size: '45' }
-    estado: { type: CHAR, size: '1' }
-    verificador: { type: VARCHAR, size: '255' }
-    created_at: { type: TIMESTAMP }
-    created_by: { type: INTEGER }
-    updated_at: { type: TIMESTAMP }
-    updated_by: { type: INTEGER }
+    _attributes: { phpName: Usuario }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    documento: { type: VARCHAR, size: '45', required: false }
+    email: { type: VARCHAR, size: '45', required: false }
+    password: { type: VARCHAR, size: '45', required: false }
+    id_grupo: { type: INTEGER, size: '11', required: false, foreignTable: grupo, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id_corredor: { type: INTEGER, size: '11', required: false, foreignTable: corredor, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    pregunta_secreta: { type: VARCHAR, size: '45', required: false }
+    respuesta_secreta: { type: VARCHAR, size: '45', required: false }
+    estado: { type: CHAR, size: '1', required: false }
+    verificador: { type: VARCHAR, size: '255', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    created_by: { type: INTEGER, size: '11', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: INTEGER, size: '11', required: false }
     _indexes: { fk_usuarios_grupos: [id_grupo], fk_usuarios_corredor: [id_corredor] }

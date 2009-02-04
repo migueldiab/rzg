@@ -6,8 +6,9 @@ class validarUsuario extends sfValidator
   {
     parent::initialize($context);
  
-    $this->setParameter('login_error', 'Entrada inv�lida');
-     
+    $this->setParameter('login_error', 'Entrada inválida');
+    $this->setParameter('inactive_account', 'Cuenta inactiva');
+
     $this->getParameterHolder()->add($parameters);
  
     return true;
@@ -15,6 +16,7 @@ class validarUsuario extends sfValidator
  
   public function execute(&$value, &$error)
   {
+    $this->context->getUser()->getAttributeHolder()->removeNamespace();
     $password_param = $this->getParameter('password');
     $password = $this->getContext()->getRequest()->getParameter($password_param);
  
@@ -33,19 +35,24 @@ class validarUsuario extends sfValidator
       if (sha1($password) == $usuario->getPassword())
       {
       	  if ($usuario->getEstado() == 'a') {
-          $this->context->getUser()->setAuthenticated(true);
-          
-          //$this->context->getUser()->addCredential('root');
-          $grupo = GrupoPeer::retrieveByPK($usuario->getIdGrupo());
-          if (!isset($grupo)) {
+            $this->context->getUser()->setAuthenticated(true);
+
+            //$this->context->getUser()->addCredential('root');
+            $grupo = GrupoPeer::retrieveByPK($usuario->getIdGrupo());
+            if (!isset($grupo)) {
+              return false;
+            }
+            else {
+              $this->context->getUser()->addCredential($grupo->getNombre());
+            }
+
+            $this->context->getUser()->setAttribute('usuario', $usuario, 'sesion');
+            return true;
+          }
+          elseif ($usuario->getEstado() == 'i')  {
+            $error = $this->getParameter('inactive_account');
+            $this->context->getUser()->setAttribute('estado_usuario', 'inactivo');
             return false;
-          }
-          else {
-            $this->context->getUser()->addCredential($grupo->getNombre());
-          }
-          
-          $this->context->getUser()->setAttribute('usuario', $usuario, 'sesion');
-          return true;
           }
       }
       else {

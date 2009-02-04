@@ -3,9 +3,10 @@
 /**
  * Alquiler form base class.
  *
- * @package    form
- * @subpackage alquiler
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 8807 2008-05-06 14:12:28Z fabien $
+ * @package    sucasports
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseAlquilerForm extends BaseFormPropel
 {

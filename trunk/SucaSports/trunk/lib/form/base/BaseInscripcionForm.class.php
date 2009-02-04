@@ -3,9 +3,10 @@
 /**
  * Inscripcion form base class.
  *
- * @package    form
- * @subpackage inscripcion
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 8807 2008-05-06 14:12:28Z fabien $
+ * @package    sucasports
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseInscripcionForm extends BaseFormPropel
 {
@@ -22,6 +23,7 @@ class BaseInscripcionForm extends BaseFormPropel
       'updated_by'        => new sfWidgetFormInput(),
       'fecha_inscripcion' => new sfWidgetFormDate(),
       'firma_digital'     => new sfWidgetFormInput(),
+      'id_categoria'      => new sfWidgetFormPropelChoice(array('model' => 'Categoria', 'add_empty' => false)),
     ));
 
     $this->setValidators(array(
@@ -35,6 +37,7 @@ class BaseInscripcionForm extends BaseFormPropel
       'updated_by'        => new sfValidatorInteger(array('required' => false)),
       'fecha_inscripcion' => new sfValidatorDate(array('required' => false)),
       'firma_digital'     => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'id_categoria'      => new sfValidatorPropelChoice(array('model' => 'Categoria', 'column' => 'id')),
     ));
 
     $this->widgetSchema->setNameFormat('inscripcion[%s]');

@@ -3,9 +3,10 @@
 /**
  * EtapaCarrera form base class.
  *
- * @package    form
- * @subpackage etapa_carrera
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 8807 2008-05-06 14:12:28Z fabien $
+ * @package    sucasports
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseEtapaCarreraForm extends BaseFormPropel
 {
@@ -16,6 +17,7 @@ class BaseEtapaCarreraForm extends BaseFormPropel
       'id_carrera'   => new sfWidgetFormInputHidden(),
       'nombre'       => new sfWidgetFormInput(),
       'numero_etapa' => new sfWidgetFormInput(),
+      'estado'       => new sfWidgetFormInput(),
       'created_at'   => new sfWidgetFormDateTime(),
       'created_by'   => new sfWidgetFormInput(),
       'updated_at'   => new sfWidgetFormDateTime(),
@@ -27,6 +29,7 @@ class BaseEtapaCarreraForm extends BaseFormPropel
       'id_carrera'   => new sfValidatorPropelChoice(array('model' => 'Carrera', 'column' => 'id', 'required' => false)),
       'nombre'       => new sfValidatorString(array('max_length' => 45, 'required' => false)),
       'numero_etapa' => new sfValidatorInteger(array('required' => false)),
+      'estado'       => new sfValidatorString(array('max_length' => 1, 'required' => false)),
       'created_at'   => new sfValidatorDateTime(array('required' => false)),
       'created_by'   => new sfValidatorInteger(array('required' => false)),
       'updated_at'   => new sfValidatorDateTime(array('required' => false)),
