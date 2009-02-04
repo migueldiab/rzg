@@ -1,4 +1,4 @@
-<?php echo form_tag('etapacarrera/save', array(
+<?php echo form_tag('etapacarrera/crear', array(
   'id'        => 'sf_admin_edit_form',
   'name'      => 'sf_admin_edit_form',
   'multipart' => true,
