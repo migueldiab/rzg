@@ -5,8 +5,14 @@ class usuarioComponents extends sfComponents
   public function executeEnviarConfirmacion()
   {
     /*
-     *  en $this->usuario está el usuario que envía la confirmación
+     *  en $this->usuario estï¿½ el usuario que envï¿½a la confirmaciï¿½n
      *  mirar _enviarConfirmacion.php
      */    
+  }
+  public function executeEnviarConfirmacionRecuperar(){
+      /*
+     *  mirar _enviarConfirmacionRecuperar.php
+     */
+
   }
 }
