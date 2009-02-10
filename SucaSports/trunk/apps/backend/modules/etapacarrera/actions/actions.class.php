@@ -19,12 +19,12 @@ public function executeFecha(){
     $this->redirect('fechaetapacarrera/edit?fecha_inicio='.$fecha->getFechaInicio().'&id_etapa='.$fecha->getIdEtapa().'&id_carrera='.$fecha->getIdCarrera());
     }
     
-    public function executeIndex()
+    public function executeIndex($request)
   {
     return $this->forward('etapacarrera', 'list');
   }
 
-  public function executeList()
+  public function executeList($request)
   {
     $this->processSort();
 
@@ -46,18 +46,18 @@ public function executeFecha(){
     }
   }
 
-  public function executeCreate()
+  public function executeCreate($request)
   {
       return $this->forward('etapacarrera', 'crear');
   }
 
-//  public function executeSave()
+//  public function executeSave($request)
 //  {
 //    return $this->forward('etapacarrera', 'crear');
 //  }
 
 
-  public function executeDeleteSelected()
+  public function executeDelete($request)Selected()
   {
     $this->selectedItems = $this->getRequestParameter('sf_admin_batch_selection', array());
 
@@ -128,7 +128,7 @@ public function executeFecha(){
 
   }
 
-  public function executeDelete()
+  public function executeDelete($request)()
   {
     $this->etapa_carrera = EtapaCarreraPeer::retrieveByPk($this->getRequestParameter('id_etapa'),
                $this->getRequestParameter('id_carrera'));
