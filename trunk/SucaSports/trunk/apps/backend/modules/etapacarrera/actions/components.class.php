@@ -2,12 +2,12 @@
  
 class etapacarreraComponents extends sfComponents
 {
-  public function executeIndex()
+  public function executeIndex($request)
   {
     return $this->forward('etapacarrera', 'list');
   }
 
-  public function executeList()
+  public function executeList($request)
   {
     $this->processSort();
 
@@ -29,18 +29,18 @@ class etapacarreraComponents extends sfComponents
     }
   }
 
-  public function executeCreate()
+  public function executeCreate($request)
   {
     return $this->forward('etapacarrera', 'edit');
   }
 
-  public function executeSave()
+  public function executeSave($request)
   {
     return $this->forward('etapacarrera', 'edit');
   }
 
 
-  public function executeDeleteSelected()
+  public function executeDelete($request)Selected()
   {
     $this->selectedItems = $this->getRequestParameter('sf_admin_batch_selection', array());
 
@@ -60,7 +60,7 @@ class etapacarreraComponents extends sfComponents
     return $this->redirect('etapacarrera/list');
   }
 
-  public function executeEdit()
+  public function executeEdit($request)
   {
     $this->etapa_carrera = $this->getEtapaCarreraOrCreate();
 
@@ -99,7 +99,7 @@ class etapacarreraComponents extends sfComponents
     }
   }
 
-  public function executeDelete()
+  public function executeDelete($request)()
   {
     $this->etapa_carrera = EtapaCarreraPeer::retrieveByPk($this->getRequestParameter('id_etapa'),
                $this->getRequestParameter('id_carrera'));

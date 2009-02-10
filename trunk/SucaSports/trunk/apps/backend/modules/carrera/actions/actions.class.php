@@ -11,7 +11,7 @@
 class CarreraActions extends autoCarreraActions
 {
 	
-  public function executeSave()
+  public function executeSave($request)
   {
       return $this->forward('carrera', 'edit');
   }
@@ -34,7 +34,7 @@ class CarreraActions extends autoCarreraActions
      }
      $this->redirect('etapacarrera/create?id_carrera='.$this->carrera->getId());
   }
-  public function executeEdit()
+  public function executeEdit($request)
   {
     $this->carrera = $this->getCarreraOrCreate();
 
@@ -100,7 +100,7 @@ class CarreraActions extends autoCarreraActions
         }
       }
   }
-    public function executeDelete()
+    public function executeDelete($request)
   {
     $this->carrera = CarreraPeer::retrieveByPk($this->getRequestParameter('id'));
     $this->forward404Unless($this->carrera);

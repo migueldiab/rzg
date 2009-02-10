@@ -1,4 +1,4 @@
-<?php use_helper('Object', 'Validation', 'ObjectAdmin', 'I18N', 'Date') ?>
+<?php use_helper('Object', 'Validation', 'ObjectAdmin', 'I18N', 'Date', 'JavaScript') ?>
 <span id="ttRich">
   <?php echo link_to_remote('Listar Carreras',
     array(

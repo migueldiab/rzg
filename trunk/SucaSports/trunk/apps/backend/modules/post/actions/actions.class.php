@@ -45,7 +45,7 @@ class postActions extends autopostActions
       $this->labels = $this->getLabels();
     }
   }
-  public function executeEdit()
+  public function executeEdit($request)
   {
     return $this->redirect('post/editar');
   }  
