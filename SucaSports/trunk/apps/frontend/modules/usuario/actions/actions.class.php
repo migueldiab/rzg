@@ -338,10 +338,19 @@ public function executeActivateUser()
 
 
         $this->usuario = UsuarioPeer::retrieveByEmail($this->getRequestParameter('email'));
-        if (!$this->enviarActivacion($this->usuario)) {
-
+        if ($this->usuario!=null) {
+            if (!$this->enviarActivacion($this->usuario)) {
+                $this->getUser()->setFlash('error', 'Error enviando correo. Disculpe las molestias');
+            }
+            else {
+                $this->getUser()->setFlash('notice', 'Correo de reactivación enviado exitosamente');
+                $this->redirect('@homepage');
+            }
         }
-
+        else {
+          $this->getUser()->setFlash('error', 'Error enviando activacion');
+          $this->usuario = new Usuario();
+        }
       }
     }
   }
