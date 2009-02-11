@@ -51,7 +51,7 @@ public function executeFecha(){
       return $this->forward('etapacarrera', 'crear');
   }
 
-//  public function executeSave($request)
+//  public function executeSave()
 //  {
 //    return $this->forward('etapacarrera', 'crear');
 //  }
@@ -128,7 +128,7 @@ public function executeFecha(){
 
   }
 
-  public function executeDelete($request)()
+  public function executeDelete($request)
   {
     $this->etapa_carrera = EtapaCarreraPeer::retrieveByPk($this->getRequestParameter('id_etapa'),
                $this->getRequestParameter('id_carrera'));
