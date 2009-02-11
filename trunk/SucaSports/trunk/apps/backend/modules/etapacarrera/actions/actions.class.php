@@ -57,7 +57,7 @@ public function executeFecha(){
 //  }
 
 
-  public function executeDelete($request)Selected()
+  public function executeDeleteSelected($request)
   {
     $this->selectedItems = $this->getRequestParameter('sf_admin_batch_selection', array());
 
