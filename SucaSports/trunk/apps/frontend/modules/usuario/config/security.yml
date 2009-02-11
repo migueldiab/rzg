@@ -19,6 +19,9 @@ enviarActivacion:
 activateUser:
   is_secure: off
 
+unblockUser:
+  is_secure: off
+
 cambiarContrasena:
   is_secure: off
 
