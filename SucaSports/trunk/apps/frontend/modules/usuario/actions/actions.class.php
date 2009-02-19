@@ -200,7 +200,7 @@ public function executeEnviarCorreoRecuperar()
         $mailBody = $this->getComponent('usuario', 'enviarConfirmacionRecuperar', array('usuario' => $this->usuario));
         $hashString = md5(date('U'));        
         $this->usuario->setVerificador($hashString);
-        $this->usuario->setEstado('N');
+        $this->usuario->setEstado('n'); // Cambiar estado a incativo
         $this->usuario->save();
         $this->labels = $this->getLabels();
         /*$mail = new sfMail();
@@ -260,7 +260,7 @@ public function executeEnviarCorreoRecuperar()
       if ($val == $usuario->getVerificador())
       {
         $usuario->setVerificador('');
-        $usuario->setEstado('A');
+        $usuario->setEstado('a');
         )
         $usuario->save();
         $this->forward('usuario', 'cambiarContrasena?id='.$usuario->getIdusuario);
